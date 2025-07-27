@@ -9,6 +9,14 @@ namespace CartifyDAL.Entities.user.payment
 {
     public class PaymentMethod
     {
+        public PaymentMethod(string paymentMethodName, string createdBy)
+        {
+            PaymentMethodName = paymentMethodName;
+            CreatedBy = createdBy;
+            CreatedOn = DateTime.Now;
+            IsDeleted = false;
+        }
+
         [Key]
         public int PaymentMethodId { get; private set; }
 

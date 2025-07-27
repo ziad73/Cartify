@@ -6,8 +6,18 @@ namespace CartifyDAL.Entities.category
 {
     public class Category
     {
+        public Category(string name, string? description, string createdBy)
+        {
+            Name = name;
+            Description = description;
+            CreatedBy = createdBy;
+            CreatedOn = DateTime.Now;
+            IsDeleted = false;
+        }
+
         [Key]
         public int CategoryId { get; private set; }
+        [MaxLength(100)]
         public string Name { get; private set; }
         [MaxLength(1000)]
         public string? Description { get; private set; }

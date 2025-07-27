@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("CartifyPLL")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+615c8170efa6128f98bbf3934ae0577ae9e2474b")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+d9d20964a510b3ecc5a5a74beeb2098ef2a7aece")]
 [assembly: System.Reflection.AssemblyProductAttribute("CartifyPLL")]
 [assembly: System.Reflection.AssemblyTitleAttribute("CartifyPLL")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

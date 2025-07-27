@@ -4,6 +4,18 @@ namespace CartifyDAL.Entities.user
 {
     public class UserAddress
     {
+        public UserAddress(string address, string createdBy)
+        {
+            Address = address;
+            CreatedBy = createdBy;
+            CreatedOn = DateTime.Now;
+            IsDeleted = false;
+        }
+        public UserAddress()
+        {
+
+        }
+
         [Key]
         public int Id { get; private set; }
 

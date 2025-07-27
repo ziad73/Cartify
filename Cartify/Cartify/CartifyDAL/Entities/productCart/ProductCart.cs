@@ -7,7 +7,14 @@ namespace CartifyDAL.Entities.productCart
 {
     public class ProductCart
     {
-        public int CartId { get;private set; }
+
+        public ProductCart(string createdBy)
+        {
+            CreatedBy = createdBy;
+            CreatedOn = DateTime.Now;
+            IsDeleted = false;
+        }
+        public int CartId { get; private set; }
         public int ProductId { get; private set; }
 
         [ForeignKey(nameof(CartId))]
