@@ -1,0 +1,15 @@
+E:\coding\GitHub\Repos\Cartify\CartifyP\Cartify\CartifyDAL\bin\Debug\net8.0\CartifyDAL.deps.json
+E:\coding\GitHub\Repos\Cartify\CartifyP\Cartify\CartifyDAL\bin\Debug\net8.0\CartifyDAL.runtimeconfig.json
+E:\coding\GitHub\Repos\Cartify\CartifyP\Cartify\CartifyDAL\bin\Debug\net8.0\CartifyDAL.dll
+E:\coding\GitHub\Repos\Cartify\CartifyP\Cartify\CartifyDAL\bin\Debug\net8.0\CartifyDAL.pdb
+E:\coding\GitHub\Repos\Cartify\CartifyP\Cartify\CartifyDAL\obj\Debug\net8.0\CartifyDAL.csproj.AssemblyReference.cache
+E:\coding\GitHub\Repos\Cartify\CartifyP\Cartify\CartifyDAL\obj\Debug\net8.0\CartifyDAL.GeneratedMSBuildEditorConfig.editorconfig
+E:\coding\GitHub\Repos\Cartify\CartifyP\Cartify\CartifyDAL\obj\Debug\net8.0\CartifyDAL.AssemblyInfoInputs.cache
+E:\coding\GitHub\Repos\Cartify\CartifyP\Cartify\CartifyDAL\obj\Debug\net8.0\CartifyDAL.AssemblyInfo.cs
+E:\coding\GitHub\Repos\Cartify\CartifyP\Cartify\CartifyDAL\obj\Debug\net8.0\CartifyDAL.csproj.CoreCompileInputs.cache
+E:\coding\GitHub\Repos\Cartify\CartifyP\Cartify\CartifyDAL\obj\Debug\net8.0\CartifyDAL.sourcelink.json
+E:\coding\GitHub\Repos\Cartify\CartifyP\Cartify\CartifyDAL\obj\Debug\net8.0\CartifyDAL.dll
+E:\coding\GitHub\Repos\Cartify\CartifyP\Cartify\CartifyDAL\obj\Debug\net8.0\refint\CartifyDAL.dll
+E:\coding\GitHub\Repos\Cartify\CartifyP\Cartify\CartifyDAL\obj\Debug\net8.0\CartifyDAL.pdb
+E:\coding\GitHub\Repos\Cartify\CartifyP\Cartify\CartifyDAL\obj\Debug\net8.0\CartifyDAL.genruntimeconfig.cache
+E:\coding\GitHub\Repos\Cartify\CartifyP\Cartify\CartifyDAL\obj\Debug\net8.0\ref\CartifyDAL.dll

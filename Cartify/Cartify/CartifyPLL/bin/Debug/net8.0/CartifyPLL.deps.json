@@ -1,0 +1,23 @@
+{
+  "runtimeTarget": {
+    "name": ".NETCoreApp,Version=v8.0",
+    "signature": ""
+  },
+  "compilationOptions": {},
+  "targets": {
+    ".NETCoreApp,Version=v8.0": {
+      "CartifyPLL/1.0.0": {
+        "runtime": {
+          "CartifyPLL.dll": {}
+        }
+      }
+    }
+  },
+  "libraries": {
+    "CartifyPLL/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    }
+  }
+}
