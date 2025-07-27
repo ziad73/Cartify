@@ -7,6 +7,16 @@ namespace CartifyDAL.Entities.order
 {
     public class OrderItem
     {
+        public OrderItem(int quantity, decimal price, decimal discount, string createdBy)
+        {
+            Quantity = quantity;
+            Price = price;
+            Discount = discount;
+            CreatedBy = createdBy;
+            CreatedOn = DateTime.Now;
+            IsDeleted = false;
+        }
+
         [Key]
         public int OrderItemId { get; private set; }
 
@@ -19,6 +29,7 @@ namespace CartifyDAL.Entities.order
 
         [ForeignKey(nameof(OrderId))]
         public Order Order { get; private set; }
+
         [Required]
         public string CreatedBy { get; private set; }
         public DateTime CreatedOn { get; private set; }

@@ -6,12 +6,20 @@ namespace CartifyDAL.Entities.user.payment
 {
     public class Payment
     {
+        public Payment(decimal amount, string createdBy)
+        {
+            Amount = amount;
+            PaymentDate = DateTime.Now;
+            CreatedBy = createdBy;
+            CreatedOn = DateTime.Now;
+            IsDeleted = false;
+        }
+
         [Key]
         public int PaymentId { get; private set; }
 
         [Required]
         public decimal Amount { get; private set; }
-
         [Required]
         public DateTime PaymentDate { get; private set; }
 
