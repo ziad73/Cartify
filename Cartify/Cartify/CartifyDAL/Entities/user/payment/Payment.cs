@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 namespace CartifyDAL.Entities.user.payment
-{
+{ //test
     public class Payment
     {
         public Payment(decimal amount, string createdBy)
