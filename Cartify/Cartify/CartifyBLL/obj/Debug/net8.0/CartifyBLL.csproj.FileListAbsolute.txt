@@ -10,3 +10,15 @@ E:\coding\GitHub\Repos\Cartify\CartifyP\Cartify\CartifyBLL\obj\Debug\net8.0\Cart
 E:\coding\GitHub\Repos\Cartify\CartifyP\Cartify\CartifyBLL\obj\Debug\net8.0\refint\CartifyBLL.dll
 E:\coding\GitHub\Repos\Cartify\CartifyP\Cartify\CartifyBLL\obj\Debug\net8.0\CartifyBLL.pdb
 E:\coding\GitHub\Repos\Cartify\CartifyP\Cartify\CartifyBLL\obj\Debug\net8.0\ref\CartifyBLL.dll
+D:\ITI .net\ProjecGraduationtITI\Cartify\Cartify\CartifyBLL\bin\Debug\net8.0\CartifyBLL.deps.json
+D:\ITI .net\ProjecGraduationtITI\Cartify\Cartify\CartifyBLL\bin\Debug\net8.0\CartifyBLL.dll
+D:\ITI .net\ProjecGraduationtITI\Cartify\Cartify\CartifyBLL\bin\Debug\net8.0\CartifyBLL.pdb
+D:\ITI .net\ProjecGraduationtITI\Cartify\Cartify\CartifyBLL\obj\Debug\net8.0\CartifyBLL.GeneratedMSBuildEditorConfig.editorconfig
+D:\ITI .net\ProjecGraduationtITI\Cartify\Cartify\CartifyBLL\obj\Debug\net8.0\CartifyBLL.AssemblyInfoInputs.cache
+D:\ITI .net\ProjecGraduationtITI\Cartify\Cartify\CartifyBLL\obj\Debug\net8.0\CartifyBLL.AssemblyInfo.cs
+D:\ITI .net\ProjecGraduationtITI\Cartify\Cartify\CartifyBLL\obj\Debug\net8.0\CartifyBLL.csproj.CoreCompileInputs.cache
+D:\ITI .net\ProjecGraduationtITI\Cartify\Cartify\CartifyBLL\obj\Debug\net8.0\CartifyBLL.sourcelink.json
+D:\ITI .net\ProjecGraduationtITI\Cartify\Cartify\CartifyBLL\obj\Debug\net8.0\CartifyBLL.dll
+D:\ITI .net\ProjecGraduationtITI\Cartify\Cartify\CartifyBLL\obj\Debug\net8.0\refint\CartifyBLL.dll
+D:\ITI .net\ProjecGraduationtITI\Cartify\Cartify\CartifyBLL\obj\Debug\net8.0\CartifyBLL.pdb
+D:\ITI .net\ProjecGraduationtITI\Cartify\Cartify\CartifyBLL\obj\Debug\net8.0\ref\CartifyBLL.dll

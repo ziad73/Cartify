@@ -7751,23 +7751,23 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\hp\\.nuget\\packages\\": {},
+    "C:\\Users\\my\\.nuget\\packages\\": {},
     "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "E:\\coding\\GitHub\\Repos\\Cartify\\CartifyP\\Cartify\\CartifyDAL\\CartifyDAL.csproj",
+      "projectUniqueName": "D:\\ITI .net\\ProjecGraduationtITI\\Cartify\\Cartify\\CartifyDAL\\CartifyDAL.csproj",
       "projectName": "CartifyDAL",
-      "projectPath": "E:\\coding\\GitHub\\Repos\\Cartify\\CartifyP\\Cartify\\CartifyDAL\\CartifyDAL.csproj",
-      "packagesPath": "C:\\Users\\hp\\.nuget\\packages\\",
-      "outputPath": "E:\\coding\\GitHub\\Repos\\Cartify\\CartifyP\\Cartify\\CartifyDAL\\obj\\",
+      "projectPath": "D:\\ITI .net\\ProjecGraduationtITI\\Cartify\\Cartify\\CartifyDAL\\CartifyDAL.csproj",
+      "packagesPath": "C:\\Users\\my\\.nuget\\packages\\",
+      "outputPath": "D:\\ITI .net\\ProjecGraduationtITI\\Cartify\\Cartify\\CartifyDAL\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
       ],
       "configFilePaths": [
-        "C:\\Users\\hp\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Users\\my\\AppData\\Roaming\\NuGet\\NuGet.Config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
@@ -7776,6 +7776,7 @@
       ],
       "sources": {
         "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+        "C:\\Program Files\\dotnet\\library-packs": {},
         "https://api.nuget.org/v3/index.json": {}
       },
       "frameworks": {

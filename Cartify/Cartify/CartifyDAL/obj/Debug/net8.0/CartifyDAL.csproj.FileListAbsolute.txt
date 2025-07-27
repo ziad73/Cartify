@@ -13,3 +13,18 @@ E:\coding\GitHub\Repos\Cartify\CartifyP\Cartify\CartifyDAL\obj\Debug\net8.0\refi
 E:\coding\GitHub\Repos\Cartify\CartifyP\Cartify\CartifyDAL\obj\Debug\net8.0\CartifyDAL.pdb
 E:\coding\GitHub\Repos\Cartify\CartifyP\Cartify\CartifyDAL\obj\Debug\net8.0\CartifyDAL.genruntimeconfig.cache
 E:\coding\GitHub\Repos\Cartify\CartifyP\Cartify\CartifyDAL\obj\Debug\net8.0\ref\CartifyDAL.dll
+D:\ITI .net\ProjecGraduationtITI\Cartify\Cartify\CartifyDAL\bin\Debug\net8.0\CartifyDAL.deps.json
+D:\ITI .net\ProjecGraduationtITI\Cartify\Cartify\CartifyDAL\bin\Debug\net8.0\CartifyDAL.runtimeconfig.json
+D:\ITI .net\ProjecGraduationtITI\Cartify\Cartify\CartifyDAL\bin\Debug\net8.0\CartifyDAL.dll
+D:\ITI .net\ProjecGraduationtITI\Cartify\Cartify\CartifyDAL\bin\Debug\net8.0\CartifyDAL.pdb
+D:\ITI .net\ProjecGraduationtITI\Cartify\Cartify\CartifyDAL\obj\Debug\net8.0\CartifyDAL.csproj.AssemblyReference.cache
+D:\ITI .net\ProjecGraduationtITI\Cartify\Cartify\CartifyDAL\obj\Debug\net8.0\CartifyDAL.GeneratedMSBuildEditorConfig.editorconfig
+D:\ITI .net\ProjecGraduationtITI\Cartify\Cartify\CartifyDAL\obj\Debug\net8.0\CartifyDAL.AssemblyInfoInputs.cache
+D:\ITI .net\ProjecGraduationtITI\Cartify\Cartify\CartifyDAL\obj\Debug\net8.0\CartifyDAL.AssemblyInfo.cs
+D:\ITI .net\ProjecGraduationtITI\Cartify\Cartify\CartifyDAL\obj\Debug\net8.0\CartifyDAL.csproj.CoreCompileInputs.cache
+D:\ITI .net\ProjecGraduationtITI\Cartify\Cartify\CartifyDAL\obj\Debug\net8.0\CartifyDAL.sourcelink.json
+D:\ITI .net\ProjecGraduationtITI\Cartify\Cartify\CartifyDAL\obj\Debug\net8.0\CartifyDAL.dll
+D:\ITI .net\ProjecGraduationtITI\Cartify\Cartify\CartifyDAL\obj\Debug\net8.0\refint\CartifyDAL.dll
+D:\ITI .net\ProjecGraduationtITI\Cartify\Cartify\CartifyDAL\obj\Debug\net8.0\CartifyDAL.pdb
+D:\ITI .net\ProjecGraduationtITI\Cartify\Cartify\CartifyDAL\obj\Debug\net8.0\CartifyDAL.genruntimeconfig.cache
+D:\ITI .net\ProjecGraduationtITI\Cartify\Cartify\CartifyDAL\obj\Debug\net8.0\ref\CartifyDAL.dll

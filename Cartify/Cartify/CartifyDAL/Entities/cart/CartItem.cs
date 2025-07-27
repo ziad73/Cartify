@@ -5,6 +5,14 @@ namespace CartifyDAL.Entities.cart
 {
     public class CartItem
     {
+        public CartItem(int quantity, string createdBy)
+        {
+            Quantity = quantity;
+            CreatedBy = createdBy;
+            CreatedOn = DateTime.Now;
+            IsDeleted = false;
+        }
+
         public int Cartitem { get; private set; }
         public int CartId { get; private set; }
         public int Quantity { get; private set; }

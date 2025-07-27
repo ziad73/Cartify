@@ -11,6 +11,19 @@ namespace CartifyDAL.Entities.order
 {
     public class Order
     {
+        public Order(string orderStatus, string shippingMethod, string trackingNumber = null, decimal shippingCost = 0, decimal tax = 0, string createdBy = null)
+        {
+            OrderStatus = orderStatus;
+            ShippingMethod = shippingMethod;
+            TrackingNumber = trackingNumber;
+            ShippingCost = shippingCost;
+            Tax = tax;
+            OrderDate = DateTime.Now;
+            CreatedBy = createdBy;
+            CreatedOn = DateTime.Now;
+            IsDeleted = false;
+        }
+
         [Key]
         public int OrderId { get; private set; }
 

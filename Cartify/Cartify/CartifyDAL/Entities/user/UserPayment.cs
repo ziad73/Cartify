@@ -7,6 +7,12 @@ namespace CartifyDAL.Entities.user
 {
     public class UserPayment
     {
+        public UserPayment(string createdBy)
+        {
+            CreatedBy = createdBy;
+            CreatedOn = DateTime.Now;
+            IsDeleted = false;
+        }
 
         [Key]
         public int Id { get; private set; }
@@ -22,6 +28,7 @@ namespace CartifyDAL.Entities.user
 
         [ForeignKey(nameof(PaymentId))]
         public Payment Payment { get; private set; }
+
         [Required]
         public string CreatedBy { get; private set; }
         public DateTime CreatedOn { get; private set; }
@@ -32,5 +39,5 @@ namespace CartifyDAL.Entities.user
         public string? DeletedBy { get; private set; }
 
     }
-    
+
 }

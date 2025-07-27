@@ -10,6 +10,16 @@ namespace CartifyDAL.Entities.product
 {
     public class Product
     {
+        public Product(int stockQuantity, decimal price, string description, string createdBy)
+        {
+            StockQuantity = stockQuantity;
+            Price = price;
+            IsDeleted = false;
+            Description = description;
+            CreatedBy = createdBy;
+            CreatedOn = DateTime.Now;
+        }
+
         [Key]
         public int ProductId { get; private set; }
         public int? OrderId { get; private set; }
@@ -22,9 +32,6 @@ namespace CartifyDAL.Entities.product
 
         [MaxLength(1000)]
         public string Description { get; private set; }
-
-        public DateTime DateAdded { get; private set; }
-        public DateTime? LastUpdated { get; private set; }
 
         public bool IsActive { get; private set; }
 
@@ -43,9 +50,9 @@ namespace CartifyDAL.Entities.product
         public bool IsDeleted { get; private set; }
         public DateTime? DeletedOn { get; private set; }
         public string? DeletedBy { get; private set; }
-        
-        
+
+
         //M-TO-M Relationship
-        public List<ProductCart>? productCarts { get; set; }    
+        public List<ProductCart>? productCarts { get; set; }
     }
 }
