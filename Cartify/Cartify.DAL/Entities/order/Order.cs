@@ -1,4 +1,5 @@
-﻿using System;
+﻿using CartifyDAL.Entities.user;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
@@ -6,7 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Cartify.DAL.Entities
+namespace CartifyDAL.Entities.order
 {
     public class Order
     {

@@ -1,27 +1,19 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using CartifyDAL.Entities.cart;
+using CartifyDAL.Entities.product;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
-namespace Cartify.DAL.Entities
+namespace CartifyDAL.Entities.productCart
 {
-    public class UserAddress
+    public class ProductCart
     {
-        [Key]
-        public int Id { get; private set; }
+        public int CartId { get;private set; }
+        public int ProductId { get; private set; }
 
-        [Required]
-        public int UserId { get; private set; }
-
-        [Required]
-        [MaxLength(250)]
-        public string Address { get; private set; }
-
-        [ForeignKey(nameof(UserId))]
-        public User User { get; private set; }
+        [ForeignKey(nameof(CartId))]
+        public Cart cart { get; private set; }
+        [ForeignKey(nameof(ProductId))]
+        public Product product { get; private set; }
 
         [Required]
         public string CreatedBy { get; private set; }
@@ -32,4 +24,6 @@ namespace Cartify.DAL.Entities
         public DateTime? DeletedOn { get; private set; }
         public string? DeletedBy { get; private set; }
     }
+
+
 }

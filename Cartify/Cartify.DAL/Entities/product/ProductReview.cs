@@ -1,18 +1,21 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
-namespace Cartify.DAL.Entities
+namespace CartifyDAL.Entities.product
 {
-    public class ProductCart
+    public class ProductReview
     {
-        public int CartId { get;private set; }
+        [Key]
+        public int Id { get; private set; }
+
+        [Required]
         public int ProductId { get; private set; }
 
-        [ForeignKey(nameof(CartId))]
-        public Cart cart { get; private set; }
-        [ForeignKey(nameof(ProductId))]
-        public Product product { get; private set; }
+        [MaxLength(1000)]
+        public string Reviews { get; private set; }
 
+        [ForeignKey(nameof(ProductId))]
+        public Product Product { get; private set; }
         [Required]
         public string CreatedBy { get; private set; }
         public DateTime CreatedOn { get; private set; }
@@ -21,7 +24,6 @@ namespace Cartify.DAL.Entities
         public bool IsDeleted { get; private set; }
         public DateTime? DeletedOn { get; private set; }
         public string? DeletedBy { get; private set; }
+
     }
-
-
 }

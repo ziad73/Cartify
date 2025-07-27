@@ -1,18 +1,17 @@
-﻿using System;
+﻿using CartifyDAL.Entities.category;
+using CartifyDAL.Entities.order;
+using CartifyDAL.Entities.productCart;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
-namespace Cartify.DAL.Entities
+namespace CartifyDAL.Entities.product
 {
     public class Product
     {
         [Key]
         public int ProductId { get; private set; }
-
         public int? OrderId { get; private set; }
 
         [Required]
@@ -44,5 +43,9 @@ namespace Cartify.DAL.Entities
         public bool IsDeleted { get; private set; }
         public DateTime? DeletedOn { get; private set; }
         public string? DeletedBy { get; private set; }
+        
+        
+        //M-TO-M Relationship
+        public List<ProductCart>? productCarts { get; set; }    
     }
 }

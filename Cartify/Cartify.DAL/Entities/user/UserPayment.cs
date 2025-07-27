@@ -1,30 +1,27 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using CartifyDAL.Entities.user.payment;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
-namespace Cartify.DAL.Entities
+
+namespace CartifyDAL.Entities.user
 {
-    public class Payment
+    public class UserPayment
     {
+
         [Key]
+        public int Id { get; private set; }
+
+        [Required]
+        public int UserId { get; private set; }
+
+        [Required]
         public int PaymentId { get; private set; }
 
-        [Required]
-        public decimal Amount { get; private set; }
+        [ForeignKey(nameof(UserId))]
+        public User User { get; private set; }
 
-        [Required]
-        public DateTime PaymentDate { get; private set; }
-
-        public int? PaymentMethodId { get; private set; }
-
-        [ForeignKey(nameof(PaymentMethodId))]
-        public PaymentMethod PaymentMethod { get; private set; }
-
-        public List<UserPayment> UserPayments { get; private set; }
+        [ForeignKey(nameof(PaymentId))]
+        public Payment Payment { get; private set; }
         [Required]
         public string CreatedBy { get; private set; }
         public DateTime CreatedOn { get; private set; }
@@ -33,5 +30,7 @@ namespace Cartify.DAL.Entities
         public bool IsDeleted { get; private set; }
         public DateTime? DeletedOn { get; private set; }
         public string? DeletedBy { get; private set; }
+
     }
+    
 }

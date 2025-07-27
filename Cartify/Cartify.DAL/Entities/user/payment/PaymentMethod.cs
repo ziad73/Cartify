@@ -1,17 +1,22 @@
-﻿
+﻿using System;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 
-namespace Cartify.DAL.Entities
+namespace CartifyDAL.Entities.user.payment
 {
-    public class CartItem
+    public class PaymentMethod
     {
-        public int Cartitem { get; private set; }
-        public int CartId { get; private set; }
-        public int Quantity { get; private set; }
+        [Key]
+        public int PaymentMethodId { get; private set; }
 
-        [ForeignKey(nameof(CartId))]
-        public Cart Cart { get; set; }
+        [Required]
+        [MaxLength(100)]
+        public string PaymentMethodName { get; private set; }
+
+        public List<Payment> Payments { get; private set; }
         [Required]
         public string CreatedBy { get; private set; }
         public DateTime CreatedOn { get; private set; }

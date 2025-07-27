@@ -1,22 +1,16 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
-namespace Cartify.DAL.Entities
+namespace CartifyDAL.Entities.cart
 {
-    public class Category
+    public class CartItem
     {
-        [Key]
-        public int CategoryId { get; private set; }
-        public string Name { get; private set; }
-        [MaxLength(1000)]
-        public string? Description { get; private set; }
-        public int? ParentCategoryId { get; private set; }
+        public int Cartitem { get; private set; }
+        public int CartId { get; private set; }
+        public int Quantity { get; private set; }
 
-        [ForeignKey(nameof(ParentCategoryId))]
-        public Category? Parentcategory { get; private set; }
-
-        public List<Product> products { get; private set; }
-
+        [ForeignKey(nameof(CartId))]
+        public Cart Cart { get; set; }
         [Required]
         public string CreatedBy { get; private set; }
         public DateTime CreatedOn { get; private set; }
