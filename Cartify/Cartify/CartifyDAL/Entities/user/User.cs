@@ -5,6 +5,21 @@ namespace CartifyDAL.Entities.user
 {
     public class User
     {
+        public User(string fName, string lName, string type, string createdBy)
+        {
+            FName = fName;
+            LName = lName;
+            Type = type;
+            CreatedBy = createdBy;
+            CreatedOn = DateTime.Now;
+            IsActive = true;
+            IsDeleted = false;
+        }
+        public User()
+        {
+
+        }
+
         [Key]
         public int UserId { get; private set; }
 
@@ -23,9 +38,9 @@ namespace CartifyDAL.Entities.user
         public DateTime? LastLogin { get; private set; }
 
         // Navigation Properties
-        public List<UserPayment> UserPayments { get; private set; }
-        public List<UserAddress> Addresses { get; private set; }
-        public List<Order> Orders { get; private set; }
+        public List<UserPayment>? UserPayments { get; private set; }
+        public List<UserAddress>? Addresses { get; private set; }
+        public List<Order>? Orders { get; private set; }
 
         // Audit Fields
         [Required]
