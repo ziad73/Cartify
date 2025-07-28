@@ -1,61 +1,73 @@
 {
   "Version": 1,
-  "WorkspaceRootPath": "D:\\ITI .net\\ProjecGraduationtITI\\Cartify\\Cartify\\",
+  "WorkspaceRootPath": "F:\\FInal-Project-ITI\\Cartify\\Cartify\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{B15ABC4C-1AF3-45ED-8D19-2E4BCB778AB1}|CartifyDAL\\CartifyDAL.csproj|d:\\iti .net\\projecgraduationtiti\\cartify\\cartify\\cartifydal\\entities\\user\\payment\\payment.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{B15ABC4C-1AF3-45ED-8D19-2E4BCB778AB1}|CartifyDAL\\CartifyDAL.csproj|solutionrelative:cartifydal\\entities\\user\\payment\\payment.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{B15ABC4C-1AF3-45ED-8D19-2E4BCB778AB1}|CartifyDAL\\CartifyDAL.csproj|f:\\final-project-iti\\cartify\\cartify\\cartifydal\\repo\\categoryrepo\\implementation\\categoryrepo.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{B15ABC4C-1AF3-45ED-8D19-2E4BCB778AB1}|CartifyDAL\\CartifyDAL.csproj|solutionrelative:cartifydal\\repo\\categoryrepo\\implementation\\categoryrepo.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{B15ABC4C-1AF3-45ED-8D19-2E4BCB778AB1}|CartifyDAL\\CartifyDAL.csproj|d:\\iti .net\\projecgraduationtiti\\cartify\\cartify\\cartifydal\\entities\\user\\payment\\paymentmethod.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{B15ABC4C-1AF3-45ED-8D19-2E4BCB778AB1}|CartifyDAL\\CartifyDAL.csproj|solutionrelative:cartifydal\\entities\\user\\payment\\paymentmethod.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{B15ABC4C-1AF3-45ED-8D19-2E4BCB778AB1}|CartifyDAL\\CartifyDAL.csproj|f:\\final-project-iti\\cartify\\cartify\\cartifydal\\repo\\productrepo\\implementation\\productrepo.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{B15ABC4C-1AF3-45ED-8D19-2E4BCB778AB1}|CartifyDAL\\CartifyDAL.csproj|solutionrelative:cartifydal\\repo\\productrepo\\implementation\\productrepo.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{B15ABC4C-1AF3-45ED-8D19-2E4BCB778AB1}|CartifyDAL\\CartifyDAL.csproj|d:\\iti .net\\projecgraduationtiti\\cartify\\cartify\\cartifydal\\entities\\user\\userpayment.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{B15ABC4C-1AF3-45ED-8D19-2E4BCB778AB1}|CartifyDAL\\CartifyDAL.csproj|solutionrelative:cartifydal\\entities\\user\\userpayment.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{B15ABC4C-1AF3-45ED-8D19-2E4BCB778AB1}|CartifyDAL\\CartifyDAL.csproj|f:\\final-project-iti\\cartify\\cartify\\cartifydal\\repo\\productrepo\\abstraction\\iproductrepo.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{B15ABC4C-1AF3-45ED-8D19-2E4BCB778AB1}|CartifyDAL\\CartifyDAL.csproj|solutionrelative:cartifydal\\repo\\productrepo\\abstraction\\iproductrepo.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{B15ABC4C-1AF3-45ED-8D19-2E4BCB778AB1}|CartifyDAL\\CartifyDAL.csproj|d:\\iti .net\\projecgraduationtiti\\cartify\\cartify\\cartifydal\\entities\\user\\useraddress.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{B15ABC4C-1AF3-45ED-8D19-2E4BCB778AB1}|CartifyDAL\\CartifyDAL.csproj|solutionrelative:cartifydal\\entities\\user\\useraddress.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{B15ABC4C-1AF3-45ED-8D19-2E4BCB778AB1}|CartifyDAL\\CartifyDAL.csproj|f:\\final-project-iti\\cartify\\cartify\\cartifydal\\repo\\categoryrepo\\abstraction\\icategoryrepo.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{B15ABC4C-1AF3-45ED-8D19-2E4BCB778AB1}|CartifyDAL\\CartifyDAL.csproj|solutionrelative:cartifydal\\repo\\categoryrepo\\abstraction\\icategoryrepo.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{B15ABC4C-1AF3-45ED-8D19-2E4BCB778AB1}|CartifyDAL\\CartifyDAL.csproj|d:\\iti .net\\projecgraduationtiti\\cartify\\cartify\\cartifydal\\entities\\user\\user.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{B15ABC4C-1AF3-45ED-8D19-2E4BCB778AB1}|CartifyDAL\\CartifyDAL.csproj|solutionrelative:cartifydal\\entities\\user\\user.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{B15ABC4C-1AF3-45ED-8D19-2E4BCB778AB1}|CartifyDAL\\CartifyDAL.csproj|d:\\iti .net\\projecgraduationtiti\\cartify\\cartify\\cartifydal\\entities\\productcart\\productcart.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{B15ABC4C-1AF3-45ED-8D19-2E4BCB778AB1}|CartifyDAL\\CartifyDAL.csproj|solutionrelative:cartifydal\\entities\\productcart\\productcart.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{B15ABC4C-1AF3-45ED-8D19-2E4BCB778AB1}|CartifyDAL\\CartifyDAL.csproj|d:\\iti .net\\projecgraduationtiti\\cartify\\cartify\\cartifydal\\entities\\product\\productreview.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{B15ABC4C-1AF3-45ED-8D19-2E4BCB778AB1}|CartifyDAL\\CartifyDAL.csproj|solutionrelative:cartifydal\\entities\\product\\productreview.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{B15ABC4C-1AF3-45ED-8D19-2E4BCB778AB1}|CartifyDAL\\CartifyDAL.csproj|d:\\iti .net\\projecgraduationtiti\\cartify\\cartify\\cartifydal\\entities\\product\\product.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "AbsoluteMoniker": "D:0:0:{B15ABC4C-1AF3-45ED-8D19-2E4BCB778AB1}|CartifyDAL\\CartifyDAL.csproj|f:\\final-project-iti\\cartify\\cartify\\cartifydal\\entities\\product\\product.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{B15ABC4C-1AF3-45ED-8D19-2E4BCB778AB1}|CartifyDAL\\CartifyDAL.csproj|solutionrelative:cartifydal\\entities\\product\\product.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{B15ABC4C-1AF3-45ED-8D19-2E4BCB778AB1}|CartifyDAL\\CartifyDAL.csproj|d:\\iti .net\\projecgraduationtiti\\cartify\\cartify\\cartifydal\\entities\\order\\orderitem.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{B15ABC4C-1AF3-45ED-8D19-2E4BCB778AB1}|CartifyDAL\\CartifyDAL.csproj|solutionrelative:cartifydal\\entities\\order\\orderitem.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{B15ABC4C-1AF3-45ED-8D19-2E4BCB778AB1}|CartifyDAL\\CartifyDAL.csproj|d:\\iti .net\\projecgraduationtiti\\cartify\\cartify\\cartifydal\\entities\\order\\order.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{B15ABC4C-1AF3-45ED-8D19-2E4BCB778AB1}|CartifyDAL\\CartifyDAL.csproj|solutionrelative:cartifydal\\entities\\order\\order.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{B15ABC4C-1AF3-45ED-8D19-2E4BCB778AB1}|CartifyDAL\\CartifyDAL.csproj|d:\\iti .net\\projecgraduationtiti\\cartify\\cartify\\cartifydal\\entities\\category\\category.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "AbsoluteMoniker": "D:0:0:{B15ABC4C-1AF3-45ED-8D19-2E4BCB778AB1}|CartifyDAL\\CartifyDAL.csproj|f:\\final-project-iti\\cartify\\cartify\\cartifydal\\entities\\category\\category.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{B15ABC4C-1AF3-45ED-8D19-2E4BCB778AB1}|CartifyDAL\\CartifyDAL.csproj|solutionrelative:cartifydal\\entities\\category\\category.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{B15ABC4C-1AF3-45ED-8D19-2E4BCB778AB1}|CartifyDAL\\CartifyDAL.csproj|d:\\iti .net\\projecgraduationtiti\\cartify\\cartify\\cartifydal\\entities\\cart\\cartitem.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "AbsoluteMoniker": "D:0:0:{B15ABC4C-1AF3-45ED-8D19-2E4BCB778AB1}|CartifyDAL\\CartifyDAL.csproj|f:\\final-project-iti\\cartify\\cartify\\cartifydal\\entities\\order\\order.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{B15ABC4C-1AF3-45ED-8D19-2E4BCB778AB1}|CartifyDAL\\CartifyDAL.csproj|solutionrelative:cartifydal\\entities\\order\\order.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{B15ABC4C-1AF3-45ED-8D19-2E4BCB778AB1}|CartifyDAL\\CartifyDAL.csproj|f:\\final-project-iti\\cartify\\cartify\\cartifydal\\entities\\user\\payment\\payment.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{B15ABC4C-1AF3-45ED-8D19-2E4BCB778AB1}|CartifyDAL\\CartifyDAL.csproj|solutionrelative:cartifydal\\entities\\user\\payment\\payment.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{B15ABC4C-1AF3-45ED-8D19-2E4BCB778AB1}|CartifyDAL\\CartifyDAL.csproj|f:\\final-project-iti\\cartify\\cartify\\cartifydal\\entities\\user\\payment\\paymentmethod.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{B15ABC4C-1AF3-45ED-8D19-2E4BCB778AB1}|CartifyDAL\\CartifyDAL.csproj|solutionrelative:cartifydal\\entities\\user\\payment\\paymentmethod.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{B15ABC4C-1AF3-45ED-8D19-2E4BCB778AB1}|CartifyDAL\\CartifyDAL.csproj|f:\\final-project-iti\\cartify\\cartify\\cartifydal\\entities\\user\\userpayment.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{B15ABC4C-1AF3-45ED-8D19-2E4BCB778AB1}|CartifyDAL\\CartifyDAL.csproj|solutionrelative:cartifydal\\entities\\user\\userpayment.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{B15ABC4C-1AF3-45ED-8D19-2E4BCB778AB1}|CartifyDAL\\CartifyDAL.csproj|f:\\final-project-iti\\cartify\\cartify\\cartifydal\\entities\\user\\useraddress.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{B15ABC4C-1AF3-45ED-8D19-2E4BCB778AB1}|CartifyDAL\\CartifyDAL.csproj|solutionrelative:cartifydal\\entities\\user\\useraddress.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{B15ABC4C-1AF3-45ED-8D19-2E4BCB778AB1}|CartifyDAL\\CartifyDAL.csproj|f:\\final-project-iti\\cartify\\cartify\\cartifydal\\entities\\user\\user.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{B15ABC4C-1AF3-45ED-8D19-2E4BCB778AB1}|CartifyDAL\\CartifyDAL.csproj|solutionrelative:cartifydal\\entities\\user\\user.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{B15ABC4C-1AF3-45ED-8D19-2E4BCB778AB1}|CartifyDAL\\CartifyDAL.csproj|f:\\final-project-iti\\cartify\\cartify\\cartifydal\\entities\\productcart\\productcart.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{B15ABC4C-1AF3-45ED-8D19-2E4BCB778AB1}|CartifyDAL\\CartifyDAL.csproj|solutionrelative:cartifydal\\entities\\productcart\\productcart.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{B15ABC4C-1AF3-45ED-8D19-2E4BCB778AB1}|CartifyDAL\\CartifyDAL.csproj|f:\\final-project-iti\\cartify\\cartify\\cartifydal\\entities\\product\\productreview.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{B15ABC4C-1AF3-45ED-8D19-2E4BCB778AB1}|CartifyDAL\\CartifyDAL.csproj|solutionrelative:cartifydal\\entities\\product\\productreview.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{B15ABC4C-1AF3-45ED-8D19-2E4BCB778AB1}|CartifyDAL\\CartifyDAL.csproj|f:\\final-project-iti\\cartify\\cartify\\cartifydal\\entities\\cart\\cartitem.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{B15ABC4C-1AF3-45ED-8D19-2E4BCB778AB1}|CartifyDAL\\CartifyDAL.csproj|solutionrelative:cartifydal\\entities\\cart\\cartitem.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{B15ABC4C-1AF3-45ED-8D19-2E4BCB778AB1}|CartifyDAL\\CartifyDAL.csproj|d:\\iti .net\\projecgraduationtiti\\cartify\\cartify\\cartifydal\\entities\\cart\\cart.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "AbsoluteMoniker": "D:0:0:{B15ABC4C-1AF3-45ED-8D19-2E4BCB778AB1}|CartifyDAL\\CartifyDAL.csproj|f:\\final-project-iti\\cartify\\cartify\\cartifydal\\entities\\cart\\cart.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{B15ABC4C-1AF3-45ED-8D19-2E4BCB778AB1}|CartifyDAL\\CartifyDAL.csproj|solutionrelative:cartifydal\\entities\\cart\\cart.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{B15ABC4C-1AF3-45ED-8D19-2E4BCB778AB1}|CartifyDAL\\CartifyDAL.csproj|d:\\iti .net\\projecgraduationtiti\\cartify\\cartify\\cartifydal\\database\\cartifydbcontext.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "AbsoluteMoniker": "D:0:0:{B15ABC4C-1AF3-45ED-8D19-2E4BCB778AB1}|CartifyDAL\\CartifyDAL.csproj|f:\\final-project-iti\\cartify\\cartify\\cartifydal\\database\\cartifydbcontext.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{B15ABC4C-1AF3-45ED-8D19-2E4BCB778AB1}|CartifyDAL\\CartifyDAL.csproj|solutionrelative:cartifydal\\database\\cartifydbcontext.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     }
   ],
@@ -66,12 +78,8 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 5,
+          "SelectedChildIndex": 4,
           "Children": [
-            {
-              "$type": "Bookmark",
-              "Name": "ST:0:0:{1c4feeaa-4718-4aa9-859d-94ce25d182ba}"
-            },
             {
               "$type": "Bookmark",
               "Name": "ST:128:0:{1fc202d4-d401-403c-9834-5b218574bb67}"
@@ -87,47 +95,88 @@
             {
               "$type": "Document",
               "DocumentIndex": 1,
-              "Title": "PaymentMethod.cs",
-              "DocumentMoniker": "D:\\ITI .net\\ProjecGraduationtITI\\Cartify\\Cartify\\CartifyDAL\\Entities\\user\\payment\\PaymentMethod.cs",
-              "RelativeDocumentMoniker": "CartifyDAL\\Entities\\user\\payment\\PaymentMethod.cs",
-              "ToolTip": "D:\\ITI .net\\ProjecGraduationtITI\\Cartify\\Cartify\\CartifyDAL\\Entities\\user\\payment\\PaymentMethod.cs",
-              "RelativeToolTip": "CartifyDAL\\Entities\\user\\payment\\PaymentMethod.cs",
-              "ViewState": "AgIAABYAAAAAAAAAAAAwwCUAAAAAAAAAAAAAAA==",
+              "Title": "ProductRepo.cs",
+              "DocumentMoniker": "F:\\FInal-Project-ITI\\Cartify\\Cartify\\CartifyDAL\\Repo\\productRepo\\Implementation\\ProductRepo.cs",
+              "RelativeDocumentMoniker": "CartifyDAL\\Repo\\productRepo\\Implementation\\ProductRepo.cs",
+              "ToolTip": "F:\\FInal-Project-ITI\\Cartify\\Cartify\\CartifyDAL\\Repo\\productRepo\\Implementation\\ProductRepo.cs",
+              "RelativeToolTip": "CartifyDAL\\Repo\\productRepo\\Implementation\\ProductRepo.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAEYAAAAzAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-07-27T22:57:47.541Z"
+              "WhenOpened": "2025-07-28T13:36:39.312Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
               "DocumentIndex": 0,
+              "Title": "CategoryRepo.cs",
+              "DocumentMoniker": "F:\\FInal-Project-ITI\\Cartify\\Cartify\\CartifyDAL\\Repo\\categoryRepo\\Implementation\\CategoryRepo.cs",
+              "RelativeDocumentMoniker": "CartifyDAL\\Repo\\categoryRepo\\Implementation\\CategoryRepo.cs",
+              "ToolTip": "F:\\FInal-Project-ITI\\Cartify\\Cartify\\CartifyDAL\\Repo\\categoryRepo\\Implementation\\CategoryRepo.cs",
+              "RelativeToolTip": "CartifyDAL\\Repo\\categoryRepo\\Implementation\\CategoryRepo.cs",
+              "ViewState": "AgIAAFEAAAAAAAAAAAAowGUAAAAFAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-07-28T13:36:20.622Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "IProductRepo.cs",
+              "DocumentMoniker": "F:\\FInal-Project-ITI\\Cartify\\Cartify\\CartifyDAL\\Repo\\productRepo\\Abstraction\\IProductRepo.cs",
+              "RelativeDocumentMoniker": "CartifyDAL\\Repo\\productRepo\\Abstraction\\IProductRepo.cs",
+              "ToolTip": "F:\\FInal-Project-ITI\\Cartify\\Cartify\\CartifyDAL\\Repo\\productRepo\\Abstraction\\IProductRepo.cs",
+              "RelativeToolTip": "CartifyDAL\\Repo\\productRepo\\Abstraction\\IProductRepo.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAcAAAAwAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-07-28T13:35:58.648Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "ICategoryRepo.cs",
+              "DocumentMoniker": "F:\\FInal-Project-ITI\\Cartify\\Cartify\\CartifyDAL\\Repo\\categoryRepo\\Abstraction\\ICategoryRepo.cs",
+              "RelativeDocumentMoniker": "CartifyDAL\\Repo\\categoryRepo\\Abstraction\\ICategoryRepo.cs",
+              "ToolTip": "F:\\FInal-Project-ITI\\Cartify\\Cartify\\CartifyDAL\\Repo\\categoryRepo\\Abstraction\\ICategoryRepo.cs",
+              "RelativeToolTip": "CartifyDAL\\Repo\\categoryRepo\\Abstraction\\ICategoryRepo.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAMAAAABAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-07-28T13:35:23.3Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 7,
               "Title": "Payment.cs",
-              "DocumentMoniker": "D:\\ITI .net\\ProjecGraduationtITI\\Cartify\\Cartify\\CartifyDAL\\Entities\\user\\payment\\Payment.cs",
+              "DocumentMoniker": "F:\\FInal-Project-ITI\\Cartify\\Cartify\\CartifyDAL\\Entities\\user\\payment\\Payment.cs",
               "RelativeDocumentMoniker": "CartifyDAL\\Entities\\user\\payment\\Payment.cs",
-              "ToolTip": "D:\\ITI .net\\ProjecGraduationtITI\\Cartify\\Cartify\\CartifyDAL\\Entities\\user\\payment\\Payment.cs",
+              "ToolTip": "F:\\FInal-Project-ITI\\Cartify\\Cartify\\CartifyDAL\\Entities\\user\\payment\\Payment.cs",
               "RelativeToolTip": "CartifyDAL\\Entities\\user\\payment\\Payment.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAUAAAAIAAAAAAAAAA==",
+              "ViewState": "AgIAACYAAAAAAAAAAAAmwBAAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2025-07-27T22:57:37.3Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 2,
-              "Title": "UserPayment.cs",
-              "DocumentMoniker": "D:\\ITI .net\\ProjecGraduationtITI\\Cartify\\Cartify\\CartifyDAL\\Entities\\user\\UserPayment.cs",
-              "RelativeDocumentMoniker": "CartifyDAL\\Entities\\user\\UserPayment.cs",
-              "ToolTip": "D:\\ITI .net\\ProjecGraduationtITI\\Cartify\\Cartify\\CartifyDAL\\Entities\\user\\UserPayment.cs",
-              "RelativeToolTip": "CartifyDAL\\Entities\\user\\UserPayment.cs",
-              "ViewState": "AgIAABwAAAAAAAAAAAAwwCsAAAAAAAAAAAAAAA==",
+              "DocumentIndex": 5,
+              "Title": "Category.cs",
+              "DocumentMoniker": "F:\\FInal-Project-ITI\\Cartify\\Cartify\\CartifyDAL\\Entities\\category\\Category.cs",
+              "RelativeDocumentMoniker": "CartifyDAL\\Entities\\category\\Category.cs",
+              "ToolTip": "F:\\FInal-Project-ITI\\Cartify\\Cartify\\CartifyDAL\\Entities\\category\\Category.cs",
+              "RelativeToolTip": "CartifyDAL\\Entities\\category\\Category.cs",
+              "ViewState": "AgIAAB8AAAAAAAAAAAAwwCwAAAAJAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-07-27T22:57:29.768Z"
+              "WhenOpened": "2025-07-27T22:56:03.218Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 3,
+              "DocumentIndex": 10,
               "Title": "UserAddress.cs",
-              "DocumentMoniker": "D:\\ITI .net\\ProjecGraduationtITI\\Cartify\\Cartify\\CartifyDAL\\Entities\\user\\UserAddress.cs",
+              "DocumentMoniker": "F:\\FInal-Project-ITI\\Cartify\\Cartify\\CartifyDAL\\Entities\\user\\UserAddress.cs",
               "RelativeDocumentMoniker": "CartifyDAL\\Entities\\user\\UserAddress.cs",
-              "ToolTip": "D:\\ITI .net\\ProjecGraduationtITI\\Cartify\\Cartify\\CartifyDAL\\Entities\\user\\UserAddress.cs",
+              "ToolTip": "F:\\FInal-Project-ITI\\Cartify\\Cartify\\CartifyDAL\\Entities\\user\\UserAddress.cs",
               "RelativeToolTip": "CartifyDAL\\Entities\\user\\UserAddress.cs",
               "ViewState": "AgIAABoAAAAAAAAAAAA/wCkAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
@@ -135,11 +184,37 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 5,
+              "DocumentIndex": 4,
+              "Title": "Product.cs",
+              "DocumentMoniker": "F:\\FInal-Project-ITI\\Cartify\\Cartify\\CartifyDAL\\Entities\\product\\Product.cs",
+              "RelativeDocumentMoniker": "CartifyDAL\\Entities\\product\\Product.cs",
+              "ToolTip": "F:\\FInal-Project-ITI\\Cartify\\Cartify\\CartifyDAL\\Entities\\product\\Product.cs",
+              "RelativeToolTip": "CartifyDAL\\Entities\\product\\Product.cs",
+              "ViewState": "AgIAADAAAAAAAAAAAAA6wEMAAAALAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-07-27T22:56:43.461Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 6,
+              "Title": "Order.cs",
+              "DocumentMoniker": "F:\\FInal-Project-ITI\\Cartify\\Cartify\\CartifyDAL\\Entities\\order\\Order.cs",
+              "RelativeDocumentMoniker": "CartifyDAL\\Entities\\order\\Order.cs",
+              "ToolTip": "F:\\FInal-Project-ITI\\Cartify\\Cartify\\CartifyDAL\\Entities\\order\\Order.cs",
+              "RelativeToolTip": "CartifyDAL\\Entities\\order\\Order.cs",
+              "ViewState": "AgIAABQAAAAAAAAAAAAuwDYAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-07-27T22:56:26.443Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 12,
               "Title": "ProductCart.cs",
-              "DocumentMoniker": "D:\\ITI .net\\ProjecGraduationtITI\\Cartify\\Cartify\\CartifyDAL\\Entities\\productCart\\ProductCart.cs",
+              "DocumentMoniker": "F:\\FInal-Project-ITI\\Cartify\\Cartify\\CartifyDAL\\Entities\\productCart\\ProductCart.cs",
               "RelativeDocumentMoniker": "CartifyDAL\\Entities\\productCart\\ProductCart.cs",
-              "ToolTip": "D:\\ITI .net\\ProjecGraduationtITI\\Cartify\\Cartify\\CartifyDAL\\Entities\\productCart\\ProductCart.cs",
+              "ToolTip": "F:\\FInal-Project-ITI\\Cartify\\Cartify\\CartifyDAL\\Entities\\productCart\\ProductCart.cs",
               "RelativeToolTip": "CartifyDAL\\Entities\\productCart\\ProductCart.cs",
               "ViewState": "AgIAABUAAAAAAAAAAAAwwCQAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
@@ -147,11 +222,23 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 6,
+              "DocumentIndex": 9,
+              "Title": "UserPayment.cs",
+              "DocumentMoniker": "F:\\FInal-Project-ITI\\Cartify\\Cartify\\CartifyDAL\\Entities\\user\\UserPayment.cs",
+              "RelativeDocumentMoniker": "CartifyDAL\\Entities\\user\\UserPayment.cs",
+              "ToolTip": "F:\\FInal-Project-ITI\\Cartify\\Cartify\\CartifyDAL\\Entities\\user\\UserPayment.cs",
+              "RelativeToolTip": "CartifyDAL\\Entities\\user\\UserPayment.cs",
+              "ViewState": "AgIAABwAAAAAAAAAAAAwwCsAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-07-27T22:57:29.768Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 13,
               "Title": "ProductReview.cs",
-              "DocumentMoniker": "D:\\ITI .net\\ProjecGraduationtITI\\Cartify\\Cartify\\CartifyDAL\\Entities\\product\\ProductReview.cs",
+              "DocumentMoniker": "F:\\FInal-Project-ITI\\Cartify\\Cartify\\CartifyDAL\\Entities\\product\\ProductReview.cs",
               "RelativeDocumentMoniker": "CartifyDAL\\Entities\\product\\ProductReview.cs",
-              "ToolTip": "D:\\ITI .net\\ProjecGraduationtITI\\Cartify\\Cartify\\CartifyDAL\\Entities\\product\\ProductReview.cs",
+              "ToolTip": "F:\\FInal-Project-ITI\\Cartify\\Cartify\\CartifyDAL\\Entities\\product\\ProductReview.cs",
               "RelativeToolTip": "CartifyDAL\\Entities\\product\\ProductReview.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAB0AAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
@@ -159,23 +246,11 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 7,
-              "Title": "Product.cs",
-              "DocumentMoniker": "D:\\ITI .net\\ProjecGraduationtITI\\Cartify\\Cartify\\CartifyDAL\\Entities\\product\\Product.cs",
-              "RelativeDocumentMoniker": "CartifyDAL\\Entities\\product\\Product.cs",
-              "ToolTip": "D:\\ITI .net\\ProjecGraduationtITI\\Cartify\\Cartify\\CartifyDAL\\Entities\\product\\Product.cs",
-              "RelativeToolTip": "CartifyDAL\\Entities\\product\\Product.cs",
-              "ViewState": "AgIAACsAAAAAAAAAAAA/wDoAAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-07-27T22:56:43.461Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 4,
+              "DocumentIndex": 11,
               "Title": "User.cs",
-              "DocumentMoniker": "D:\\ITI .net\\ProjecGraduationtITI\\Cartify\\Cartify\\CartifyDAL\\Entities\\user\\User.cs",
+              "DocumentMoniker": "F:\\FInal-Project-ITI\\Cartify\\Cartify\\CartifyDAL\\Entities\\user\\User.cs",
               "RelativeDocumentMoniker": "CartifyDAL\\Entities\\user\\User.cs",
-              "ToolTip": "D:\\ITI .net\\ProjecGraduationtITI\\Cartify\\Cartify\\CartifyDAL\\Entities\\user\\User.cs",
+              "ToolTip": "F:\\FInal-Project-ITI\\Cartify\\Cartify\\CartifyDAL\\Entities\\user\\User.cs",
               "RelativeToolTip": "CartifyDAL\\Entities\\user\\User.cs",
               "ViewState": "AgIAACoAAAAAAAAAAAA/wDkAAAABAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
@@ -184,46 +259,22 @@
             {
               "$type": "Document",
               "DocumentIndex": 8,
-              "Title": "OrderItem.cs",
-              "DocumentMoniker": "D:\\ITI .net\\ProjecGraduationtITI\\Cartify\\Cartify\\CartifyDAL\\Entities\\order\\OrderItem.cs",
-              "RelativeDocumentMoniker": "CartifyDAL\\Entities\\order\\OrderItem.cs",
-              "ToolTip": "D:\\ITI .net\\ProjecGraduationtITI\\Cartify\\Cartify\\CartifyDAL\\Entities\\order\\OrderItem.cs",
-              "RelativeToolTip": "CartifyDAL\\Entities\\order\\OrderItem.cs",
-              "ViewState": "AgIAABsAAAAAAAAAAAA/wCoAAAAAAAAAAAAAAA==",
+              "Title": "PaymentMethod.cs",
+              "DocumentMoniker": "F:\\FInal-Project-ITI\\Cartify\\Cartify\\CartifyDAL\\Entities\\user\\payment\\PaymentMethod.cs",
+              "RelativeDocumentMoniker": "CartifyDAL\\Entities\\user\\payment\\PaymentMethod.cs",
+              "ToolTip": "F:\\FInal-Project-ITI\\Cartify\\Cartify\\CartifyDAL\\Entities\\user\\payment\\PaymentMethod.cs",
+              "RelativeToolTip": "CartifyDAL\\Entities\\user\\payment\\PaymentMethod.cs",
+              "ViewState": "AgIAABYAAAAAAAAAAAAwwCUAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-07-27T22:56:34.465Z"
+              "WhenOpened": "2025-07-27T22:57:47.541Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 9,
-              "Title": "Order.cs",
-              "DocumentMoniker": "D:\\ITI .net\\ProjecGraduationtITI\\Cartify\\Cartify\\CartifyDAL\\Entities\\order\\Order.cs",
-              "RelativeDocumentMoniker": "CartifyDAL\\Entities\\order\\Order.cs",
-              "ToolTip": "D:\\ITI .net\\ProjecGraduationtITI\\Cartify\\Cartify\\CartifyDAL\\Entities\\order\\Order.cs",
-              "RelativeToolTip": "CartifyDAL\\Entities\\order\\Order.cs",
-              "ViewState": "AgIAACcAAAAAAAAAAAA/wDYAAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-07-27T22:56:26.443Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 10,
-              "Title": "Category.cs",
-              "DocumentMoniker": "D:\\ITI .net\\ProjecGraduationtITI\\Cartify\\Cartify\\CartifyDAL\\Entities\\category\\Category.cs",
-              "RelativeDocumentMoniker": "CartifyDAL\\Entities\\category\\Category.cs",
-              "ToolTip": "D:\\ITI .net\\ProjecGraduationtITI\\Cartify\\Cartify\\CartifyDAL\\Entities\\category\\Category.cs",
-              "RelativeToolTip": "CartifyDAL\\Entities\\category\\Category.cs",
-              "ViewState": "AgIAABkAAAAAAAAAAAAwwCgAAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-07-27T22:56:03.218Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 11,
+              "DocumentIndex": 14,
               "Title": "CartItem.cs",
-              "DocumentMoniker": "D:\\ITI .net\\ProjecGraduationtITI\\Cartify\\Cartify\\CartifyDAL\\Entities\\cart\\CartItem.cs",
+              "DocumentMoniker": "F:\\FInal-Project-ITI\\Cartify\\Cartify\\CartifyDAL\\Entities\\cart\\CartItem.cs",
               "RelativeDocumentMoniker": "CartifyDAL\\Entities\\cart\\CartItem.cs",
-              "ToolTip": "D:\\ITI .net\\ProjecGraduationtITI\\Cartify\\Cartify\\CartifyDAL\\Entities\\cart\\CartItem.cs",
+              "ToolTip": "F:\\FInal-Project-ITI\\Cartify\\Cartify\\CartifyDAL\\Entities\\cart\\CartItem.cs",
               "RelativeToolTip": "CartifyDAL\\Entities\\cart\\CartItem.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAB8AAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
@@ -231,11 +282,11 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 12,
+              "DocumentIndex": 15,
               "Title": "Cart.cs",
-              "DocumentMoniker": "D:\\ITI .net\\ProjecGraduationtITI\\Cartify\\Cartify\\CartifyDAL\\Entities\\cart\\Cart.cs",
+              "DocumentMoniker": "F:\\FInal-Project-ITI\\Cartify\\Cartify\\CartifyDAL\\Entities\\cart\\Cart.cs",
               "RelativeDocumentMoniker": "CartifyDAL\\Entities\\cart\\Cart.cs",
-              "ToolTip": "D:\\ITI .net\\ProjecGraduationtITI\\Cartify\\Cartify\\CartifyDAL\\Entities\\cart\\Cart.cs",
+              "ToolTip": "F:\\FInal-Project-ITI\\Cartify\\Cartify\\CartifyDAL\\Entities\\cart\\Cart.cs",
               "RelativeToolTip": "CartifyDAL\\Entities\\cart\\Cart.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAUAAAAUAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
@@ -243,11 +294,11 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 13,
+              "DocumentIndex": 16,
               "Title": "CartifyDbContext.cs",
-              "DocumentMoniker": "D:\\ITI .net\\ProjecGraduationtITI\\Cartify\\Cartify\\CartifyDAL\\Database\\CartifyDbContext.cs",
+              "DocumentMoniker": "F:\\FInal-Project-ITI\\Cartify\\Cartify\\CartifyDAL\\Database\\CartifyDbContext.cs",
               "RelativeDocumentMoniker": "CartifyDAL\\Database\\CartifyDbContext.cs",
-              "ToolTip": "D:\\ITI .net\\ProjecGraduationtITI\\Cartify\\Cartify\\CartifyDAL\\Database\\CartifyDbContext.cs",
+              "ToolTip": "F:\\FInal-Project-ITI\\Cartify\\Cartify\\CartifyDAL\\Database\\CartifyDbContext.cs",
               "RelativeToolTip": "CartifyDAL\\Database\\CartifyDbContext.cs",
               "ViewState": "AgIAABkAAAAAAAAAAIBGwB8AAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
