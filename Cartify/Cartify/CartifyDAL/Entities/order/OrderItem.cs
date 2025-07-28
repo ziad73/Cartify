@@ -38,5 +38,22 @@ namespace CartifyDAL.Entities.order
         public bool IsDeleted { get; private set; }
         public DateTime? DeletedOn { get; private set; }
         public string? DeletedBy { get; private set; }
+    
+    public void Update(int quantity, decimal price, decimal discount, string modifiedBy)
+        {
+
+            Quantity = quantity;
+            Price = price;
+            Discount = discount;
+            ModifiedBy = modifiedBy;
+            ModifiedOn = DateTime.Now;
+        }
+
+        public void Delete(string deletedBy)
+        {
+            IsDeleted = true;
+            DeletedBy = deletedBy;
+            DeletedOn = DateTime.Now;
+        }
     }
 }
