@@ -50,5 +50,24 @@ namespace CartifyDAL.Entities.order
         public bool IsDeleted { get; private set; }
         public DateTime? DeletedOn { get; private set; }
         public string? DeletedBy { get; private set; }
+
+        public void Update(string orderStatus, string shippingMethod, string trackingNumber, decimal shippingCost, decimal tax, string modifiedBy)
+        {
+
+
+            OrderStatus = orderStatus;
+            ShippingMethod = shippingMethod;
+            TrackingNumber = trackingNumber;
+            ShippingCost = shippingCost;
+            Tax = tax;
+            ModifiedBy = modifiedBy;
+            ModifiedOn = DateTime.Now;
+        }
+        public void Delete(string deletedBy)
+        {
+            IsDeleted = true;
+            DeletedBy = deletedBy;
+            DeletedOn = DateTime.Now;
+        }
     }
 }
