@@ -36,5 +36,22 @@ namespace CartifyDAL.Entities.category
         public bool IsDeleted { get; private set; }
         public DateTime? DeletedOn { get; private set; }
         public string? DeletedBy { get; private set; }
+
+        public void Delete(string deletedBy)
+        {
+            this.IsDeleted = true;
+            this.DeletedOn = DateTime.Now;
+            this.DeletedBy = deletedBy;
+        }
+        
+        public void Update(string name, string? description, int? parentCategoryId, string modifiedBy)
+        {
+        
+            this.Name = name;
+            this.Description = description;
+            this.ParentCategoryId = parentCategoryId;
+            this.ModifiedBy = modifiedBy;
+            this.ModifiedOn = DateTime.Now;
+        }
     }
 }

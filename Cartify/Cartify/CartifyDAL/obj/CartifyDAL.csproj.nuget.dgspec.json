@@ -1,41 +1,23 @@
 {
   "format": 1,
   "restore": {
-<<<<<<< HEAD
-    "F:\\FInal-Project-ITI\\Cartify\\Cartify\\CartifyBLL\\CartifyBLL.csproj": {}
+    "F:\\FInal-Project-ITI\\Cartify\\Cartify\\CartifyDAL\\CartifyDAL.csproj": {}
   },
   "projects": {
-    "F:\\FInal-Project-ITI\\Cartify\\Cartify\\CartifyBLL\\CartifyBLL.csproj": {
+    "F:\\FInal-Project-ITI\\Cartify\\Cartify\\CartifyDAL\\CartifyDAL.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "F:\\FInal-Project-ITI\\Cartify\\Cartify\\CartifyBLL\\CartifyBLL.csproj",
-        "projectName": "CartifyBLL",
-        "projectPath": "F:\\FInal-Project-ITI\\Cartify\\Cartify\\CartifyBLL\\CartifyBLL.csproj",
+        "projectUniqueName": "F:\\FInal-Project-ITI\\Cartify\\Cartify\\CartifyDAL\\CartifyDAL.csproj",
+        "projectName": "CartifyDAL",
+        "projectPath": "F:\\FInal-Project-ITI\\Cartify\\Cartify\\CartifyDAL\\CartifyDAL.csproj",
         "packagesPath": "C:\\Users\\Omar Ashraf\\.nuget\\packages\\",
-        "outputPath": "F:\\FInal-Project-ITI\\Cartify\\Cartify\\CartifyBLL\\obj\\",
-=======
-    "C:\\Users\\salma\\Source\\Repos\\Cartify\\Cartify\\Cartify\\CartifyBLL\\CartifyBLL.csproj": {}
-  },
-  "projects": {
-    "C:\\Users\\salma\\Source\\Repos\\Cartify\\Cartify\\Cartify\\CartifyBLL\\CartifyBLL.csproj": {
-      "version": "1.0.0",
-      "restore": {
-        "projectUniqueName": "C:\\Users\\salma\\Source\\Repos\\Cartify\\Cartify\\Cartify\\CartifyBLL\\CartifyBLL.csproj",
-        "projectName": "CartifyBLL",
-        "projectPath": "C:\\Users\\salma\\Source\\Repos\\Cartify\\Cartify\\Cartify\\CartifyBLL\\CartifyBLL.csproj",
-        "packagesPath": "C:\\Users\\salma\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\salma\\Source\\Repos\\Cartify\\Cartify\\Cartify\\CartifyBLL\\obj\\",
->>>>>>> 4c4de77f0c2d88151b22f3e42eb488b5fab43239
+        "outputPath": "F:\\FInal-Project-ITI\\Cartify\\Cartify\\CartifyDAL\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
         ],
         "configFilePaths": [
-<<<<<<< HEAD
           "C:\\Users\\Omar Ashraf\\AppData\\Roaming\\NuGet\\NuGet.Config",
-=======
-          "C:\\Users\\salma\\AppData\\Roaming\\NuGet\\NuGet.Config",
->>>>>>> 4c4de77f0c2d88151b22f3e42eb488b5fab43239
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
@@ -44,6 +26,7 @@
         ],
         "sources": {
           "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+          "C:\\Program Files\\dotnet\\library-packs": {},
           "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {
@@ -67,6 +50,26 @@
       "frameworks": {
         "net8.0": {
           "targetAlias": "net8.0",
+          "dependencies": {
+            "Microsoft.EntityFrameworkCore": {
+              "target": "Package",
+              "version": "[9.0.7, )"
+            },
+            "Microsoft.EntityFrameworkCore.SqlServer": {
+              "target": "Package",
+              "version": "[9.0.7, )"
+            },
+            "Microsoft.EntityFrameworkCore.Tools": {
+              "include": "Runtime, Build, Native, ContentFiles, Analyzers, BuildTransitive",
+              "suppressParent": "All",
+              "target": "Package",
+              "version": "[9.0.7, )"
+            },
+            "Microsoft.VisualStudio.Web.CodeGeneration.Design": {
+              "target": "Package",
+              "version": "[8.0.7, )"
+            }
+          },
           "imports": [
             "net461",
             "net462",
@@ -83,7 +86,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.301/PortableRuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.302/PortableRuntimeIdentifierGraph.json"
         }
       }
     }

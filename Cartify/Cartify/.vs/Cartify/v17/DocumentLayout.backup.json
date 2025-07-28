@@ -82,7 +82,11 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
+<<<<<<< HEAD
+          "SelectedChildIndex": 5,
+=======
           "SelectedChildIndex": 4,
+>>>>>>> 4c4de77f0c2d88151b22f3e42eb488b5fab43239
           "Children": [
             {
               "$type": "Bookmark",
@@ -102,6 +106,13 @@
             },
             {
               "$type": "Document",
+<<<<<<< HEAD
+              "DocumentIndex": 1,
+              "Title": "PaymentMethod.cs",
+              "DocumentMoniker": "D:\\ITI .net\\ProjecGraduationtITI\\Cartify\\Cartify\\CartifyDAL\\Entities\\user\\payment\\PaymentMethod.cs",
+              "RelativeDocumentMoniker": "CartifyDAL\\Entities\\user\\payment\\PaymentMethod.cs",
+              "ToolTip": "D:\\ITI .net\\ProjecGraduationtITI\\Cartify\\Cartify\\CartifyDAL\\Entities\\user\\payment\\PaymentMethod.cs",
+=======
               "DocumentIndex": 0,
               "Title": "OrderItemRepo.cs",
               "DocumentMoniker": "C:\\Users\\salma\\source\\repos\\Cartify\\Cartify\\Cartify\\CartifyDAL\\Repo\\orderRepo\\Implementation\\OrderItemRepo.cs",
@@ -159,6 +170,7 @@
               "DocumentMoniker": "C:\\Users\\salma\\source\\repos\\Cartify\\Cartify\\Cartify\\CartifyDAL\\Entities\\user\\payment\\PaymentMethod.cs",
               "RelativeDocumentMoniker": "CartifyDAL\\Entities\\user\\payment\\PaymentMethod.cs",
               "ToolTip": "C:\\Users\\salma\\source\\repos\\Cartify\\Cartify\\Cartify\\CartifyDAL\\Entities\\user\\payment\\PaymentMethod.cs",
+>>>>>>> 4c4de77f0c2d88151b22f3e42eb488b5fab43239
               "RelativeToolTip": "CartifyDAL\\Entities\\user\\payment\\PaymentMethod.cs",
               "ViewState": "AgIAABYAAAAAAAAAAAAwwCUAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
@@ -166,11 +178,19 @@
             },
             {
               "$type": "Document",
+<<<<<<< HEAD
+              "DocumentIndex": 0,
+              "Title": "Payment.cs",
+              "DocumentMoniker": "D:\\ITI .net\\ProjecGraduationtITI\\Cartify\\Cartify\\CartifyDAL\\Entities\\user\\payment\\Payment.cs",
+              "RelativeDocumentMoniker": "CartifyDAL\\Entities\\user\\payment\\Payment.cs",
+              "ToolTip": "D:\\ITI .net\\ProjecGraduationtITI\\Cartify\\Cartify\\CartifyDAL\\Entities\\user\\payment\\Payment.cs",
+=======
               "DocumentIndex": 4,
               "Title": "Payment.cs",
               "DocumentMoniker": "C:\\Users\\salma\\source\\repos\\Cartify\\Cartify\\Cartify\\CartifyDAL\\Entities\\user\\payment\\Payment.cs",
               "RelativeDocumentMoniker": "CartifyDAL\\Entities\\user\\payment\\Payment.cs",
               "ToolTip": "C:\\Users\\salma\\source\\repos\\Cartify\\Cartify\\Cartify\\CartifyDAL\\Entities\\user\\payment\\Payment.cs",
+>>>>>>> 4c4de77f0c2d88151b22f3e42eb488b5fab43239
               "RelativeToolTip": "CartifyDAL\\Entities\\user\\payment\\Payment.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAUAAAAIAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
@@ -179,11 +199,19 @@
             },
             {
               "$type": "Document",
+<<<<<<< HEAD
+              "DocumentIndex": 2,
+              "Title": "UserPayment.cs",
+              "DocumentMoniker": "D:\\ITI .net\\ProjecGraduationtITI\\Cartify\\Cartify\\CartifyDAL\\Entities\\user\\UserPayment.cs",
+              "RelativeDocumentMoniker": "CartifyDAL\\Entities\\user\\UserPayment.cs",
+              "ToolTip": "D:\\ITI .net\\ProjecGraduationtITI\\Cartify\\Cartify\\CartifyDAL\\Entities\\user\\UserPayment.cs",
+=======
               "DocumentIndex": 6,
               "Title": "UserPayment.cs",
               "DocumentMoniker": "C:\\Users\\salma\\source\\repos\\Cartify\\Cartify\\Cartify\\CartifyDAL\\Entities\\user\\UserPayment.cs",
               "RelativeDocumentMoniker": "CartifyDAL\\Entities\\user\\UserPayment.cs",
               "ToolTip": "C:\\Users\\salma\\source\\repos\\Cartify\\Cartify\\Cartify\\CartifyDAL\\Entities\\user\\UserPayment.cs",
+>>>>>>> 4c4de77f0c2d88151b22f3e42eb488b5fab43239
               "RelativeToolTip": "CartifyDAL\\Entities\\user\\UserPayment.cs",
               "ViewState": "AgIAABwAAAAAAAAAAAAwwCsAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
@@ -191,11 +219,19 @@
             },
             {
               "$type": "Document",
+<<<<<<< HEAD
+              "DocumentIndex": 3,
+              "Title": "UserAddress.cs",
+              "DocumentMoniker": "D:\\ITI .net\\ProjecGraduationtITI\\Cartify\\Cartify\\CartifyDAL\\Entities\\user\\UserAddress.cs",
+              "RelativeDocumentMoniker": "CartifyDAL\\Entities\\user\\UserAddress.cs",
+              "ToolTip": "D:\\ITI .net\\ProjecGraduationtITI\\Cartify\\Cartify\\CartifyDAL\\Entities\\user\\UserAddress.cs",
+=======
               "DocumentIndex": 7,
               "Title": "UserAddress.cs",
               "DocumentMoniker": "C:\\Users\\salma\\source\\repos\\Cartify\\Cartify\\Cartify\\CartifyDAL\\Entities\\user\\UserAddress.cs",
               "RelativeDocumentMoniker": "CartifyDAL\\Entities\\user\\UserAddress.cs",
               "ToolTip": "C:\\Users\\salma\\source\\repos\\Cartify\\Cartify\\Cartify\\CartifyDAL\\Entities\\user\\UserAddress.cs",
+>>>>>>> 4c4de77f0c2d88151b22f3e42eb488b5fab43239
               "RelativeToolTip": "CartifyDAL\\Entities\\user\\UserAddress.cs",
               "ViewState": "AgIAABoAAAAAAAAAAAA/wCkAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
@@ -203,11 +239,19 @@
             },
             {
               "$type": "Document",
+<<<<<<< HEAD
+              "DocumentIndex": 5,
+              "Title": "ProductCart.cs",
+              "DocumentMoniker": "D:\\ITI .net\\ProjecGraduationtITI\\Cartify\\Cartify\\CartifyDAL\\Entities\\productCart\\ProductCart.cs",
+              "RelativeDocumentMoniker": "CartifyDAL\\Entities\\productCart\\ProductCart.cs",
+              "ToolTip": "D:\\ITI .net\\ProjecGraduationtITI\\Cartify\\Cartify\\CartifyDAL\\Entities\\productCart\\ProductCart.cs",
+=======
               "DocumentIndex": 9,
               "Title": "ProductCart.cs",
               "DocumentMoniker": "C:\\Users\\salma\\source\\repos\\Cartify\\Cartify\\Cartify\\CartifyDAL\\Entities\\productCart\\ProductCart.cs",
               "RelativeDocumentMoniker": "CartifyDAL\\Entities\\productCart\\ProductCart.cs",
               "ToolTip": "C:\\Users\\salma\\source\\repos\\Cartify\\Cartify\\Cartify\\CartifyDAL\\Entities\\productCart\\ProductCart.cs",
+>>>>>>> 4c4de77f0c2d88151b22f3e42eb488b5fab43239
               "RelativeToolTip": "CartifyDAL\\Entities\\productCart\\ProductCart.cs",
               "ViewState": "AgIAABUAAAAAAAAAAAAwwCQAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
@@ -215,11 +259,19 @@
             },
             {
               "$type": "Document",
+<<<<<<< HEAD
+              "DocumentIndex": 6,
+              "Title": "ProductReview.cs",
+              "DocumentMoniker": "D:\\ITI .net\\ProjecGraduationtITI\\Cartify\\Cartify\\CartifyDAL\\Entities\\product\\ProductReview.cs",
+              "RelativeDocumentMoniker": "CartifyDAL\\Entities\\product\\ProductReview.cs",
+              "ToolTip": "D:\\ITI .net\\ProjecGraduationtITI\\Cartify\\Cartify\\CartifyDAL\\Entities\\product\\ProductReview.cs",
+=======
               "DocumentIndex": 10,
               "Title": "ProductReview.cs",
               "DocumentMoniker": "C:\\Users\\salma\\source\\repos\\Cartify\\Cartify\\Cartify\\CartifyDAL\\Entities\\product\\ProductReview.cs",
               "RelativeDocumentMoniker": "CartifyDAL\\Entities\\product\\ProductReview.cs",
               "ToolTip": "C:\\Users\\salma\\source\\repos\\Cartify\\Cartify\\Cartify\\CartifyDAL\\Entities\\product\\ProductReview.cs",
+>>>>>>> 4c4de77f0c2d88151b22f3e42eb488b5fab43239
               "RelativeToolTip": "CartifyDAL\\Entities\\product\\ProductReview.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAB0AAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
@@ -227,11 +279,19 @@
             },
             {
               "$type": "Document",
+<<<<<<< HEAD
+              "DocumentIndex": 7,
+              "Title": "Product.cs",
+              "DocumentMoniker": "D:\\ITI .net\\ProjecGraduationtITI\\Cartify\\Cartify\\CartifyDAL\\Entities\\product\\Product.cs",
+              "RelativeDocumentMoniker": "CartifyDAL\\Entities\\product\\Product.cs",
+              "ToolTip": "D:\\ITI .net\\ProjecGraduationtITI\\Cartify\\Cartify\\CartifyDAL\\Entities\\product\\Product.cs",
+=======
               "DocumentIndex": 11,
               "Title": "Product.cs",
               "DocumentMoniker": "C:\\Users\\salma\\source\\repos\\Cartify\\Cartify\\Cartify\\CartifyDAL\\Entities\\product\\Product.cs",
               "RelativeDocumentMoniker": "CartifyDAL\\Entities\\product\\Product.cs",
               "ToolTip": "C:\\Users\\salma\\source\\repos\\Cartify\\Cartify\\Cartify\\CartifyDAL\\Entities\\product\\Product.cs",
+>>>>>>> 4c4de77f0c2d88151b22f3e42eb488b5fab43239
               "RelativeToolTip": "CartifyDAL\\Entities\\product\\Product.cs",
               "ViewState": "AgIAACsAAAAAAAAAAAA/wDoAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
@@ -239,11 +299,19 @@
             },
             {
               "$type": "Document",
+<<<<<<< HEAD
+              "DocumentIndex": 4,
+              "Title": "User.cs",
+              "DocumentMoniker": "D:\\ITI .net\\ProjecGraduationtITI\\Cartify\\Cartify\\CartifyDAL\\Entities\\user\\User.cs",
+              "RelativeDocumentMoniker": "CartifyDAL\\Entities\\user\\User.cs",
+              "ToolTip": "D:\\ITI .net\\ProjecGraduationtITI\\Cartify\\Cartify\\CartifyDAL\\Entities\\user\\User.cs",
+=======
               "DocumentIndex": 8,
               "Title": "User.cs",
               "DocumentMoniker": "C:\\Users\\salma\\source\\repos\\Cartify\\Cartify\\Cartify\\CartifyDAL\\Entities\\user\\User.cs",
               "RelativeDocumentMoniker": "CartifyDAL\\Entities\\user\\User.cs",
               "ToolTip": "C:\\Users\\salma\\source\\repos\\Cartify\\Cartify\\Cartify\\CartifyDAL\\Entities\\user\\User.cs",
+>>>>>>> 4c4de77f0c2d88151b22f3e42eb488b5fab43239
               "RelativeToolTip": "CartifyDAL\\Entities\\user\\User.cs",
               "ViewState": "AgIAACoAAAAAAAAAAAA/wDkAAAABAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
@@ -251,11 +319,19 @@
             },
             {
               "$type": "Document",
+<<<<<<< HEAD
+              "DocumentIndex": 8,
+              "Title": "OrderItem.cs",
+              "DocumentMoniker": "D:\\ITI .net\\ProjecGraduationtITI\\Cartify\\Cartify\\CartifyDAL\\Entities\\order\\OrderItem.cs",
+              "RelativeDocumentMoniker": "CartifyDAL\\Entities\\order\\OrderItem.cs",
+              "ToolTip": "D:\\ITI .net\\ProjecGraduationtITI\\Cartify\\Cartify\\CartifyDAL\\Entities\\order\\OrderItem.cs",
+=======
               "DocumentIndex": 12,
               "Title": "OrderItem.cs",
               "DocumentMoniker": "C:\\Users\\salma\\source\\repos\\Cartify\\Cartify\\Cartify\\CartifyDAL\\Entities\\order\\OrderItem.cs",
               "RelativeDocumentMoniker": "CartifyDAL\\Entities\\order\\OrderItem.cs",
               "ToolTip": "C:\\Users\\salma\\source\\repos\\Cartify\\Cartify\\Cartify\\CartifyDAL\\Entities\\order\\OrderItem.cs",
+>>>>>>> 4c4de77f0c2d88151b22f3e42eb488b5fab43239
               "RelativeToolTip": "CartifyDAL\\Entities\\order\\OrderItem.cs",
               "ViewState": "AgIAABsAAAAAAAAAAAA/wCoAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
@@ -263,6 +339,57 @@
             },
             {
               "$type": "Document",
+<<<<<<< HEAD
+              "DocumentIndex": 9,
+              "Title": "Order.cs",
+              "DocumentMoniker": "D:\\ITI .net\\ProjecGraduationtITI\\Cartify\\Cartify\\CartifyDAL\\Entities\\order\\Order.cs",
+              "RelativeDocumentMoniker": "CartifyDAL\\Entities\\order\\Order.cs",
+              "ToolTip": "D:\\ITI .net\\ProjecGraduationtITI\\Cartify\\Cartify\\CartifyDAL\\Entities\\order\\Order.cs",
+              "RelativeToolTip": "CartifyDAL\\Entities\\order\\Order.cs",
+              "ViewState": "AgIAACcAAAAAAAAAAAA/wDYAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-07-27T22:56:26.443Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 10,
+              "Title": "Category.cs",
+              "DocumentMoniker": "D:\\ITI .net\\ProjecGraduationtITI\\Cartify\\Cartify\\CartifyDAL\\Entities\\category\\Category.cs",
+              "RelativeDocumentMoniker": "CartifyDAL\\Entities\\category\\Category.cs",
+              "ToolTip": "D:\\ITI .net\\ProjecGraduationtITI\\Cartify\\Cartify\\CartifyDAL\\Entities\\category\\Category.cs",
+              "RelativeToolTip": "CartifyDAL\\Entities\\category\\Category.cs",
+              "ViewState": "AgIAABkAAAAAAAAAAAAwwCgAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-07-27T22:56:03.218Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 11,
+              "Title": "CartItem.cs",
+              "DocumentMoniker": "D:\\ITI .net\\ProjecGraduationtITI\\Cartify\\Cartify\\CartifyDAL\\Entities\\cart\\CartItem.cs",
+              "RelativeDocumentMoniker": "CartifyDAL\\Entities\\cart\\CartItem.cs",
+              "ToolTip": "D:\\ITI .net\\ProjecGraduationtITI\\Cartify\\Cartify\\CartifyDAL\\Entities\\cart\\CartItem.cs",
+              "RelativeToolTip": "CartifyDAL\\Entities\\cart\\CartItem.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAB8AAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-07-27T22:55:32.977Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 12,
+              "Title": "Cart.cs",
+              "DocumentMoniker": "D:\\ITI .net\\ProjecGraduationtITI\\Cartify\\Cartify\\CartifyDAL\\Entities\\cart\\Cart.cs",
+              "RelativeDocumentMoniker": "CartifyDAL\\Entities\\cart\\Cart.cs",
+              "ToolTip": "D:\\ITI .net\\ProjecGraduationtITI\\Cartify\\Cartify\\CartifyDAL\\Entities\\cart\\Cart.cs",
+              "RelativeToolTip": "CartifyDAL\\Entities\\cart\\Cart.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAUAAAAUAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-07-27T22:54:31.324Z"
+            },
+            {
+              "$type": "Document",
+=======
+>>>>>>> 4c4de77f0c2d88151b22f3e42eb488b5fab43239
               "DocumentIndex": 13,
               "Title": "Order.cs",
               "DocumentMoniker": "C:\\Users\\salma\\source\\repos\\Cartify\\Cartify\\Cartify\\CartifyDAL\\Entities\\order\\Order.cs",
