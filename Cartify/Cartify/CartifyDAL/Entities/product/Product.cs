@@ -54,5 +54,26 @@ namespace CartifyDAL.Entities.product
 
         //M-TO-M Relationship
         public List<ProductCart>? productCarts { get; set; }
+
+
+        public void Delete(string deletedBy)
+        {
+            this.IsDeleted = true;
+            this.DeletedOn = DateTime.Now;
+            this.DeletedBy = deletedBy;
+        }
+
+        public void Update(int stockQuantity,decimal price,string description,bool isActive, int categoryId,string modifiedBy)
+        {
+           
+
+            this.StockQuantity = stockQuantity;
+            this.Price = price;
+            this.Description = description;
+            this.IsActive = isActive;
+            this.CategoryId = categoryId;
+            this.ModifiedBy = modifiedBy;
+            this.ModifiedOn = DateTime.Now;
+        }
     }
 }

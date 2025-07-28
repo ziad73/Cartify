@@ -8,39 +8,23 @@
     "net8.0": []
   },
   "packageFolders": {
-<<<<<<< HEAD
     "C:\\Users\\Omar Ashraf\\.nuget\\packages\\": {},
-=======
-    "C:\\Users\\salma\\.nuget\\packages\\": {},
->>>>>>> 4c4de77f0c2d88151b22f3e42eb488b5fab43239
     "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-<<<<<<< HEAD
-      "projectUniqueName": "F:\\FInal-Project-ITI\\Cartify\\Cartify\\CartifyBLL\\CartifyBLL.csproj",
-      "projectName": "CartifyBLL",
-      "projectPath": "F:\\FInal-Project-ITI\\Cartify\\Cartify\\CartifyBLL\\CartifyBLL.csproj",
+      "projectUniqueName": "F:\\FInal-Project-ITI\\Cartify\\Cartify\\CartifyPLL\\CartifyPLL.csproj",
+      "projectName": "CartifyPLL",
+      "projectPath": "F:\\FInal-Project-ITI\\Cartify\\Cartify\\CartifyPLL\\CartifyPLL.csproj",
       "packagesPath": "C:\\Users\\Omar Ashraf\\.nuget\\packages\\",
-      "outputPath": "F:\\FInal-Project-ITI\\Cartify\\Cartify\\CartifyBLL\\obj\\",
-=======
-      "projectUniqueName": "C:\\Users\\salma\\Source\\Repos\\Cartify\\Cartify\\Cartify\\CartifyBLL\\CartifyBLL.csproj",
-      "projectName": "CartifyBLL",
-      "projectPath": "C:\\Users\\salma\\Source\\Repos\\Cartify\\Cartify\\Cartify\\CartifyBLL\\CartifyBLL.csproj",
-      "packagesPath": "C:\\Users\\salma\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\salma\\Source\\Repos\\Cartify\\Cartify\\Cartify\\CartifyBLL\\obj\\",
->>>>>>> 4c4de77f0c2d88151b22f3e42eb488b5fab43239
+      "outputPath": "F:\\FInal-Project-ITI\\Cartify\\Cartify\\CartifyPLL\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
       ],
       "configFilePaths": [
-<<<<<<< HEAD
         "C:\\Users\\Omar Ashraf\\AppData\\Roaming\\NuGet\\NuGet.Config",
-=======
-        "C:\\Users\\salma\\AppData\\Roaming\\NuGet\\NuGet.Config",
->>>>>>> 4c4de77f0c2d88151b22f3e42eb488b5fab43239
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
@@ -49,6 +33,7 @@
       ],
       "sources": {
         "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+        "C:\\Program Files\\dotnet\\library-packs": {},
         "https://api.nuget.org/v3/index.json": {}
       },
       "frameworks": {
@@ -84,11 +69,14 @@
         "assetTargetFallback": true,
         "warn": true,
         "frameworkReferences": {
+          "Microsoft.AspNetCore.App": {
+            "privateAssets": "none"
+          },
           "Microsoft.NETCore.App": {
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.301/PortableRuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.302/PortableRuntimeIdentifierGraph.json"
       }
     }
   }
