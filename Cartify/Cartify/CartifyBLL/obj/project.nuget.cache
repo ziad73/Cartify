@@ -1,8 +1,14 @@
 {
   "version": 2,
+<<<<<<< HEAD
   "dgSpecHash": "7lwkvIOiTYU=",
   "success": true,
   "projectFilePath": "F:\\FInal-Project-ITI\\Cartify\\Cartify\\CartifyBLL\\CartifyBLL.csproj",
+=======
+  "dgSpecHash": "a4/vP1NlJ0c=",
+  "success": true,
+  "projectFilePath": "C:\\Users\\salma\\Source\\Repos\\Cartify\\Cartify\\Cartify\\CartifyBLL\\CartifyBLL.csproj",
+>>>>>>> 4c4de77f0c2d88151b22f3e42eb488b5fab43239
   "expectedPackageFiles": [],
   "logs": []
 }
