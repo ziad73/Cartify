@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("CartifyBLL")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+d9d20964a510b3ecc5a5a74beeb2098ef2a7aece")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+e22f822615a04fff77672cf757be473528f69df5")]
 [assembly: System.Reflection.AssemblyProductAttribute("CartifyBLL")]
 [assembly: System.Reflection.AssemblyTitleAttribute("CartifyBLL")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
