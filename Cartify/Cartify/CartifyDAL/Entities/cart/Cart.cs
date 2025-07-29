@@ -4,7 +4,7 @@ using System.ComponentModel.DataAnnotations;
 namespace CartifyDAL.Entities.cart
 {
     public class Cart
-    {
+    { // commit
         public Cart(string createdBy)
         {
             CreatedBy = createdBy;
