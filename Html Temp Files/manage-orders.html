@@ -1,0 +1,468 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Manage Orders - Admin Dashboard</title>
+    <link rel="stylesheet" href="css/bootstrap.min.css">
+    <link rel="stylesheet" href="css/font-awesome.min.css">
+    <link rel="stylesheet" href="css/style.css">
+    <style>
+        .admin-header {
+            background: #2C3E50;
+            color: white;
+            padding: 20px 0;
+            margin-bottom: 30px;
+        }
+
+        .admin-nav {
+            background: #34495E;
+            padding: 15px 0;
+            margin-bottom: 30px;
+        }
+
+        .admin-nav .nav-link {
+            color: white;
+            margin-right: 20px;
+            padding: 10px 15px;
+            border-radius: 5px;
+            transition: background-color 0.3s;
+        }
+
+        .admin-nav .nav-link:hover,
+        .admin-nav .nav-link.active {
+            background: #D10024;
+            color: white;
+            text-decoration: none;
+        }
+
+        .page-header {
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            margin-bottom: 30px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .filters-section {
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            margin-bottom: 30px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .orders-table {
+            background: white;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .table th {
+            background: #f8f9fa;
+            border: none;
+            padding: 15px;
+            font-weight: 600;
+            color: #2C3E50;
+        }
+
+        .table td {
+            padding: 15px;
+            vertical-align: middle;
+            border-top: 1px solid #eee;
+        }
+
+        .status-badge {
+            padding: 5px 12px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: bold;
+        }
+
+        .status-pending {
+            background: #FFF3CD;
+            color: #856404;
+        }
+
+        .status-processing {
+            background: #D1ECF1;
+            color: #0C5460;
+        }
+
+        .status-shipped {
+            background: #D4EDDA;
+            color: #155724;
+        }
+
+        .status-delivered {
+            background: #D1E7DD;
+            color: #0F5132;
+        }
+
+        .status-cancelled {
+            background: #F8D7DA;
+            color: #721C24;
+        }
+
+        .action-buttons {
+            display: flex;
+            gap: 5px;
+        }
+
+        .btn-sm {
+            padding: 5px 10px;
+            font-size: 12px;
+        }
+    </style>
+</head>
+
+<body>
+    <!-- ADMIN HEADER -->
+    <div class="admin-header">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-6">
+                    <h1><i class="fa fa-shopping-cart"></i> Manage Orders</h1>
+                </div>
+                <div class="col-md-6 text-right">
+                    <a href="admin-dashboard.html" class="btn btn-outline-light">
+                        <i class="fa fa-arrow-left"></i> Back to Dashboard
+                    </a>
+                    <a href="login.html" class="btn btn-outline-light ml-2">
+                        <i class="fa fa-sign-out"></i> Logout
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ADMIN NAVIGATION -->
+    <div class="admin-nav">
+        <div class="container">
+            <nav class="nav">
+                <a class="nav-link" href="admin-dashboard.html">
+                    <i class="fa fa-dashboard"></i> Dashboard
+                </a>
+                <a class="nav-link" href="manage-products.html">
+                    <i class="fa fa-cube"></i> Products
+                </a>
+                <a class="nav-link active" href="manage-orders.html">
+                    <i class="fa fa-shopping-cart"></i> Orders
+                </a>
+                <a class="nav-link" href="manage-users.html">
+                    <i class="fa fa-users"></i> Users
+                </a>
+                <a class="nav-link" href="manage-categories.html">
+                    <i class="fa fa-tags"></i> Categories
+                </a>
+                <a class="nav-link" href="reports.html">
+                    <i class="fa fa-chart-bar"></i> Reports
+                </a>
+            </nav>
+        </div>
+    </div>
+
+    <!-- MAIN CONTENT -->
+    <div class="section">
+        <div class="container">
+            <!-- Page Header -->
+            <div class="page-header">
+                <div class="row">
+                    <div class="col-md-6">
+                        <h2>Order Management</h2>
+                        <p class="text-muted">Manage and track all customer orders</p>
+                    </div>
+                    <div class="col-md-6 text-right">
+                        <span class="badge badge-primary">Total Orders: 892</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Filters Section -->
+            <div class="filters-section">
+                <div class="row">
+                    <div class="col-md-3">
+                        <div class="form-group">
+                            <label>Order Status</label>
+                            <select class="form-control" id="statusFilter">
+                                <option value="">All Status</option>
+                                <option value="pending">Pending</option>
+                                <option value="processing">Processing</option>
+                                <option value="shipped">Shipped</option>
+                                <option value="delivered">Delivered</option>
+                                <option value="cancelled">Cancelled</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="form-group">
+                            <label>Date Range</label>
+                            <input type="date" class="form-control" id="dateFilter">
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="form-group">
+                            <label>Search Order ID</label>
+                            <input type="text" class="form-control" placeholder="Enter Order ID" id="orderSearch">
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="form-group">
+                            <label>&nbsp;</label>
+                            <button class="btn btn-primary btn-block" onclick="applyFilters()">
+                                <i class="fa fa-search"></i> Search
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Orders Table -->
+            <div class="orders-table">
+                <table class="table table-hover">
+                    <thead>
+                        <tr>
+                            <th>Order ID</th>
+                            <th>Customer</th>
+                            <th>Date</th>
+                            <th>Total</th>
+                            <th>Status</th>
+                            <th>Payment</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody id="ordersTableBody">
+                        <tr>
+                            <td>
+                                <strong>#ORD-2024-001</strong><br>
+                                <small class="text-muted">3 items</small>
+                            </td>
+                            <td>
+                                <strong>John Doe</strong><br>
+                                <small class="text-muted">john@email.com</small>
+                            </td>
+                            <td>Mar 15, 2024</td>
+                            <td>$299.99</td>
+                            <td><span class="status-badge status-pending">Pending</span></td>
+                            <td><span class="badge badge-success">Paid</span></td>
+                            <td>
+                                <div class="action-buttons">
+                                    <button class="btn btn-sm btn-primary" onclick="viewOrder('ORD-2024-001')">
+                                        <i class="fa fa-eye"></i>
+                                    </button>
+                                    <button class="btn btn-sm btn-success"
+                                        onclick="updateStatus('ORD-2024-001', 'processing')">
+                                        <i class="fa fa-check"></i>
+                                    </button>
+                                    <button class="btn btn-sm btn-danger" onclick="cancelOrder('ORD-2024-001')">
+                                        <i class="fa fa-times"></i>
+                                    </button>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <strong>#ORD-2024-002</strong><br>
+                                <small class="text-muted">1 item</small>
+                            </td>
+                            <td>
+                                <strong>Sarah Smith</strong><br>
+                                <small class="text-muted">sarah@email.com</small>
+                            </td>
+                            <td>Mar 14, 2024</td>
+                            <td>$1,299.00</td>
+                            <td><span class="status-badge status-shipped">Shipped</span></td>
+                            <td><span class="badge badge-success">Paid</span></td>
+                            <td>
+                                <div class="action-buttons">
+                                    <button class="btn btn-sm btn-primary" onclick="viewOrder('ORD-2024-002')">
+                                        <i class="fa fa-eye"></i>
+                                    </button>
+                                    <button class="btn btn-sm btn-success"
+                                        onclick="updateStatus('ORD-2024-002', 'delivered')">
+                                        <i class="fa fa-check"></i>
+                                    </button>
+                                    <button class="btn btn-sm btn-info" onclick="trackOrder('ORD-2024-002')">
+                                        <i class="fa fa-truck"></i>
+                                    </button>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <strong>#ORD-2024-003</strong><br>
+                                <small class="text-muted">3 items</small>
+                            </td>
+                            <td>
+                                <strong>Mike Johnson</strong><br>
+                                <small class="text-muted">mike@email.com</small>
+                            </td>
+                            <td>Mar 13, 2024</td>
+                            <td>$456.78</td>
+                            <td><span class="status-badge status-delivered">Delivered</span></td>
+                            <td><span class="badge badge-success">Paid</span></td>
+                            <td>
+                                <div class="action-buttons">
+                                    <button class="btn btn-sm btn-primary" onclick="viewOrder('ORD-2024-003')">
+                                        <i class="fa fa-eye"></i>
+                                    </button>
+                                    <button class="btn btn-sm btn-secondary" onclick="printInvoice('ORD-2024-003')">
+                                        <i class="fa fa-print"></i>
+                                    </button>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <strong>#ORD-2024-004</strong><br>
+                                <small class="text-muted">1 item</small>
+                            </td>
+                            <td>
+                                <strong>Emily Brown</strong><br>
+                                <small class="text-muted">emily@email.com</small>
+                            </td>
+                            <td>Mar 12, 2024</td>
+                            <td>$89.99</td>
+                            <td><span class="status-badge status-processing">Processing</span></td>
+                            <td><span class="badge badge-warning">Pending</span></td>
+                            <td>
+                                <div class="action-buttons">
+                                    <button class="btn btn-sm btn-primary" onclick="viewOrder('ORD-2024-004')">
+                                        <i class="fa fa-eye"></i>
+                                    </button>
+                                    <button class="btn btn-sm btn-success"
+                                        onclick="updateStatus('ORD-2024-004', 'shipped')">
+                                        <i class="fa fa-check"></i>
+                                    </button>
+                                    <button class="btn btn-sm btn-danger" onclick="cancelOrder('ORD-2024-004')">
+                                        <i class="fa fa-times"></i>
+                                    </button>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <strong>#ORD-2024-005</strong><br>
+                                <small class="text-muted">2 items</small>
+                            </td>
+                            <td>
+                                <strong>David Wilson</strong><br>
+                                <small class="text-muted">david@email.com</small>
+                            </td>
+                            <td>Mar 11, 2024</td>
+                            <td>$199.50</td>
+                            <td><span class="status-badge status-cancelled">Cancelled</span></td>
+                            <td><span class="badge badge-danger">Refunded</span></td>
+                            <td>
+                                <div class="action-buttons">
+                                    <button class="btn btn-sm btn-primary" onclick="viewOrder('ORD-2024-005')">
+                                        <i class="fa fa-eye"></i>
+                                    </button>
+                                    <button class="btn btn-sm btn-secondary" onclick="printInvoice('ORD-2024-005')">
+                                        <i class="fa fa-print"></i>
+                                    </button>
+                                </div>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <!-- Pagination -->
+            <div class="text-center mt-4">
+                <nav>
+                    <ul class="pagination">
+                        <li class="page-item disabled">
+                            <a class="page-link" href="#" tabindex="-1">Previous</a>
+                        </li>
+                        <li class="page-item active">
+                            <a class="page-link" href="#">1</a>
+                        </li>
+                        <li class="page-item">
+                            <a class="page-link" href="#">2</a>
+                        </li>
+                        <li class="page-item">
+                            <a class="page-link" href="#">3</a>
+                        </li>
+                        <li class="page-item">
+                            <a class="page-link" href="#">Next</a>
+                        </li>
+                    </ul>
+                </nav>
+            </div>
+        </div>
+    </div>
+
+    <!-- FOOTER -->
+    <footer id="footer">
+        <div class="section">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-12 text-center">
+                        <span class="copyright">
+                            Copyright &copy; 2024 All rights reserved | This template is made with <i
+                                class="fa fa-heart-o" aria-hidden="true"></i> by <a href="https://colorlib.com"
+                                target="_blank">Colorlib</a>
+                        </span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- jQuery Plugins -->
+    <script type="text/javascript" src="js/jquery.min.js"></script>
+    <script type="text/javascript" src="js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="js/main.js"></script>
+
+    <script>
+        function applyFilters() {
+            const status = document.getElementById('statusFilter').value;
+            const date = document.getElementById('dateFilter').value;
+            const search = document.getElementById('orderSearch').value;
+
+            console.log('Applied filters:', { status, date, search });
+            alert('Filters applied!');
+        }
+
+        function viewOrder(orderId) {
+            alert(`Viewing order details for ${orderId}`);
+        }
+
+        function updateStatus(orderId, status) {
+            if (confirm(`Update order ${orderId} status to ${status}?`)) {
+                alert(`Order ${orderId} status updated to ${status}`);
+            }
+        }
+
+        function cancelOrder(orderId) {
+            if (confirm(`Are you sure you want to cancel order ${orderId}?`)) {
+                alert(`Order ${orderId} has been cancelled`);
+            }
+        }
+
+        function trackOrder(orderId) {
+            alert(`Tracking information for order ${orderId}`);
+        }
+
+        function printInvoice(orderId) {
+            alert(`Printing invoice for order ${orderId}`);
+        }
+
+        // Add click handlers for navigation
+        document.addEventListener('DOMContentLoaded', function () {
+            const navLinks = document.querySelectorAll('.admin-nav .nav-link');
+
+            navLinks.forEach(link => {
+                link.addEventListener('click', function () {
+                    navLinks.forEach(l => l.classList.remove('active'));
+                    this.classList.add('active');
+                });
+            });
+        });
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,269 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Product Details - Cartify</title>
+    <link rel="stylesheet" href="css/bootstrap.min.css" />
+    <link rel="stylesheet" href="css/font-awesome.min.css" />
+    <link rel="stylesheet" href="css/nouislider.min.css" />
+    <link rel="stylesheet" href="css/slick.css" />
+    <link rel="stylesheet" href="css/slick-theme.css" />
+    <link rel="stylesheet" href="css/style.css" />
+    <link rel="stylesheet" href="css/pages/product-details.css" />
+  </head>
+  <body>
+    <!-- HEADER -->
+    <div id="navbar-placeholder"></div>
+    <!-- /HEADER -->
+
+    <!-- BREADCRUMB -->
+    <div id="breadcrumb" class="section">
+      <!-- container -->
+      <div class="container">
+        <!-- row -->
+        <div class="row">
+          <div class="col-md-12">
+            <ul class="breadcrumb-tree">
+              <li><a href="index.html">Home</a></li>
+              <li><a href="store.html">Products</a></li>
+              <li><a href="store.html">Laptops</a></li>
+              <li class="active">MacBook Pro 13"</li>
+            </ul>
+          </div>
+        </div>
+        <!-- /row -->
+      </div>
+      <!-- /container -->
+    </div>
+    <!-- /BREADCRUMB -->
+
+    <!-- SECTION -->
+    <div class="section">
+      <!-- container -->
+      <div class="container">
+        <!-- row -->
+        <div class="row">
+          <!-- Product main img -->
+          <div class="col-md-5 col-md-push-2">
+            <div class="product-gallery">
+              <div class="main-image">
+                <img id="main-product-image" src="./img/product01.png" alt="" />
+              </div>
+              <div class="thumbnail-images">
+                <img
+                  class="thumbnail active"
+                  src="./img/product01.png"
+                  alt=""
+                  onclick="changeImage(this, './img/product01.png')" />
+                <img
+                  class="thumbnail"
+                  src="./img/product02.png"
+                  alt=""
+                  onclick="changeImage(this, './img/product02.png')" />
+                <img
+                  class="thumbnail"
+                  src="./img/product03.png"
+                  alt=""
+                  onclick="changeImage(this, './img/product03.png')" />
+                <img
+                  class="thumbnail"
+                  src="./img/product04.png"
+                  alt=""
+                  onclick="changeImage(this, './img/product04.png')" />
+              </div>
+            </div>
+          </div>
+          <!-- /Product main img -->
+
+          <!-- Product details -->
+          <div class="col-md-7 col-md-pull-5">
+            <div class="product-details">
+              <h2 class="product-name">MacBook Pro 13" Retina Display</h2>
+              <div class="product-rating">
+                <i class="fa fa-star"></i>
+                <i class="fa fa-star"></i>
+                <i class="fa fa-star"></i>
+                <i class="fa fa-star"></i>
+                <i class="fa fa-star-o"></i>
+                <span class="review-count">(12 reviews)</span>
+              </div>
+              <div class="product-price">$1,299.00</div>
+              <div class="product-description">
+                <p>
+                  The MacBook Pro features the latest Intel processors, stunning
+                  Retina display, and all-day battery life. Perfect for
+                  professionals and creative users who demand performance and
+                  portability.
+                </p>
+                <ul>
+                  <li>13.3-inch Retina display with True Tone</li>
+                  <li>Intel Core i5 processor</li>
+                  <li>8GB unified memory</li>
+                  <li>256GB SSD storage</li>
+                  <li>Up to 20 hours battery life</li>
+                </ul>
+              </div>
+              <div class="product-options">
+                <div class="quantity-selector">
+                  <label>Quantity:</label>
+                  <div class="input-number">
+                    <input type="number" value="1" min="1" id="quantity" />
+                    <span class="qty-up">+</span>
+                    <span class="qty-down">-</span>
+                  </div>
+                </div>
+                <div class="action-buttons">
+                  <button class="primary-btn add-to-cart" onclick="addToCart()">
+                    <i class="fa fa-shopping-cart"></i> Add to Cart
+                  </button>
+                  <button class="primary-btn buy-now" onclick="buyNow()">
+                    <i class="fa fa-bolt"></i> Buy Now
+                  </button>
+                </div>
+              </div>
+              <div class="product-meta">
+                <span class="availability"
+                  >Availability: <strong>In Stock</strong></span
+                >
+                <span class="sku">SKU: <strong>MBP-13-2023</strong></span>
+                <span class="category"
+                  >Category: <a href="store.html">Laptops</a></span
+                >
+              </div>
+            </div>
+          </div>
+          <!-- /Product details -->
+        </div>
+        <!-- /row -->
+      </div>
+      <!-- /container -->
+    </div>
+    <!-- /SECTION -->
+
+    <!-- SECTION -->
+    <div class="section">
+      <!-- container -->
+      <div class="container">
+        <!-- row -->
+        <div class="row">
+          <div class="col-md-12">
+            <div class="reviews-section">
+              <h3>Customer Reviews</h3>
+
+              <!-- Review Form -->
+              <div class="review-form">
+                <h4>Write a Review</h4>
+                <form id="reviewForm">
+                  <div class="star-rating">
+                    <span class="star" data-rating="1">★</span>
+                    <span class="star" data-rating="2">★</span>
+                    <span class="star" data-rating="3">★</span>
+                    <span class="star" data-rating="4">★</span>
+                    <span class="star" data-rating="5">★</span>
+                  </div>
+                  <div class="form-group">
+                    <textarea
+                      class="input"
+                      placeholder="Your review"
+                      rows="4"
+                      required></textarea>
+                  </div>
+                  <button type="submit" class="primary-btn">
+                    Submit Review
+                  </button>
+                </form>
+              </div>
+
+              <!-- Reviews List -->
+              <div class="reviews-list">
+                <div class="review-item">
+                  <div class="review-header">
+                    <span class="review-author">John Doe</span>
+                    <span class="review-date">March 15, 2024</span>
+                  </div>
+                  <div class="review-rating">
+                    <i class="fa fa-star"></i>
+                    <i class="fa fa-star"></i>
+                    <i class="fa fa-star"></i>
+                    <i class="fa fa-star"></i>
+                    <i class="fa fa-star"></i>
+                  </div>
+                  <div class="review-text">
+                    <p>
+                      Excellent laptop! The performance is outstanding and the
+                      battery life is incredible. The Retina display is
+                      beautiful and the build quality is top-notch. Highly
+                      recommended for professionals.
+                    </p>
+                  </div>
+                </div>
+
+                <div class="review-item">
+                  <div class="review-header">
+                    <span class="review-author">Sarah Smith</span>
+                    <span class="review-date">March 10, 2024</span>
+                  </div>
+                  <div class="review-rating">
+                    <i class="fa fa-star"></i>
+                    <i class="fa fa-star"></i>
+                    <i class="fa fa-star"></i>
+                    <i class="fa fa-star"></i>
+                    <i class="fa fa-star-o"></i>
+                  </div>
+                  <div class="review-text">
+                    <p>
+                      Great laptop overall. The performance is good and it
+                      handles my daily tasks well. The only minor issue is that
+                      it can get a bit warm during intensive tasks, but that's
+                      expected.
+                    </p>
+                  </div>
+                </div>
+
+                <div class="review-item">
+                  <div class="review-header">
+                    <span class="review-author">Mike Johnson</span>
+                    <span class="review-date">March 5, 2024</span>
+                  </div>
+                  <div class="review-rating">
+                    <i class="fa fa-star"></i>
+                    <i class="fa fa-star"></i>
+                    <i class="fa fa-star"></i>
+                    <i class="fa fa-star"></i>
+                    <i class="fa fa-star"></i>
+                  </div>
+                  <div class="review-text">
+                    <p>
+                      Perfect for my development work. Fast, reliable, and the
+                      keyboard is excellent for long coding sessions. The
+                      display is crisp and the speakers sound great too.
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- /row -->
+      </div>
+      <!-- /container -->
+    </div>
+    <!-- /SECTION -->
+
+    <!-- FOOTER -->
+    <div id="footer-placeholder"></div>
+    <!-- /FOOTER -->
+
+    <!-- jQuery Plugins -->
+    <script src="js/jquery.min.js"></script>
+    <script src="js/bootstrap.min.js"></script>
+    <script src="js/slick.min.js"></script>
+    <script src="js/nouislider.min.js"></script>
+    <script src="js/jquery.zoom.min.js"></script>
+    <script src="js/main.js"></script>
+
+    <!-- Component loading script -->
+    <script src="js/pages/product-details.js"></script>
+  </body>
+</html>
