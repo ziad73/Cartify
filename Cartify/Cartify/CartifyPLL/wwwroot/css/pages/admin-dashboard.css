@@ -1,0 +1,146 @@
+.admin-header {
+    background: #2C3E50;
+    color: white;
+    padding: 20px 0;
+    margin-bottom: 30px;
+}
+
+.admin-nav {
+    background: #34495E;
+    padding: 15px 0;
+    margin-bottom: 30px;
+}
+
+.admin-nav .nav-link {
+    color: white;
+    margin-right: 20px;
+    padding: 10px 15px;
+    border-radius: 5px;
+    transition: background-color 0.3s;
+}
+
+.admin-nav .nav-link:hover,
+.admin-nav .nav-link.active {
+    background: #D10024;
+    color: white;
+    text-decoration: none;
+}
+
+.stats-card {
+    background: white;
+    border-radius: 10px;
+    padding: 25px;
+    margin-bottom: 30px;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+    text-align: center;
+    transition: transform 0.3s;
+}
+
+.stats-card:hover {
+    transform: translateY(-5px);
+}
+
+.stats-icon {
+    font-size: 48px;
+    margin-bottom: 15px;
+}
+
+.stats-number {
+    font-size: 36px;
+    font-weight: bold;
+    color: #D10024;
+    margin-bottom: 10px;
+}
+
+.stats-label {
+    color: #666;
+    font-size: 16px;
+}
+
+.recent-orders {
+    background: white;
+    border-radius: 10px;
+    padding: 25px;
+    margin-bottom: 30px;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+}
+
+.recent-orders h3 {
+    color: #2C3E50;
+    margin-bottom: 20px;
+}
+
+.order-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px 0;
+    border-bottom: 1px solid #eee;
+}
+
+.order-item:last-child {
+    border-bottom: none;
+}
+
+.order-info h5 {
+    margin: 0;
+    color: #2C3E50;
+}
+
+.order-info p {
+    margin: 5px 0 0 0;
+    color: #666;
+    font-size: 14px;
+}
+
+.order-status {
+    padding: 5px 15px;
+    border-radius: 20px;
+    font-size: 12px;
+    font-weight: bold;
+}
+
+.status-pending {
+    background: #FFF3CD;
+    color: #856404;
+}
+
+.status-shipped {
+    background: #D1ECF1;
+    color: #0C5460;
+}
+
+.status-delivered {
+    background: #D4EDDA;
+    color: #155724;
+}
+
+.quick-actions {
+    background: white;
+    border-radius: 10px;
+    padding: 25px;
+    margin-bottom: 30px;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+}
+
+.quick-actions h3 {
+    color: #2C3E50;
+    margin-bottom: 20px;
+}
+
+.action-btn {
+    display: inline-block;
+    padding: 12px 20px;
+    margin: 5px;
+    background: #D10024;
+    color: white;
+    text-decoration: none;
+    border-radius: 5px;
+    transition: background-color 0.3s;
+}
+
+.action-btn:hover {
+    background: #B0001F;
+    color: white;
+    text-decoration: none;
+} 

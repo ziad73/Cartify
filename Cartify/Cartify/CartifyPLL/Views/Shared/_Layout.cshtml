@@ -1,49 +1,133 @@
-﻿<!DOCTYPE html>
+﻿@{
+    Layout = null;
+    var isLoggedIn = Context.User.Identity.IsAuthenticated;
+    var userName = Context.User.Identity.Name;
+}
+@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+
+<!DOCTYPE html>
 <html lang="en">
+
 <head>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css" rel="stylesheet">
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>@ViewData["Title"] - CartifyPLL</title>
-    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
-    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
-    <link rel="stylesheet" href="~/CartifyPLL.styles.css" asp-append-version="true" />
+    <title>@ViewBag.Title - My Website</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <!-- Google font -->
+    <link href="https://fonts.googleapis.com/css?family=Montserrat:400,500,700" rel="stylesheet" />
+
+    <!-- Bootstrap -->
+    <link rel="stylesheet" href="~/css/bootstrap.min.css" />
+
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="~/css/font-awesome.min.css" />
+
+    <!-- Custom styles -->
+    <link rel="stylesheet" href="~/css/style.css" />
+    <link rel="stylesheet" href="~/css/pages/navbar.css" />
+
 </head>
 <body>
-    <header>
-        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
-            <div class="container-fluid">
-                <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">CartifyPLL</a>
-                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" aria-controls="navbarSupportedContent"
-                        aria-expanded="false" aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
-                <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
-                    <ul class="navbar-nav flex-grow-1">
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
-                        </li>
-                    </ul>
-                </div>
-            </div>
-        </nav>
-    </header>
-    <div class="container">
-        <main role="main" class="pb-3">
-            @RenderBody()
-        </main>
-    </div>
 
-    <footer class="border-top footer text-muted">
+    <!-- Modern Navbar Start -->
+    <header class="modern-navbar">
         <div class="container">
-            &copy; 2025 - CartifyPLL - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+            <!-- Left: Logo -->
+            <div class="navbar-left">
+                <a asp-controller="Home" asp-action="Index" class="logo">
+                    <img src="~/img/Cartify Logo.png" alt="Logo" />
+                </a>
+            </div>
+
+            <!-- Center: Search + Wishlist + Cart -->
+            <div class="navbar-center">
+                <form class="search-form" action="search.html" method="get">
+                    <select name="category">
+                        <option value="">All Categories</option>
+                        <option value="laptops">Laptops</option>
+                        <option value="smartphones">Smartphones</option>
+                        <option value="cameras">Cameras</option>
+                        <option value="accessories">Accessories</option>
+                    </select>
+                    <input type="text" name="q" placeholder="Search here..." />
+                    <button type="submit">Search</button>
+                </form>
+
+
+                <div class="nav-icons">
+                    <a asp-controller="Wishlist" asp-action="Index" class="wishlist-link">
+                        <i class="fa fa-heart-o"></i> <span>Wishlist</span>
+                    </a>
+                </div>
+                <!--Cart-->
+                <a href="#" class="cart-icon">
+                    <i class="bi bi-cart3"></i> <span>Cart</span>
+                </a>
+            </div>
         </div>
-    </footer>
-    <script src="~/lib/jquery/dist/jquery.min.js"></script>
-    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="~/js/site.js" asp-append-version="true"></script>
-    @await RenderSectionAsync("Scripts", required: false)
+        <!-- Right: Login / Register -->
+        <div class="navbar-right auth-container">
+            <div id="auth-links">
+                @if (isLoggedIn)
+                {
+                    <form asp-controller="Account" asp-action="Profile" class="d-inline">
+                        <button type="submit" class="btn btn-link text-decoration-none ">
+                            <i class="bi bi-person"></i> Profile
+                        </button>
+                    </form>
+
+                    <form asp-controller="Account" asp-action="Logout" method="post" class="d-inline">
+                        @Html.AntiForgeryToken()
+                        <button type="submit" class="btn btn-danger text-white">
+                            <i class="fa fa-sign-out"></i> Logout
+                        </button>
+                    </form>
+                }
+                else
+                {
+                    <a asp-controller="Account" asp-action="Login">
+                        <i class="fa fa-sign-in"></i> Login
+                    </a>
+                    <a asp-controller="Account" asp-action="Register">
+                        <i class="fa fa-user-plus"></i> Register
+                    </a>
+                }
+            </div>
+        </div>
+
+        <!-- Mobile Menu Toggle -->
+        <div class="menu-toggle">
+            <a href="#" onclick="document.querySelector('.main-nav').classList.toggle('active')">
+                <i class="fa fa-bars"></i>
+            </a>
+        </div>
+    </header>
+    <!-- Modern Navbar End -->
+    <!-- Navigation Menu -->
+    <nav class="container">
+        <ul class="main-nav nav navbar-nav">
+            <li class="@(ViewBag.Active == "Home" ? "active" : "")"><a href="~/">Home</a></li>
+            <li><a href="~/Store">Hot Deals</a></li>
+            <li><a href="~/Store?category=categories">Categories</a></li>
+            <li><a href="~/Store?category=laptops">Laptops</a></li>
+            <li><a href="~/Store?category=smartphones">Smartphones</a></li>
+            <li><a href="~/Store?category=cameras">Cameras</a></li>
+            <li><a href="~/Store?category=accessories">Accessories</a></li>
+        </ul>
+    </nav>
+
+    <!-- Render body content -->
+    <main class="container">
+        @RenderBody()
+    </main>
+
+    <!-- Scripts -->
+    <script src="~/js/jquery.min.js"></script>
+    <script src="~/js/bootstrap.min.js"></script>
+    <script src="~/js/main.js"></script>
+    <script src="~/js/pages/navbar.js"></script>
+    @RenderSection("Scripts", required: false)
+
 </body>
 </html>

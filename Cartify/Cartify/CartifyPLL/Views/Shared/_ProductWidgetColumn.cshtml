@@ -1,0 +1,115 @@
+﻿@model dynamic
+@{
+    var navId = Model?.id ?? 3; // default to 3
+}
+
+<div class="col-md-4 col-xs-6">
+    <div class="section-title">
+        <h4 class="title">Top selling</h4>
+        <div class="section-nav">
+            <div id="slick-nav-@navId" class="products-slick-nav"></div>
+        </div>
+    </div>
+
+    <div class="products-widget-slick" data-nav="#slick-nav-@navId">
+        <div>
+            <!-- Product Widget 1 -->
+            <div class="product-widget">
+                <div class="product-img">
+                    <img src="~/img/product07.png" alt="" />
+                </div>
+                <div class="product-body">
+                    <p class="product-category">Category</p>
+                    <h3 class="product-name">
+                        <a href="#">product name goes here</a>
+                    </h3>
+                    <h4 class="product-price">
+                        $980.00 <del class="product-old-price">$990.00</del>
+                    </h4>
+                </div>
+            </div>
+
+            <!-- Product Widget 2 -->
+            <div class="product-widget">
+                <div class="product-img">
+                    <img src="~/img/product08.png" alt="" />
+                </div>
+                <div class="product-body">
+                    <p class="product-category">Category</p>
+                    <h3 class="product-name">
+                        <a href="#">product name goes here</a>
+                    </h3>
+                    <h4 class="product-price">
+                        $980.00 <del class="product-old-price">$990.00</del>
+                    </h4>
+                </div>
+            </div>
+
+            <!-- Product Widget 3 -->
+            <div class="product-widget">
+                <div class="product-img">
+                    <img src="~/img/product09.png" alt="" />
+                </div>
+                <div class="product-body">
+                    <p class="product-category">Category</p>
+                    <h3 class="product-name">
+                        <a href="#">product name goes here</a>
+                    </h3>
+                    <h4 class="product-price">
+                        $980.00 <del class="product-old-price">$990.00</del>
+                    </h4>
+                </div>
+            </div>
+        </div>
+
+        <div>
+            <!-- Product Widget 4 -->
+            <div class="product-widget">
+                <div class="product-img">
+                    <img src="~/img/product01.png" alt="" />
+                </div>
+                <div class="product-body">
+                    <p class="product-category">Category</p>
+                    <h3 class="product-name">
+                        <a href="#">product name goes here</a>
+                    </h3>
+                    <h4 class="product-price">
+                        $980.00 <del class="product-old-price">$990.00</del>
+                    </h4>
+                </div>
+            </div>
+
+            <!-- Product Widget 5 -->
+            <div class="product-widget">
+                <div class="product-img">
+                    <img src="~/img/product02.png" alt="" />
+                </div>
+                <div class="product-body">
+                    <p class="product-category">Category</p>
+                    <h3 class="product-name">
+                        <a href="#">product name goes here</a>
+                    </h3>
+                    <h4 class="product-price">
+                        $980.00 <del class="product-old-price">$990.00</del>
+                    </h4>
+                </div>
+            </div>
+
+            <!-- Product Widget 6 -->
+            <div class="product-widget">
+                <div class="product-img">
+                    <img src="~/img/product03.png" alt="" />
+                </div>
+                <div class="product-body">
+                    <p class="product-category">Category</p>
+                    <h3 class="product-name">
+                        <a href="#">product name goes here</a>
+                    </h3>
+                    <h4 class="product-price">
+                        $980.00 <del class="product-old-price">$990.00</del>
+                    </h4>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

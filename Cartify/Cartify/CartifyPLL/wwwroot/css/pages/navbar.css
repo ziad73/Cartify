@@ -1,0 +1,419 @@
+/* Additional navbar-specific styles */
+body {
+    margin: 0;
+    padding: 0;
+    font-family: "Montserrat", sans-serif;
+}
+
+/* Ensure the navbar is properly positioned */
+#header {
+    position: relative;
+    z-index: 1000;
+}
+
+#navigation {
+    position: relative;
+    z-index: 999;
+}
+
+/* Demo content to show navbar in context */
+.demo-content {
+    padding: 20px;
+    background-color: #f8f9fa;
+    min-height: 400px;
+    text-align: center;
+}
+
+.modern-navbar {
+    background: #fff;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+    padding: 0.8rem 0;
+    font-family: "Montserrat", sans-serif;
+}
+
+    .modern-navbar .container {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        flex-wrap: wrap;
+    }
+
+    .modern-navbar .logo img {
+        height: 50px;
+    }
+
+    .modern-navbar .search-form {
+        flex: 1;
+        max-width: 500px;
+        display: flex;
+        gap: 0.5rem;
+        margin: 0 1rem;
+    }
+
+        .modern-navbar .search-form select,
+        .modern-navbar .search-form input,
+        .modern-navbar .search-form button {
+            border: 1px solid #ddd;
+            padding: 0.5rem;
+            font-size: 14px;
+            border-radius: 6px;
+        }
+
+        .modern-navbar .search-form button {
+            background-color: #1e90ff;
+            color: white;
+            border: none;
+            transition: background 0.3s ease;
+        }
+
+            .modern-navbar .search-form button:hover {
+                background-color: #187bcd;
+            }
+
+    .modern-navbar .actions {
+        display: flex;
+        align-items: center;
+        gap: 1rem;
+    }
+
+        .modern-navbar .actions a {
+            color: #333;
+            text-decoration: none;
+            position: relative;
+        }
+
+            .modern-navbar .actions a .qty {
+                background: #e53935;
+                color: white;
+                font-size: 10px;
+                border-radius: 50%;
+                padding: 2px 5px;
+                position: absolute;
+                top: -6px;
+                right: -10px;
+            }
+
+    .modern-navbar .dropdown .cart-dropdown {
+        display: none;
+        position: absolute;
+        top: 60px;
+        right: 0;
+        background: white;
+        width: 300px;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        padding: 1rem;
+        z-index: 999;
+    }
+
+    .modern-navbar .dropdown:hover .cart-dropdown {
+        display: block;
+    }
+
+    .modern-navbar .cart-list {
+        max-height: 200px;
+        overflow-y: auto;
+    }
+
+    .modern-navbar .menu-toggle {
+        display: none;
+    }
+
+@media (max-width: 768px) {
+    .modern-navbar .search-form {
+        flex-direction: column;
+    }
+
+    .modern-navbar .menu-toggle {
+        display: block;
+    }
+
+    .main-nav {
+        display: none;
+        flex-direction: column;
+        gap: 1rem;
+        margin-top: 1rem;
+    }
+
+        .main-nav.active {
+            display: flex;
+        }
+}
+
+.wishlist {
+    margin-right: 20px; /* adjust as needed */
+}
+
+.nav-icons {
+    display: flex;
+    align-items: center;
+    gap: 20px; /* adds space between children */
+}
+
+.auth-container {
+    position: absolute;
+    top: 10px;
+    right: 20px;
+    z-index: 2000;
+    display: flex;
+    gap: 10px;
+}
+
+    .auth-container a {
+        background-color: #1e90ff;
+        color: white !important;
+        padding: 6px 12px;
+        border-radius: 6px;
+        font-size: 14px;
+        text-decoration: none;
+        display: flex;
+        align-items: center;
+        gap: 5px;
+        transition: background-color 0.3s ease;
+    }
+
+        .auth-container a:hover {
+            background-color: #187bcd;
+        }
+
+.auth-container {
+    display: flex;
+    flex-direction: row; /* ensure side-by-side */
+    gap: 10px;
+    position: absolute;
+    top: 10px;
+    right: 20px;
+    z-index: 2000;
+}
+
+    .auth-container a {
+        background-color: #1e90ff;
+        color: white !important;
+        padding: 6px 12px;
+        border-radius: 6px;
+        font-size: 14px;
+        text-decoration: none;
+        display: flex;
+        align-items: center;
+        gap: 5px;
+        transition: background-color 0.3s ease;
+    }
+
+        .auth-container a:hover {
+            background-color: #187bcd;
+        }
+
+
+/* Make Wishlist and Cart font bigger */
+.actions a span {
+    font-size: 16px; /* increase font */
+    font-weight: 600;
+}
+
+/* Add space between Wishlist and Cart */
+.actions {
+    gap: 2rem; /* or use margin-right below for finer control */
+}
+
+/* Move them slightly toward search bar */
+.actions {
+    margin-left: 20px; /* pull them toward the center */
+}
+
+    /* Ensure both Wishlist and Cart align visually */
+    .actions .wishlist-link,
+    .actions .cart-icon {
+        display: flex;
+        align-items: center;
+    }
+
+
+/*                                             */
+
+
+/* Set up the three-part layout */
+.navbar-grid {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    padding: 10px 20px;
+}
+
+/* Logo */
+.navbar-left .logo img {
+    height: 50px;
+}
+
+/* Center: Search + Wishlist + Cart */
+.navbar-center {
+    display: flex;
+    align-items: center;
+    gap: 2rem;
+    flex: 1;
+    justify-content: center;
+}
+
+/* Search bar sizing */
+.search-form {
+    display: flex;
+    gap: 8px;
+    width: 400px;
+}
+
+    .search-form select,
+    .search-form input,
+    .search-form button {
+        padding: 6px 10px;
+        font-size: 14px;
+        border-radius: 6px;
+        border: 1px solid #ccc;
+    }
+
+    .search-form button {
+        background: #1e90ff;
+        color: white;
+        border: none;
+    }
+
+/* Wishlist + Cart styles */
+.nav-icons {
+    display: flex;
+    gap: 20px;
+    font-size: 16px;
+    font-weight: 500;
+}
+
+    .nav-icons a {
+        display: flex;
+        align-items: center;
+        gap: 5px;
+        text-decoration: none;
+        color: #333;
+    }
+
+/* Right: Auth buttons */
+.navbar-right {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.auth-container {
+    display: flex;
+    flex-direction: row; /* horizontal layout */
+    gap: 10px;
+    position: absolute;
+    top: 10px;
+    right: 20px;
+    z-index: 2000;
+    white-space: nowrap; /* <-- Prevent wrapping */
+}
+
+    .auth-container a {
+        background-color: #1e90ff;
+        color: white !important;
+        padding: 6px 12px;
+        border-radius: 6px;
+        font-size: 14px;
+        text-decoration: none;
+        display: inline-flex; /* <-- Prevent block stacking */
+        align-items: center;
+        gap: 5px;
+        transition: background-color 0.3s ease;
+    }
+
+        .auth-container a:hover {
+            background-color: #187bcd;
+        }
+
+
+
+@media (max-width: 480px) {
+    .auth-container {
+        flex-direction: column;
+        align-items: flex-end;
+    }
+}
+
+
+
+
+
+/* This forces Login and Register to align horizontally */
+.auth-container {
+    position: absolute;
+    top: 10px;
+    right: 20px;
+    z-index: 2000;
+}
+
+/* This is the key fix */
+#auth-links {
+    display: flex;
+    flex-direction: row;
+    gap: 10px;
+    align-items: center;
+    white-space: nowrap;
+}
+
+    #auth-links a {
+        background-color: #1e90ff;
+        color: white !important;
+        padding: 6px 12px;
+        border-radius: 6px;
+        font-size: 14px;
+        text-decoration: none;
+        display: inline-flex;
+        align-items: center;
+        gap: 5px;
+        transition: background-color 0.3s ease;
+    }
+
+        #auth-links a:hover {
+            background-color: #187bcd;
+        }
+
+
+
+.cart-icon {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    font-size: 16px; /* Match Wishlist font size */
+    color: #000 !important; /* Make it black */
+    text-decoration: none;
+}
+
+    .cart-icon span {
+        font-weight: 500;
+        font-size: 16px;
+        color: #000 !important;
+    }
+
+
+/* Common style for both wishlist and cart */
+.wishlist-link a,
+.cart-icon {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    font-size: 16px;
+    font-weight: 500;
+    color: #000 !important;
+    text-decoration: none;
+}
+
+    /* Optional: ensure span inside matches too */
+    .wishlist-link a span,
+    .cart-icon span {
+        color: #000 !important;
+    }
+    .wishlist-link a:hover,
+    .cart-icon:hover {
+        color: #1e90ff;
+    }
+
+.logout-link {
+    color: #ff0000 !important; /* Bright red */
+    /* or any other shade you prefer */
+}

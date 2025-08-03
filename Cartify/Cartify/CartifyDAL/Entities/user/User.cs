@@ -1,41 +1,29 @@
 ﻿using CartifyDAL.Entities.order;
+using CartifyDAL.Enum.User.userSex;
+using Microsoft.AspNetCore.Identity;
 using System.ComponentModel.DataAnnotations;
 
 namespace CartifyDAL.Entities.user
 {
-    public class User
+    public class User : IdentityUser
     {
-        public User(string fName, string lName, string type, string createdBy)
+        public User(string fName, string type, UserSex s,DateTime Bdate)
         {
-            FName = fName;
-            LName = lName;
-            Type = type;
-            CreatedBy = createdBy;
+            FullName = fName;
             CreatedOn = DateTime.Now;
-            IsActive = true;
             IsDeleted = false;
+            Sex = s;
+            BirthDate = Bdate;
         }
-        public User()
-        {
+        public User() { }
 
-        }
 
-        [Key]
-        public int UserId { get; private set; }
+        public string FullName { get; set; }
 
-        [Required]
-        [MaxLength(100)]
-        public string FName { get; private set; }
+        public UserSex Sex { get;  set; }
+        public DateTime BirthDate { get;  set; }
 
-        [MaxLength(100)]
-        public string LName { get; private set; }
-        public bool IsActive { get; private set; }
-
-        [Required]
-        [MaxLength(100)]
-        public string Type { get; private set; }
-
-        public DateTime? LastLogin { get; private set; }
+        public string? PostalCode { get; set; }
 
         // Navigation Properties
         public List<UserPayment>? UserPayments { get; private set; }
@@ -43,14 +31,15 @@ namespace CartifyDAL.Entities.user
         public List<Order>? Orders { get; private set; }
 
         // Audit Fields
-        [Required]
-        public string CreatedBy { get; private set; }
         public DateTime CreatedOn { get; private set; }
-        public string? ModifiedBy { get; private set; }
-        public DateTime? ModifiedOn { get; private set; }
         public bool IsDeleted { get; private set; }
         public DateTime? DeletedOn { get; private set; }
         public string? DeletedBy { get; private set; }
+
+        // Verification Fields
+        public string? VerificationCode { get; set; }
+        public DateTime? CodeSentAt { get; set; }
+        public bool IsEmailVerified { get; set; } = false;
 
 
     }

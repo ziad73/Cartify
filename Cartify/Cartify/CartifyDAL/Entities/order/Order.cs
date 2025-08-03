@@ -11,7 +11,7 @@ namespace CartifyDAL.Entities.order
 {
     public class Order
     {
-        public Order(string orderStatus, string shippingMethod, string trackingNumber = null, decimal shippingCost = 0, decimal tax = 0, string createdBy = null)
+        public Order(string orderStatus, string shippingMethod, string trackingNumber = null, double shippingCost = 0, double tax = 0, string createdBy = null)
         {
             OrderStatus = orderStatus;
             ShippingMethod = shippingMethod;
@@ -36,9 +36,9 @@ namespace CartifyDAL.Entities.order
         public string ShippingMethod { get; private set; }
         [MaxLength(100)]
         public string TrackingNumber { get; private set; }
-        public decimal ShippingCost { get; private set; }
-        public decimal Tax { get; private set; }
-        public int? UserId { get; private set; }
+        public double ShippingCost { get; private set; }
+        public double Tax { get; private set; }
+        public string? UserId { get; private set; }
         [ForeignKey(nameof(UserId))]
         public User? User { get; private set; }
         public List<OrderItem>? OrderItems { get; private set; }
@@ -51,7 +51,7 @@ namespace CartifyDAL.Entities.order
         public DateTime? DeletedOn { get; private set; }
         public string? DeletedBy { get; private set; }
 
-        public void Update(string orderStatus, string shippingMethod, string trackingNumber, decimal shippingCost, decimal tax, string modifiedBy)
+        public void Update(string orderStatus, string shippingMethod, string trackingNumber, double shippingCost, double tax, string modifiedBy)
         {
 
 

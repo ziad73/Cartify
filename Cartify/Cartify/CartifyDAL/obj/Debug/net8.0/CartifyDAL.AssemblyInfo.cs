@@ -11,10 +11,11 @@
 using System;
 using System.Reflection;
 
+//[assembly: Microsoft.AspNetCore.Identity.UI.UIFrameworkAttribute("Bootstrap5")]
 [assembly: System.Reflection.AssemblyCompanyAttribute("CartifyDAL")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+e277d36a49cad726009f890bc4559c90baa646de")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+75d9efe72dd29142a886e960b870666779addd63")]
 [assembly: System.Reflection.AssemblyProductAttribute("CartifyDAL")]
 [assembly: System.Reflection.AssemblyTitleAttribute("CartifyDAL")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

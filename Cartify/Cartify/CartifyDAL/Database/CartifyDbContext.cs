@@ -1,17 +1,20 @@
 ﻿using CartifyDAL.Entities.cart;
 using CartifyDAL.Entities.category;
 using CartifyDAL.Entities.order;
+using CartifyDAL.Entities.payment;
 using CartifyDAL.Entities.product;
 using CartifyDAL.Entities.productCart;
 using CartifyDAL.Entities.user;
-using CartifyDAL.Entities.user.payment;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
+using System;
 
 
 namespace Cartify.DAL.DataBase
 {
-    public class CartifyDbContext : DbContext
+    public class CartifyDbContext : IdentityDbContext<User>
     {
+        public CartifyDbContext(DbContextOptions<CartifyDbContext> options) : base(options) { }
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             optionsBuilder.UseSqlServer("Server=ZUZZ;Database=CartifyDB;Trusted_Connection=True;MultipleActiveResultSets=true;TrustServerCertificate=true");
@@ -24,7 +27,7 @@ namespace Cartify.DAL.DataBase
         public List<OrderItem> OrderItem { get; set; }
         public List<Product> Product { get; set; }
         public List<ProductReview> ProductReview { get; set; }
-        public List<User> User{ get; set; }
+        public List<User> Users { get; set; }
         public List<UserAddress> UserAddress { get; set; }
         public List<UserPayment> UserPayment { get; set; }
         public List<Payment> Payment { get; set; }
@@ -46,6 +49,10 @@ namespace Cartify.DAL.DataBase
                 .HasOne(c => c.cart)
                 .WithMany(pc => pc.productCarts)
                 .HasForeignKey(pc => pc.CartId).OnDelete(DeleteBehavior.NoAction);
+            
+            modelBuilder.Entity<User>()
+            .Property(u => u.Sex)
+            .HasConversion<string>();
         }
     }
 }

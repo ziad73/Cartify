@@ -1,0 +1,50 @@
+﻿@model CartifyBLL.ViewModels.Account.VerifyEmailVM
+@{
+    ViewData["Title"] = "Verify Email";
+    ViewData["AuthTitle"] = "Verify Your Email";
+    ViewData["AuthSubtitle"] = "We'll send a verification code to your email";
+    Layout = "~/Views/Shared/_AuthLayout.cshtml";
+}
+
+<div class="auth-box shadow">
+    <form asp-action="VerifyEmail" method="post" class="auth-form">
+        <div asp-validation-summary="ModelOnly" class="alert alert-danger"></div>
+
+        <div class="alert alert-info mb-4">
+            <i class="bi bi-info-circle me-2"></i> Check your email for the verification code after submitting.
+        </div>
+
+        <div class="form-floating mb-3 position-relative">
+            <input asp-for="Email" class="form-control" placeholder="Email" required />
+            <i class="bi bi-envelope position-absolute top-50 start-0 translate-middle-y ps-3 text-secondary"></i>
+            <label asp-for="Email">Email address</label>
+            <span asp-validation-for="Email" class="text-danger small"></span>
+        </div>
+
+        <button type="submit" class="btn auth-btn auth-btn-primary w-100 mb-3" id="submitBtn">
+            Send Verification Code
+        </button>
+
+        <div class="text-center small">
+            Remembered your account? <a asp-action="Login" class="text-decoration-none">Sign in</a>
+        </div>
+    </form>
+</div>
+
+@section Scripts {
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const form = document.querySelector('.auth-form');
+            const submitBtn = document.getElementById('submitBtn');
+
+            if (form && submitBtn) {
+                form.addEventListener('submit', function() {
+                    submitBtn.disabled = true;
+                    submitBtn.innerHTML = `
+                        <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+                        Sending...
+                    `;
+                });
+            }
+        });</script>
+}

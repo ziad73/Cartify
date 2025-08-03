@@ -1,4 +1,4 @@
-﻿using CartifyDAL.Entities.user.payment;
+﻿using CartifyDAL.Entities.payment;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
@@ -7,10 +7,8 @@ namespace CartifyDAL.Entities.user
 {
     public class UserPayment
     {
-        public UserPayment(string createdBy)
+        public UserPayment()
         {
-            CreatedBy = createdBy;
-            CreatedOn = DateTime.Now;
             IsDeleted = false;
         }
 
@@ -18,7 +16,7 @@ namespace CartifyDAL.Entities.user
         public int Id { get; private set; }
 
         [Required]
-        public int UserId { get; private set; }
+        public string UserId { get; private set; }
 
         [Required]
         public int PaymentId { get; private set; }
@@ -30,10 +28,6 @@ namespace CartifyDAL.Entities.user
         public Payment Payment { get; private set; }
 
         [Required]
-        public string CreatedBy { get; private set; }
-        public DateTime CreatedOn { get; private set; }
-        public string? ModifiedBy { get; private set; }
-        public DateTime? ModifiedOn { get; private set; }
         public bool IsDeleted { get; private set; }
         public DateTime? DeletedOn { get; private set; }
         public string? DeletedBy { get; private set; }

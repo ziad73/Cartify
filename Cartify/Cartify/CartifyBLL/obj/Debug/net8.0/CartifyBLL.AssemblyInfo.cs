@@ -11,14 +11,11 @@
 using System;
 using System.Reflection;
 
+//[assembly: Microsoft.AspNetCore.Identity.UI.UIFrameworkAttribute("Bootstrap5")]
 [assembly: System.Reflection.AssemblyCompanyAttribute("CartifyBLL")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-<<<<<<< HEAD
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+e277d36a49cad726009f890bc4559c90baa646de")]
-=======
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+82ad71e23b80c783af91ed9240744bd74462dbca")]
->>>>>>> 4c4de77f0c2d88151b22f3e42eb488b5fab43239
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+75d9efe72dd29142a886e960b870666779addd63")]
 [assembly: System.Reflection.AssemblyProductAttribute("CartifyBLL")]
 [assembly: System.Reflection.AssemblyTitleAttribute("CartifyBLL")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

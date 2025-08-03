@@ -1,7 +1,7 @@
 ﻿using CartifyDAL.Entities.cart;
 using CartifyDAL.Entities.category;
 
-namespace CartifyDAL.Repo.CartRepo.Abstraction
+namespace CartifyDAL.Repo.cartRepo.Abstraction
 {
     public interface ICartItemRepo
     {
