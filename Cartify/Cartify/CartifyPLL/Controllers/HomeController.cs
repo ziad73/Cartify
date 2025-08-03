@@ -23,6 +23,11 @@ namespace CartifyPLL.Controllers
             return View();
         }
 
+        public IActionResult Policy()
+        {
+            return View("Terms");
+        }
+
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()
         {
