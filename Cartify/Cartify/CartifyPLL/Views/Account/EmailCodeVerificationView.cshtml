@@ -1,0 +1,109 @@
+@model CartifyBLL.ViewModels.Account.EmailCodeVM
+@{
+    ViewData["Title"] = "Verify Code";
+    ViewData["AuthTitle"] = "Enter Verification Code";
+    ViewData["AuthSubtitle"] = "We've sent a 6-digit code to your email";
+    Layout = "~/Views/Shared/_AuthLayout.cshtml";
+}
+
+<div class="auth-box shadow">
+    <form asp-action="EmailCodeVerification" method="post" id="verifyCodeForm" class="auth-form needs-validation" novalidate>
+        <input type="hidden" asp-for="Purpose" />
+        <input type="hidden" asp-for="Email" />
+        <div asp-validation-summary="ModelOnly" class="alert alert-danger" role="alert"></div>
+
+        <div class="alert alert-info mb-4">
+            <i class="bi bi-info-circle me-2"></i> The code expires in 15 minutes
+        </div>
+
+
+        <div class="form-floating mb-3 position-relative">
+            <input asp-for="Code" class="form-control" placeholder="Verification Code" required
+                   maxlength="6" pattern="\d{6}" />
+            <i class="bi bi-shield-lock position-absolute top-50 start-0 translate-middle-y ps-3 text-secondary"></i>
+            <label asp-for="Code">Verification Code</label>
+            <span asp-validation-for="Code" class="text-danger small"></span>
+            <div class="invalid-feedback">Please enter the 6-digit code</div>
+        </div>
+
+        <div class="d-flex justify-content-between mb-4">
+            <div class="small">
+                Didn't receive code?
+                <a href="#" id="resendLink" class="text-decoration-none">Resend</a>
+                <span id="countdown" class="text-muted ms-1"></span>
+            </div>
+            <a asp-action="VerifyEmail" class="small text-decoration-none">Change email</a>
+        </div>
+
+        <button type="submit" class="btn auth-btn auth-btn-primary w-100 mb-3">
+            <span class="spinner-border spinner-border-sm d-none" role="status" aria-hidden="true"></span>
+            Verify Account
+        </button>
+    </form>
+</div>
+
+@section Scripts {
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Format code input to only allow numbers
+            const codeInput = document.querySelector('input[name="Code"]');
+            if (codeInput) {
+                codeInput.addEventListener('input', function() {
+                    this.value = this.value.replace(/\D/g, '');
+                });
+            }
+
+            // Resend code functionality
+            const resendLink = document.getElementById('resendLink');
+            const countdownEl = document.getElementById('countdown');
+
+            if (resendLink && countdownEl) {
+                let countdown = 60;
+
+                function updateCountdown() {
+                    countdownEl.textContent = `(${countdown}s)`;
+                    countdown--;
+
+                    if (countdown < 0) {
+                        resendLink.classList.remove('disabled');
+                        countdownEl.textContent = '';
+                    } else {
+                        resendLink.classList.add('disabled');
+                        setTimeout(updateCountdown, 1000);
+                    }
+                }
+
+                resendLink.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    if (this.classList.contains('disabled')) return;
+
+                    // Show loading state
+                    const originalText = this.textContent;
+                    this.innerHTML = '<span class="spinner-border spinner-border-sm me-1" role="status"></span> Sending...';
+
+                    // Simulate API call (replace with actual AJAX call)
+                    setTimeout(() => {
+                        this.textContent = originalText;
+                        countdown = 60;
+                        updateCountdown();
+                        alert('New verification code sent!');
+                    }, 1500);
+                });
+
+                // Start initial countdown
+                updateCountdown();
+            }
+
+            // Form submission handler
+            const form = document.getElementById('verifyCodeForm');
+            if (form) {
+                form.addEventListener('submit', function() {
+                    const submitBtn = form.querySelector('button[type="submit"]');
+                    const spinner = submitBtn.querySelector('.spinner-border');
+                    submitBtn.disabled = true;
+                    spinner.classList.remove('d-none');
+                });
+            }
+        });
+    </script>
+}

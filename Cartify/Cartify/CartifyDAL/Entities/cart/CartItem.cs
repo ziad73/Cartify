@@ -14,6 +14,7 @@ namespace CartifyDAL.Entities.cart
         }
 
         public int Cartitem { get; private set; }
+        [Key]
         public int CartId { get; private set; }
         public int Quantity { get; private set; }
 

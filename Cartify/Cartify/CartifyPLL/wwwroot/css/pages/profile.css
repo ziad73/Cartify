@@ -1,0 +1,52 @@
+.profile-info {
+  text-align: center;
+}
+
+.profile-details p {
+  margin-bottom: 10px;
+  text-align: left;
+}
+
+.profile-actions {
+  margin-top: 20px;
+}
+
+.profile-actions button {
+  margin: 5px;
+  width: 100%;
+}
+
+.order-item {
+  border: 1px solid #e4e7ed;
+  padding: 15px;
+  margin-bottom: 15px;
+  border-radius: 5px;
+}
+
+.order-status .status {
+  padding: 5px 10px;
+  border-radius: 3px;
+  font-size: 12px;
+  font-weight: 500;
+  text-transform: uppercase;
+}
+
+.status.delivered {
+  background-color: #28a745;
+  color: white;
+}
+
+.status.shipped {
+  background-color: #17a2b8;
+  color: white;
+}
+
+.status.pending {
+  background-color: #ffc107;
+  color: #212529;
+}
+
+.view-all-orders {
+  text-align: center;
+  margin-top: 20px;
+}

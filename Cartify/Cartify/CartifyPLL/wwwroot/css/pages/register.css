@@ -1,0 +1,16 @@
+.error-message {
+    color: #D10024;
+    font-size: 12px;
+    margin-top: 5px;
+    display: block;
+}
+
+.form-group {
+    margin-bottom: 20px;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 5px;
+    font-weight: 500;
+} 

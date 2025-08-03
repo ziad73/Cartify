@@ -7,20 +7,15 @@ namespace CartifyDAL.Entities.user
         public UserAddress(string address, string createdBy)
         {
             Address = address;
-            CreatedBy = createdBy;
-            CreatedOn = DateTime.Now;
             IsDeleted = false;
         }
-        public UserAddress()
-        {
-
-        }
+        public UserAddress(){}
 
         [Key]
         public int Id { get; private set; }
 
         [Required]
-        public int UserId { get; private set; }
+        public string UserId { get; private set; }
 
         [Required]
         [MaxLength(250)]
@@ -30,12 +25,7 @@ namespace CartifyDAL.Entities.user
         public User User { get; private set; }
 
         [Required]
-        public string CreatedBy { get; private set; }
-        public DateTime CreatedOn { get; private set; }
-        public string? ModifiedBy { get; private set; }
-        public DateTime? ModifiedOn { get; private set; }
         public bool IsDeleted { get; private set; }
         public DateTime? DeletedOn { get; private set; }
-        public string? DeletedBy { get; private set; }
     }
 }

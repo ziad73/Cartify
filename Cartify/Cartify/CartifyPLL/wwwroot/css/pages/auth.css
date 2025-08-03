@@ -1,0 +1,235 @@
+﻿/* auth.css */
+:root {
+    --primary-color: #4361ee;
+    --primary-hover: #3a56d4;
+    --error-color: #dc3545;
+    --text-muted: #6c757d;
+    --border-radius: 12px;
+}
+
+/* Base Styles */
+.auth-body {
+    background-color: #f8f9fa;
+    font-family: 'Segoe UI', Roboto, 'Helvetica Neue', sans-serif;
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+    margin: 0;
+    padding: 0;
+}
+
+.auth-container {
+    display: flex;
+    flex: 1;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+}
+
+.auth-content {
+    width: 100%;
+    max-width: 450px;
+    margin: 0 auto;
+}
+
+.auth-box {
+    width: 100%;
+    padding: 2.5rem;
+    border-radius: var(--border-radius);
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+    background-color: #fff;
+}
+
+.auth-logo {
+    height: 60px;
+    transition: transform 0.3s ease;
+}
+
+    .auth-logo:hover {
+        transform: scale(1.05);
+    }
+
+.auth-title {
+    font-size: 1.75rem;
+    font-weight: 600;
+    margin: 1rem 0 0.5rem;
+    color: #212529;
+}
+
+.auth-subtitle {
+    color: var(--text-muted);
+    margin-bottom: 1.5rem;
+}
+
+/* Form Elements */
+.auth-form .form-control {
+    height: 50px;
+    border-radius: var(--border-radius);
+    padding-left: 2.5rem;
+    border: 1px solid #ced4da;
+    transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+}
+
+    .auth-form .form-control:focus {
+        border-color: var(--primary-color);
+        box-shadow: 0 0 0 0.25rem rgba(67, 97, 238, 0.25);
+    }
+
+.auth-form .form-floating > label {
+    padding-left: 2.5rem;
+    color: var(--text-muted);
+}
+
+.auth-form .form-floating > i {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    left: 15px;
+    color: var(--text-muted);
+    pointer-events: none;
+    z-index: 5;
+}
+
+/* Buttons */
+.auth-btn {
+    border-radius: var(--border-radius);
+    padding: 10px;
+    font-weight: 500;
+    transition: all 0.3s ease;
+}
+
+.auth-btn-primary {
+    background-color: var(--primary-color);
+    border-color: var(--primary-color);
+    color: white;
+}
+
+    .auth-btn-primary:hover {
+        background-color: var(--primary-hover);
+        border-color: var(--primary-hover);
+        transform: translateY(-1px);
+        color: white;
+    }
+
+/* Validation */
+.was-validated .form-control:invalid,
+.form-control.is-invalid {
+    border-color: var(--error-color);
+    padding-right: calc(1.5em + 0.75rem);
+    background-image: none;
+}
+
+    .was-validated .form-control:invalid:focus,
+    .form-control.is-invalid:focus {
+        border-color: var(--error-color);
+        box-shadow: 0 0 0 0.25rem rgba(220, 53, 69, 0.25);
+    }
+
+.invalid-feedback {
+    font-size: 0.85rem;
+    color: var(--error-color);
+}
+
+.text-decoration-none:hover {
+    text-decoration: underline !important;
+}
+
+/* Divider */
+.position-relative hr {
+    z-index: -1;
+}
+
+/* Responsive */
+@media (max-width: 576px) {
+    .auth-box {
+        padding: 1.5rem;
+    }
+
+    .auth-container {
+        padding: 15px;
+    }
+}
+/* Add these to your existing auth.css */
+
+/* Password strength indicator */
+.password-strength {
+    height: 4px;
+    background: #e9ecef;
+    margin-top: 5px;
+    border-radius: 2px;
+    overflow: hidden;
+}
+
+.password-strength-bar {
+    height: 100%;
+    width: 0;
+    transition: width 0.3s ease, background 0.3s ease;
+}
+
+/* Terms checkbox styling */
+.form-check-input {
+    margin-top: 0.2rem;
+}
+
+/* Name fields in row */
+.row {
+    margin-left: -0.5rem;
+    margin-right: -0.5rem;
+}
+
+    .row > [class^="col-"] {
+        padding-left: 0.5rem;
+        padding-right: 0.5rem;
+    }
+
+/* Phone number formatting */
+input[type="tel"] {
+    padding-left: 3.5rem !important;
+}
+/* Verification code inputs */
+.verification-code {
+    border: 1px solid #ced4da;
+    border-radius: 8px;
+    transition: all 0.2s ease;
+    caret-color: transparent;
+}
+
+    .verification-code:focus {
+        border-color: var(--primary-color);
+        box-shadow: 0 0 0 0.25rem rgba(67, 97, 238, 0.25);
+        outline: none;
+    }
+
+/* Resend link */
+#resendLink.disabled {
+    pointer-events: none;
+    color: var(--text-muted);
+    text-decoration: none;
+}
+
+/* Countdown timer */
+#countdown {
+    display: inline-block;
+    min-width: 40px;
+}
+
+/* Password strength indicator */
+.password-strength {
+    height: 4px;
+    background: #e9ecef;
+    border-radius: 2px;
+    overflow: hidden;
+    margin-top: 5px;
+}
+
+.password-strength-bar {
+    height: 100%;
+    width: 0;
+    transition: width 0.3s ease, background 0.3s ease;
+}
+<style >
+.text-muted a {
+    color: #6c757d;
+}
+
+</style >

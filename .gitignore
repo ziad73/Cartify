@@ -7,3 +7,13 @@ obj/
 *.dll
 *.cache
 *.log
+ER.md
+Features.md
+ER diagram v1.svg
+.$ER diagram.svg.bkp
+Cartify Logo.png
+Cartiqa Logo.png
+Features.md
+.github/
+.vs/
+Migrations/

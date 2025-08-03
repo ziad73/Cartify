@@ -1,8 +1,131 @@
-﻿@{
-    ViewData["Title"] = "Home Page";
+﻿
+@{
+    ViewBag.Title = "Cartify";
+    Layout = "~/Views/Shared/_Layout.cshtml"; 
 }
+<div id="navbar-placeholder"></div>
 
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://learn.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+<!-- SECTION -->
+<div class="section">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="section-title">
+                    <h3 class="title">New Products</h3>
+                    <div class="section-nav">
+                        <ul class="section-tab-nav tab-nav">
+                            <li class="active"><a data-toggle="tab" href="#tab1">Laptops</a></li>
+                            <li><a data-toggle="tab" href="#tab1">Smartphones</a></li>
+                            <li><a data-toggle="tab" href="#tab1">Cameras</a></li>
+                            <li><a data-toggle="tab" href="#tab1">Accessories</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-12">
+                <div class="row">
+                    <div class="products-tabs">
+                        <div id="tab1" class="tab-pane active">
+                            <div class="products-slick" data-nav="#slick-nav-1">
+                                @* Repeat the product blocks here or load dynamically from model *@
+                                @Html.Partial("_ProductCard")
+                                @Html.Partial("_ProductCard", new { img = "product02.png" })
+                                @Html.Partial("_ProductCard", new { img = "product03.png" })
+                                @Html.Partial("_ProductCard", new { img = "product04.png" })
+                                @Html.Partial("_ProductCard", new { img = "product05.png" })
+                            </div>
+                            <div id="slick-nav-1" class="products-slick-nav"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
+
+<!-- HOT DEAL SECTION -->
+<div id="hot-deal" class="section">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="hot-deal">
+                    <ul class="hot-deal-countdown">
+                        <li><div><h3>02</h3><span>Days</span></div></li>
+                        <li><div><h3>10</h3><span>Hours</span></div></li>
+                        <li><div><h3>34</h3><span>Mins</span></div></li>
+                        <li><div><h3>60</h3><span>Secs</span></div></li>
+                    </ul>
+                    <h2 class="text-uppercase">hot deal this week</h2>
+                    <p>New Collection Up to 50% OFF</p>
+                    <a class="primary-btn cta-btn" href="#">Shop now</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- SECTION: Top Selling -->
+<div class="section">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="section-title">
+                    <h3 class="title">Top selling</h3>
+                    <div class="section-nav">
+                        <ul class="section-tab-nav tab-nav">
+                            <li class="active"><a data-toggle="tab" href="#tab2">Laptops</a></li>
+                            <li><a data-toggle="tab" href="#tab2">Smartphones</a></li>
+                            <li><a data-toggle="tab" href="#tab2">Cameras</a></li>
+                            <li><a data-toggle="tab" href="#tab2">Accessories</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-12">
+                <div class="row">
+                    <div class="products-tabs">
+                        <div id="tab2" class="tab-pane fade in active">
+                            <div class="products-slick" data-nav="#slick-nav-2">
+                                @**@
+                                @Html.Partial("_ProductCard", new { img = "product06.png" })
+                                @Html.Partial("_ProductCard", new { img = "product07.png" })
+                                @Html.Partial("_ProductCard", new { img = "product08.png" })
+                                @Html.Partial("_ProductCard", new { img = "product09.png" })
+                                @Html.Partial("_ProductCard", new { img = "product01.png" })
+                            </div>
+                            <div id="slick-nav-2" class="products-slick-nav"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- SECTION: Side Widgets -->
+<div class="section">
+    <div class="container">
+        <div class="row">
+            <!-- Repeat this for each column (Left, Middle, Right) -->
+            @* Keep the original widgets or convert to partials for reuse *@
+            @Html.Partial("_ProductWidgetColumn", new { id = 3 })
+            @Html.Partial("_ProductWidgetColumn", new { id = 4 })
+            @Html.Partial("_ProductWidgetColumn", new { id = 5 })
+        </div>
+    </div>
+</div>
+
+<!-- FOOTER (included from layout) -->
+<div id="footer-placeholder"></div>
+
+@section Scripts {
+    <script src="~/js/jquery.min.js"></script>
+    <script src="~/js/bootstrap.min.js"></script>
+    <script src="~/js/slick.min.js"></script>
+    <script src="~/js/nouislider.min.js"></script>
+    <script src="~/js/jquery.zoom.min.js"></script>
+    <script src="~/js/main.js"></script>
+    <script src="~/js/pages/index.js"></script>
+}

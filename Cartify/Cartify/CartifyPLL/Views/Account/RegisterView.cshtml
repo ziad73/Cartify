@@ -1,0 +1,113 @@
+﻿@model CartifyBLL.ViewModels.Account.RegisterVM
+@{
+    ViewData["Title"] = "Register";
+    ViewData["AuthTitle"] = "Create your account";
+    ViewData["AuthSubtitle"] = "Get started with Cartify";
+    Layout = "~/Views/Shared/_AuthLayout.cshtml";
+}
+
+<div class="auth-box shadow">
+    <form asp-action="Register" method="post" id="registerForm" class="auth-form needs-validation" novalidate>
+        <div asp-validation-summary="ModelOnly" class="alert alert-danger" role="alert"></div>
+
+        <div class="row">
+            <div class="col-md-6 mb-3">
+                <div class="form-floating position-relative">
+                    <input asp-for="FName" class="form-control" placeholder="First name" required />
+                    <i class="bi bi-person position-absolute top-50 start-0 translate-middle-y ps-3 text-secondary"></i>
+                    <label asp-for="FName">First name</label>
+                    <span asp-validation-for="FName" class="text-danger small"></span>
+                    <div class="invalid-feedback">Please enter your first name</div>
+                </div>
+            </div>
+            <div class="col-md-6 mb-3">
+                <div class="form-floating position-relative">
+                    <input asp-for="LName" class="form-control" placeholder="Last name" required />
+                    <i class="bi bi-person position-absolute top-50 start-0 translate-middle-y ps-3 text-secondary"></i>
+                    <label asp-for="LName">Last name</label>
+                    <span asp-validation-for="LName" class="text-danger small"></span>
+                    <div class="invalid-feedback">Please enter your last name</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="form-floating mb-3 position-relative">
+            <input asp-for="Email" type="email" class="form-control" placeholder="Email" required />
+            <i class="bi bi-envelope position-absolute top-50 start-0 translate-middle-y ps-3 text-secondary"></i>
+            <label asp-for="Email">Email address</label>
+            <span asp-validation-for="Email" class="text-danger small"></span>
+            <div class="invalid-feedback">Please enter a valid email</div>
+        </div>
+
+        <div class="form-floating mb-3 position-relative">
+            <input asp-for="Phone" class="form-control" placeholder="Phone number" required />
+            <i class="bi bi-phone position-absolute top-50 start-0 translate-middle-y ps-3 text-secondary"></i>
+            <label asp-for="Phone">Phone number</label>
+            <span asp-validation-for="Phone" class="text-danger small"></span>
+            <div class="invalid-feedback">Please enter a valid phone number</div>
+        </div>
+
+        <div class="form-floating mb-3 position-relative">
+            <input asp-for="Password" type="password" class="form-control" placeholder="Password" required minlength="8" />
+            <i class="bi bi-lock position-absolute top-50 start-0 translate-middle-y ps-3 text-secondary"></i>
+            <label asp-for="Password">Password</label>
+            <span asp-validation-for="Password" class="text-danger small"></span>
+            <div class="invalid-feedback">Minimum 8 characters</div>
+        </div>
+
+        <div class="form-floating mb-4 position-relative">
+            <input asp-for="ConfirmPassword" type="password" class="form-control" placeholder="Confirm password" required />
+            <i class="bi bi-lock position-absolute top-50 start-0 translate-middle-y ps-3 text-secondary"></i>
+            <label asp-for="ConfirmPassword">Confirm password</label>
+            <span asp-validation-for="ConfirmPassword" class="text-danger small"></span>
+            <div class="invalid-feedback">Passwords must match</div>
+        </div>
+
+        <div class="text-center small text-muted mt-2 mb-3">
+            <p class="mb-1">By signing up or logging in, you consent to Cartify's</p>
+            <p class="mb-0">
+                <a href="#" class="text-decoration-none">Terms of Use</a> and
+                <a href="#" class="text-decoration-none">Privacy Policy</a>.
+            </p>
+        </div>
+
+        <button type="submit" class="btn auth-btn auth-btn-primary w-100 mb-3">
+            <span class="spinner-border spinner-border-sm d-none" role="status" aria-hidden="true"></span>
+            Create account
+        </button>
+
+        <div class="text-center small">
+            Already have an account? <a asp-action="Login" class="text-decoration-none">Sign in</a>
+        </div>
+    </form>
+</div>
+
+@section Scripts {
+    <script>
+        // Password match validation
+        document.addEventListener('DOMContentLoaded', function() {
+            const password = document.getElementById('Password');
+            const confirmPassword = document.getElementById('ConfirmPassword');
+
+            function validatePasswordMatch() {
+                if (password.value !== confirmPassword.value) {
+                    confirmPassword.setCustomValidity("Passwords must match");
+                } else {
+                    confirmPassword.setCustomValidity('');
+                }
+            }
+
+            password.addEventListener('change', validatePasswordMatch);
+            confirmPassword.addEventListener('keyup', validatePasswordMatch);
+
+            // Phone number formatting (optional)
+            const phoneInput = document.getElementById('PhoneNumber');
+            if (phoneInput) {
+                phoneInput.addEventListener('input', function(e) {
+                    const x = e.target.value.replace(/\D/g, '').match(/(\d{0,3})(\d{0,3})(\d{0,4})/);
+                    e.target.value = !x[2] ? x[1] : '(' + x[1] + ') ' + x[2] + (x[3] ? '-' + x[3] : '');
+                });
+            }
+        });
+    </script>
+}
