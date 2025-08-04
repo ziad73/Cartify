@@ -8,7 +8,8 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using System;
-
+using Microsoft.AspNetCore.Authentication.Google;
+using Microsoft.AspNetCore.Authentication.Cookies;
 
 namespace CartifyPLL
 {
@@ -17,6 +18,20 @@ namespace CartifyPLL
         public static void Main(string[] args)
         {
             var builder = WebApplication.CreateBuilder(args);
+
+            builder.Services.AddAuthentication(options =>
+            {
+                options.DefaultScheme = CookieAuthenticationDefaults.AuthenticationScheme;
+                options.DefaultChallengeScheme = GoogleDefaults.AuthenticationScheme;
+            })
+.AddCookie()
+.AddGoogle(options =>
+{
+    var googleAuthNSection = builder.Configuration.GetSection("Authentication:Google");
+    options.ClientId = googleAuthNSection["ClientId"];
+    options.ClientSecret = googleAuthNSection["ClientSecret"];
+});
+
 
             // Add services to the container.
             builder.Services.AddControllersWithViews();
@@ -75,6 +90,9 @@ namespace CartifyPLL
                 name: "default",
                 pattern: "{controller=Home}/{action=Index}/{id?}");
             app.Run();
+
+
+
         }
     }
 }

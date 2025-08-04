@@ -44,11 +44,17 @@
             <hr class="position-absolute w-100 top-50 start-0 z-n1">
         </div>
 
-        <button type="button" class="btn auth-btn btn-outline-secondary w-100 d-flex align-items-center justify-content-center mb-3">
+    </form>
+
+    <!-- Now, external login form -->
+    <form asp-controller="Account" asp-action="ExternalLogin" asp-route-provider="Google" method="post">
+        <button type="submit" class="btn auth-btn btn-outline-secondary w-100 d-flex align-items-center justify-content-center mb-3">
             <img src="https://img.icons8.com/color/16/000000/google-logo.png" alt="Google" class="me-2" />
             Continue with Google
         </button>
+    </form>
 
+    <form >
         <div class="text-center small">
             Don't have an account? <a asp-action="Register" class="text-decoration-none">Sign up</a>
         </div>
