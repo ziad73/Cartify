@@ -1,18 +1,28 @@
 ﻿using CartifyBLL.Services.UserServices;
 using CartifyBLL.ViewModels.Account;
+using CartifyDAL.Entities.user;
 using Microsoft.AspNetCore.Authentication;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using System.Security.Claims;
 
 namespace CartifyPLL.Controllers
 {
     public class AccountController : Controller
     {
         private readonly IAccountService accountService;
+        private readonly SignInManager<User> signInManager;
+        private readonly UserManager<User> userManager;
 
-        public AccountController(IAccountService accountService)
+        public AccountController(
+    IAccountService accountService,
+    SignInManager<User> signInManager,
+    UserManager<User> userManager)
         {
             this.accountService = accountService;
+            this.signInManager = signInManager;
+            this.userManager = userManager;
         }
 
         [HttpGet]
@@ -161,6 +171,85 @@ namespace CartifyPLL.Controllers
         {
             await HttpContext.SignOutAsync(IdentityConstants.ApplicationScheme);
             return RedirectToAction("Index", "Home");
+        }
+
+        [HttpPost]
+        [AllowAnonymous]
+        [ValidateAntiForgeryToken]
+        public IActionResult ExternalLogin(string provider, string? returnUrl = null)
+        {
+            var redirectUrl = Url.Action("ExternalLoginCallback", "Account", new { ReturnUrl = returnUrl });
+            var properties = signInManager.ConfigureExternalAuthenticationProperties(provider, redirectUrl);
+            return Challenge(properties, provider);
+        }
+        [AllowAnonymous]
+        public async Task<IActionResult> ExternalLoginCallback(string? returnUrl = null, string? remoteError = null)
+        {
+            returnUrl ??= Url.Content("~/");
+
+            if (remoteError != null)
+            {
+                ModelState.AddModelError(string.Empty, $"Error from external provider: {remoteError}");
+                return View("LoginView");
+            }
+
+            var info = await signInManager.GetExternalLoginInfoAsync();
+            if (info == null)
+                return RedirectToAction(nameof(Login));
+
+            // Try to log in the user with external login info
+            var result = await signInManager.ExternalLoginSignInAsync(
+                info.LoginProvider,
+                info.ProviderKey,
+                isPersistent: false,
+                bypassTwoFactor: true);
+
+            if (result.Succeeded)
+            {
+                return LocalRedirect(returnUrl);
+            }
+
+            // Try to get email from external provider
+            var email = info.Principal.FindFirstValue(ClaimTypes.Email);
+            var name = info.Principal.FindFirstValue(ClaimTypes.Name) ?? email;
+
+            if (email == null)
+            {
+                ModelState.AddModelError(string.Empty, "Email not received from external provider.");
+                return View("LoginView");
+            }
+
+            // Check if user already exists by email
+            var existingUser = await userManager.FindByEmailAsync(email);
+
+            if (existingUser != null)
+            {
+                // Link the external login and sign in
+                await userManager.AddLoginAsync(existingUser, info);
+                await signInManager.SignInAsync(existingUser, isPersistent: false);
+                return LocalRedirect(returnUrl);
+            }
+
+            // User does not exist, create a new one
+            var newUser = new User
+            {
+                UserName = email,
+                Email = email,
+                FullName = name
+            };
+
+            var createResult = await userManager.CreateAsync(newUser);
+            if (createResult.Succeeded)
+            {
+                await userManager.AddLoginAsync(newUser, info);
+                await signInManager.SignInAsync(newUser, isPersistent: false);
+                return LocalRedirect(returnUrl);
+            }
+
+            foreach (var error in createResult.Errors)
+                ModelState.AddModelError(string.Empty, error.Description);
+
+            return View("LoginView");
         }
 
     }
