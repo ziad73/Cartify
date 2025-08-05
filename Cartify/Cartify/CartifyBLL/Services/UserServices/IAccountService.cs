@@ -15,5 +15,6 @@ namespace CartifyBLL.Services.UserServices
         Task<bool> SendVerificationCodeAsync(string email, string purpose);
         Task<(bool Success, string? ErrorMessage)> ConfirmEmailCodeAsync(EmailCodeVM model);
         bool VerifyEmailCode(string email, string code, string storedCode, string purpose);
+
     }
 }

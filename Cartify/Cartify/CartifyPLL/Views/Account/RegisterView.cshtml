@@ -71,11 +71,27 @@
             </p>
         </div>
 
-        <button type="submit" class="btn auth-btn auth-btn-primary w-100 mb-3">
+        <button type="submit" class="btn auth-btn auth-btn-primary w-100 mb-1">
             <span class="spinner-border spinner-border-sm d-none" role="status" aria-hidden="true"></span>
             Create account
         </button>
 
+        <div class="text-center my-1 text-muted position-relative">
+            <span class="bg-white px-2">OR</span>
+            <hr class="position-absolute w-100 top-50 start-0 z-n1">
+        </div>
+
+    </form>
+
+    <!-- Now, external login form -->
+    <form asp-controller="Account" asp-action="ExternalLogin" asp-route-provider="Google" method="post">
+        <button type="submit" class="btn auth-btn btn-outline-secondary w-100 d-flex align-items-center justify-content-center mb-3">
+            <img src="https://img.icons8.com/color/16/000000/google-logo.png" alt="Google" class="me-2" />
+            Continue with Google
+        </button>
+    </form>
+
+    <form>
         <div class="text-center small">
             Already have an account? <a asp-action="Login" class="text-decoration-none">Sign in</a>
         </div>

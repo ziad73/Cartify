@@ -4,22 +4,42 @@ namespace CartifyDAL.Entities.user
 {
     public class UserAddress
     {
-        public UserAddress(string address, string createdBy)
+        public UserAddress()
         {
-            Address = address;
             IsDeleted = false;
         }
-        public UserAddress(){}
 
         [Key]
-        public int Id { get; private set; }
+        public int Id { get; set; }
+
+        [Required]
+        public string Name { get; set; }
+
+        [Required]
+
+        [Phone]
+        public string PhoneNumber { get; set; }
 
         [Required]
         public string UserId { get; private set; }
 
         [Required]
-        [MaxLength(250)]
-        public string Address { get; private set; }
+        public string StreetAddress { get; set; }
+
+        [Required]
+        public string City { get; set; }
+
+        [Required]
+        public string State { get; set; }
+
+        [Required]
+        public string PostalCode { get; set; }
+        [Required]
+        public string Country { get; set; }
+
+        [Required]
+        public bool IsDefault { get; set; } 
+
 
         [ForeignKey(nameof(UserId))]
         public User User { get; private set; }

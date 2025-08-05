@@ -2,6 +2,7 @@
 using CartifyDAL.Entities.user;
 using CartifyDAL.Repo.userRepo.Abstraction;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.EntityFrameworkCore;
 
 namespace CartifyBLL.Services.UserServices
 {
@@ -122,5 +123,6 @@ namespace CartifyBLL.Services.UserServices
         {
             return code == storedCode;
         }
+
     }
 }

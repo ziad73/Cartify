@@ -13,9 +13,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Helper\" />
     <Folder Include="Mapper\" />
-    <Folder Include="Helper\" />
     <Folder Include="Mapper\" />
   </ItemGroup>
 

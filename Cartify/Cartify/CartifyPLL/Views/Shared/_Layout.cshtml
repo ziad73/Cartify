@@ -27,6 +27,7 @@
     <link rel="stylesheet" href="~/css/style.css" />
     <link rel="stylesheet" href="~/css/pages/navbar.css" />
 
+    @RenderSection("Styles", required: false) <!--tells the layout to render any custom styles defined by the view. -->
 </head>
 <body>
 
@@ -71,7 +72,7 @@
             <div id="auth-links">
                 @if (isLoggedIn)
                 {
-                    <form asp-controller="Account" asp-action="Profile" class="d-inline">
+                    <form asp-controller="Account" asp-action="Profile" method="get" class="d-inline">
                         <button type="submit" class="btn btn-link text-decoration-none ">
                             <i class="bi bi-person"></i> Profile
                         </button>
@@ -128,6 +129,5 @@
     <script src="~/js/main.js"></script>
     <script src="~/js/pages/navbar.js"></script>
     @RenderSection("Scripts", required: false)
-
 </body>
 </html>
