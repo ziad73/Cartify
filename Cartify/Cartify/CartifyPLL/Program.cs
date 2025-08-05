@@ -15,7 +15,7 @@ namespace CartifyPLL
 {
     public class Program
     {
-        public static void Main(string[] args)
+        public static async Task Main(string[] args)
         {
             var builder = WebApplication.CreateBuilder(args);
 
@@ -38,7 +38,7 @@ namespace CartifyPLL
 
 
             builder.Services.AddScoped<IAccountService, AccountService>();
-            
+
             builder.Services.AddScoped<IUserService, UserService>();
 
             // Register repositories
@@ -70,7 +70,10 @@ namespace CartifyPLL
             })
             .AddEntityFrameworkStores<CartifyDbContext>()
 .AddDefaultTokenProviders();
+
             var app = builder.Build();
+            await SeedService.SeedDatabase(app.Services);
+
 
             // Configure the HTTP request pipeline.
             if (!app.Environment.IsDevelopment())
@@ -89,8 +92,14 @@ namespace CartifyPLL
             app.UseAuthorization();
 
             app.MapControllerRoute(
+                name: "areas",
+                pattern: "{area:exists}/{controller=AdminDashboard}/{action=Index}/{id?}");
+
+            app.MapControllerRoute(
                 name: "default",
                 pattern: "{controller=Home}/{action=Index}/{id?}");
+
+
             app.Run();
 
 
