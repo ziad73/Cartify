@@ -1,0 +1,42 @@
+﻿@model CartifyBLL.ViewModels.Account.AddressVM
+
+@{
+    ViewBag.Title = "Edit Address";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="container mt-4">
+    <div class="row">
+        <div class="col-md-8 offset-md-2">
+            <div class="card">
+                <div class="card-header">
+                    <h4>Edit Address</h4>
+                </div>
+                <div class="card-body">
+                    <form asp-action="EditAddress" method="post">
+                        <input type="hidden" asp-for="Id" />
+
+                        <!-- Same form fields as AddAddress.cshtml -->
+                        <div class="form-group">
+                            <label asp-for="Name">Address Name (e.g., Home, Work)</label>
+                            <input asp-for="Name" class="form-control" />
+                            <span asp-validation-for="Name" class="text-danger"></span>
+                        </div>
+
+                        <!-- Include all other fields from AddAddress view -->
+                        <!-- ... -->
+
+                        <div class="form-group">
+                            <button type="submit" class="btn btn-primary">Update Address</button>
+                            <a href="@Url.Action("Profile")" class="btn btn-secondary">Cancel</a>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}
