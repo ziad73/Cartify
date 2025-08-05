@@ -1,4 +1,4 @@
-﻿using CartifyDAL.Enum.User.userSex;
+﻿using CartifyDAL.Enum.User.userGender;
 using System.ComponentModel.DataAnnotations;
 
 namespace CartifyBLL.ViewModels.Account

@@ -1,10 +1,12 @@
-﻿using CartifyBLL.Services.UserServices;
+﻿using CartifyBLL.Helper;
+using CartifyBLL.Services.UserServices;
 using CartifyBLL.ViewModels.Account;
 using CartifyDAL.Entities.user;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.ModelBinding;
 using System.Security.Claims;
 
 namespace CartifyPLL.Controllers
@@ -14,15 +16,21 @@ namespace CartifyPLL.Controllers
         private readonly IAccountService accountService;
         private readonly SignInManager<User> signInManager;
         private readonly UserManager<User> userManager;
+        private readonly IUserService _userService;
+        //private readonly IOrderService orderService;
+
 
         public AccountController(
     IAccountService accountService,
     SignInManager<User> signInManager,
-    UserManager<User> userManager)
+    UserManager<User> userManager, IUserService _userService)//, IOrderService _orderService)
         {
             this.accountService = accountService;
             this.signInManager = signInManager;
             this.userManager = userManager;
+            this._userService = _userService;
+            //this.orderService = _orderService;
+
         }
 
         [HttpGet]
@@ -252,5 +260,232 @@ namespace CartifyPLL.Controllers
             return View("LoginView");
         }
 
+
+        [HttpGet]
+        public async Task<ActionResult> Profile()
+        {
+            var userId = User.GetUserId();
+            var userProfile = await _userService.GetUserProfileAsync(userId);
+            //var recentOrders = await _orderService.GetRecentOrdersAsync(userId, 3);
+
+            var model = new ProfileVM
+            {
+                FullName = userProfile.FullName,
+                Email = userProfile.Email,
+                PhoneNumber = userProfile.PhoneNumber,
+                MemberSince = userProfile.MemberSince,
+                TotalOrders = userProfile.TotalOrders,
+                LoyaltyPoints = userProfile.LoyaltyPoints,
+                Addresses = userProfile.Addresses, 
+                DefaultShippingAddress = userProfile.DefaultShippingAddress,
+                //RecentOrders = recentOrders,
+                EmailVerified = userProfile.EmailVerified,
+                PhoneVerified = userProfile.PhoneVerified
+            };
+
+            return View("ProfileView",model);
+        }
+
+
+        [HttpGet]
+        public async Task<ActionResult> EditProfile()
+        {
+            var userId = User.GetUserId();
+            var userProfile = await _userService.GetUserProfileAsync(userId);
+            var model = new EditProfileVM
+            {
+                FullName = userProfile.FullName,
+                PhoneNumber = userProfile.PhoneNumber,
+                DefaultShippingAddress = userProfile.DefaultShippingAddress
+            };
+
+            return View(model);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<ActionResult> EditProfile(EditProfileVM model)
+        {
+            if (!ModelState.IsValid)
+            {
+                return View(model);
+            }
+
+            var userId = User.GetUserId();
+            var result = await _userService.UpdateUserProfileAsync(userId, model);
+
+            if (result.Succeeded)
+            {
+                TempData["SuccessMessage"] = "Your profile has been updated successfully.";
+                return RedirectToAction("Profile");
+            }
+
+            foreach (var error in result.Errors)
+            {
+                ModelState.AddModelError("", error.Description);
+            }
+
+            return View(model);
+        }
+
+        //[HttpPost]
+        //[ValidateAntiForgeryToken]
+        //public async Task<ActionResult> UploadAvatar(IFormFile avatar)
+        //{
+        //    if (avatar == null || avatar.ContentLength == 0)
+        //    {
+        //        return Json(new { success = false, message = "No file uploaded." });
+        //    }
+
+        //    if (!avatar.ContentType.StartsWith("image/"))
+        //    {
+        //        return Json(new { success = false, message = "Only image files are allowed." });
+        //    }
+
+        //    if (avatar.ContentLength > 5 * 1024 * 1024) // 5MB
+        //    {
+        //        return Json(new { success = false, message = "File size must be less than 5MB." });
+        //    }
+
+        //    try
+        //    {
+        //        var userId = User.GetUserId();
+        //        var result = await _userService.UploadAvatarAsync(userId, avatar);
+
+        //        if (result.Succeeded)
+        //        {
+        //            return Json(new
+        //            {
+        //                success = true,
+        //                avatarUrl = result.AvatarUrl
+        //            });
+        //        }
+
+        //        return Json(new
+        //        {
+        //            success = false,
+        //            message = string.Join(" ", result.Errors)
+        //        });
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        return Json(new
+        //        {
+        //            success = false,
+        //            message = "An error occurred while uploading your avatar."
+        //        });
+        //    }
+        //}
+
+        [HttpGet]
+        public async Task<IActionResult> AddAddress()
+        {
+            return View(new AddressVM());
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> AddAddress(AddressVM model)
+        {
+            if (!ModelState.IsValid)
+                return View(model);
+
+            var userId = User.GetUserId();
+            var result = await _userService.AddAddressAsync(userId, model);
+
+            if (result.Succeeded)
+            {
+                TempData["SuccessMessage"] = "Address added successfully";
+                return RedirectToAction("Profile");
+            }
+
+            foreach (var error in result.Errors)
+            {
+                ModelState.AddModelError("", error.Description);
+            }
+
+            return View(model);
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> EditAddress(int id)
+        {
+            var userId = User.GetUserId();
+            var address = await _userService.GetAddressAsync(userId, id);
+
+            if (address == null)
+                return NotFound();
+
+            return View(address);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> EditAddress(AddressVM model)
+        {
+            if (!ModelState.IsValid)
+                return View(model);
+
+            var userId = User.GetUserId();
+            var result = await _userService.UpdateAddressAsync(userId, model);
+
+            if (result.Succeeded)
+            {
+                TempData["SuccessMessage"] = "Address updated successfully";
+                return RedirectToAction("Profile");
+            }
+
+            foreach (var error in result.Errors)
+            {
+                ModelState.AddModelError("", error.Description);
+            }
+
+            return View(model);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> SetDefaultAddress([FromBody] SetDefaultAddressRequest request)
+        {
+            try
+            {
+                var userId = User.GetUserId();
+                var result = await _userService.SetDefaultAddressAsync(userId, request.id);
+
+                if (!result.Succeeded)
+                {
+                    return Json(new
+                    {
+                        success = false,
+                        message = result.Errors.FirstOrDefault()?.Description ?? "Failed to set default address"
+                    });
+                }
+
+                return Json(new { success = true });
+            }
+            catch (Exception ex)
+            {
+                return Json(new
+                {
+                    success = false,
+                    message = "An error occurred: " + ex.Message
+                });
+            }
+        }
+
+        public class SetDefaultAddressRequest
+        {
+            public int id { get; set; }
+        }
+        [HttpPost]
+        public async Task<IActionResult> DeleteAddress(int id)
+        {
+            var userId = User.GetUserId();
+            var result = await _userService.DeleteAddressAsync(userId, id);
+
+            return RedirectToAction("Profile");
+        }
+
     }
 }
+

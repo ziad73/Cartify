@@ -51,7 +51,7 @@ namespace Cartify.DAL.DataBase
                 .HasForeignKey(pc => pc.CartId).OnDelete(DeleteBehavior.NoAction);
             
             modelBuilder.Entity<User>()
-            .Property(u => u.Sex)
+            .Property(u => u.Gender)
             .HasConversion<string>();
         }
     }

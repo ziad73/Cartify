@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("CartifyDAL")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+1c9cfe8b5c21a9dd5b3d0b6f9d7a13d6b8f4a70d")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+1f27336de0c478671d46b80bddfd12decfa10ec4")]
 [assembly: System.Reflection.AssemblyProductAttribute("CartifyDAL")]
 [assembly: System.Reflection.AssemblyTitleAttribute("CartifyDAL")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

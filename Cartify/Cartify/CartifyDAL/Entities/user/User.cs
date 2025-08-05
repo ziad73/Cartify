@@ -1,37 +1,42 @@
 ﻿using CartifyDAL.Entities.order;
-using CartifyDAL.Enum.User.userSex;
+using CartifyDAL.Enum.User.userGender;
+using CartifyDAL.Enum.User.userGender;
 using Microsoft.AspNetCore.Identity;
 using System.ComponentModel.DataAnnotations;
+using System.Net;
 
 namespace CartifyDAL.Entities.user
 {
     public class User : IdentityUser
     {
-        public User(string fName, string type, UserSex s,DateTime Bdate)
+        public User(string fName, string type, UserGender s,DateTime Bdate)
         {
             FullName = fName;
-            CreatedOn = DateTime.Now;
+            JoinDate = DateTime.Now;
             IsDeleted = false;
-            Sex = s;
+            Gender = s;
             BirthDate = Bdate;
         }
-        public User() { }
+        public User()
+        {
+            JoinDate = DateTime.Now;
+        }
 
 
         public string FullName { get; set; }
 
-        public UserSex Sex { get;  set; }
+        public UserGender Gender { get;  set; }
         public DateTime BirthDate { get;  set; }
 
-        public string? PostalCode { get; set; }
+        public string? AvatarUrl { get; set; }
 
         // Navigation Properties
         public List<UserPayment>? UserPayments { get; private set; }
-        public List<UserAddress>? Addresses { get; private set; }
-        public List<Order>? Orders { get; private set; }
+        public virtual ICollection<UserAddress> Addresses { get; set; }
+        public List<Order>? Orders { get;  set; }
 
         // Audit Fields
-        public DateTime CreatedOn { get; private set; }
+        public DateTime JoinDate { get; private set; }
         public bool IsDeleted { get; private set; }
         public DateTime? DeletedOn { get; private set; }
         public string? DeletedBy { get; private set; }

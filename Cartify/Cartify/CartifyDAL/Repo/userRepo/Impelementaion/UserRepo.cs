@@ -1,6 +1,7 @@
 ﻿using CartifyDAL.Entities.user;
 using CartifyDAL.Repo.userRepo.Abstraction;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.EntityFrameworkCore;
 using System.Threading.Tasks;
 
 namespace CartifyDAL.Repo.userRepo.Impelementaion
@@ -40,6 +41,10 @@ namespace CartifyDAL.Repo.userRepo.Impelementaion
         {
             var result = await userManager.UpdateAsync(user);
             return result.Succeeded;
+        }
+        public async Task<User?> GetByIdAsync(string id)
+        {
+            return await userManager.Users.Include(u => u.Addresses).FirstOrDefaultAsync(u => u.Id == id);
         }
 
     }
