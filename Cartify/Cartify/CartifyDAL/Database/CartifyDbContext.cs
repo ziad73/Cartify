@@ -19,19 +19,19 @@ namespace Cartify.DAL.DataBase
         {
             optionsBuilder.UseSqlServer("Server=ZUZZ;Database=CartifyDB;Trusted_Connection=True;MultipleActiveResultSets=true;TrustServerCertificate=true");
         }
-        public List<Cart> Cart { get; set; }
-        public List<CartItem> CartItem { get; set; }
-        public List<ProductCart> ProductCart { get; set; }
-        public List<Category> Category { get; set; }
-        public List<Order> Order { get; set; }
-        public List<OrderItem> OrderItem { get; set; }
-        public List<Product> Product { get; set; }
-        public List<ProductReview> ProductReview { get; set; }
-        public List<User> Users { get; set; }
-        public List<UserAddress> UserAddress { get; set; }
-        public List<UserPayment> UserPayment { get; set; }
-        public List<Payment> Payment { get; set; }
-        public List<PaymentMethod> PaymentMethod { get; set; }
+        public DbSet<Cart> Cart { get; set; }
+        public DbSet<CartItem> CartItem { get; set; }
+        public DbSet<ProductCart> ProductCart { get; set; }
+        public DbSet<Category> Category { get; set; }
+        public DbSet<Order> Order { get; set; }
+        public DbSet<OrderItem> OrderItem { get; set; }
+        public DbSet<Product> Product { get; set; }
+        public DbSet<ProductReview> ProductReview { get; set; }
+        public DbSet<User> Users { get; set; }
+        public DbSet<UserAddress> UserAddress { get; set; }
+        public DbSet<UserPayment> UserPayment { get; set; }
+        public DbSet<Payment> Payment { get; set; }
+        public DbSet<PaymentMethod> PaymentMethod { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {

@@ -1,0 +1,174 @@
+﻿@{
+    ViewData["Title"] = "Admin Dashboard";
+    Layout = "_AdminLayout";
+}
+
+<div class="d-flex justify-content-between align-items-center mb-4">
+    <h2><i class="bi bi-speedometer2"></i> @ViewData["Title"]</h2>
+</div>
+
+<!-- Stats Cards -->
+<div class="row">
+    <div class="col-md-3">
+        <div class="stats-card">
+            <div class="stats-icon text-primary">
+                <i class="bi bi-box-seam"></i>
+            </div>
+            <div class="stats-number">1,247</div>
+            <div class="stats-label">Total Products</div>
+        </div>
+    </div>
+    <div class="col-md-3">
+        <div class="stats-card">
+            <div class="stats-icon text-success">
+                <i class="bi bi-receipt"></i>
+            </div>
+            <div class="stats-number">892</div>
+            <div class="stats-label">Total Orders</div>
+        </div>
+    </div>
+    <div class="col-md-3">
+        <div class="stats-card">
+            <div class="stats-icon text-info">
+                <i class="bi bi-people"></i>
+            </div>
+            <div class="stats-number">3,456</div>
+            <div class="stats-label">Total Users</div>
+        </div>
+    </div>
+    <div class="col-md-3">
+        <div class="stats-card">
+            <div class="stats-icon text-warning">
+                <i class="bi bi-currency-dollar"></i>
+            </div>
+            <div class="stats-number">$45,678</div>
+            <div class="stats-label">Total Revenue</div>
+        </div>
+    </div>
+</div>
+
+<div class="row">
+    <!-- Recent Orders -->
+    <div class="col-md-8">
+        <div class="recent-orders">
+            <h3><i class="bi bi-clock"></i> Recent Orders</h3>
+            <div class="order-item">
+                <div class="order-info">
+                    <h5>Order #ORD-2024-001</h5>
+                    <p>John Doe • 2 items • $299.99</p>
+                </div>
+                <div class="order-status status-pending">Pending</div>
+            </div>
+            <div class="order-item">
+                <div class="order-info">
+                    <h5>Order #ORD-2024-002</h5>
+                    <p>Sarah Smith • 1 item • $1299.00</p>
+                </div>
+                <div class="order-status status-shipped">Shipped</div>
+            </div>
+            <div class="order-item">
+                <div class="order-info">
+                    <h5>Order #ORD-2024-003</h5>
+                    <p>Mike Johnson • 3 items • $456.78</p>
+                </div>
+                <div class="order-status status-delivered">Delivered</div>
+            </div>
+            <div class="order-item">
+                <div class="order-info">
+                    <h5>Order #ORD-2024-004</h5>
+                    <p>Emily Brown • 1 item • $89.99</p>
+                </div>
+                <div class="order-status status-pending">Pending</div>
+            </div>
+            <div class="text-center mt-3">
+                <a asp-area="Admin" asp-controller="Orders" asp-action="Index" class="btn btn-primary">
+                    View All Orders
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Quick Actions -->
+    <div class="col-md-4">
+        <div class="quick-actions">
+            <h3><i class="bi bi-lightning"></i> Quick Actions</h3>
+            <a asp-area="Admin" asp-controller="Products" asp-action="Create" class="action-btn">
+                <i class="bi bi-plus"></i> Add New Product
+            </a>
+            <a asp-area="Admin" asp-controller="Orders" asp-action="Index" class="action-btn">
+                <i class="bi bi-eye"></i> View Orders
+            </a>
+            <a asp-area="Admin" asp-controller="Users" asp-action="Index" class="action-btn">
+                <i class="bi bi-person-plus"></i> Manage Users
+            </a>
+            <a asp-area="Admin" asp-controller="Reports" asp-action="Index" class="action-btn secondary">
+                <i class="bi bi-graph-up"></i> Generate Reports
+            </a>
+            <a href="#" class="action-btn secondary">
+                <i class="bi bi-gear"></i> Settings
+            </a>
+        </div>
+    </div>
+</div>
+
+<!-- Additional Stats -->
+<div class="row mt-4">
+    <div class="col-md-6">
+        <div class="recent-orders">
+            <h3><i class="bi bi-star"></i> Top Selling Products</h3>
+            <div class="order-item">
+                <div class="order-info">
+                    <h5>MacBook Pro 13"</h5>
+                    <p>Laptops • 45 units sold</p>
+                </div>
+                <div class="text-success">$58,455</div>
+            </div>
+            <div class="order-item">
+                <div class="order-info">
+                    <h5>iPhone 15 Pro</h5>
+                    <p>Smartphones • 38 units sold</p>
+                </div>
+                <div class="text-success">$38,000</div>
+            </div>
+            <div class="order-item">
+                <div class="order-info">
+                    <h5>Sony A7 III Camera</h5>
+                    <p>Cameras • 22 units sold</p>
+                </div>
+                <div class="text-success">$22,000</div>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-6">
+        <div class="recent-orders">
+            <h3><i class="bi bi-exclamation-triangle"></i> Low Stock Alerts</h3>
+            <div class="order-item">
+                <div class="order-info">
+                    <h5>Wireless Headphones</h5>
+                    <p>Accessories • Only 3 left</p>
+                </div>
+                <div class="text-warning">Low Stock</div>
+            </div>
+            <div class="order-item">
+                <div class="order-info">
+                    <h5>Gaming Mouse</h5>
+                    <p>Accessories • Only 5 left</p>
+                </div>
+                <div class="text-warning">Low Stock</div>
+            </div>
+            <div class="order-item">
+                <div class="order-info">
+                    <h5>USB-C Cable</h5>
+                    <p>Accessories • Only 2 left</p>
+                </div>
+                <div class="text-danger">Critical</div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <script src="/js/pages/admin-dashboard.js">
+
+    </script>
+}

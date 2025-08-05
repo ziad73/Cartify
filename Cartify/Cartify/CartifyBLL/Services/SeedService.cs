@@ -30,12 +30,13 @@ namespace CartifyBLL.Services
 
                 // Add admin user
                 logger.LogInformation("Seeding admin user.");
-                var adminEmail = "admin@codehub.com";
+                var adminEmail = "admin@cartify.com";
                 if (await userManager.FindByEmailAsync(adminEmail) == null)
                 {
                     var adminUser = new User
                     {
-                        FullName = "Code Hub",
+                        IsEmailVerified =true,
+                        FullName = "Cartify Admin",
                         UserName = adminEmail,
                         NormalizedUserName = adminEmail.ToUpper(),
                         Email = adminEmail,
