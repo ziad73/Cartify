@@ -25,8 +25,14 @@ namespace CartifyBLL.Services.UserServices
             if (user == null)
                 return (false, "Email or Password is invalid.", false);
 
+            // Allow Admin login without email verification
             if (!user.IsEmailVerified)
-                return (false, null, true); // trigger redirect to email verification
+            {
+                var roles = await userRepo.GetRolesAsync(user);
+                if (!roles.Contains("Admin"))
+                    return (false, null, true); // Only non-admins require verification
+            }
+
 
             var result = await signInManager.PasswordSignInAsync(model.Email, model.Password, model.RememberMe, false);
             if (result.Succeeded)

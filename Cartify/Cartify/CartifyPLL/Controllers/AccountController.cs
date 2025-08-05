@@ -61,7 +61,17 @@ namespace CartifyPLL.Controllers
             }
 
             if (success)
+            {
+                var user = await userManager.FindByEmailAsync(model.Email);
+                if (user != null && await userManager.IsInRoleAsync(user, "Admin"))
+                {
+                    return RedirectToAction("Index", "AdminDashboard", new { area = "Admin" });
+                }
+
                 return RedirectToAction("Index", "Home");
+
+            }
+
 
             ModelState.AddModelError("", error);
             return View("LoginView", model);
