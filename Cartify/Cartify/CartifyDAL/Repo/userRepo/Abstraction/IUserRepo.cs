@@ -1,5 +1,6 @@
 ﻿using Cartify.DAL.DataBase;
 using CartifyDAL.Entities.user;
+using Microsoft.AspNetCore.Identity;
 
 namespace CartifyDAL.Repo.userRepo.Abstraction
 {
@@ -11,9 +12,7 @@ namespace CartifyDAL.Repo.userRepo.Abstraction
         Task<bool> AddPasswordAsync(User user, string newPassword);
         Task<bool> UpdateAsync(User user);
         Task<User?> GetByIdAsync(string id);
-
-
-
+        Task<IList<string>> GetRolesAsync(User user);
     }
 
 }

@@ -46,6 +46,9 @@ namespace CartifyDAL.Repo.userRepo.Impelementaion
         {
             return await userManager.Users.Include(u => u.Addresses).FirstOrDefaultAsync(u => u.Id == id);
         }
-
+        public async Task<IList<string>> GetRolesAsync(User user)
+        {
+            return await userManager.GetRolesAsync(user);
+        }
     }
 }
