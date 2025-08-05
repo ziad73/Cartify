@@ -10,6 +10,8 @@ namespace CartifyDAL.Repo.userRepo.Abstraction
         Task<bool> RemovePasswordAsync(User user);
         Task<bool> AddPasswordAsync(User user, string newPassword);
         Task<bool> UpdateAsync(User user);
+        Task<User?> GetByIdAsync(string id);
+
 
 
     }
