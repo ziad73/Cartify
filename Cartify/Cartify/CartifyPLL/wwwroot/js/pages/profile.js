@@ -42,8 +42,13 @@ function uploadAvatar(file) {
         data: formData,
         processData: false,
         contentType: false,
+        headers: {
+            'RequestVerificationToken': $('input[name="__RequestVerificationToken"]').val()
+                || $('meta[name="csrf-token"]').attr('content')
+        },
         success: function (response) {
             if (response.success) {
+                document.getElementById('profileAvatar').src = response.avatarUrl;
                 showToast('Avatar updated successfully!', 'success');
             } else {
                 showToast('Error updating avatar: ' + response.message, 'error');
@@ -54,6 +59,7 @@ function uploadAvatar(file) {
         }
     });
 }
+
 
 function showToast(message, type) {
     // Implement toast notification or use a library like Toastr
