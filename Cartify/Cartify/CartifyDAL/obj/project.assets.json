@@ -7872,23 +7872,23 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\hp\\.nuget\\packages\\": {},
+    "C:\\Users\\salma\\.nuget\\packages\\": {},
     "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "E:\\coding\\GitHub\\Repos\\Cartify\\Cartify\\Cartify\\CartifyDAL\\CartifyDAL.csproj",
+      "projectUniqueName": "C:\\Users\\salma\\Source\\Repos\\Cartify\\Cartify\\Cartify\\CartifyDAL\\CartifyDAL.csproj",
       "projectName": "CartifyDAL",
-      "projectPath": "E:\\coding\\GitHub\\Repos\\Cartify\\Cartify\\Cartify\\CartifyDAL\\CartifyDAL.csproj",
-      "packagesPath": "C:\\Users\\hp\\.nuget\\packages\\",
-      "outputPath": "E:\\coding\\GitHub\\Repos\\Cartify\\Cartify\\Cartify\\CartifyDAL\\obj\\",
+      "projectPath": "C:\\Users\\salma\\Source\\Repos\\Cartify\\Cartify\\Cartify\\CartifyDAL\\CartifyDAL.csproj",
+      "packagesPath": "C:\\Users\\salma\\.nuget\\packages\\",
+      "outputPath": "C:\\Users\\salma\\Source\\Repos\\Cartify\\Cartify\\Cartify\\CartifyDAL\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
       ],
       "configFilePaths": [
-        "C:\\Users\\hp\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Users\\salma\\AppData\\Roaming\\NuGet\\NuGet.Config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
@@ -7960,7 +7960,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.302/PortableRuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.301/PortableRuntimeIdentifierGraph.json"
       }
     }
   }
