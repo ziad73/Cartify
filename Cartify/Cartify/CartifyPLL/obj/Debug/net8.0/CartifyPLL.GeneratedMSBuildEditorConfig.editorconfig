@@ -40,6 +40,10 @@ build_metadata.AdditionalFiles.CssScope =
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWNjb3VudFxFZGl0QWRkcmVzcy5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
+[E:/coding/GitHub/Repos/Cartify/Cartify/Cartify/CartifyPLL/Views/Account/EditProfileView.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWNjb3VudFxFZGl0UHJvZmlsZVZpZXcuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
 [E:/coding/GitHub/Repos/Cartify/Cartify/Cartify/CartifyPLL/Views/Account/EmailCodeVerificationView.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWNjb3VudFxFbWFpbENvZGVWZXJpZmljYXRpb25WaWV3LmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 

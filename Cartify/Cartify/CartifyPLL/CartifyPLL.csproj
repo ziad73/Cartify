@@ -16,4 +16,8 @@
     <ProjectReference Include="..\CartifyDAL\CartifyDAL.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="wwwroot\Files\Avatars\" />
+  </ItemGroup>
+
 </Project>

@@ -1,4 +1,5 @@
-﻿@{
+﻿@inject Microsoft.AspNetCore.Antiforgery.IAntiforgery Antiforgery
+@{
     Layout = null;
     var isLoggedIn = Context.User.Identity.IsAuthenticated;
     var userName = Context.User.Identity.Name;
@@ -9,6 +10,7 @@
 <html lang="en">
 
 <head>
+
     <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css" rel="stylesheet">
     <meta charset="utf-8" />
     <title>@ViewBag.Title - My Website</title>
@@ -28,6 +30,7 @@
     <link rel="stylesheet" href="~/css/pages/navbar.css" />
 
     @RenderSection("Styles", required: false) <!--tells the layout to render any custom styles defined by the view. -->
+    <meta name="csrf-token" content="@Antiforgery.GetAndStoreTokens(Context).RequestToken" />
 </head>
 <body>
 
