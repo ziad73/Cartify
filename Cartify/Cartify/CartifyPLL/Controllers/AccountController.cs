@@ -290,7 +290,8 @@ namespace CartifyPLL.Controllers
                 DefaultShippingAddress = userProfile.DefaultShippingAddress,
                 //RecentOrders = recentOrders,
                 EmailVerified = userProfile.EmailVerified,
-                PhoneVerified = userProfile.PhoneVerified
+                PhoneVerified = userProfile.PhoneVerified,
+                AvatarUrl = userProfile.AvatarUrl
             };
 
             return View("ProfileView",model);
@@ -306,10 +307,11 @@ namespace CartifyPLL.Controllers
             {
                 FullName = userProfile.FullName,
                 PhoneNumber = userProfile.PhoneNumber,
-                DefaultShippingAddress = userProfile.DefaultShippingAddress
+                //DefaultShippingAddress = userProfile.DefaultShippingAddress
+                AvatarUrl=userProfile.AvatarUrl
             };
 
-            return View(model);
+            return View("EditProfileView", model);
         }
 
         [HttpPost]
@@ -317,9 +319,7 @@ namespace CartifyPLL.Controllers
         public async Task<ActionResult> EditProfile(EditProfileVM model)
         {
             if (!ModelState.IsValid)
-            {
                 return View(model);
-            }
 
             var userId = User.GetUserId();
             var result = await _userService.UpdateUserProfileAsync(userId, model);
@@ -335,57 +335,59 @@ namespace CartifyPLL.Controllers
                 ModelState.AddModelError("", error.Description);
             }
 
-            return View(model);
+            return View("EditProfileView",model);
         }
 
-        //[HttpPost]
-        //[ValidateAntiForgeryToken]
-        //public async Task<ActionResult> UploadAvatar(IFormFile avatar)
-        //{
-        //    if (avatar == null || avatar.ContentLength == 0)
-        //    {
-        //        return Json(new { success = false, message = "No file uploaded." });
-        //    }
 
-        //    if (!avatar.ContentType.StartsWith("image/"))
-        //    {
-        //        return Json(new { success = false, message = "Only image files are allowed." });
-        //    }
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<ActionResult> UploadAvatar(IFormFile avatar)
+        {
+            if (avatar == null || avatar.Length == 0)
+            {
+                return Json(new { success = false, message = "No file uploaded." });
+            }
 
-        //    if (avatar.ContentLength > 5 * 1024 * 1024) // 5MB
-        //    {
-        //        return Json(new { success = false, message = "File size must be less than 5MB." });
-        //    }
+            if (!avatar.ContentType.StartsWith("image/"))
+            {
+                return Json(new { success = false, message = "Only image files are allowed." });
+            }
 
-        //    try
-        //    {
-        //        var userId = User.GetUserId();
-        //        var result = await _userService.UploadAvatarAsync(userId, avatar);
+            if (avatar.Length > 5 * 1024 * 1024) // 5MB
+            {
+                return Json(new { success = false, message = "File size must be less than 5MB." });
+            }
 
-        //        if (result.Succeeded)
-        //        {
-        //            return Json(new
-        //            {
-        //                success = true,
-        //                avatarUrl = result.AvatarUrl
-        //            });
-        //        }
+            try
+            {
+                var userId = User.GetUserId();
+                var result = await _userService.UploadAvatarAsync(userId, avatar);
 
-        //        return Json(new
-        //        {
-        //            success = false,
-        //            message = string.Join(" ", result.Errors)
-        //        });
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        return Json(new
-        //        {
-        //            success = false,
-        //            message = "An error occurred while uploading your avatar."
-        //        });
-        //    }
-        //}
+                if (result.Succeeded)
+                {
+                    return Json(new
+                    {
+                        success = true,
+                        avatarUrl = result.AvatarUrl
+                    });
+                }
+
+                return Json(new
+                {
+                    success = false,
+                    message = string.Join(" ", result.Errors)
+                });
+            }
+            catch (Exception)
+            {
+                return Json(new
+                {
+                    success = false,
+                    message = "An error occurred while uploading your avatar."
+                });
+            }
+        }
+
 
         [HttpGet]
         public async Task<IActionResult> AddAddress()

@@ -56,6 +56,21 @@ namespace CartifyBLL.Services.UserServices
             user.FullName = model.FullName;
             user.PhoneNumber = model.PhoneNumber;
 
+            if (model.Avatar != null && model.Avatar.Length > 0)
+            {
+                if (!string.IsNullOrEmpty(user.AvatarUrl))
+                {
+                    var oldFile = Path.GetFileName(user.AvatarUrl);
+                    FileUploader.RemoveFile("Avatars", oldFile);
+                }
+
+                var avatarPath = FileUploader.UploadFile("Avatars", model.Avatar);
+                if (!string.IsNullOrEmpty(avatarPath))
+                {
+                    user.AvatarUrl = avatarPath;
+                }
+            }
+
             return await userManager.UpdateAsync(user);
         }
 
@@ -74,18 +89,20 @@ namespace CartifyBLL.Services.UserServices
             if (user == null)
                 return (false, "", new[] { "User not found" });
 
-            var extension = Path.GetExtension(avatar.FileName);
-            var fileName = $"avatar_{userId}{extension}";
-            var folderPath = Path.Combine("wwwroot", "uploads", "avatars");
-            Directory.CreateDirectory(folderPath);
-            var filePath = Path.Combine(folderPath, fileName);
-
-            using (var stream = new FileStream(filePath, FileMode.Create))
+            // Remove previous avatar if exists
+            if (!string.IsNullOrEmpty(user.AvatarUrl))
             {
-                await avatar.CopyToAsync(stream);
+                string oldFileName = Path.GetFileName(user.AvatarUrl); // extract "abc.jpg" from "/Files/Avatars/abc.jpg"
+                FileUploader.RemoveFile("Avatars", oldFileName);
             }
 
-            user.AvatarUrl = $"/uploads/avatars/{fileName}";
+            // Upload new avatar using helper
+            var newAvatarPath = FileUploader.UploadFile("Avatars", avatar);
+            if (string.IsNullOrEmpty(newAvatarPath))
+                return (false, "", new[] { "Failed to upload avatar." });
+
+            user.AvatarUrl = newAvatarPath;
+
             var result = await userManager.UpdateAsync(user);
             return (result.Succeeded, user.AvatarUrl, result.Errors.Select(e => e.Description));
         }
@@ -145,14 +162,14 @@ namespace CartifyBLL.Services.UserServices
             address.PhoneNumber = model.PhoneNumber;
             address.Name = model.Name;
 
-            if (model.IsDefault)
+            // Always reset default for all addresses
+            foreach (var existingAddress in user.Addresses)
             {
-                foreach (var existingAddress in user.Addresses)
-                {
-                    existingAddress.IsDefault = false;
-                }
-                address.IsDefault = true;
+                existingAddress.IsDefault = false;
             }
+
+            // Then set this one as default if requested
+            address.IsDefault = model.IsDefault;
 
             return await userManager.UpdateAsync(user);
         }
@@ -216,7 +233,7 @@ namespace CartifyBLL.Services.UserServices
             };
         }
 
-        
+
 
 
     }
