@@ -1,15 +1,18 @@
 ﻿using Cartify.DAL.DataBase;
 using CartifyBLL.Services;
+using CartifyBLL.Services.CategoryServices;
 using CartifyBLL.Services.UserServices;
 using CartifyDAL.Entities.user;
+using CartifyDAL.Repo.categoryRepo.Abstraction;
+using CartifyDAL.Repo.CategoryRepo.Implementation;
 using CartifyDAL.Repo.userRepo.Abstraction;
 using CartifyDAL.Repo.userRepo.Impelementaion;
+using Microsoft.AspNetCore.Authentication.Cookies;
+using Microsoft.AspNetCore.Authentication.Google;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using System;
-using Microsoft.AspNetCore.Authentication.Google;
-using Microsoft.AspNetCore.Authentication.Cookies;
 
 namespace CartifyPLL
 {
@@ -48,7 +51,8 @@ namespace CartifyPLL
             builder.Services.AddScoped<EmailSender>();
 
             //builder.Services.AddScoped<SeedService>(); // If used during seeding
-
+            builder.Services.AddScoped<ICategoryRepo, CategoryRepo>();
+            builder.Services.AddScoped<ICategoryService, CategoryService>();
             builder.Services.AddDbContext<CartifyDbContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("Default")));
 

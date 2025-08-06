@@ -1,0 +1,40 @@
+﻿@model List<CartifyDAL.Entities.category.Category>
+
+@{
+    ViewBag.Title = "Manage Categories";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+<h2>@ViewBag.Title</h2>
+
+<p>
+    <a href="/Admin/Category/Create" class="btn btn-primary">Add New Category</a>
+</p>
+
+@if (ViewBag.Error != null)
+{
+    <div class="alert alert-danger">@ViewBag.Error</div>
+}
+
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th>Name</th>
+            <th>Description</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>@item.Name</td>
+                <td>@item.Description</td>
+                <td>
+                    <a href="/Admin/Category/Edit/@item.CategoryId" class="btn btn-sm btn-warning">Edit</a>
+                    <a href="/Admin/Category/Delete/@item.CategoryId" class="btn btn-sm btn-danger">Delete</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
