@@ -65,7 +65,7 @@
                     </a>
                 </div>
                 <!--Cart-->
-                <a href="#" class="cart-icon">
+                <a asp-controller="Cart" asp-action="Index" class="cart-icon">
                     <i class="bi bi-cart3"></i> <span>Cart</span>
                 </a>
             </div>
@@ -118,6 +118,7 @@
             <li><a href="~/Store?category=smartphones">Smartphones</a></li>
             <li><a href="~/Store?category=cameras">Cameras</a></li>
             <li><a href="~/Store?category=accessories">Accessories</a></li>
+            <li><a asp-controller="Home" asp-action="Contact">Contact Us</a></li>
         </ul>
     </nav>
 

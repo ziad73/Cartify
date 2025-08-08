@@ -17,10 +17,52 @@ namespace CartifyDAL.Migrations
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "8.0.0")
+                .HasAnnotation("ProductVersion", "8.0.14")
                 .HasAnnotation("Relational:MaxIdentifierLength", 128);
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
+
+            modelBuilder.Entity("CartifyDAL.Entities.Wishlist.Wishlist", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("UserId")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(450)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("UserId");
+
+                    b.ToTable("Wishlists");
+                });
+
+            modelBuilder.Entity("CartifyDAL.Entities.Wishlist.WishlistItem", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<int>("ProductId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("WishlistId")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("ProductId");
+
+                    b.HasIndex("WishlistId");
+
+                    b.ToTable("WishlistItems");
+                });
 
             modelBuilder.Entity("CartifyDAL.Entities.cart.Cart", b =>
                 {
@@ -54,7 +96,7 @@ namespace CartifyDAL.Migrations
 
                     b.HasKey("CartId");
 
-                    b.ToTable("Cart", (string)null);
+                    b.ToTable("Cart");
                 });
 
             modelBuilder.Entity("CartifyDAL.Entities.cart.CartItem", b =>
@@ -92,7 +134,7 @@ namespace CartifyDAL.Migrations
 
                     b.HasKey("CartId");
 
-                    b.ToTable("CartItem", (string)null);
+                    b.ToTable("CartItem");
                 });
 
             modelBuilder.Entity("CartifyDAL.Entities.category.Category", b =>
@@ -141,7 +183,7 @@ namespace CartifyDAL.Migrations
 
                     b.HasIndex("ParentCategoryId");
 
-                    b.ToTable("Category", (string)null);
+                    b.ToTable("Category");
                 });
 
             modelBuilder.Entity("CartifyDAL.Entities.order.Order", b =>
@@ -205,7 +247,7 @@ namespace CartifyDAL.Migrations
 
                     b.HasIndex("UserId");
 
-                    b.ToTable("Order", (string)null);
+                    b.ToTable("Order");
                 });
 
             modelBuilder.Entity("CartifyDAL.Entities.order.OrderItem", b =>
@@ -254,7 +296,7 @@ namespace CartifyDAL.Migrations
 
                     b.HasIndex("OrderId");
 
-                    b.ToTable("OrderItem", (string)null);
+                    b.ToTable("OrderItem");
                 });
 
             modelBuilder.Entity("CartifyDAL.Entities.payment.Payment", b =>
@@ -284,7 +326,7 @@ namespace CartifyDAL.Migrations
 
                     b.HasIndex("PaymentMethodId");
 
-                    b.ToTable("Payment", (string)null);
+                    b.ToTable("Payment");
                 });
 
             modelBuilder.Entity("CartifyDAL.Entities.payment.PaymentMethod", b =>
@@ -324,7 +366,7 @@ namespace CartifyDAL.Migrations
 
                     b.HasKey("PaymentMethodId");
 
-                    b.ToTable("PaymentMethod", (string)null);
+                    b.ToTable("PaymentMethod");
                 });
 
             modelBuilder.Entity("CartifyDAL.Entities.product.Product", b =>
@@ -371,10 +413,6 @@ namespace CartifyDAL.Migrations
                     b.Property<DateTime?>("ModifiedOn")
                         .HasColumnType("datetime2");
 
-                    b.Property<string>("Name")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
                     b.Property<int?>("OrderId")
                         .HasColumnType("int");
 
@@ -390,7 +428,7 @@ namespace CartifyDAL.Migrations
 
                     b.HasIndex("OrderId");
 
-                    b.ToTable("Product", (string)null);
+                    b.ToTable("Product");
                 });
 
             modelBuilder.Entity("CartifyDAL.Entities.product.ProductReview", b =>
@@ -435,7 +473,7 @@ namespace CartifyDAL.Migrations
 
                     b.HasIndex("ProductId");
 
-                    b.ToTable("ProductReview", (string)null);
+                    b.ToTable("ProductReview");
                 });
 
             modelBuilder.Entity("CartifyDAL.Entities.productCart.ProductCart", b =>
@@ -472,7 +510,7 @@ namespace CartifyDAL.Migrations
 
                     b.HasIndex("ProductId");
 
-                    b.ToTable("ProductCart", (string)null);
+                    b.ToTable("ProductCart");
                 });
 
             modelBuilder.Entity("CartifyDAL.Entities.user.User", b =>
@@ -628,7 +666,7 @@ namespace CartifyDAL.Migrations
 
                     b.HasIndex("UserId");
 
-                    b.ToTable("UserAddress", (string)null);
+                    b.ToTable("UserAddress");
                 });
 
             modelBuilder.Entity("CartifyDAL.Entities.user.UserPayment", b =>
@@ -661,7 +699,7 @@ namespace CartifyDAL.Migrations
 
                     b.HasIndex("UserId");
 
-                    b.ToTable("UserPayment", (string)null);
+                    b.ToTable("UserPayment");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>
@@ -795,6 +833,36 @@ namespace CartifyDAL.Migrations
                     b.HasKey("UserId", "LoginProvider", "Name");
 
                     b.ToTable("AspNetUserTokens", (string)null);
+                });
+
+            modelBuilder.Entity("CartifyDAL.Entities.Wishlist.Wishlist", b =>
+                {
+                    b.HasOne("CartifyDAL.Entities.user.User", "User")
+                        .WithMany()
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("User");
+                });
+
+            modelBuilder.Entity("CartifyDAL.Entities.Wishlist.WishlistItem", b =>
+                {
+                    b.HasOne("CartifyDAL.Entities.product.Product", "Product")
+                        .WithMany()
+                        .HasForeignKey("ProductId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("CartifyDAL.Entities.Wishlist.Wishlist", "Wishlist")
+                        .WithMany("Items")
+                        .HasForeignKey("WishlistId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Product");
+
+                    b.Navigation("Wishlist");
                 });
 
             modelBuilder.Entity("CartifyDAL.Entities.cart.CartItem", b =>
@@ -972,6 +1040,11 @@ namespace CartifyDAL.Migrations
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+                });
+
+            modelBuilder.Entity("CartifyDAL.Entities.Wishlist.Wishlist", b =>
+                {
+                    b.Navigation("Items");
                 });
 
             modelBuilder.Entity("CartifyDAL.Entities.cart.Cart", b =>

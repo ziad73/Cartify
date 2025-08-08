@@ -16,10 +16,10 @@ namespace CartifyDAL.Entities.user
         public int Id { get; private set; }
 
         [Required]
-        public string UserId { get; private set; }
+        public string UserId { get; set; }
 
         [Required]
-        public int PaymentId { get; private set; }
+        public int PaymentId { get; set; }
 
         [ForeignKey(nameof(UserId))]
         public User User { get; private set; }

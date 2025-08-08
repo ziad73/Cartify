@@ -1,0 +1,242 @@
+﻿@model CartifyBLL.ViewModels.Checkout.CheckoutVm
+
+@{
+    ViewData["Title"] = "Checkout";
+}
+
+<div class="container py-5">
+    <nav aria-label="breadcrumb">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a asp-controller="Home" asp-action="Index">Home</a></li>
+            <li class="breadcrumb-item"><a asp-controller="Cart" asp-action="Index">Cart</a></li>
+            <li class="breadcrumb-item active" aria-current="page">Checkout</li>
+        </ol>
+    </nav>
+
+    <form asp-action="Process" method="post" id="checkoutForm" class="needs-validation" novalidate>
+        <div asp-validation-summary="ModelOnly" class="alert alert-danger" role="alert"></div>
+
+        <div class="row g-4">
+            <!-- Shipping and Payment Information -->
+            <div class="col-md-8">
+                <div class="card shadow-sm">
+                    <div class="card-body">
+                        <h5 class="card-title mb-4">Shipping Information</h5>
+                        
+                        <div class="row g-3">
+                            <div class="col-md-6">
+                                <div class="form-floating">
+                                    <input asp-for="FirstName" class="form-control" placeholder="First Name" required />
+                                    <label asp-for="FirstName">First Name</label>
+                                    <span asp-validation-for="FirstName" class="text-danger small"></span>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-floating">
+                                    <input asp-for="LastName" class="form-control" placeholder="Last Name" required />
+                                    <label asp-for="LastName">Last Name</label>
+                                    <span asp-validation-for="LastName" class="text-danger small"></span>
+                                </div>
+                            </div>
+
+                            <div class="col-md-6">
+                                <div class="form-floating">
+                                    <input asp-for="Email" class="form-control" placeholder="Email" required />
+                                    <label asp-for="Email">Email</label>
+                                    <span asp-validation-for="Email" class="text-danger small"></span>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-floating">
+                                    <input asp-for="PhoneNumber" class="form-control" placeholder="Phone" required />
+                                    <label asp-for="PhoneNumber">Phone Number</label>
+                                    <span asp-validation-for="PhoneNumber" class="text-danger small"></span>
+                                </div>
+                            </div>
+
+                            <div class="col-12">
+                                <div class="form-floating">
+                                    <input asp-for="Address" class="form-control" placeholder="Address" required />
+                                    <label asp-for="Address">Address</label>
+                                    <span asp-validation-for="Address" class="text-danger small"></span>
+                                </div>
+                            </div>
+
+                            <div class="col-md-6">
+                                <div class="form-floating">
+                                    <input asp-for="City" class="form-control" placeholder="City" required />
+                                    <label asp-for="City">City</label>
+                                    <span asp-validation-for="City" class="text-danger small"></span>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-floating">
+                                    <input asp-for="PostalCode" class="form-control" placeholder="Postal Code" required />
+                                    <label asp-for="PostalCode">Postal Code</label>
+                                    <span asp-validation-for="PostalCode" class="text-danger small"></span>
+                                </div>
+                            </div>
+
+                            <div class="col-12">
+                                <div class="form-floating">
+                                    <select asp-for="Country" class="form-select" required>
+                                        <option value="">Select a country</option>
+                                        <option value="US">United States</option>
+                                        <option value="CA">Canada</option>
+                                        <option value="GB">United Kingdom</option>
+                                    </select>
+                                    <label asp-for="Country">Country</label>
+                                    <span asp-validation-for="Country" class="text-danger small"></span>
+                                </div>
+                            </div>
+
+                            <h5 class="card-title mt-4 mb-4">Payment Information</h5>
+                            <div class="col-12">
+                                <div class="form-floating">
+                                    <input asp-for="CardNumber" class="form-control" placeholder="Card Number" required />
+                                    <label asp-for="CardNumber">Card Number</label>
+                                    <span asp-validation-for="CardNumber" class="text-danger small"></span>
+                                </div>
+                            </div>
+                            <div class="col-12">
+                                <div class="form-floating">
+                                    <input asp-for="CardHolderName" class="form-control" placeholder="Card Holder Name" required />
+                                    <label asp-for="CardHolderName">Card Holder Name</label>
+                                    <span asp-validation-for="CardHolderName" class="text-danger small"></span>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-floating">
+                                    <input asp-for="ExpiryDate" class="form-control" placeholder="MM/YY" required />
+                                    <label asp-for="ExpiryDate">Expiry Date (MM/YY)</label>
+                                    <span asp-validation-for="ExpiryDate" class="text-danger small"></span>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-floating">
+                                    <input asp-for="CVV" class="form-control" placeholder="CVV" required />
+                                    <label asp-for="CVV">CVV</label>
+                                    <span asp-validation-for="CVV" class="text-danger small"></span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Order Summary -->
+            <div class="col-md-4">
+                <div class="card shadow-sm">
+                    <div class="card-body">
+                        <h5 class="card-title mb-4">Order Summary</h5>
+                        
+                        <div class="order-items mb-3">
+                            @foreach (var item in Model.CartItems)
+                            {
+                                <div class="d-flex justify-content-between align-items-center mb-2">
+                                    <div>
+                                        <h6 class="mb-0">@item.ProductName</h6>
+                                        <small class="text-muted">Quantity: @item.Quantity</small>
+                                    </div>
+                                    <span>@item.Subtotal.ToString("C")</span>
+                                </div>
+                            }
+                        </div>
+
+                        <hr>
+
+                        <div class="d-flex justify-content-between mb-2">
+                            <span>Subtotal</span>
+                            <span>@Model.SubTotal.ToString("C")</span>
+                        </div>
+                        <div class="d-flex justify-content-between mb-2">
+                            <span>Shipping</span>
+                            <span id="shippingCost">@Model.ShippingCost.ToString("C")</span>
+                        </div>
+                        <hr>
+                        <div class="d-flex justify-content-between mb-4">
+                            <strong>Total</strong>
+                            <strong id="totalAmount">@Model.Total.ToString("C")</strong>
+                        </div>
+
+                        <div class="form-check mb-3">
+                            <input class="form-check-input" type="checkbox" id="termsCheck" required>
+                            <label class="form-check-label small" for="termsCheck">
+                                I agree to the <a href="#" data-bs-toggle="modal" data-bs-target="#termsModal">terms and conditions</a>
+                            </label>
+                        </div>
+
+                        <button type="submit" class="btn btn-primary w-100" id="placeOrderBtn">
+                            <span class="spinner-border spinner-border-sm d-none" role="status" aria-hidden="true"></span>
+                            Place Order
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>
+
+<!-- Terms Modal -->
+<div class="modal fade" id="termsModal" tabindex="-1">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Terms and Conditions</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+            </div>
+            <div class="modal-body">
+                <p>By placing an order, you agree to our terms and conditions...</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <script>
+        $(document).ready(function () {
+            const form = document.getElementById('checkoutForm');
+            const submitBtn = document.getElementById('placeOrderBtn');
+            const spinner = submitBtn.querySelector('.spinner-border');
+
+            // Handle shipping cost calculation
+            $('#Country, #PostalCode').change(function () {
+                const country = $('#Country').val();
+                const postalCode = $('#PostalCode').val();
+
+                if (country && postalCode) {
+                    $.get('@Url.Action("GetShippingCost", "Checkout")', {
+                        country: country,
+                        postalCode: postalCode
+                    })
+                    .done(function (response) {
+                        if (response.success) {
+                            $('#shippingCost').text('$' + response.cost.toFixed(2));
+                            updateTotal();
+                        }
+                    });
+                }
+            });
+
+            // Form submission
+            form.addEventListener('submit', function (event) {
+                if (!form.checkValidity()) {
+                    event.preventDefault();
+                    event.stopPropagation();
+                } else {
+                    submitBtn.disabled = true;
+                    spinner.classList.remove('d-none');
+                }
+                form.classList.add('was-validated');
+            }, false);
+
+            function updateTotal() {
+                const subtotal = @Model.SubTotal.ToString("F2");
+                const shipping = parseFloat($('#shippingCost').text().replace('$', ''));
+                const total = subtotal + shipping;
+                $('#totalAmount').text('$' + total.toFixed(2));
+            }
+        });
+    </script>
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

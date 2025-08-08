@@ -1,0 +1,152 @@
+﻿@model CartifyBLL.ViewModels.Cart.CartVm
+
+@{
+    ViewData["Title"] = "Shopping Cart - Cartify";
+}
+@if (TempData["Error"] != null)
+{
+    <div class="alert alert-danger" role="alert">
+        @TempData["Error"]
+    </div>
+}
+<!-- BREADCRUMB -->
+<div id="breadcrumb">
+    <div class="container">
+        <ul class="breadcrumb">
+            <li><a asp-controller="Home" asp-action="Index">Home</a></li>
+            <li class="active">Shopping Cart</li>
+        </ul>
+    </div>
+</div>
+<!-- /BREADCRUMB -->
+
+<!-- SECTION -->
+<div class="section">
+    <!-- container -->
+    <div class="container">
+        <!-- row -->
+        <div class="row">
+            <div class="col-md-12">
+                <div class="section-title">
+                    <h3 class="title">Shopping Cart</h3>
+                </div>
+            </div>
+
+            <!-- Cart Items -->
+            <div class="col-md-12">
+                <div class="cart-list">
+                    @if (Model.Items.Any())
+                    {
+                        <form id="cart-form" asp-action="UpdateCart" asp-controller="Cart" method="post">
+                            <table class="table">
+                                <thead>
+                                    <tr>
+                                        <th>Product</th>
+                                        <th>Price</th>
+                                        <th>Quantity</th>
+                                        <th>Total</th>
+                                        <th></th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @foreach (var item in Model.Items)
+                                    {
+                                        <tr>
+                                            <td>
+                                                <div class="product-widget">
+                                                    <div class="product-img">
+                                                        <img src="@item.ImageUrl" alt="@item.ProductName" />
+                                                    </div>
+                                                    <div class="product-body">
+                                                        <h3 class="product-name">
+                                                            <a asp-controller="Product" asp-action="Details" asp-route-id="@item.ProductId">@item.ProductName</a>
+                                                        </h3>
+                                                        <p class="product-category">@item.CategoryName</p>
+                                                    </div>
+                                                </div>
+                                            </td>
+                                            <td class="price">@item.Price.ToString("C")</td>
+                                            <td>
+                                                <div class="input-number">
+                                                    <input type="number" name="quantities[@item.ProductId]" value="@item.Quantity" min="1" max="10" />
+                                                    <span class="qty-up">+</span>
+                                                    <span class="qty-down">-</span>
+                                                </div>
+                                            </td>
+                                            <td class="total">@item.Subtotal.ToString("C")</td>
+                                            <td class="rm">
+                                                <form asp-action="Remove" asp-controller="Cart" method="post">
+                                                    <input type="hidden" name="productId" value="@item.ProductId" />
+                                                    <button type="submit" class="delete">
+                                                        <i class="fa fa-trash"></i>
+                                                    </button>
+                                                </form>
+                                            </td>
+                                        </tr>
+                                    }
+                                </tbody>
+                            </table>
+                        </form>
+                    }
+                    else
+                    {
+                        <p>Your cart is empty.</p>
+                    }
+                </div>
+            </div>
+            <!-- /Cart Items -->
+
+            <!-- Cart Summary -->
+            <div class="col-md-12">
+                <div class="cart-summary">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="cart-btns">
+                                <a asp-controller="Home" asp-action="Index" class="primary-btn">Continue Shopping</a>
+                                @if (Model.Items.Any())
+                                {
+                                    <button type="submit" form="cart-form" class="primary-btn">Update Cart</button>
+                                }
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="cart-summary">
+                                <div class="summary-item">
+                                    <span class="text">Subtotal:</span>
+                                    <span class="price">@Model.Total.ToString("C")</span>
+                                </div>
+                                <div class="summary-item">
+                                    <span class="text">Shipping:</span>
+                                    <span class="price">$50.00</span>
+                                </div>
+                                <div class="summary-item">
+                                    <span class="text">Tax:</span>
+                                    <span class="price">$260.00</span>
+                                </div>
+                                <div class="summary-item">
+                                    <span class="text">Total:</span>
+                                    <span class="price">@((Model.Total + 50 + 260).ToString("C"))</span>
+                                </div>
+                                <a asp-controller="Checkout" asp-action="Index" class="primary-btn">Proceed to Checkout</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- /Cart Summary -->
+        </div>
+        <!-- /row -->
+    </div>
+    <!-- /container -->
+</div>
+<!-- /SECTION -->
+
+@section Scripts {
+    <script src="~/js/jquery.min.js"></script>
+    <script src="~/js/bootstrap.min.js"></script>
+    <script src="~/js/slick.min.js"></script>
+    <script src="~/js/nouislider.min.js"></script>
+    <script src="~/js/jquery.zoom.min.js"></script>
+    <script src="~/js/main.js"></script>
+    <script src="~/js/pages/cart.js"></script>
+}
