@@ -8,6 +8,7 @@ using CartifyDAL.Entities.user;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using System;
+using CartifyDAL.Entities.Wishlist;
 
 
 namespace Cartify.DAL.DataBase
@@ -15,7 +16,7 @@ namespace Cartify.DAL.DataBase
     public class CartifyDbContext : IdentityDbContext<User>
     {
         public CartifyDbContext(DbContextOptions<CartifyDbContext> options) : base(options) { }
-        
+      
         public DbSet<Cart> Cart { get; set; }
         public DbSet<CartItem> CartItem { get; set; }
         public DbSet<ProductCart> ProductCart { get; set; }
@@ -29,6 +30,8 @@ namespace Cartify.DAL.DataBase
         public DbSet<UserPayment> UserPayment { get; set; }
         public DbSet<Payment> Payment { get; set; }
         public DbSet<PaymentMethod> PaymentMethod { get; set; }
+        public DbSet<Wishlist> Wishlists { get; set; }
+        public DbSet<WishlistItem> WishlistItems { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {

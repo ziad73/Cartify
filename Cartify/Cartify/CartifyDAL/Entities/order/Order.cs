@@ -38,7 +38,7 @@ namespace CartifyDAL.Entities.order
         public string TrackingNumber { get; private set; }
         public double ShippingCost { get; private set; }
         public double Tax { get; private set; }
-        public string? UserId { get; private set; }
+        public string? UserId { get; set; }
         [ForeignKey(nameof(UserId))]
         public User? User { get; private set; }
         public List<OrderItem>? OrderItems { get; private set; }

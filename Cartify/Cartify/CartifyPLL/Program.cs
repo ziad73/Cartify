@@ -1,23 +1,19 @@
 ﻿using Cartify.DAL.DataBase;
-using CartifyBLL.Mapper;
 using CartifyBLL.Services;
-using CartifyBLL.Services.CategoryServices;
-using CartifyBLL.Services.Product.Abstraction;
-using CartifyBLL.Services.Product.Impelementation;
 using CartifyBLL.Services.UserServices;
 using CartifyDAL.Entities.user;
-using CartifyDAL.Repo.categoryRepo.Abstraction;
-using CartifyDAL.Repo.CategoryRepo.Implementation;
-using CartifyDAL.Repo.productRepo.Abstraction;
-using CartifyDAL.Repo.ProductRepo.Implementation;
 using CartifyDAL.Repo.userRepo.Abstraction;
 using CartifyDAL.Repo.userRepo.Impelementaion;
-using Microsoft.AspNetCore.Authentication.Cookies;
-using Microsoft.AspNetCore.Authentication.Google;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using System;
+using CartifyBLL.Services.CartService;
+using CartifyBLL.Services.CheckoutService;
+using CartifyBLL.Services.Wishlist.Abstraction;
+using CartifyBLL.Services.Wishlist.Implementation;
+using Microsoft.AspNetCore.Authentication.Google;
+using Microsoft.AspNetCore.Authentication.Cookies;
 
 namespace CartifyPLL
 {
@@ -48,6 +44,10 @@ namespace CartifyPLL
             builder.Services.AddScoped<IAccountService, AccountService>();
 
             builder.Services.AddScoped<IUserService, UserService>();
+            builder.Services.AddScoped<ICartService, CartService>();
+            builder.Services.AddScoped<ICheckoutService, CheckoutService>();
+            builder.Services.AddScoped<IWishlisrService, WishlistService>();
+
 
             // Register repositories
             builder.Services.AddScoped<IUserRepo, UserRepo>();
@@ -56,19 +56,10 @@ namespace CartifyPLL
             builder.Services.AddScoped<EmailSender>();
 
             //builder.Services.AddScoped<SeedService>(); // If used during seeding
-            // Category dependencies
-            builder.Services.AddScoped<ICategoryRepo, CategoryRepo>();
-            builder.Services.AddScoped<ICategoryService, CategoryService>();
-
-            // Add product services
-            builder.Services.AddScoped<IProductService, ProductService>();
-
-            // Add product repo
-            builder.Services.AddScoped<IProductRepo, ProductRepo>();
 
             builder.Services.AddDbContext<CartifyDbContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("defaultConnection")));
-            builder.Services.AddAutoMapper(x => x.AddProfile(new DomainProfile()));
+
             builder.Services.AddIdentity<User, IdentityRole>(options =>
             {
                 // Password settings

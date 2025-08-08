@@ -14,8 +14,8 @@ namespace CartifyDAL.Entities.productCart
             CreatedOn = DateTime.Now;
             IsDeleted = false;
         }
-        public int CartId { get; private set; }
-        public int ProductId { get; private set; }
+        public int CartId { get; set; }
+        public int ProductId { get; set; }
 
         [ForeignKey(nameof(CartId))]
         public Cart cart { get; private set; }
@@ -25,11 +25,11 @@ namespace CartifyDAL.Entities.productCart
         [Required]
         public string CreatedBy { get; private set; }
         public DateTime CreatedOn { get; private set; }
-        public string? ModifiedBy { get; private set; }
-        public DateTime? ModifiedOn { get; private set; }
-        public bool IsDeleted { get; private set; }
-        public DateTime? DeletedOn { get; private set; }
-        public string? DeletedBy { get; private set; }
+        public string? ModifiedBy { get; set; }
+        public DateTime? ModifiedOn { get; set; }
+        public bool IsDeleted { get; set; }
+        public DateTime? DeletedOn { get; set; }
+        public string? DeletedBy { get; set; }
     }
 
 

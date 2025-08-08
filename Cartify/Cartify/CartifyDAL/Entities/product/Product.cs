@@ -10,24 +10,18 @@ namespace CartifyDAL.Entities.product
 {
     public class Product
     {
-        public Product(string name, int stockQuantity, double price, string description, string createdBy )
+        public Product(int stockQuantity, double price, string description, string createdBy)
         {
-            Name = name;
             StockQuantity = stockQuantity;
             Price = price;
             IsDeleted = false;
             Description = description;
             CreatedBy = createdBy;
             CreatedOn = DateTime.Now;
-            
         }
-        public Product()
-        {
-            
-        }
+
         [Key]
         public int ProductId { get; private set; }
-        public string Name { get; private set; }
         public int? OrderId { get; private set; }
 
         [Required]
@@ -38,7 +32,7 @@ namespace CartifyDAL.Entities.product
 
         [MaxLength(1000)]
         public string Description { get; private set; }
-        public string? ImageUrl { get; private set; }
+
         public bool IsActive { get; private set; }
 
         [ForeignKey(nameof(OrderId))]
@@ -60,6 +54,7 @@ namespace CartifyDAL.Entities.product
 
         //M-TO-M Relationship
         public List<ProductCart>? productCarts { get; set; }
+        public string? ImageUrl { get; set; }
 
 
         public void Delete(string deletedBy)
@@ -69,14 +64,13 @@ namespace CartifyDAL.Entities.product
             this.DeletedBy = deletedBy;
         }
 
-        public void Update(string name, int stockQuantity, double price,string description, string image, bool isActive, int categoryId,string modifiedBy)
+        public void Update(int stockQuantity,double price,string description,bool isActive, int categoryId,string modifiedBy)
         {
+           
 
-            Name = name;
             this.StockQuantity = stockQuantity;
             this.Price = price;
             this.Description = description;
-            this.ImageUrl = image;
             this.IsActive = isActive;
             this.CategoryId = categoryId;
             this.ModifiedBy = modifiedBy;
