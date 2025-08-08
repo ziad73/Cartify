@@ -1,0 +1,235 @@
+﻿
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Add Product - Admin Dashboard</title>
+    <link rel="stylesheet" href="~/css/bootstrap.min.css">
+    <link rel="stylesheet" href="~/css/font-awesome.min.css">
+    <link rel="stylesheet" href="~/css/style.css">
+    <link rel="stylesheet" href="~/css/Pages/addProduct.css">
+   
+</head>
+
+<body>
+    <!-- ADMIN HEADER -->
+    <div class="admin-header">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-6">
+                    <h1><i class="fa fa-plus"></i> Add New Product</h1>
+                </div>
+                <div class="col-md-6 text-right">
+                    <a href="manage-products.html" class="btn btn-outline-light">
+                        <i class="fa fa-arrow-left"></i> Back to Products
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ADMIN NAVIGATION -->
+    <div class="admin-nav">
+        <div class="container">
+            <nav class="nav">
+                <a class="nav-link" asp-area="Admin" asp-controller="Dashboard" asp-action="Index">
+                    <i class="fa fa-dashboard"></i> Dashboard
+                </a>
+                <a class="nav-link active" asp-controller="Product" asp-action="Index">
+                    <i class="fa fa-cube"></i> Products
+                </a>
+                <a class="nav-link" href="manage-orders.html">
+                    <i class="fa fa-shopping-cart"></i> Orders
+                </a>
+                <a class="nav-link" href="manage-users.html">
+                    <i class="fa fa-users"></i> Users
+                </a>
+            </nav>
+        </div>
+    </div>
+
+    <!-- MAIN CONTENT -->
+    <div class="section">
+        @RenderBody()
+        @* <div class="container">
+            <div class="form-container">
+                <form id="addProductForm" onsubmit="submitProduct(event)">
+                    <!-- Basic Information -->
+                    <div class="form-section">
+                        <h3><i class="fa fa-info-circle"></i> Basic Information</h3>
+                        <div class="row">
+                            <div class="col-md-8">
+                                <div class="form-group">
+                                    <label for="productName">Product Name *</label>
+                                    <input type="text" class="form-control" id="productName" name="productName"
+                                           required>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label for="sku">SKU *</label>
+                                    <input type="text" class="form-control" id="sku" name="sku" required>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="productDescription">Product Description *</label>
+                            <textarea class="form-control" id="productDescription" name="productDescription" rows="4"
+                                      required></textarea>
+                        </div>
+                    </div>
+
+                    <!-- Pricing & Inventory -->
+                    <div class="form-section">
+                        <h3><i class="fa fa-dollar"></i> Pricing & Inventory</h3>
+                        <div class="row">
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label for="price">Price *</label>
+                                    <div class="input-group">
+                                        <span class="input-group-addon">$</span>
+                                        <input type="number" class="form-control" id="price" name="price" step="0.01"
+                                               min="0" required>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label for="comparePrice">Compare Price</label>
+                                    <div class="input-group">
+                                        <span class="input-group-addon">$</span>
+                                        <input type="number" class="form-control" id="comparePrice" name="comparePrice"
+                                               step="0.01" min="0">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label for="stock">Stock Quantity *</label>
+                                    <input type="number" class="form-control" id="stock" name="stock" min="0" required>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Category & Status -->
+                    <div class="form-section">
+                        <h3><i class="fa fa-tags"></i> Category & Status</h3>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label for="category">Category *</label>
+                                    <select class="form-control" id="category" name="category" required>
+                                        <option value="">Select Category</option>
+                                        <option value="laptops">Laptops</option>
+                                        <option value="smartphones">Smartphones</option>
+                                        <option value="cameras">Cameras</option>
+                                        <option value="accessories">Accessories</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label for="status">Status *</label>
+                                    <select class="form-control" id="status" name="status" required>
+                                        <option value="active">Active</option>
+                                        <option value="inactive">Inactive</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Product Images -->
+                    <div class="form-section">
+                        <h3><i class="fa fa-image"></i> Product Images</h3>
+                        <div class="form-group">
+                            <label>Main Product Image *</label>
+                            <input type="file" class="form-control" id="mainImage" name="mainImage" accept="image/*"
+                                   onchange="previewImage(this, 'mainImagePreview')" required>
+                            <div class="image-preview" id="mainImagePreview">
+                                <div>
+                                    <i class="fa fa-image" style="font-size: 48px; color: #ddd;"></i>
+                                    <p class="text-muted mt-2">No image selected</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Form Actions -->
+                    <div class="text-center">
+                        <button type="button" class="btn btn-secondary mr-3"
+                                onclick="window.location.href='manage-products.html'">
+                            <i class="fa fa-times"></i> Cancel
+                        </button>
+                        <button type="submit" class="btn-submit">
+                            <i class="fa fa-save"></i> Save Product
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div> *@
+    </div>
+
+    <!-- FOOTER -->
+    <footer id="footer">
+        <div class="section">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-12 text-center">
+                        <span class="copyright">
+                            Copyright &copy; 2024 All rights reserved | This template is made with <i class="fa fa-heart-o" aria-hidden="true"></i> by <a href="https://colorlib.com"
+                                                                                                                                                          target="_blank">Colorlib</a>
+                        </span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- jQuery Plugins -->
+    <script type="text/javascript" src="~/js/jquery.min.js"></script>
+    <script type="text/javascript" src="~/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="~/js/main.js"></script>
+
+    <script>
+        function previewImage(input, previewContainerId) {
+            const previewContainer = document.getElementById(previewContainerId);
+            previewContainer.innerHTML = '';
+
+            if (input.files && input.files.length > 0) {
+                Array.from(input.files).forEach(file => {
+                    const reader = new FileReader();
+                    reader.onload = function (e) {
+                        const imageWrapper = document.createElement('div');
+                        imageWrapper.style.display = 'inline-block';
+                        imageWrapper.style.margin = '10px';
+
+                        const image = document.createElement('img');
+                        image.src = e.target.result;
+                        image.style.maxWidth = '150px';
+                        image.style.maxHeight = '150px';
+                        image.style.border = '1px solid #ccc';
+                        image.style.borderRadius = '8px';
+                        image.style.objectFit = 'cover';
+
+                        imageWrapper.appendChild(image);
+                        previewContainer.appendChild(imageWrapper);
+                    };
+                    reader.readAsDataURL(file);
+                });
+            } else {
+                previewContainer.innerHTML = `
+                    <div>
+                        <i class="fa fa-image" style="font-size: 48px; color: #ddd;"></i>
+                        <p class="text-muted mt-2">No image selected</p>
+                    </div>
+                `;
+            }
+        }
+    </script>
+</body>
+
+</html>

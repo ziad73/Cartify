@@ -7,7 +7,7 @@ namespace CartifyDAL.Entities.payment
 { //test
     public class Payment
     {
-        public Payment(decimal amount, string createdBy)
+        public Payment(double amount, string createdBy)
         {
             Amount = amount;
             PaymentDate = DateTime.Now;
@@ -18,7 +18,7 @@ namespace CartifyDAL.Entities.payment
         public int PaymentId { get; private set; }
 
         [Required]
-        public decimal Amount { get; private set; }
+        public double Amount { get; private set; }
         [Required]
         public DateTime PaymentDate { get; private set; }
 
