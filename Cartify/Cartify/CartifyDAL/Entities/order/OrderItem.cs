@@ -7,7 +7,7 @@ namespace CartifyDAL.Entities.order
 {
     public class OrderItem
     {
-        public OrderItem(int quantity, decimal price, decimal discount, string createdBy)
+        public OrderItem(int quantity, double price, double discount, string createdBy)
         {
             Quantity = quantity;
             Price = price;
@@ -24,8 +24,8 @@ namespace CartifyDAL.Entities.order
         public int OrderId { get; private set; }
 
         public int Quantity { get; private set; }
-        public decimal Price { get; private set; }
-        public decimal Discount { get; private set; }
+        public double Price { get; private set; }
+        public double Discount { get; private set; }
 
         [ForeignKey(nameof(OrderId))]
         public Order Order { get; private set; }
@@ -39,7 +39,7 @@ namespace CartifyDAL.Entities.order
         public DateTime? DeletedOn { get; private set; }
         public string? DeletedBy { get; private set; }
     
-    public void Update(int quantity, decimal price, decimal discount, string modifiedBy)
+    public void Update(int quantity, double price, double discount, string modifiedBy)
         {
 
             Quantity = quantity;
