@@ -54,7 +54,7 @@ namespace CartifyDAL.Migrations
 
                     b.HasKey("CartId");
 
-                    b.ToTable("Cart");
+                    b.ToTable("Cart", (string)null);
                 });
 
             modelBuilder.Entity("CartifyDAL.Entities.cart.CartItem", b =>
@@ -92,7 +92,7 @@ namespace CartifyDAL.Migrations
 
                     b.HasKey("CartId");
 
-                    b.ToTable("CartItem");
+                    b.ToTable("CartItem", (string)null);
                 });
 
             modelBuilder.Entity("CartifyDAL.Entities.category.Category", b =>
@@ -141,7 +141,7 @@ namespace CartifyDAL.Migrations
 
                     b.HasIndex("ParentCategoryId");
 
-                    b.ToTable("Category");
+                    b.ToTable("Category", (string)null);
                 });
 
             modelBuilder.Entity("CartifyDAL.Entities.order.Order", b =>
@@ -205,7 +205,7 @@ namespace CartifyDAL.Migrations
 
                     b.HasIndex("UserId");
 
-                    b.ToTable("Order");
+                    b.ToTable("Order", (string)null);
                 });
 
             modelBuilder.Entity("CartifyDAL.Entities.order.OrderItem", b =>
@@ -229,8 +229,8 @@ namespace CartifyDAL.Migrations
                     b.Property<DateTime?>("DeletedOn")
                         .HasColumnType("datetime2");
 
-                    b.Property<decimal>("Discount")
-                        .HasColumnType("decimal(18,2)");
+                    b.Property<double>("Discount")
+                        .HasColumnType("float");
 
                     b.Property<bool>("IsDeleted")
                         .HasColumnType("bit");
@@ -244,8 +244,8 @@ namespace CartifyDAL.Migrations
                     b.Property<int>("OrderId")
                         .HasColumnType("int");
 
-                    b.Property<decimal>("Price")
-                        .HasColumnType("decimal(18,2)");
+                    b.Property<double>("Price")
+                        .HasColumnType("float");
 
                     b.Property<int>("Quantity")
                         .HasColumnType("int");
@@ -254,7 +254,7 @@ namespace CartifyDAL.Migrations
 
                     b.HasIndex("OrderId");
 
-                    b.ToTable("OrderItem");
+                    b.ToTable("OrderItem", (string)null);
                 });
 
             modelBuilder.Entity("CartifyDAL.Entities.payment.Payment", b =>
@@ -265,8 +265,8 @@ namespace CartifyDAL.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("PaymentId"));
 
-                    b.Property<decimal>("Amount")
-                        .HasColumnType("decimal(18,2)");
+                    b.Property<double>("Amount")
+                        .HasColumnType("float");
 
                     b.Property<string>("DeletedBy")
                         .HasColumnType("nvarchar(max)");
@@ -284,7 +284,7 @@ namespace CartifyDAL.Migrations
 
                     b.HasIndex("PaymentMethodId");
 
-                    b.ToTable("Payment");
+                    b.ToTable("Payment", (string)null);
                 });
 
             modelBuilder.Entity("CartifyDAL.Entities.payment.PaymentMethod", b =>
@@ -324,7 +324,7 @@ namespace CartifyDAL.Migrations
 
                     b.HasKey("PaymentMethodId");
 
-                    b.ToTable("PaymentMethod");
+                    b.ToTable("PaymentMethod", (string)null);
                 });
 
             modelBuilder.Entity("CartifyDAL.Entities.product.Product", b =>
@@ -356,6 +356,9 @@ namespace CartifyDAL.Migrations
                         .HasMaxLength(1000)
                         .HasColumnType("nvarchar(1000)");
 
+                    b.Property<string>("ImageUrl")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<bool>("IsActive")
                         .HasColumnType("bit");
 
@@ -368,11 +371,15 @@ namespace CartifyDAL.Migrations
                     b.Property<DateTime?>("ModifiedOn")
                         .HasColumnType("datetime2");
 
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<int?>("OrderId")
                         .HasColumnType("int");
 
-                    b.Property<decimal>("Price")
-                        .HasColumnType("decimal(18,2)");
+                    b.Property<double>("Price")
+                        .HasColumnType("float");
 
                     b.Property<int>("StockQuantity")
                         .HasColumnType("int");
@@ -383,7 +390,7 @@ namespace CartifyDAL.Migrations
 
                     b.HasIndex("OrderId");
 
-                    b.ToTable("Product");
+                    b.ToTable("Product", (string)null);
                 });
 
             modelBuilder.Entity("CartifyDAL.Entities.product.ProductReview", b =>
@@ -428,7 +435,7 @@ namespace CartifyDAL.Migrations
 
                     b.HasIndex("ProductId");
 
-                    b.ToTable("ProductReview");
+                    b.ToTable("ProductReview", (string)null);
                 });
 
             modelBuilder.Entity("CartifyDAL.Entities.productCart.ProductCart", b =>
@@ -465,7 +472,7 @@ namespace CartifyDAL.Migrations
 
                     b.HasIndex("ProductId");
 
-                    b.ToTable("ProductCart");
+                    b.ToTable("ProductCart", (string)null);
                 });
 
             modelBuilder.Entity("CartifyDAL.Entities.user.User", b =>
@@ -621,7 +628,7 @@ namespace CartifyDAL.Migrations
 
                     b.HasIndex("UserId");
 
-                    b.ToTable("UserAddress");
+                    b.ToTable("UserAddress", (string)null);
                 });
 
             modelBuilder.Entity("CartifyDAL.Entities.user.UserPayment", b =>
@@ -654,7 +661,7 @@ namespace CartifyDAL.Migrations
 
                     b.HasIndex("UserId");
 
-                    b.ToTable("UserPayment");
+                    b.ToTable("UserPayment", (string)null);
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>

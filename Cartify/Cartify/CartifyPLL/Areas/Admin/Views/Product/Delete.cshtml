@@ -1,0 +1,120 @@
+﻿@using CartifyBLL.ViewModels.Product
+@model ProductDTO;
+
+@{
+    ViewBag.Title = "Delete Product";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+
+
+<!-- MAIN CONTENT -->
+<div class="section">
+    <div class="container">
+        <div class="form-container">
+            <form id="addProductForm" asp-area="Admin" asp-controller="Product" asp-action="DeleteConfirmed" enctype="multipart/form-data">
+                <input type="hidden" asp-for="ProductId" />
+                <!-- Basic Information -->
+                <div class="form-section">
+                    <h3><i class="fa fa-info-circle"></i>Delete Product</h3>
+                    <div class="row">
+                        <div class="col-md-8">
+                            <div class="form-group">
+                                <label for="productName">Product Name</label>
+                                <input readonly asp-for="Name" type="text" class="form-control" id="productName" required>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="productDescription">Product Description</label>
+                            <textarea readonly asp-for="Description" class="form-control" id="productDescription" rows="4" required></textarea>
+                        </div>
+                    </div>
+
+                    <!-- Pricing & Inventory -->
+                    <div class="form-section">
+                        <h3><i class="fa fa-dollar"></i> Pricing & Inventory</h3>
+                        <div class="row">
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label for="price">Price</label>
+                                    <div class="input-group">
+                                        <span class="input-group-addon">$</span>
+                                        <input readonly asp-for="Price" type="text" class="form-control" id="price" step="0.01" min="0" required>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label for="stock">Stock Quantity</label>
+                                    <input readonly asp-for="StockQuantity" type="text" class="form-control" id="stock" min="0" required>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Category & Status -->
+                    <div class="form-section">
+                        <h3><i class="fa fa-tags"></i> Category & Status</h3>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label for="category">Category *</label>
+                                    <select disabled asp-for="CategoryId" asp-items="ViewBag.Categories" class="form-control" id="category" required>
+                                        <option value="">-- Select Category --</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label for="status">Status *</label>
+                                    <select disabled asp-for="IsActive" class="form-control" id="status" required>
+                                        <option value="true">Active</option>
+                                        <option value="false">Inactive</option>
+                                    </select>
+                                    <span asp-validation-for="IsActive" class="text-danger"></span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Product Images -->
+                    @if (!string.IsNullOrEmpty(Model.ImageUrl))
+                    {
+                        <div class="form-group">
+                            <label>Current Image</label><br />
+                            <img src="@Model.ImageUrl" alt="Product Image" style="width: 150px;" />
+                        </div>
+                    }
+                    <div class="form-section">
+                        <h3><i class="fa fa-image"></i> Product Images</h3>
+                        <div class="form-group">
+                            <label>Main Product Image *</label>
+                            <input readonly asp-for="Images" type="file" class="form-control" id="mainImage" multiple accept="image/*" onchange="previewImage(this, 'mainImagePreview')" required>
+                            <div class="image-preview" id="mainImagePreview">
+                                <div>
+                                    <i class="fa fa-image" style="font-size: 48px; color: #ddd;"></i>
+                                    <p class="text-muted mt-2">No image selected</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Form Actions -->
+                    <div class="text-center">
+                        <a asp-area="Admin" asp-controller="Product" asp-action="Index" class="btn btn-primary" style="color:white;">
+                            <i class="fa fa-times"></i> Cancel
+                        </a>
+                        <button asp-area="Admin" asp-controller="Product" asp-action="DeleteConfirmed" asp-route-id="@Model.ProductId" type="submit" class="btn btn-danger">
+                            <i class="fa fa-save"></i> Delete Product
+                        </button>
+                    </div>
+                 </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+
+
+
+

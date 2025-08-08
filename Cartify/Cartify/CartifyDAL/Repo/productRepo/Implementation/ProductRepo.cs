@@ -2,6 +2,7 @@
 using CartifyDAL.Entities.category;
 using CartifyDAL.Entities.product;
 using CartifyDAL.Repo.productRepo.Abstraction;
+using Microsoft.EntityFrameworkCore;
 
 namespace CartifyDAL.Repo.ProductRepo.Implementation
 {
@@ -51,7 +52,7 @@ namespace CartifyDAL.Repo.ProductRepo.Implementation
             try
             {
                 var products = db.Product
-                    .Where(a => !a.IsDeleted)
+                    .Where(a => !a.IsDeleted).Include(p => p.Category)
                     .ToList();
                 return (products, null);
             }
@@ -87,7 +88,7 @@ namespace CartifyDAL.Repo.ProductRepo.Implementation
                 {
                     return (false, "Product not found");
                 }
-                existingProduct.Update(product.StockQuantity, product.Price, product.Description, product.IsActive , product.CategoryId ,product.ModifiedBy);
+                existingProduct.Update(product.Name, product.StockQuantity, product.Price, product.Description, product.ImageUrl, product.IsActive , product.CategoryId ,product.ModifiedBy);
                 db.SaveChanges();
                 return (true, null);
             }
