@@ -15,10 +15,7 @@ namespace Cartify.DAL.DataBase
     public class CartifyDbContext : IdentityDbContext<User>
     {
         public CartifyDbContext(DbContextOptions<CartifyDbContext> options) : base(options) { }
-        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-        {
-            optionsBuilder.UseSqlServer("Server=A12345;Database=CartifyDB;Trusted_Connection=True;MultipleActiveResultSets=true;TrustServerCertificate=true");
-        }
+        
         public DbSet<Cart> Cart { get; set; }
         public DbSet<CartItem> CartItem { get; set; }
         public DbSet<ProductCart> ProductCart { get; set; }

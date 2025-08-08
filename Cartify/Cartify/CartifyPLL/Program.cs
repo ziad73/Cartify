@@ -1,10 +1,15 @@
 ﻿using Cartify.DAL.DataBase;
+using CartifyBLL.Mapper;
 using CartifyBLL.Services;
 using CartifyBLL.Services.CategoryServices;
+using CartifyBLL.Services.Product.Abstraction;
+using CartifyBLL.Services.Product.Impelementation;
 using CartifyBLL.Services.UserServices;
 using CartifyDAL.Entities.user;
 using CartifyDAL.Repo.categoryRepo.Abstraction;
 using CartifyDAL.Repo.CategoryRepo.Implementation;
+using CartifyDAL.Repo.productRepo.Abstraction;
+using CartifyDAL.Repo.ProductRepo.Implementation;
 using CartifyDAL.Repo.userRepo.Abstraction;
 using CartifyDAL.Repo.userRepo.Impelementaion;
 using Microsoft.AspNetCore.Authentication.Cookies;
@@ -55,9 +60,15 @@ namespace CartifyPLL
             builder.Services.AddScoped<ICategoryRepo, CategoryRepo>();
             builder.Services.AddScoped<ICategoryService, CategoryService>();
 
-            builder.Services.AddDbContext<CartifyDbContext>(options =>
-    options.UseSqlServer(builder.Configuration.GetConnectionString("Default")));
+            // Add product services
+            builder.Services.AddScoped<IProductService, ProductService>();
 
+            // Add product repo
+            builder.Services.AddScoped<IProductRepo, ProductRepo>();
+
+            builder.Services.AddDbContext<CartifyDbContext>(options =>
+    options.UseSqlServer(builder.Configuration.GetConnectionString("defaultConnection")));
+            builder.Services.AddAutoMapper(x => x.AddProfile(new DomainProfile()));
             builder.Services.AddIdentity<User, IdentityRole>(options =>
             {
                 // Password settings

@@ -1,0 +1,438 @@
+﻿
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Manage Products - Admin Dashboard</title>
+    <link rel="stylesheet" href="~/css/bootstrap.min.css">
+    <link rel="stylesheet" href="~/css/font-awesome.min.css">
+    <link rel="stylesheet" href="~/css/nouislider.min.css">
+    <link rel="stylesheet" href="~/css/slick.css">
+    <link rel="stylesheet" href="~/css/slick-theme.css">
+    <link rel="stylesheet" href="~/css/style.css">
+    <link rel="stylesheet" href="~/css/pages/manageProduct.css">
+   
+</head>
+<body>
+    <!-- ADMIN HEADER -->
+    <div class="admin-header">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-6">
+                    <h1><i class="fa fa-cube"></i> Manage Products</h1>
+                </div>
+                <div class="col-md-6 text-right">
+                    <a href="admin-dashboard.html" class="btn btn-outline-light">
+                        <i class="fa fa-arrow-left"></i> Back to Dashboard
+                    </a>
+                    <a href="login.html" class="btn btn-outline-light ml-2">
+                        <i class="fa fa-sign-out"></i> Logout
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ADMIN NAVIGATION -->
+    <div class="admin-nav">
+        <div class="container">
+            <nav class="nav">
+                <a class="nav-link" href="admin-dashboard.html">
+                    <i class="fa fa-dashboard"></i> Dashboard
+                </a>
+                <a class="nav-link active" href="manage-products.html">
+                    <i class="fa fa-cube"></i> Products
+                </a>
+                <a class="nav-link" href="manage-orders.html">
+                    <i class="fa fa-shopping-cart"></i> Orders
+                </a>
+                <a class="nav-link" href="manage-users.html">
+                    <i class="fa fa-users"></i> Users
+                </a>
+                <a class="nav-link" href="manage-categories.html">
+                    <i class="fa fa-tags"></i> Categories
+                </a>
+            </nav>
+        </div>
+    </div>
+
+    <!-- MAIN CONTENT -->
+    <div class="section">
+        @RenderBody()
+        @* <div class="container">
+            <!-- Page Header -->
+            <div class="page-header">
+                <div class="row">
+                    <div class="col-md-6">
+                        <h2>Product Management</h2>
+                        <p class="text-muted">Manage all products in your store</p>
+                    </div>
+                    <div class="col-md-6 text-right">
+                        <a href="add-product.html" class="btn btn-primary">
+                            <i class="fa fa-plus"></i> Add New Product
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Filters Section -->
+            <div class="filters-section">
+                <div class="row">
+                    <div class="col-md-4">
+                        <div class="search-box">
+                            <input type="text" class="form-control" placeholder="Search products..." id="searchInput">
+                            <i class="fa fa-search"></i>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <select class="form-control" id="categoryFilter">
+                            <option value="">All Categories</option>
+                            <option value="laptops">Laptops</option>
+                            <option value="smartphones">Smartphones</option>
+                            <option value="cameras">Cameras</option>
+                            <option value="accessories">Accessories</option>
+                        </select>
+                    </div>
+                    <div class="col-md-3">
+                        <select class="form-control" id="statusFilter">
+                            <option value="">All Status</option>
+                            <option value="active">Active</option>
+                            <option value="inactive">Inactive</option>
+                        </select>
+                    </div>
+                    <div class="col-md-2">
+                        <button class="btn btn-secondary btn-block" onclick="resetFilters()">
+                            <i class="fa fa-refresh"></i> Reset
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Products Table -->
+            <div class="products-table">
+                <table class="table table-hover">
+                    <thead>
+                        <tr>
+                            <th>Image</th>
+                            <th>Product Name</th>
+                            <th>Category</th>
+                            <th>Price</th>
+                            <th>Stock</th>
+                            <th>Status</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody id="productsTableBody">
+                        <tr>
+                            <td>
+                                <img src="./img/product01.png" alt="MacBook Pro" class="product-image">
+                            </td>
+                            <td>
+                                <strong>MacBook Pro 13"</strong><br>
+                                <small class="text-muted">SKU: MBP-13-2023</small>
+                            </td>
+                            <td>Laptops</td>
+                            <td>$1,299.00</td>
+                            <td>25</td>
+                            <td><span class="status-badge status-active">Active</span></td>
+                            <td>
+                                <div class="action-buttons">
+                                    <a href="edit-product.html?id=1" class="btn btn-sm btn-primary">
+                                        <i class="fa fa-edit"></i>
+                                    </a>
+                                    <button class="btn btn-sm btn-danger" onclick="deleteProduct(1)">
+                                        <i class="fa fa-trash"></i>
+                                    </button>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <img src="./img/product02.png" alt="iPhone 15 Pro" class="product-image">
+                            </td>
+                            <td>
+                                <strong>iPhone 15 Pro</strong><br>
+                                <small class="text-muted">SKU: IPH-15-PRO</small>
+                            </td>
+                            <td>Smartphones</td>
+                            <td>$999.00</td>
+                            <td>18</td>
+                            <td><span class="status-badge status-active">Active</span></td>
+                            <td>
+                                <div class="action-buttons">
+                                    <a href="edit-product.html?id=2" class="btn btn-sm btn-primary">
+                                        <i class="fa fa-edit"></i>
+                                    </a>
+                                    <button class="btn btn-sm btn-danger" onclick="deleteProduct(2)">
+                                        <i class="fa fa-trash"></i>
+                                    </button>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <img src="./img/product03.png" alt="Sony Camera" class="product-image">
+                            </td>
+                            <td>
+                                <strong>Sony A7 III Camera</strong><br>
+                                <small class="text-muted">SKU: SONY-A7-III</small>
+                            </td>
+                            <td>Cameras</td>
+                            <td>$1,999.00</td>
+                            <td>8</td>
+                            <td><span class="status-badge status-active">Active</span></td>
+                            <td>
+                                <div class="action-buttons">
+                                    <a href="edit-product.html?id=3" class="btn btn-sm btn-primary">
+                                        <i class="fa fa-edit"></i>
+                                    </a>
+                                    <button class="btn btn-sm btn-danger" onclick="deleteProduct(3)">
+                                        <i class="fa fa-trash"></i>
+                                    </button>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <img src="./img/product04.png" alt="Wireless Headphones" class="product-image">
+                            </td>
+                            <td>
+                                <strong>Wireless Headphones</strong><br>
+                                <small class="text-muted">SKU: WH-001</small>
+                            </td>
+                            <td>Accessories</td>
+                            <td>$89.99</td>
+                            <td>3</td>
+                            <td><span class="status-badge status-inactive">Inactive</span></td>
+                            <td>
+                                <div class="action-buttons">
+                                    <a href="edit-product.html?id=4" class="btn btn-sm btn-primary">
+                                        <i class="fa fa-edit"></i>
+                                    </a>
+                                    <button class="btn btn-sm btn-danger" onclick="deleteProduct(4)">
+                                        <i class="fa fa-trash"></i>
+                                    </button>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <img src="./img/product05.png" alt="Gaming Mouse" class="product-image">
+                            </td>
+                            <td>
+                                <strong>Gaming Mouse</strong><br>
+                                <small class="text-muted">SKU: GM-001</small>
+                            </td>
+                            <td>Accessories</td>
+                            <td>$59.99</td>
+                            <td>5</td>
+                            <td><span class="status-badge status-active">Active</span></td>
+                            <td>
+                                <div class="action-buttons">
+                                    <a href="edit-product.html?id=5" class="btn btn-sm btn-primary">
+                                        <i class="fa fa-edit"></i>
+                                    </a>
+                                    <button class="btn btn-sm btn-danger" onclick="deleteProduct(5)">
+                                        <i class="fa fa-trash"></i>
+                                    </button>
+                                </div>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <!-- Pagination -->
+            <div class="text-center mt-4">
+                <nav>
+                    <ul class="pagination">
+                        <li class="page-item disabled">
+                            <a class="page-link" href="#" tabindex="-1">Previous</a>
+                        </li>
+                        <li class="page-item active">
+                            <a class="page-link" href="#">1</a>
+                        </li>
+                        <li class="page-item">
+                            <a class="page-link" href="#">2</a>
+                        </li>
+                        <li class="page-item">
+                            <a class="page-link" href="#">3</a>
+                        </li>
+                        <li class="page-item">
+                            <a class="page-link" href="#">Next</a>
+                        </li>
+                    </ul>
+                </nav>
+            </div>
+        </div> *@
+    </div>
+
+    <!-- FOOTER -->
+    <footer id="footer">
+        <!-- top footer -->
+        <div class="section">
+            <!-- container -->
+            <div class="container">
+                <!-- row -->
+                <div class="row">
+                    <div class="col-md-3 col-xs-6">
+                        <div class="footer">
+                            <h3 class="footer-title">About Us</h3>
+                            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut.</p>
+                            <ul class="footer-links">
+                                <li><a href="#"><i class="fa fa-map-marker"></i>1734 Stonecoal Road</a></li>
+                                <li><a href="#"><i class="fa fa-phone"></i>+021-95-51-84</a></li>
+                                <li><a href="#"><i class="fa fa-envelope-o"></i>email@email.com</a></li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div class="col-md-3 col-xs-6">
+                        <div class="footer">
+                            <h3 class="footer-title">Categories</h3>
+                            <ul class="footer-links">
+                                <li><a href="store.html">Hot deals</a></li>
+                                <li><a href="store.html">Laptops</a></li>
+                                <li><a href="store.html">Smartphones</a></li>
+                                <li><a href="store.html">Cameras</a></li>
+                                <li><a href="store.html">Accessories</a></li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div class="col-md-3 col-xs-6">
+                        <div class="footer">
+                            <h3 class="footer-title">Information</h3>
+                            <ul class="footer-links">
+                                <li><a href="about.html">About Us</a></li>
+                                <li><a href="contact.html">Contact Us</a></li>
+                                <li><a href="privacy.html">Privacy Policy</a></li>
+                                <li><a href="orders.html">Orders and Returns</a></li>
+                                <li><a href="terms.html">Terms & Conditions</a></li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div class="col-md-3 col-xs-6">
+                        <div class="footer">
+                            <h3 class="footer-title">Service</h3>
+                            <ul class="footer-links">
+                                <li><a href="profile.html">My Account</a></li>
+                                <li><a href="orders.html">View Cart</a></li>
+                                <li><a href="orders.html">Track My Order</a></li>
+                                <li><a href="faq.html">Help</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <!-- /row -->
+            </div>
+            <!-- /container -->
+        </div>
+        <!-- /top footer -->
+        <!-- bottom footer -->
+        <div id="bottom-footer" class="section">
+            <div class="container">
+                <!-- row -->
+                <div class="row">
+                    <div class="col-md-12 text-center">
+                        <ul class="footer-payments">
+                            <li><a href="#"><i class="fa fa-cc-visa"></i></a></li>
+                            <li><a href="#"><i class="fa fa-credit-card"></i></a></li>
+                            <li><a href="#"><i class="fa fa-cc-paypal"></i></a></li>
+                            <li><a href="#"><i class="fa fa-cc-mastercard"></i></a></li>
+                            <li><a href="#"><i class="fa fa-cc-discover"></i></a></li>
+                            <li><a href="#"><i class="fa fa-cc-amex"></i></a></li>
+                        </ul>
+                        <span class="copyright">
+                            Copyright &copy; 2024 All rights reserved | This template is made with <i class="fa fa-heart-o" aria-hidden="true"></i> by <a href="https://colorlib.com" target="_blank">Colorlib</a>
+                        </span>
+                    </div>
+                </div>
+                <!-- /row -->
+            </div>
+            <!-- /container -->
+        </div>
+        <!-- /bottom footer -->
+    </footer>
+    <!-- /FOOTER -->
+    <!-- jQuery Plugins -->
+    <script type="text/javascript" src="~/js/jquery.min.js"></script>
+    <script type="text/javascript" src="~/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="~/js/slick.min.js"></script>
+    <script type="text/javascript" src="~/js/nouislider.min.js"></script>
+    <script type="text/javascript" src="~/js/jquery.zoom.min.js"></script>
+    <script type="text/javascript" src="~/js/main.js"></script>
+
+    <script>
+        // Search functionality
+        document.getElementById('searchInput').addEventListener('input', function() {
+            filterProducts();
+        });
+
+        // Category filter
+        document.getElementById('categoryFilter').addEventListener('change', function() {
+            filterProducts();
+        });
+
+        // Status filter
+        document.getElementById('statusFilter').addEventListener('change', function() {
+            filterProducts();
+        });
+
+        function filterProducts() {
+            const searchTerm = document.getElementById('searchInput').value.toLowerCase();
+            const categoryFilter = document.getElementById('categoryFilter').value.toLowerCase();
+            const statusFilter = document.getElementById('statusFilter').value.toLowerCase();
+            const tableBody = document.getElementById('productsTableBody');
+            const rows = tableBody.getElementsByTagName('tr');
+
+            for (let row of rows) {
+                const productName = row.cells[1].textContent.toLowerCase();
+                const category = row.cells[2].textContent.toLowerCase();
+                const status = row.cells[5].textContent.toLowerCase();
+
+                const matchesSearch = productName.includes(searchTerm);
+                const matchesCategory = !categoryFilter || category === categoryFilter;
+                const matchesStatus = !statusFilter || status === statusFilter;
+
+                if (matchesSearch && matchesCategory && matchesStatus) {
+                    row.style.display = '';
+                } else {
+                    row.style.display = 'none';
+                }
+            }
+        }
+
+        function resetFilters() {
+            document.getElementById('searchInput').value = '';
+            document.getElementById('categoryFilter').value = '';
+            document.getElementById('statusFilter').value = '';
+            filterProducts();
+        }
+
+        function deleteProduct(productId) {
+            if (confirm('Are you sure you want to delete this product? This action cannot be undone.')) {
+                // Here you would typically send a DELETE request to the backend
+                alert(`Product ${productId} has been deleted successfully!`);
+                // Remove the row from the table
+                const row = event.target.closest('tr');
+                row.remove();
+            }
+        }
+
+        // Add click handlers for navigation
+        document.addEventListener('DOMContentLoaded', function() {
+            const navLinks = document.querySelectorAll('.admin-nav .nav-link');
+
+            navLinks.forEach(link => {
+                link.addEventListener('click', function() {
+                    navLinks.forEach(l => l.classList.remove('active'));
+                    this.classList.add('active');
+                });
+            });
+        });
+    </script>
+</body>
+</html> 

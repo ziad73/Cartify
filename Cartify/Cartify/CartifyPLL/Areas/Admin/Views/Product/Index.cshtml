@@ -1,0 +1,115 @@
+﻿@using CartifyBLL.ViewModels.Product
+@model List<ProductDTO>;
+
+@{
+    ViewBag.Title = "Manage Products";
+    Layout = "~/Views/Shared/_ManageProductLayout.cshtml";
+}
+
+<div class="section">
+    
+    <div class="container">
+            <!-- Page Header -->
+            <div class="page-header">
+                <div class="row">
+                    <div class="col-md-6">
+                        <h2>Product Management</h2>
+                        <p class="text-muted">Manage all products in your store</p>
+                    </div>
+                    <div class="col-md-6 text-right">
+                        <a asp-area="Admin" asp-controller="Product" asp-action="AddProduct" class="btn btn-primary">
+                            <i class="fa fa-plus"></i> Add New Product
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Filters Section -->
+            <div class="filters-section">
+                <div class="row">
+                    <div class="col-md-4">
+                        <div class="search-box">
+                            <input type="text" class="form-control" placeholder="Search products..." id="searchInput">
+                            <i class="fa fa-search"></i>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <select class="form-control" id="categoryFilter">
+                            <option value="">All Categories</option>
+                            <option value="laptops">Laptops</option>
+                            <option value="smartphones">Smartphones</option>
+                            <option value="cameras">Cameras</option>
+                            <option value="accessories">Accessories</option>
+                        </select>
+                    </div>
+                    <div class="col-md-3">
+                        <select class="form-control" id="statusFilter">
+                            <option value="">All Status</option>
+                            <option value="True">Active</option>
+                            <option value="False">Inactive</option>
+                        </select>
+                    </div>
+                    
+                </div>
+            </div>
+
+            <!-- Products Table -->
+            <div class="products-table">
+                <table class="table table-hover">
+                    <thead>
+                        <tr>
+                            <th>Image</th>
+                            <th>Product Name</th>
+                            <th>Category</th>
+                            <th>Price</th>
+                            <th>Stock</th>
+                            <th>Status</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody id="productsTableBody">
+                        @foreach (var product in Model)
+                    {
+                        <tr>
+                            <td>
+                                @{
+                                    var imagePaths = product.ImageUrl?.Split('|', StringSplitOptions.RemoveEmptyEntries);
+                                    if (imagePaths != null && imagePaths.Length > 0)
+                                    {
+                                        <img src="@imagePaths[0]" alt="@product.Name" class="product-image" />
+
+                                    }
+                                    else
+                                    {
+                                        <img src="~/img/placeholder.png" alt="No Image" class="product-image" />
+                                    }
+                                }
+                            </td>
+                            <td>
+                                <strong>@product.Name</strong><br>
+                            </td>
+                            <td>@product.Category</td>
+                            <td>$@product.Price</td>
+                            <td>@product.StockQuantity</td>
+                            <td>
+                                <span class="status-badge @(product.IsActive ? "status-active" : "status-inactive")">
+                                    @(product.IsActive ? "Active" : "Inactive")
+                                </span>
+                            </td>
+                            <td>
+                                <div class="action-buttons">
+                                    <a asp-area="Admin" asp-controller="Product" asp-action="Edit" asp-route-id="@product.ProductId" class="btn btn-sm btn-primary">
+                                        <i class="fa fa-edit"></i>
+                                    </a>
+                                    <a asp-area="Admin" asp-controller="Product" asp-action="Delete" asp-route-id="@product.ProductId" class="btn btn-sm btn-danger">
+                                        <i class="fa fa-trash"></i>
+                                    </a>
+                                </div>
+                            </td>
+                        </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div> 
+</div>
