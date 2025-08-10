@@ -28,6 +28,7 @@ namespace CartifyDAL.Entities.product
         [Key]
         public int ProductId { get; private set; }
         public string Name { get; private set; }
+
         public int? OrderId { get; private set; }
 
         [Required]

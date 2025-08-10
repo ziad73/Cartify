@@ -61,10 +61,16 @@ namespace CartifyPLL
             builder.Services.AddScoped<ICategoryService, CategoryService>();
 
             // Add product services
-            builder.Services.AddScoped<IProductService, ProductService>();
+       
 
             // Add product repo
             builder.Services.AddScoped<IProductRepo, ProductRepo>();
+            // Add product services
+            builder.Services.AddScoped<IProductService, ProductService>();
+            //builder.Services.AddScoped<ICartService, CartService>();
+            //builder.Services.AddScoped<ICheckoutService, CheckoutService>();
+            //builder.Services.AddScoped<IWishlisrService, WishlistService>();
+
 
             builder.Services.AddDbContext<CartifyDbContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("defaultConnection")));
