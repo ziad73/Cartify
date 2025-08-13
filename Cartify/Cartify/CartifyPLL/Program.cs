@@ -1,4 +1,5 @@
 ﻿using Cartify.DAL.DataBase;
+using Cartify.Services.Order;
 using CartifyBLL.Mapper;
 using CartifyBLL.Services;
 using CartifyBLL.Services.CategoryServices;
@@ -6,8 +7,10 @@ using CartifyBLL.Services.Product.Abstraction;
 using CartifyBLL.Services.Product.Impelementation;
 using CartifyBLL.Services.UserServices;
 using CartifyDAL.Entities.user;
+using CartifyDAL.Repo.Abstraction;
 using CartifyDAL.Repo.categoryRepo.Abstraction;
 using CartifyDAL.Repo.CategoryRepo.Implementation;
+using CartifyDAL.Repo.Implementation;
 using CartifyDAL.Repo.productRepo.Abstraction;
 using CartifyDAL.Repo.ProductRepo.Implementation;
 using CartifyDAL.Repo.userRepo.Abstraction;
@@ -61,12 +64,16 @@ namespace CartifyPLL
             builder.Services.AddScoped<ICategoryService, CategoryService>();
 
             // Add product services
-       
+
 
             // Add product repo
             builder.Services.AddScoped<IProductRepo, ProductRepo>();
             // Add product services
             builder.Services.AddScoped<IProductService, ProductService>();
+            builder.Services.AddScoped<IOrderItemRepo, OrderItemRepo>();
+            builder.Services.AddScoped<IOrderRepo, OrderRepo>();
+            builder.Services.AddScoped<IOrderService, OrderService>();
+
             //builder.Services.AddScoped<ICartService, CartService>();
             //builder.Services.AddScoped<ICheckoutService, CheckoutService>();
             //builder.Services.AddScoped<IWishlisrService, WishlistService>();
