@@ -7,8 +7,11 @@ namespace CartifyDAL.Repo.cartRepo.Abstraction
     {
         (bool, string?) Create(CartItem cartItem);
         (List<CartItem>, string?) GetAll();
+        (List<CartItem>, string?) GetByCartId(int cartId);
         (CartItem, string?) GetById(int cartItemId);
+        (CartItem, string?) GetByCartAndProduct(int cartId, int productId);
         (bool, string?) Update(CartItem cartItem);
         (bool, string?) Delete(int cartItemId);
+        (bool, string?) DeleteByCartId(int cartId);
     }
 }

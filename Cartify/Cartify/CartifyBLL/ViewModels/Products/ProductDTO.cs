@@ -21,5 +21,6 @@ namespace CartifyBLL.ViewModels.Product
         public DateTime CreatedOn { get; set; }
         public List<IFormFile>? Images { get; set; }
         public string? ImageUrl { get; set; }
+        public bool InWishlist { get; set; }
     }
 }

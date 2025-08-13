@@ -1,169 +1,651 @@
-﻿@model CartifyPLL.Models.StoreViewModel
+﻿@model List<CartifyBLL.ViewModels.Product.ProductDTO>
 @{
-    ViewBag.Title = "Our Store";
-    Layout = "~/Views/Shared/_Layout.cshtml"; 
+    ViewData["Title"] = "Store";
+    var categories = ViewBag.Categories as IEnumerable<dynamic> ?? new List<dynamic>();
+    var selectedCategory = ViewBag.SelectedCategory as int?;
+    var searchTerm = ViewBag.SearchTerm as string ?? "";
+    var currentPage = ViewBag.CurrentPage != null ? (int)ViewBag.CurrentPage : 1;
+    var totalPages = ViewBag.TotalPages != null ? (int)ViewBag.TotalPages : 1;
+    var pageSize = ViewBag.PageSize != null ? (int)ViewBag.PageSize : 12;
+    var totalItems = ViewBag.TotalItems != null ? (int)ViewBag.TotalItems : 0;
 }
-<!DOCTYPE html>
-<html lang="en">
-  <head>
-    <meta charset="utf-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>Cartify</title>
-    <link href="https://fonts.googleapis.com/css?family=Montserrat:400,500,700" rel="stylesheet" />
-    <link type="text/css" rel="stylesheet" href="~/css/bootstrap.min.css" />
-    <link type="text/css" rel="stylesheet" href="~/css/slick.css" />
-    <link type="text/css" rel="stylesheet" href="~/css/slick-theme.css" />
-    <link type="text/css" rel="stylesheet" href="~/css/nouislider.min.css" />
-    <link rel="stylesheet" href="~/css/font-awesome.min.css" />
-    <link type="text/css" rel="stylesheet" href="~/css/style.css" />
-    <!--[if lt IE 9]>
-      <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
-      <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
-    <![endif]-->
-  </head>
-  <body>
-    <div id="navbar-placeholder"></div>
-    <div id="breadcrumb" class="section">
-      <div class="container">
+
+<link rel="stylesheet" href="~/css/store.css">
+
+<!-- BREADCRUMB -->
+<div id="breadcrumb" class="section">
+    <div class="container">
         <div class="row">
-          <div class="col-md-12">
-            <ul class="breadcrumb-tree">
-              <li><a href="#">Home</a></li>
-            </ul>
-          </div>
-        </div>
-      </div>
-    </div>
-    <div class="section">
-      <div class="container">
-        <div class="row">
-          <div id="aside" class="col-md-3">
-            <div class="aside">
-              <h3 class="aside-title">Categories</h3>
-              <div class="checkbox-filter">
-                @foreach (var category in Model.Categories)
-                {
-                  <div class="input-checkbox">
-                    <input type="checkbox" id="category-@category.CategoryId" />
-                    <label for="category-@category.CategoryId">
-                      <span></span>
-                      @category.Name
-                      <small>(@(category.products?.Count ?? 0))</small>
-                    </label>
-                  </div>
-                }
-              </div>
-            </div>
-            <div class="aside">
-              <h3 class="aside-title">Top selling</h3>
-              @foreach (var product in Model.Products.Take(3))
-              {
-                <div class="product-widget">
-                  <div class="product-img">
-                    <img src="@product.ImageUrl" alt="@product.Name" />
-                  </div>
-                  <div class="product-body">
-                    <p class="product-category">@product.Category</p>
-                    <h3 class="product-name">
-                      <a href="#">@product.Name</a>
-                    </h3>
-                    <h4 class="product-price">
-                      $@product.Price 
-                    </h4>
-                  </div>
-                </div>
-              }
-            </div>
-          </div>
-          <div id="store" class="col-md-9">
-            <div class="store-filter clearfix">
-              <div class="store-sort">
-                <label>
-                  Sort By:
-                  <select class="input-select">
-                    <option value="0">Popular</option>
-                    <option value="1">Position</option>
-                  </select>
-                </label>
-                <label>
-                  Show:
-                  <select class="input-select">
-                    <option value="0">20</option>
-                    <option value="1">50</option>
-                  </select>
-                </label>
-              </div>
-              <ul class="store-grid">
-                <li class="active"><i class="fa fa-th"></i></li>
-                <li><a href="#"><i class="fa fa-th-list"></i></a></li>
-              </ul>
-            </div>
-            <div class="row">
-              @{ int index = 0; }
-              @foreach (var product in Model.Products)
-              {
-                <div class="col-md-4 col-xs-6">
-                  <div class="product">
-                    <div class="product-img">
-                      <img src="@product.ImageUrl" alt="@product.Name" />
-                      <div class="product-label">
-                        @if (index == 0)
+            <div class="col-md-12">
+                <ul class="breadcrumb-tree">
+                    <li><a href="/">Home</a></li>
+                    <li><a href="/Store">All Categories</a></li>
+                    @if (selectedCategory.HasValue)
+                    {
+                        var categoryName = categories.FirstOrDefault(c => c.CategoryId == selectedCategory.Value)?.Name ?? "Category";
+                        <li><a href="#">@categoryName</a></li>
+                    }
+                    <li class="active">
+                        @if (!string.IsNullOrEmpty(searchTerm))
                         {
+                            <span>Search: "@searchTerm" (@totalItems Results)</span>
+                        }
+                        else
+                        {
+                            <span>Products (@totalItems Results)</span>
+                        }
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- SECTION -->
+<div class="section">
+    <div class="container">
+        @Html.AntiForgeryToken()
+        
+        <div class="row">
+            <!-- ASIDE -->
+            <div id="aside" class="col-md-3">
+                <!-- Categories Widget -->
+                <div class="aside">
+                    <h3 class="aside-title">Categories</h3>
+                    <div class="checkbox-filter">
+                        <div class="input-checkbox">
+                            @if (selectedCategory == null)
+                            {
+                                <input type="radio" id="category-all" name="category" value="" 
+                                       checked onchange="filterByCategory('')" />
+                            }
+                            else
+                            {
+                                <input type="radio" id="category-all" name="category" value="" 
+                                       onchange="filterByCategory('')" />
+                            }
+                            <label for="category-all">
+                                <span></span>
+                                All Categories
+                                <small>(@totalItems)</small>
+                            </label>
+                        </div>
                         
-                          <span class="new">NEW</span>
-                        }
-                        else if (index == 1)
+                        @foreach (var category in categories)
                         {
-                          <span class="new">NEW</span>
+                            <div class="input-checkbox">
+                                @if (selectedCategory == category.CategoryId)
+                                {
+                                    <input type="radio" id="category-@category.CategoryId" name="category" 
+                                           value="@category.CategoryId" checked
+                                           onchange="filterByCategory(@category.CategoryId)" />
+                                }
+                                else
+                                {
+                                    <input type="radio" id="category-@category.CategoryId" name="category" 
+                                           value="@category.CategoryId" 
+                                           onchange="filterByCategory(@category.CategoryId)" />
+                                }
+                                <label for="category-@category.CategoryId">
+                                    <span></span>
+                                    @category.Name
+                                    <small>(@Model.Count(p => p.CategoryId == category.CategoryId))</small>
+                                </label>
+                            </div>
                         }
-                      </div>
                     </div>
-                    <div class="product-body">
-                      <p class="product-category">@product.Category</p>
-                      <h3 class="product-name">
-                        <a href="#">@product.Name</a>
-                      </h3>
-                      <h4 class="product-price">
-                        $@product.Price 
-                      </h4>
-                      <div class="product-btns">
-                        <button class="add-to-wishlist">
-                          <i class="fa fa-heart-o"></i><span class="tooltipp">add to wishlist</span>
-                        </button>
-                      </div>
-                    </div>
-                    <div class="add-to-cart">
-                      <button class="add-to-cart-btn">
-                        <i class="fa fa-shopping-cart"></i> add to cart
-                      </button>
-                    </div>
-                  </div>
                 </div>
-               
-              }
+
+                <!-- Search Widget -->
+                <div class="aside">
+                    <h3 class="aside-title">Search Products</h3>
+                    <form method="get" action="/Store">
+                        <div class="input-group mb-3">
+                            <input type="text" class="form-control" name="searchTerm" 
+                                   placeholder="Search products..." value="@searchTerm">
+                            <button class="btn btn-primary" type="submit">
+                                <i class="fa fa-search"></i>
+                            </button>
+                        </div>
+                        <input type="hidden" name="categoryId" value="@selectedCategory">
+                        <input type="hidden" name="page" value="1">
+                    </form>
+                </div>
+
+                <!-- Top Selling Widget (placeholder) -->
+                <div class="aside">
+                    <h3 class="aside-title">Top selling</h3>
+                    @if (Model != null && Model.Any())
+                    {
+                        @foreach (var topProduct in Model.Take(3))
+                        {
+                            <div class="product-widget">
+                                <div class="product-img">
+                                    <img src="@(string.IsNullOrEmpty(topProduct.ImageUrl) ? "/images/no-image.png" : topProduct.ImageUrl)" alt="@topProduct.Name" />
+                                </div>
+                                <div class="product-body">
+                                    <p class="product-category">@topProduct.Category</p>
+                                    <h3 class="product-name">
+                                        <a href="#">@topProduct.Name</a>
+                                    </h3>
+                                    <h4 class="product-price">
+                                        $@topProduct.Price.ToString("F2")
+                                    </h4>
+                                </div>
+                            </div>
+                        }
+                    }
+                </div>
             </div>
-            <div class="store-filter clearfix">
-              <span class="store-qty">Showing 20-100 products</span>
-              <ul class="store-pagination">
-                <li class="active">1</li>
-                <li><a href="#">2</a></li>
-                <li><a href="#">3</a></li>
-                <li><a href="#">4</a></li>
-                <li><a href="#"><i class="fa fa-angle-right"></i></a></li>
-              </ul>
+            <!-- /ASIDE -->
+
+            <!-- STORE -->
+            <div id="store" class="col-md-9">
+                <!-- Store top filter -->
+                <div class="store-filter clearfix">
+                    <div class="store-sort">
+                        <label>
+                            Sort By:
+                            <select class="input-select" onchange="sortProducts(this.value)">
+                                <option value="name">Name</option>
+                                <option value="price-asc">Price: Low to High</option>
+                                <option value="price-desc">Price: High to Low</option>
+                                <option value="stock">Stock</option>
+                            </select>
+                        </label>
+
+                        <label>
+                            Show:
+                            <select class="input-select" onchange="changePageSize(this.value)">
+                                @if (pageSize == 12)
+                                {
+                                    <option value="12" selected>12</option>
+                                }
+                                else
+                                {
+                                    <option value="12">12</option>
+                                }
+                                @if (pageSize == 24)
+                                {
+                                    <option value="24" selected>24</option>
+                                }
+                                else
+                                {
+                                    <option value="24">24</option>
+                                }
+                                @if (pageSize == 48)
+                                {
+                                    <option value="48" selected>48</option>
+                                }
+                                else
+                                {
+                                    <option value="48">48</option>
+                                }
+                            </select>
+                        </label>
+                    </div>
+                    <ul class="store-grid">
+                        <li class="active"><i class="fa fa-th"></i></li>
+                        <li><a href="#"><i class="fa fa-th-list"></i></a></li>
+                    </ul>
+                </div>
+
+                <!-- Active Filters Display -->
+                @if (!string.IsNullOrEmpty(searchTerm) || selectedCategory.HasValue)
+                {
+                    <div class="alert alert-info mb-4">
+                        <div class="d-flex justify-content-between align-items-center">
+                            <div>
+                                <strong><i class="fa fa-filter me-2"></i>Active Filters:</strong>
+                                @if (!string.IsNullOrEmpty(searchTerm))
+                                {
+                                    <span class="badge bg-primary ms-2">Search: "@searchTerm"</span>
+                                }
+                                @if (selectedCategory.HasValue)
+                                {
+                                    var categoryName = categories.FirstOrDefault(c => c.CategoryId == selectedCategory.Value)?.Name ?? "Unknown";
+                                    <span class="badge bg-success ms-2">Category: @categoryName</span>
+                                }
+                            </div>
+                            <a href="/Store" class="btn btn-outline-secondary btn-sm">
+                                <i class="fa fa-times me-1"></i>Clear Filters
+                            </a>
+                        </div>
+                    </div>
+                }
+
+                <!-- Store products -->
+                <div class="row">
+                    @if (Model != null && Model.Any())
+                    {
+                        @foreach (var product in Model)
+                        {
+                            <div class="col-md-4 col-xs-6">
+                                <div class="product">
+                                    <div class="product-img">
+                                        <img src="@(string.IsNullOrEmpty(product.ImageUrl) ? "/images/no-image.png" : product.ImageUrl)" 
+                                             alt="@product.Name" />
+                                        <div class="product-label">
+                                            @if (product.StockQuantity <= 0)
+                                            {
+                                                <span class="out-of-stock">OUT OF STOCK</span>
+                                            }
+                                            else if (product.StockQuantity <= 5)
+                                            {
+                                                <span class="low-stock">LOW STOCK</span>
+                                            }
+                                            else
+                                            {
+                                                <span class="new">IN STOCK</span>
+                                            }
+                                        </div>
+                                    </div>
+                                    <div class="product-body">
+                                        <p class="product-category">@product.Category</p>
+                                        <h3 class="product-name">
+                                            <a href="#" title="@product.Name">@product.Name</a>
+                                        </h3>
+                                        <h4 class="product-price">
+                                            $@product.Price.ToString("F2")
+                                        </h4>
+                                        <div class="product-rating">
+                                            <!-- Placeholder rating - you can implement actual ratings later -->
+                                            <i class="fa fa-star"></i>
+                                            <i class="fa fa-star"></i>
+                                            <i class="fa fa-star"></i>
+                                            <i class="fa fa-star"></i>
+                                            <i class="fa fa-star-o"></i>
+                                        </div>
+                                        <div class="product-btns">
+                                            <!-- Wishlist Button -->
+                                            <button class="add-to-wishlist @(product.InWishlist ? "active" : "")" 
+                                                    onclick="toggleWishlist(@product.ProductId, this)" 
+                                                    title="@(product.InWishlist ? "Remove from wishlist" : "Add to wishlist")">
+                                                <i class="fa @(product.InWishlist ? "fa-heart" : "fa-heart-o")"></i>
+                                                <span class="tooltipp">
+                                                    @(product.InWishlist ? "remove from wishlist" : "add to wishlist")
+                                                </span>
+                                            </button>
+                                            <!-- Compare Button (placeholder) -->
+                                            <button class="add-to-compare" onclick="addToCompare(@product.ProductId)" 
+                                                    title="Add to compare">
+                                                <i class="fa fa-exchange"></i>
+                                                <span class="tooltipp">add to compare</span>
+                                            </button>
+                                            <!-- Quick View Button (placeholder) -->
+                                            <button class="quick-view" onclick="quickView(@product.ProductId)" 
+                                                    title="Quick view">
+                                                <i class="fa fa-eye"></i>
+                                                <span class="tooltipp">quick view</span>
+                                            </button>
+                                        </div>
+                                    </div>
+                                    <div class="add-to-cart">
+                                        @if (product.StockQuantity > 0)
+                                        {
+                                            @if (User.Identity.IsAuthenticated)
+                                            {
+                                                <!-- Quantity selector (hidden by default, shown on hover) -->
+                                                <div class="quantity-selector" style="display: none;">
+                                                    <div class="input-group input-group-sm mb-2">
+                                                        <button class="btn btn-outline-secondary" type="button" 
+                                                                onclick="changeQuantity(@product.ProductId, -1)">
+                                                            <i class="fa fa-minus"></i>
+                                                        </button>
+                                                        <input type="number" class="form-control text-center" 
+                                                               id="quantity-@product.ProductId" 
+                                                               value="1" min="1" max="@product.StockQuantity" readonly>
+                                                        <button class="btn btn-outline-secondary" type="button" 
+                                                                onclick="changeQuantity(@product.ProductId, 1)">
+                                                            <i class="fa fa-plus"></i>
+                                                        </button>
+                                                    </div>
+                                                </div>
+                                                <button class="add-to-cart-btn" onclick="addToCart(@product.ProductId)">
+                                                    <i class="fa fa-shopping-cart"></i> add to cart
+                                                </button>
+                                            }
+                                            else
+                                            {
+                                                <a href="/Account/Login" class="add-to-cart-btn text-decoration-none">
+                                                    <i class="fa fa-sign-in"></i> login to purchase
+                                                </a>
+                                            }
+                                        }
+                                        else
+                                        {
+                                            <button class="add-to-cart-btn" disabled style="background-color: #ccc;">
+                                                <i class="fa fa-ban"></i> out of stock
+                                            </button>
+                                        }
+                                    </div>
+                                </div>
+                            </div>
+                        }
+                    }
+                    else
+                    {
+                        <div class="col-12">
+                            <div class="text-center py-5">
+                                <div class="mb-4">
+                                    <i class="fa fa-search fa-4x text-muted"></i>
+                                </div>
+                                <h3 class="text-muted">No Products Found</h3>
+                                <p class="text-muted">
+                                    @if (!string.IsNullOrEmpty(searchTerm) || selectedCategory.HasValue)
+                                    {
+                                        <span>Try adjusting your search criteria or </span>
+                                        <a href="/Store" class="text-decoration-none">browse all products</a>
+                                    }
+                                    else
+                                    {
+                                        <span>No products are currently available.</span>
+                                    }
+                                </p>
+                            </div>
+                        </div>
+                    }
+                </div>
+
+                <!-- Store bottom filter / Pagination -->
+                @if (totalPages > 1)
+                {
+                    <div class="store-filter clearfix">
+                        <span class="store-qty">
+                            Showing @((currentPage - 1) * pageSize + 1)-@(Math.Min(currentPage * pageSize, totalItems)) of @totalItems products
+                        </span>
+                        <ul class="store-pagination">
+                            @if (currentPage > 1)
+                            {
+                                <li>
+                                    <a href="?page=@(currentPage - 1)&categoryId=@selectedCategory&searchTerm=@searchTerm&pageSize=@pageSize">
+                                        <i class="fa fa-angle-left"></i>
+                                    </a>
+                                </li>
+                            }
+                            
+                            @{
+                                var startPage = Math.Max(1, currentPage - 2);
+                                var endPage = Math.Min(totalPages, currentPage + 2);
+                            }
+                            
+                            @for (int i = startPage; i <= endPage; i++)
+                            {
+                                @if (i == currentPage)
+                                {
+                                    <li class="active">@i</li>
+                                }
+                                else
+                                {
+                                    <li>
+                                        <a href="?page=@i&categoryId=@selectedCategory&searchTerm=@searchTerm&pageSize=@pageSize">@i</a>
+                                    </li>
+                                }
+                            }
+                            
+                            @if (currentPage < totalPages)
+                            {
+                                <li>
+                                    <a href="?page=@(currentPage + 1)&categoryId=@selectedCategory&searchTerm=@searchTerm&pageSize=@pageSize">
+                                        <i class="fa fa-angle-right"></i>
+                                    </a>
+                                </li>
+                            }
+                        </ul>
+                    </div>
+                }
             </div>
-          </div>
+            <!-- /STORE -->
         </div>
-      </div>
+        <!-- /row -->
     </div>
-    <div id="footer-placeholder"></div>
-    <script src="~/js/jquery.min.js"></script>
-    <script src="~/js/bootstrap.min.js"></script>
-    <script src="~/js/slick.min.js"></script>
-    <script src="~/js/nouislider.min.js"></script>
-    <script src="~/js/jquery.zoom.min.js"></script>
-    <script src="~/js/main.js"></script>
-    <script src="~/js/pages/store.js"></script>
-  </body>
-</html>
+    <!-- /container -->
+</div>
+<!-- /SECTION -->
+
+@section Scripts {
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script>
+        // Get Anti-Forgery Token
+        function getAntiForgeryToken() {
+            return document.querySelector('input[name="__RequestVerificationToken"]').value;
+        }
+
+        // Filter by Category
+        function filterByCategory(categoryId) {
+            const searchTerm = '@searchTerm';
+            const url = `/Store?categoryId=${categoryId}&searchTerm=${searchTerm}&page=1`;
+            window.location.href = url;
+        }
+
+        // Change Page Size
+        function changePageSize(newPageSize) {
+            const categoryId = '@selectedCategory';
+            const searchTerm = '@searchTerm';
+            const url = `/Store?categoryId=${categoryId}&searchTerm=${searchTerm}&page=1&pageSize=${newPageSize}`;
+            window.location.href = url;
+        }
+
+        // Sort Products (client-side for now)
+        function sortProducts(sortBy) {
+            // For now, just show an alert. You can implement server-side sorting later
+            Swal.fire({
+                title: 'Sort Feature',
+                text: `Sorting by: ${sortBy}`,
+                icon: 'info',
+                timer: 2000
+            });
+        }
+
+       
+
+        function addToCart(productId) {
+            console.log('addToCart called with product ID:', productId);
+
+            // Get quantity (default to 1 if no input)
+            const qtyInput = document.getElementById(`quantity-${productId}`);
+            const quantity = qtyInput ? qtyInput.value : 1;
+
+            // Get anti-forgery token from form/page
+            const tokenElement = document.querySelector('input[name="__RequestVerificationToken"]');
+            const token = tokenElement ? tokenElement.value : '';
+
+            fetch('/Cart/AddToCart', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/x-www-form-urlencoded',
+                },
+                body: `productId=${productId}&quantity=${quantity}&__RequestVerificationToken=${token}`
+            })
+                .then(response => response.json())
+                .then(data => {
+                    console.log('AddToCart response:', data);
+
+                    if (data.success) {
+                        Swal.fire({
+                            title: 'Success!',
+                            text: data.message,
+                            icon: 'success',
+                            timer: 2000,
+                            showConfirmButton: false
+                        });
+
+                        if (typeof updateCartCount === "function") {
+                            updateCartCount(data.cartCount);
+                        }
+                    } else {
+                        Swal.fire({
+                            title: 'Error!',
+                            text: data.message,
+                            icon: 'error'
+                        });
+                    }
+                })
+                .catch(error => {
+                    console.error('AddToCart error:', error);
+                    Swal.fire({
+                        title: 'Error!',
+                        text: 'Error adding to cart',
+                        icon: 'error'
+                    });
+                });
+        }
+
+
+
+        
+
+
+        function toggleWishlist(productId, button) {
+            console.log('toggleWishlist called with product ID:', productId);
+
+            // Get anti-forgery token
+            const tokenElement = document.querySelector('input[name="__RequestVerificationToken"]');
+            const token = tokenElement ? tokenElement.value : '';
+
+            fetch('/Wishlist/ToggleWishlist', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/x-www-form-urlencoded',
+                },
+                body: `productId=${productId}&__RequestVerificationToken=${token}`
+            })
+                .then(response => response.json())
+                .then(data => {
+                    console.log('ToggleWishlist response:', data);
+
+                    if (data.success) {
+                        // Show toast
+                        Swal.fire({
+                            title: 'Success!',
+                            text: data.message,
+                            icon: 'success',
+                            timer: 1500,
+                            showConfirmButton: false
+                        });
+
+                        // Update wishlist count in header
+                        if (typeof updateWishlistCount === "function") {
+                            updateWishlistCount(data.wishlistCount);
+                        }
+
+                        // Toggle icon + tooltip instantly
+                        const icon = button.querySelector("i");
+                        const tooltip = button.querySelector(".tooltipp");
+
+                        if (icon.classList.contains("fa-heart")) {
+                            icon.classList.replace("fa-heart", "fa-heart-o");
+                            button.classList.remove("active");
+                            button.title = "Add to wishlist";
+                            tooltip.textContent = "add to wishlist";
+                        } else {
+                            icon.classList.replace("fa-heart-o", "fa-heart");
+                            button.classList.add("active");
+                            button.title = "Remove from wishlist";
+                            tooltip.textContent = "remove from wishlist";
+                        }
+
+                    } else {
+                        Swal.fire({
+                            title: 'Error!',
+                            text: data.message,
+                            icon: 'error'
+                        });
+                    }
+                })
+                .catch(error => {
+                    console.error('ToggleWishlist error:', error);
+                    Swal.fire({
+                        title: 'Error!',
+                        text: 'Error updating wishlist',
+                        icon: 'error'
+                    });
+                });
+        }
+
+
+
+
+        // Change Quantity Function
+        function changeQuantity(productId, change) {
+            const input = document.getElementById(`quantity-${productId}`);
+            const currentValue = parseInt(input.value);
+            const newValue = currentValue + change;
+            const max = parseInt(input.getAttribute('max'));
+            const min = parseInt(input.getAttribute('min'));
+            
+            if (newValue >= min && newValue <= max) {
+                input.value = newValue;
+            }
+            console.log('Quantity changed for product', productId, 'to', input.value);
+        }
+
+        // Add to Compare (placeholder function)
+        function addToCompare(productId) {
+            Swal.fire({
+                title: 'Compare Feature',
+                text: `Product ${productId} added to compare list`,
+                icon: 'info',
+                timer: 2000
+            });
+        }
+
+        // Quick View (placeholder function)
+        function quickView(productId) {
+            Swal.fire({
+                title: 'Quick View',
+                html: `<p>Quick view for product ID: ${productId}</p><p>This feature will show product details in a modal.</p>`,
+                icon: 'info',
+                width: 600
+            });
+        }
+
+        // Update cart count in header (if you have a cart counter)
+        function updateCartCount(count) {
+            const cartCounters = document.querySelectorAll('.cart-count');
+            cartCounters.forEach(counter => {
+                counter.textContent = count;
+            });
+        }
+
+        // Update wishlist count in header (if you have a wishlist counter)
+        function updateWishlistCount(count) {
+            const wishlistCounters = document.querySelectorAll('.wishlist-count');
+            wishlistCounters.forEach(counter => {
+                counter.textContent = count;
+            });
+        }
+
+        // Show quantity selector on hover
+        document.addEventListener('DOMContentLoaded', function() {
+            console.log('Store page loaded successfully');
+            console.log('Anti-forgery token:', getAntiForgeryToken());
+            
+            // Add hover effects for quantity selectors
+            document.querySelectorAll('.product').forEach(product => {
+                const addToCartDiv = product.querySelector('.add-to-cart');
+                const quantitySelector = product.querySelector('.quantity-selector');
+                
+                if (quantitySelector) {
+                    product.addEventListener('mouseenter', function() {
+                        quantitySelector.style.display = 'block';
+                    });
+                    
+                    product.addEventListener('mouseleave', function() {
+                        quantitySelector.style.display = 'none';
+                    });
+                }
+            });
+        });
+
+        // Test function to verify JavaScript is working
+        function testFunction(productId) {
+            Swal.fire({
+                title: 'Test Function',
+                text: `Test button clicked for product ID: ${productId}`,
+                icon: 'info'
+            });
+            console.log('Test function called with product ID:', productId);
+        }
+    </script>
+}

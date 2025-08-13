@@ -1,0 +1,256 @@
+﻿@model CartifyBLL.ViewModels.Checkout.CheckoutVm
+
+@{
+    ViewData["Title"] = "Checkout";
+}
+
+<div class="container py-5">
+    <nav aria-label="breadcrumb">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a asp-controller="Home" asp-action="Index">Home</a></li>
+            <li class="breadcrumb-item"><a asp-controller="Cart" asp-action="Index">Cart</a></li>
+            <li class="breadcrumb-item active" aria-current="page">Checkout</li>
+        </ol>
+    </nav>
+
+    <form asp-action="ProcessOrder" method="post" id="checkoutForm" class="needs-validation" novalidate>
+        <div asp-validation-summary="ModelOnly" class="alert alert-danger" role="alert"></div>
+
+        <div class="row g-4">
+            <!-- Shipping and Payment Information -->
+            <div class="col-md-8">
+                <div class="card shadow-sm">
+                    <div class="card-body">
+                        <h5 class="card-title mb-4">Shipping Information</h5>
+                        
+                        @if (Model.UserAddresses.Any())
+                        {
+                            <div class="mb-4">
+                                <label class="form-label">Select Shipping Address</label>
+                                @foreach (var address in Model.UserAddresses)
+                                {
+                                    <div class="form-check mb-2">
+                                        <input class="form-check-input" type="radio" name="SelectedAddressId" value="@address.Id" 
+                                               id="address_@address.Id" @(address.IsDefault ? "checked" : "") />
+                                        <label class="form-check-label" for="address_@address.Id">
+                                            <strong>@address.Name</strong><br />
+                                            @address.StreetAddress<br />
+                                            @address.City, @address.State @address.PostalCode<br />
+                                            @address.Country<br />
+                                            <small class="text-muted">@address.PhoneNumber</small>
+                                        </label>
+                                    </div>
+                                }
+                                <div class="form-check">
+                                    <input class="form-check-input" type="radio" name="UseNewAddress" value="true" id="useNewAddress" />
+                                    <label class="form-check-label" for="useNewAddress">
+                                        Use a new address
+                                    </label>
+                                </div>
+                            </div>
+                        }
+
+                        <div id="newAddressSection" style="@(Model.UserAddresses.Any() ? "display:none;" : "")">
+                            <div class="row g-3">
+                                <div class="col-12">
+                                    <div class="form-floating">
+                                        <input asp-for="NewAddress.Name" class="form-control" placeholder="Address Name" />
+                                        <label asp-for="NewAddress.Name">Address Name (e.g., Home, Office)</label>
+                                        <span asp-validation-for="NewAddress.Name" class="text-danger small"></span>
+                                    </div>
+                                </div>
+
+                                <div class="col-12">
+                                    <div class="form-floating">
+                                        <input asp-for="NewAddress.StreetAddress" class="form-control" placeholder="Street Address" />
+                                        <label asp-for="NewAddress.StreetAddress">Street Address</label>
+                                        <span asp-validation-for="NewAddress.StreetAddress" class="text-danger small"></span>
+                                    </div>
+                                </div>
+
+                                <div class="col-md-6">
+                                    <div class="form-floating">
+                                        <input asp-for="NewAddress.City" class="form-control" placeholder="City" />
+                                        <label asp-for="NewAddress.City">City</label>
+                                        <span asp-validation-for="NewAddress.City" class="text-danger small"></span>
+                                    </div>
+                                </div>
+
+                                <div class="col-md-6">
+                                    <div class="form-floating">
+                                        <input asp-for="NewAddress.State" class="form-control" placeholder="State" />
+                                        <label asp-for="NewAddress.State">State/Province</label>
+                                        <span asp-validation-for="NewAddress.State" class="text-danger small"></span>
+                                    </div>
+                                </div>
+
+                                <div class="col-md-6">
+                                    <div class="form-floating">
+                                        <input asp-for="NewAddress.PostalCode" class="form-control" placeholder="Postal Code" />
+                                        <label asp-for="NewAddress.PostalCode">Postal Code</label>
+                                        <span asp-validation-for="NewAddress.PostalCode" class="text-danger small"></span>
+                                    </div>
+                                </div>
+
+                                <div class="col-md-6">
+                                    <div class="form-floating">
+                                        <input asp-for="NewAddress.Country" class="form-control" placeholder="Country" />
+                                        <label asp-for="NewAddress.Country">Country</label>
+                                        <span asp-validation-for="NewAddress.Country" class="text-danger small"></span>
+                                    </div>
+                                </div>
+
+                                <div class="col-12">
+                                    <div class="form-floating">
+                                        <input asp-for="NewAddress.PhoneNumber" class="form-control" placeholder="Phone Number" />
+                                        <label asp-for="NewAddress.PhoneNumber">Phone Number</label>
+                                        <span asp-validation-for="NewAddress.PhoneNumber" class="text-danger small"></span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <h5 class="card-title mt-4 mb-4">Payment Information</h5>
+                        <div class="row g-3">
+                            <div class="col-12">
+                                <div class="form-floating">
+                                    <input asp-for="CardNumber" class="form-control" placeholder="Card Number" required />
+                                    <label asp-for="CardNumber">Card Number</label>
+                                    <span asp-validation-for="CardNumber" class="text-danger small"></span>
+                                </div>
+                            </div>
+                            
+                            <div class="col-12">
+                                <div class="form-floating">
+                                    <input asp-for="CardHolderName" class="form-control" placeholder="Card Holder Name" required />
+                                    <label asp-for="CardHolderName">Card Holder Name</label>
+                                    <span asp-validation-for="CardHolderName" class="text-danger small"></span>
+                                </div>
+                            </div>
+                            
+                            <div class="col-md-6">
+                                <div class="form-floating">
+                                    <input asp-for="ExpiryMonth" class="form-control" placeholder="MM" maxlength="2" required />
+                                    <label asp-for="ExpiryMonth">Expiry Month (MM)</label>
+                                    <span asp-validation-for="ExpiryMonth" class="text-danger small"></span>
+                                </div>
+                            </div>
+                            
+                            <div class="col-md-6">
+                                <div class="form-floating">
+                                    <input asp-for="ExpiryYear" class="form-control" placeholder="YY" maxlength="2" required />
+                                    <label asp-for="ExpiryYear">Expiry Year (YY)</label>
+                                    <span asp-validation-for="ExpiryYear" class="text-danger small"></span>
+                                </div>
+                            </div>
+                            
+                            <div class="col-md-12">
+                                <div class="form-floating">
+                                    <input asp-for="CVV" class="form-control" placeholder="CVV" maxlength="4" required />
+                                    <label asp-for="CVV">CVV</label>
+                                    <span asp-validation-for="CVV" class="text-danger small"></span>
+                                </div>
+                            </div>
+
+                            <div class="col-12">
+                                <div class="form-floating">
+                                    <textarea asp-for="OrderNotes" class="form-control" placeholder="Order Notes" style="height: 100px"></textarea>
+                                    <label asp-for="OrderNotes">Order Notes (Optional)</label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Order Summary -->
+            <div class="col-md-4">
+                <div class="card shadow-sm">
+                    <div class="card-body">
+                        <h5 class="card-title mb-4">Order Summary</h5>
+                        
+                        <div class="order-items mb-3">
+                            @foreach (var item in Model.Cart.Items)
+                            {
+                                <div class="d-flex justify-content-between align-items-center mb-2">
+                                    <div>
+                                        <h6 class="mb-0">@item.ProductName</h6>
+                                        <small class="text-muted">Quantity: @item.Quantity</small>
+                                    </div>
+                                    <span>@item.TotalPrice.ToString("C")</span>
+                                </div>
+                            }
+                        </div>
+
+                        <hr>
+
+                        <div class="d-flex justify-content-between mb-2">
+                            <span>Subtotal</span>
+                            <span>@Model.Cart.SubTotal.ToString("C")</span>
+                        </div>
+                        <div class="d-flex justify-content-between mb-2">
+                            <span>Shipping</span>
+                            <span>@Model.Cart.ShippingCost.ToString("C")</span>
+                        </div>
+                        <div class="d-flex justify-content-between mb-2">
+                            <span>Tax</span>
+                            <span>@Model.Cart.Tax.ToString("C")</span>
+                        </div>
+                        <hr>
+                        <div class="d-flex justify-content-between mb-4">
+                            <strong>Total</strong>
+                            <strong>@Model.Cart.Total.ToString("C")</strong>
+                        </div>
+
+                        <div class="form-check mb-3">
+                            <input class="form-check-input" type="checkbox" id="termsCheck" required>
+                            <label class="form-check-label small" for="termsCheck">
+                                I agree to the <a href="#" data-bs-toggle="modal" data-bs-target="#termsModal">terms and conditions</a>
+                            </label>
+                        </div>
+
+                        <button type="submit" class="btn btn-primary w-100" id="placeOrderBtn">
+                            <span class="spinner-border spinner-border-sm d-none" role="status" aria-hidden="true"></span>
+                            Place Order
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>
+
+@section Scripts {
+    <script>
+        $(document).ready(function () {
+            // Show/hide new address section
+            $('input[name="UseNewAddress"], input[name="SelectedAddressId"]').change(function () {
+                if ($('#useNewAddress').is(':checked')) {
+                    $('#newAddressSection').show();
+                } else {
+                    $('#newAddressSection').hide();
+                }
+            });
+
+            // Form submission
+            $('#checkoutForm').on('submit', function (e) {
+                var form = this;
+                
+                if (!form.checkValidity() || !$('#termsCheck').is(':checked')) {
+                    e.preventDefault();
+                    e.stopPropagation();
+                    
+                    if (!$('#termsCheck').is(':checked')) {
+                        alert('Please agree to the terms and conditions');
+                    }
+                } else {
+                    $('#placeOrderBtn').prop('disabled', true);
+                    $('#placeOrderBtn .spinner-border').removeClass('d-none');
+                }
+                
+                $(form).addClass('was-validated');
+            });
+        });
+    </script>
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

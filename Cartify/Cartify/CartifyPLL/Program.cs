@@ -18,6 +18,23 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using System;
+using System.Configuration;
+using CartifyBLL.Services.CartService.Abstraction;
+using CartifyBLL.Services.CartService.Implementation;
+using CartifyBLL.Services.CheckoutService.Abstraction;
+using CartifyBLL.Services.CheckoutService.Implementation;
+using CartifyBLL.Services.SearchService.Abstraction;
+using CartifyBLL.Services.SearchService.Implementation;
+using CartifyBLL.Services.WishlistService.Abstraction;
+using CartifyBLL.Services.WishlistService.Implementation;
+using CartifyDAL.Repo.Abstraction;
+using CartifyDAL.Repo.cartRepo.Abstraction;
+using CartifyDAL.Repo.cartRepo.Implementation;
+using CartifyDAL.Repo.Implementation;
+using CartifyDAL.Repo.SearchRepo.Abstraction;
+using CartifyDAL.Repo.SearchRepo.Implementation;
+using CartifyDAL.Repo.WishlistRepo.Abstraction;
+using CartifyDAL.Repo.WishlistRepo.Implementation;
 
 namespace CartifyPLL
 {
@@ -27,54 +44,28 @@ namespace CartifyPLL
         {
             var builder = WebApplication.CreateBuilder(args);
 
+            // Configure Authentication
             builder.Services.AddAuthentication(options =>
             {
                 options.DefaultScheme = CookieAuthenticationDefaults.AuthenticationScheme;
                 options.DefaultChallengeScheme = GoogleDefaults.AuthenticationScheme;
             })
-.AddCookie()
-.AddGoogle(options =>
-{
-    var googleAuthNSection = builder.Configuration.GetSection("Authentication:Google");
-    options.ClientId = googleAuthNSection["ClientId"];
-    options.ClientSecret = googleAuthNSection["ClientSecret"];
-});
+            .AddCookie()
+            .AddGoogle(options =>
+            {
+                var googleAuthNSection = builder.Configuration.GetSection("Authentication:Google");
+                options.ClientId = googleAuthNSection["ClientId"];
+                options.ClientSecret = googleAuthNSection["ClientSecret"];
+            });
 
-
-            // Add services to the container.
+            // Add MVC services
             builder.Services.AddControllersWithViews();
 
-
-            builder.Services.AddScoped<IAccountService, AccountService>();
-
-            builder.Services.AddScoped<IUserService, UserService>();
-
-            // Register repositories
-            builder.Services.AddScoped<IUserRepo, UserRepo>();
-
-            // Add Identity services
-            builder.Services.AddScoped<EmailSender>();
-
-            //builder.Services.AddScoped<SeedService>(); // If used during seeding
-            // Category dependencies
-            builder.Services.AddScoped<ICategoryRepo, CategoryRepo>();
-            builder.Services.AddScoped<ICategoryService, CategoryService>();
-
-            // Add product services
-       
-
-            // Add product repo
-            builder.Services.AddScoped<IProductRepo, ProductRepo>();
-            // Add product services
-            builder.Services.AddScoped<IProductService, ProductService>();
-            //builder.Services.AddScoped<ICartService, CartService>();
-            //builder.Services.AddScoped<ICheckoutService, CheckoutService>();
-            //builder.Services.AddScoped<IWishlisrService, WishlistService>();
-
-
+            // Configure DbContext FIRST (before other services that depend on it)
             builder.Services.AddDbContext<CartifyDbContext>(options =>
-    options.UseSqlServer(builder.Configuration.GetConnectionString("defaultConnection")));
-            builder.Services.AddAutoMapper(x => x.AddProfile(new DomainProfile()));
+                options.UseSqlServer(builder.Configuration.GetConnectionString("defaultConnection")));
+
+            // Configure Identity
             builder.Services.AddIdentity<User, IdentityRole>(options =>
             {
                 // Password settings
@@ -92,26 +83,59 @@ namespace CartifyPLL
                 options.SignIn.RequireConfirmedPhoneNumber = false;
             })
             .AddEntityFrameworkStores<CartifyDbContext>()
-.AddDefaultTokenProviders();
+            .AddDefaultTokenProviders();
+
+            // Configure AutoMapper
+            builder.Services.AddAutoMapper(x => x.AddProfile(new DomainProfile()));
+
+            // Register Core Services
+            builder.Services.AddScoped<EmailSender>();
+            builder.Services.AddScoped<SeedService>();
+
+            // Register Account & User Services
+            builder.Services.AddScoped<IAccountService, AccountService>();
+            builder.Services.AddScoped<IUserService, UserService>();
+
+            // Register Repository Layer
+            builder.Services.AddScoped<IUserRepo, UserRepo>();
+            builder.Services.AddScoped<ICategoryRepo, CategoryRepo>();
+            builder.Services.AddScoped<IProductRepo, ProductRepo>();
+            builder.Services.AddScoped<ICartRepo, CartRepo>();
+            builder.Services.AddScoped<ICartItemRepo, CartItemRepo>();
+            builder.Services.AddScoped<IWishlistRepo, WishlistRepo>();
+            builder.Services.AddScoped<ISearchRepo, SearchRepo>();
+            builder.Services.AddScoped<IOrderRepo, OrderRepo>();
+            builder.Services.AddScoped<IWishlistItemRepo, WishlistItemRepo>();
+            
+            // ADD THE MISSING REPOSITORY REGISTRATION
+            builder.Services.AddScoped<IOrderItemRepo, OrderItemRepo>();
+
+            // Register Business Logic Layer (Services)
+            builder.Services.AddScoped<ICategoryService, CategoryService>();
+            builder.Services.AddScoped<IProductService, ProductService>();
+            builder.Services.AddScoped<ICartService, CartService>();
+            builder.Services.AddScoped<IWishlistService, WishlistService>();
+            builder.Services.AddScoped<ISearchService, SearchService>();
+            
+            // Register CheckoutService ONCE (you had it twice)
+            builder.Services.AddScoped<ICheckoutService, CheckoutService>();
 
             var app = builder.Build();
+            
+            // Seed database
             await SeedService.SeedDatabase(app.Services);
 
-
-            // Configure the HTTP request pipeline.
+            // Configure the HTTP request pipeline
             if (!app.Environment.IsDevelopment())
             {
                 app.UseExceptionHandler("/Home/Error");
-                // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
                 app.UseHsts();
             }
 
             app.UseHttpsRedirection();
             app.UseStaticFiles();
             app.UseRouting();
-            app.UseAuthentication();// Add authentication middleware
-
-
+            app.UseAuthentication();
             app.UseAuthorization();
 
             app.MapControllerRoute(
@@ -122,11 +146,7 @@ namespace CartifyPLL
                 name: "default",
                 pattern: "{controller=Home}/{action=Index}/{id?}");
 
-
             app.Run();
-
-
-
         }
     }
 }
