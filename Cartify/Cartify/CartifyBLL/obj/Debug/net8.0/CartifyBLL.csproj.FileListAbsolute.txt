@@ -46,3 +46,19 @@ D:\Final-Project\Cartify\Cartify\Cartify\CartifyBLL\obj\Debug\net8.0\CartifyBLL.
 D:\Final-Project\Cartify\Cartify\Cartify\CartifyBLL\obj\Debug\net8.0\refint\CartifyBLL.dll
 D:\Final-Project\Cartify\Cartify\Cartify\CartifyBLL\obj\Debug\net8.0\CartifyBLL.pdb
 D:\Final-Project\Cartify\Cartify\Cartify\CartifyBLL\obj\Debug\net8.0\ref\CartifyBLL.dll
+F:\Final Project\Cartify\Cartify\Cartify\CartifyBLL\bin\Debug\net8.0\CartifyBLL.deps.json
+F:\Final Project\Cartify\Cartify\Cartify\CartifyBLL\bin\Debug\net8.0\CartifyBLL.dll
+F:\Final Project\Cartify\Cartify\Cartify\CartifyBLL\bin\Debug\net8.0\CartifyBLL.pdb
+F:\Final Project\Cartify\Cartify\Cartify\CartifyBLL\bin\Debug\net8.0\CartifyDAL.dll
+F:\Final Project\Cartify\Cartify\Cartify\CartifyBLL\bin\Debug\net8.0\CartifyDAL.pdb
+F:\Final Project\Cartify\Cartify\Cartify\CartifyBLL\obj\Debug\net8.0\CartifyBLL.csproj.AssemblyReference.cache
+F:\Final Project\Cartify\Cartify\Cartify\CartifyBLL\obj\Debug\net8.0\CartifyBLL.GeneratedMSBuildEditorConfig.editorconfig
+F:\Final Project\Cartify\Cartify\Cartify\CartifyBLL\obj\Debug\net8.0\CartifyBLL.AssemblyInfoInputs.cache
+F:\Final Project\Cartify\Cartify\Cartify\CartifyBLL\obj\Debug\net8.0\CartifyBLL.AssemblyInfo.cs
+F:\Final Project\Cartify\Cartify\Cartify\CartifyBLL\obj\Debug\net8.0\CartifyBLL.csproj.CoreCompileInputs.cache
+F:\Final Project\Cartify\Cartify\Cartify\CartifyBLL\obj\Debug\net8.0\CartifyBLL.sourcelink.json
+F:\Final Project\Cartify\Cartify\Cartify\CartifyBLL\obj\Debug\net8.0\CartifyBLL.csproj.Up2Date
+F:\Final Project\Cartify\Cartify\Cartify\CartifyBLL\obj\Debug\net8.0\CartifyBLL.dll
+F:\Final Project\Cartify\Cartify\Cartify\CartifyBLL\obj\Debug\net8.0\refint\CartifyBLL.dll
+F:\Final Project\Cartify\Cartify\Cartify\CartifyBLL\obj\Debug\net8.0\CartifyBLL.pdb
+F:\Final Project\Cartify\Cartify\Cartify\CartifyBLL\obj\Debug\net8.0\ref\CartifyBLL.dll

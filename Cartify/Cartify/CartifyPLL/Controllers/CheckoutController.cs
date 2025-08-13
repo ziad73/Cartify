@@ -121,9 +121,10 @@ public class CheckoutController : Controller
                     return View("Index", model);
                 }
 
-                // Redirect to confirmation page
+//                TempData["Success"] = "Your order has been placed successfully!";
+// return RedirectToAction("Index", "Orders");
                 TempData["Success"] = "Your order has been placed successfully!";
-                return RedirectToAction("Confirmation", new { orderId = confirmation.OrderId });
+                return RedirectToAction("Index", "Orders");
             }
             catch (Exception ex)
             {

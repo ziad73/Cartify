@@ -1,10 +1,12 @@
 ﻿
 using AutoMapper;
 using CartifyBLL.ViewModels.Cart;
+using CartifyBLL.ViewModels.Orders;
 using CartifyBLL.ViewModels.Product;
 using CartifyBLL.ViewModels.Search;
 using CartifyBLL.ViewModels.Wishlist;
 using CartifyDAL.Entities.cart;
+using CartifyDAL.Entities.order;
 using CartifyDAL.Entities.product;
 using CartifyDAL.Entities.Search;
 using CartifyDAL.Entities.Wishlist;
@@ -45,6 +47,24 @@ namespace CartifyBLL.Mapper
                 .ForMember(dest => dest.StockQuantity,   opt => opt.MapFrom(src => src.Product.StockQuantity))
                 .ForMember(dest => dest.IsAvailable,     opt => opt.MapFrom(src => src.Product.StockQuantity > 0))
                 .ForMember(dest => dest.AddedOn,         opt => opt.MapFrom(src => src.CreatedOn));
+            
+            
+            
+            CreateMap<Order, ManageOrdersVm>()
+                .ForMember(dest => dest.CustomerName, opt => opt.MapFrom(src => src.User != null ? src.User.UserName : "Guest"))
+                .ForMember(dest => dest.CustomerEmail, opt => opt.MapFrom(src => src.User != null ? src.User.Email : "N/A"))
+                .ForMember(dest => dest.TotalAmount, opt => opt.Ignore()) 
+                .ForMember(dest => dest.PaymentStatus, opt => opt.MapFrom(src => src.OrderStatus == "Cancelled" ? "Refunded" : src.OrderStatus == "Pending" ? "Pending" : "Paid"));
+
+            CreateMap<Order, OrderDetailsVm>()
+                .ForMember(dest => dest.CustomerName, opt => opt.MapFrom(src => src.User != null ? src.User.UserName : "Guest"))
+                .ForMember(dest => dest.CustomerEmail, opt => opt.MapFrom(src => src.User != null ? src.User.Email : "N/A"))
+                .ForMember(dest => dest.TotalAmount, opt => opt.Ignore()) 
+                .ForMember(dest => dest.OrderItems, opt => opt.Ignore()) 
+                .ForMember(dest => dest.PaymentStatus, opt => opt.MapFrom(src => src.OrderStatus == "Cancelled" ? "Refunded" : src.OrderStatus == "Pending" ? "Pending" : "Paid"));
+
+            CreateMap<OrderItem, OrderItemVm>()
+                .ForMember(dest => dest.ItemTotal, opt => opt.MapFrom(src => src.Quantity * (src.Price - src.Discount)));
         }
     }
 }

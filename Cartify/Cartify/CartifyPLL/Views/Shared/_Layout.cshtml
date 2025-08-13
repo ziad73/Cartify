@@ -112,7 +112,12 @@
     <nav class="container">
         <ul class="main-nav nav navbar-nav">
             <li class="@(ViewBag.Active == "Home" ? "active" : "")"><a href="~/">Home</a></li>
-             <li><a href="/Store">Store</a></li>
+            <li><a href="/Store">Store</a></li>
+              
+            @if (isLoggedIn) 
+            {
+                <li><a asp-controller="Orders" asp-action="Index">My Orders</a></li>
+            }
             <li><a href="~/Store">Hot Deals</a></li>
             <li><a href="~/Store?category=categories">Categories</a></li>
             <li><a href="~/Store?category=laptops">Laptops</a></li>

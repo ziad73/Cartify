@@ -1,0 +1,225 @@
+﻿
+@model CartifyBLL.ViewModels.Orders.OrderDetailsVm
+
+@{
+    ViewData["Title"] = $"Order Details - #ORD-@Model.OrderId";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Order Details - #ORD-@Model.OrderId</title>
+    <link rel="stylesheet" href="~/css/bootstrap.min.css">
+    <link rel="stylesheet" href="~/css/font-awesome.min.css">
+    <link rel="stylesheet" href="~/css/style.css">
+    <style>
+        .admin-header {
+            background: #2C3E50;
+            color: white;
+            padding: 20px 0;
+            margin-bottom: 30px;
+        }
+
+        .card {
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            margin-bottom: 20px;
+        }
+
+        .card-header {
+            background: #f8f9fa;
+            padding: 15px;
+            border-bottom: 1px solid #eee;
+        }
+
+        .card-body {
+            padding: 15px;
+        }
+
+        .status-badge {
+            padding: 5px 12px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: bold;
+        }
+
+        .status-pending {
+            background: #FFF3CD;
+            color: #856404;
+        }
+
+        .status-processing {
+            background: #D1ECF1;
+            color: #0C5460;
+        }
+
+        .status-shipped {
+            background: #D4EDDA;
+            color: #155724;
+        }
+
+        .status-delivered {
+            background: #D1E7DD;
+            color: #0F5132;
+        }
+
+        .status-cancelled {
+            background: #F8D7DA;
+            color: #721C24;
+        }
+    </style>
+</head>
+<body>
+    <!-- ADMIN HEADER -->
+    <div class="admin-header">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-6">
+                    <h1><i class="fa fa-shopping-cart"></i> Order Details - #ORD-@Model.OrderId</h1>
+                </div>
+                <div class="col-md-6 text-right">
+                    <a asp-area="Admin" asp-controller="Order" asp-action="Index" class="btn btn-outline-light">
+                        <i class="fa fa-arrow-left"></i> Back to Orders
+                    </a>
+                    <a asp-area="Admin" asp-controller="Account" asp-action="Logout" class="btn btn-outline-light ml-2">
+                        <i class="fa fa-sign-out"></i> Logout
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- MAIN CONTENT -->
+    <div class="section">
+        <div class="container">
+            <div class="page-header">
+                <div class="row">
+                    <div class="col-md-6">
+                        <h2>Order #ORD-@Model.OrderId</h2>
+                        <p class="text-muted">Placed on @Model.OrderDate.ToString("MMM dd, yyyy")</p>
+                    </div>
+                    <div class="col-md-6 text-right">
+                        <span class="status-badge status-@Model.OrderStatus.ToLower()">@Model.OrderStatus</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Order Details -->
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="card">
+                        <div class="card-header">
+                            <h3>Customer Information</h3>
+                        </div>
+                        <div class="card-body">
+                            <p><strong>Name:</strong> @Model.CustomerName</p>
+                            <p><strong>Email:</strong> @Model.CustomerEmail</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="card">
+                        <div class="card-header">
+                            <h3>Shipping Information</h3>
+                        </div>
+                        <div class="card-body">
+                            <p><strong>Method:</strong> @Model.ShippingMethod</p>
+                            <p><strong>Tracking Number:</strong> @(Model.TrackingNumber ?? "N/A")</p>
+                            <p><strong>Shipping Cost:</strong> $@Model.ShippingCost.ToString("N2")</p>
+                            <p><strong>Tax:</strong> $@Model.Tax.ToString("N2")</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Order Items -->
+            <div class="card mt-4">
+                <div class="card-header">
+                    <h3>Order Items</h3>
+                </div>
+                <div class="card-body">
+                    <table class="table table-hover">
+                        <thead>
+                            <tr>
+                                <th>Item ID</th>
+                                <th>Quantity</th>
+                                <th>Price</th>
+                                <th>Discount</th>
+                                <th>Total</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var item in Model.OrderItems)
+                            {
+                                <tr>
+                                    <td>#@item.OrderItemId</td>
+                                    <td>@item.Quantity</td>
+                                    <td>$@item.Price.ToString("N2")</td>
+                                    <td>$@item.Discount.ToString("N2")</td>
+                                    <td>$@item.ItemTotal.ToString("N2")</td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!-- Order Summary -->
+            <div class="card mt-4">
+                <div class="card-header">
+                    <h3>Order Summary</h3>
+                </div>
+                <div class="card-body">
+                    <p><strong>Subtotal:</strong> $@(Model.TotalAmount - Model.ShippingCost - Model.Tax).ToString("N2")</p>
+                    <p><strong>Shipping:</strong> $@Model.ShippingCost.ToString("N2")</p>
+                    <p><strong>Tax:</strong> $@Model.Tax.ToString("N2")</p>
+                    <p><strong>Total:</strong> $@Model.TotalAmount.ToString("N2")</p>
+                    <p><strong>Payment Status:</strong> <span class="badge badge-@(Model.PaymentStatus == "Paid" ? "success" : Model.PaymentStatus == "Pending" ? "warning" : "danger")">@Model.PaymentStatus</span></p>
+                </div>
+            </div>
+
+            <!-- Actions -->
+            <div class="text-center mt-4">
+                @if (Model.OrderStatus != "Delivered" && Model.OrderStatus != "Cancelled")
+                {
+                    <form asp-action="ChangeStatus" method="post" style="display:inline;">
+                        <input type="hidden" name="id" value="@Model.OrderId" />
+                        <input type="hidden" name="status" value="@(Model.OrderStatus == "Pending" ? "Processing" : Model.OrderStatus == "Processing" ? "Shipped" : "Delivered")" />
+                        <button type="submit" class="btn btn-success">
+                            <i class="fa fa-check"></i> Update Status
+                        </button>
+                    </form>
+                }
+                @if (Model.OrderStatus == "Shipped")
+                {
+                    <button class="btn btn-info" disabled>
+                        <i class="fa fa-truck"></i> Track Order
+                    </button>
+                }
+                @if (Model.OrderStatus == "Pending" || Model.OrderStatus == "Processing")
+                {
+                    <form asp-action="ChangeStatus" method="post" style="display:inline;">
+                        <input type="hidden" name="id" value="@Model.OrderId" />
+                        <input type="hidden" name="status" value="Cancelled" />
+                        <button type="submit" class="btn btn-danger">
+                            <i class="fa fa-times"></i> Cancel Order
+                        </button>
+                    </form>
+                }
+                <button class="btn btn-secondary" disabled>
+                    <i class="fa fa-print"></i> Print Invoice
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- jQuery Plugins -->
+    <script type="text/javascript" src="~/js/jquery.min.js"></script>
+    <script type="text/javascript" src="~/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="~/js/main.js"></script>
+</body>
+</html>
