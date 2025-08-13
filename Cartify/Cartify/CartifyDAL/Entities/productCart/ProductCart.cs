@@ -20,7 +20,7 @@ namespace CartifyDAL.Entities.productCart
         [ForeignKey(nameof(CartId))]
         public Cart cart { get; private set; }
         [ForeignKey(nameof(ProductId))]
-        public Product product { get; private set; }
+        public Product Product { get; private set; }
 
         [Required]
         public string CreatedBy { get; private set; }

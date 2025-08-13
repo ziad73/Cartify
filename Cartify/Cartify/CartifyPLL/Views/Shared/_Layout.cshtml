@@ -46,7 +46,7 @@
 
             <!-- Center: Search + Wishlist + Cart -->
             <div class="navbar-center">
-                <form class="search-form" action="search.html" method="get">
+                <form id="searchForm" method="get" action="/Search" class="search-form">
                     <select name="category">
                         <option value="">All Categories</option>
                         <option value="laptops">Laptops</option>
@@ -54,7 +54,7 @@
                         <option value="cameras">Cameras</option>
                         <option value="accessories">Accessories</option>
                     </select>
-                    <input type="text" name="q" placeholder="Search here..." />
+                    <input type="text" id="searchInput" name="query" placeholder="Search here..." />
                     <button type="submit">Search</button>
                 </form>
 
@@ -65,7 +65,7 @@
                     </a>
                 </div>
                 <!--Cart-->
-                <a href="#" class="cart-icon">
+                <a asp-controller="Cart" asp-action="Index" class="cart-icon">
                     <i class="bi bi-cart3"></i> <span>Cart</span>
                 </a>
             </div>
@@ -119,6 +119,8 @@
             <li><a href="~/Store?category=smartphones">Smartphones</a></li>
             <li><a href="~/Store?category=cameras">Cameras</a></li>
             <li><a href="~/Store?category=accessories">Accessories</a></li>
+            <li><a asp-controller="Home" asp-action="Contact">Contact Us</a></li>
+
         </ul>
     </nav>
 
@@ -129,9 +131,12 @@
 
     <!-- Scripts -->
     <script src="~/js/jquery.min.js"></script>
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/js/pages/search.js"></script>
     <script src="~/js/bootstrap.min.js"></script>
     <script src="~/js/main.js"></script>
     <script src="~/js/pages/navbar.js"></script>
+    
     @RenderSection("Scripts", required: false)
 </body>
 </html>

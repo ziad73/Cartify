@@ -1,0 +1,35 @@
+﻿@model CartifyBLL.ViewModels.Checkout.OrderConfirmationVm
+
+@{
+    ViewData["Title"] = "Order Confirmation";
+}
+
+<div class="container py-5">
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+            <div class="card">
+                <div class="card-body text-center">
+                    <i class="fa fa-check-circle fa-3x text-success mb-3"></i>
+                    <h2 class="mb-3">Order Confirmed!</h2>
+                    <p class="lead">Thank you for your order. Your order has been successfully placed.</p>
+                    
+                    <div class="order-details mt-4">
+                        <h4>Order Details</h4>
+                        <p><strong>Order Number:</strong> @Model.OrderNumber</p>
+                        <p><strong>Order Date:</strong> @Model.OrderDate.ToString("MMM dd, yyyy")</p>
+                        <p><strong>Total Amount:</strong> @Model.OrderTotal.ToString("C")</p>
+                        @if (!string.IsNullOrEmpty(Model.TrackingNumber))
+                        {
+                            <p><strong>Tracking Number:</strong> @Model.TrackingNumber</p>
+                        }
+                    </div>
+                    
+                    <div class="mt-4">
+                        <a asp-controller="Home" asp-action="Index" class="btn btn-primary me-2">Continue Shopping</a>
+                        <a asp-controller="Account" asp-action="Orders" class="btn btn-outline-primary">View Orders</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+       // </div>

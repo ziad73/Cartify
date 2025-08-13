@@ -1,0 +1,173 @@
+﻿@model CartifyBLL.ViewModels.Wishlist.WishlistVm
+
+@{
+    ViewData["Title"] = "Wishlist";
+}
+
+@if (TempData["Success"] != null)
+{
+    <div class="alert alert-success" role="alert">
+        @TempData["Success"]
+    </div>
+}
+
+@if (TempData["Error"] != null)
+{
+    <div class="alert alert-danger" role="alert">
+        @TempData["Error"]
+    </div>
+}
+
+<!-- BREADCRUMB -->
+<div id="breadcrumb" class="section">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <ul class="breadcrumb-tree">
+                    <li><a asp-controller="Home" asp-action="Index">Home</a></li>
+                    <li class="active">My Wishlist</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- SECTION -->
+<div class="section">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="wishlist-container">
+                    <div class="row">
+                        <div class="col-md-8">
+                            <h2>My Wishlist</h2>
+                            <p class="text-muted">You have @Model.ItemCount items in your wishlist</p>
+                        </div>
+                        <div class="col-md-4 text-right">
+                            @if (!Model.IsEmpty)
+                            {
+                                <button type="button" class="btn btn-secondary" id="clear-wishlist">
+                                    <i class="fa fa-trash"></i> Clear All
+                                </button>
+                            }
+                        </div>
+                    </div>
+
+                    <hr />
+
+                    @if (!Model.IsEmpty)
+                    {
+                        <div class="row">
+                            @foreach (var item in Model.Items)
+                            {
+                                <div class="col-md-4 mb-4">
+                                    <div class="wishlist-item card">
+                                        <div class="card-img-wrapper">
+                                            @{
+                                                var imageUrls = item.ProductImageUrl?.Split('|') ?? new string[0];
+                                                var firstImage = imageUrls.FirstOrDefault() ?? "/images/no-image.jpg";
+                                            }
+                                            <img src="@firstImage" alt="@item.ProductName" class="card-img-top product-image" />
+                                        </div>
+                                        <div class="card-body">
+                                            <h5 class="card-title product-name">@item.ProductName</h5>
+                                            <p class="card-text text-muted">@item.Category</p>
+                                            <p class="card-text">
+                                                <span class="product-price h5">@item.ProductPrice.ToString("C")</span>
+                                            </p>
+                                            @if (item.IsAvailable)
+                                            {
+                                                <p class="text-success small">
+                                                    <i class="fa fa-check-circle"></i> In Stock (@item.StockQuantity available)
+                                                </p>
+                                            }
+                                            else
+                                            {
+                                                <p class="text-danger small">
+                                                    <i class="fa fa-times-circle"></i> Out of Stock
+                                                </p>
+                                            }
+                                            <div class="product-actions mt-3">
+                                                @if (item.IsAvailable)
+                                                {
+                                                    <button type="button" class="btn btn-primary btn-sm btn-move-to-cart" data-product-id="@item.ProductId">
+                                                        <i class="fa fa-shopping-cart"></i> Add to Cart
+                                                    </button>
+                                                }
+                                                <a asp-controller="Product" asp-action="Details" asp-route-id="@item.ProductId" class="btn btn-info btn-sm">
+                                                    <i class="fa fa-eye"></i> View Details
+                                                </a>
+                                                <button type="button" class="btn btn-danger btn-sm btn-remove-wishlist" data-product-id="@item.ProductId">
+                                                    <i class="fa fa-trash"></i> Remove
+                                                </button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            }
+                        </div>
+                    }
+                    else
+                    {
+                        <div class="empty-wishlist text-center">
+                            <i class="fa fa-heart-o fa-3x mb-3 text-muted"></i>
+                            <h3>Your wishlist is empty</h3>
+                            <p>Start adding products to your wishlist to save them for later!</p>
+                            <a asp-controller="Home" asp-action="Index" class="btn btn-primary">
+                                <i class="fa fa-shopping-bag"></i> Continue Shopping
+                            </a>
+                        </div>
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <script>
+        $(document).ready(function () {
+            // Move to cart
+            $('.btn-move-to-cart').click(function () {
+                var productId = $(this).data('product-id');
+                
+                $.post('@Url.Action("MoveToCart", "WishList")', {
+                    productId: productId
+                }).done(function (response) {
+                    if (response.success) {
+                        location.reload();
+                        // Update cart counter if needed
+                        updateCartCounter();
+                    } else {
+                        alert(response.message || 'Failed to move item to cart');
+                    }
+                });
+            });
+
+            // Remove from wishlist
+            $('.btn-remove-wishlist').click(function () {
+                var productId = $(this).data('product-id');
+                
+                $.post('@Url.Action("RemoveFromWishList", "WishList")', {
+                    productId: productId
+                }).done(function (response) {
+                    if (response.success) {
+                        location.reload();
+                    } else {
+                        alert(response.message || 'Failed to remove item');
+                    }
+                });
+            });
+
+            // Clear wishlist
+            $('#clear-wishlist').click(function () {
+                if (confirm('Are you sure you want to clear your entire wishlist?')) {
+                    $.post('@Url.Action("ClearWishList", "WishList")')
+                    .done(function (response) {
+                        location.reload();
+                    });
+                }
+            });
+        });
+    </script>
+}

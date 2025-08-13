@@ -1,0 +1,205 @@
+﻿@model CartifyBLL.ViewModels.Cart.CartVm
+
+@{
+    ViewData["Title"] = "Shopping Cart - Cartify";
+}
+
+@if (TempData["Error"] != null)
+{
+    <div class="alert alert-danger" role="alert">
+        @TempData["Error"]
+    </div>
+}
+
+@if (TempData["Success"] != null)
+{
+    <div class="alert alert-success" role="alert">
+        @TempData["Success"]
+    </div>
+}
+
+<!-- BREADCRUMB -->
+<div id="breadcrumb">
+    <div class="container">
+        <ul class="breadcrumb">
+            <li><a asp-controller="Home" asp-action="Index">Home</a></li>
+            <li class="active">Shopping Cart</li>
+        </ul>
+    </div>
+</div>
+<!-- /BREADCRUMB -->
+
+<!-- SECTION -->
+<div class="section">
+    <!-- container -->
+    <div class="container">
+        <!-- row -->
+        <div class="row">
+            <div class="col-md-12">
+                <div class="section-title">
+                    <h3 class="title">Shopping Cart</h3>
+                </div>
+            </div>
+
+            <!-- Cart Items -->
+            <div class="col-md-12">
+                <div class="cart-list">
+                    @if (Model.Items.Any())
+                    {
+                        <form id="cart-form" asp-action="UpdateCart" asp-controller="Cart" method="post">
+                            <table class="table">
+                                <thead>
+                                    <tr>
+                                        <th>Product</th>
+                                        <th>Price</th>
+                                        <th>Quantity</th>
+                                        <th>Total</th>
+                                        <th></th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @foreach (var item in Model.Items)
+                                    {
+                                        <tr>
+                                            <td>
+                                                <div class="product-widget">
+                                                    <div class="product-img">
+                                                        <img src="@item.ProductImageUrl" alt="@item.ProductName" />
+                                                    </div>
+                                                    <div class="product-body">
+                                                        <h3 class="product-name">
+                                                            <a asp-controller="Product" asp-action="Details" asp-route-id="@item.ProductId">@item.ProductName</a>
+                                                        </h3>
+                                                        <p class="product-category">@item.Category</p>
+                                                    </div>
+                                                </div>
+                                            </td>
+                                            <td class="price">@item.ProductPrice.ToString("C")</td>
+                                            <td>
+                                                <div class="input-number">
+                                                    <input type="number" name="quantities[@item.ProductId]" value="@item.Quantity" min="1" max="@item.StockQuantity" data-cart-item-id="@item.CartItemId" />
+                                                    <span class="qty-up">+</span>
+                                                    <span class="qty-down">-</span>
+                                                </div>
+                                            </td>
+                                            <td class="total">@item.TotalPrice.ToString("C")</td>
+                                            <td class="rm">
+                                                <button type="button" class="delete btn-remove-item" data-cart-item-id="@item.CartItemId" data-product-id="@item.ProductId">
+                                                    <i class="fa fa-trash"></i>
+                                                </button>
+                                            </td>
+                                        </tr>
+                                    }
+                                </tbody>
+                            </table>
+                        </form>
+                    }
+                    else
+                    {
+                        <div class="text-center">
+                            <i class="fa fa-shopping-cart fa-3x mb-3 text-muted"></i>
+                            <h3>Your cart is empty</h3>
+                            <p>Start shopping to add items to your cart!</p>
+                            <a asp-controller="Home" asp-action="Index" class="primary-btn">Start Shopping</a>
+                        </div>
+                    }
+                </div>
+            </div>
+            <!-- /Cart Items -->
+
+            @if (Model.Items.Any())
+            {
+                <!-- Cart Summary -->
+                <div class="col-md-12">
+                    <div class="cart-summary">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="cart-btns">
+                                    <a asp-controller="Home" asp-action="Index" class="primary-btn">Continue Shopping</a>
+                                    <button type="submit" form="cart-form" class="primary-btn">Update Cart</button>
+                                    <button type="button" id="clear-cart" class="btn btn-danger">Clear Cart</button>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="cart-summary">
+                                    <div class="summary-item">
+                                        <span class="text">Subtotal:</span>
+                                        <span class="price">@Model.SubTotal.ToString("C")</span>
+                                    </div>
+                                    <div class="summary-item">
+                                        <span class="text">Shipping:</span>
+                                        <span class="price">@Model.ShippingCost.ToString("C")</span>
+                                    </div>
+                                    <div class="summary-item">
+                                        <span class="text">Tax:</span>
+                                        <span class="price">@Model.Tax.ToString("C")</span>
+                                    </div>
+                                    <div class="summary-item">
+                                        <span class="text">Total:</span>
+                                        <span class="price">@Model.Total.ToString("C")</span>
+                                    </div>
+                                    <a asp-controller="Checkout" asp-action="Index" class="primary-btn">Proceed to Checkout</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- /Cart Summary -->
+            }
+        </div>
+        <!-- /row -->
+    </div>
+    <!-- /container -->
+</div>
+<!-- /SECTION -->
+
+@section Scripts {
+    <script>
+        $(document).ready(function () {
+            // Remove item from cart
+            $('.btn-remove-item').click(function () {
+                var cartItemId = $(this).data('cart-item-id');
+                var productId = $(this).data('product-id');
+                
+                $.post('@Url.Action("RemoveFromCart", "Cart")', {
+                    cartItemId: cartItemId
+                }).done(function (response) {
+                    if (response.success) {
+                        location.reload();
+                    } else {
+                        alert(response.message || 'Failed to remove item');
+                    }
+                });
+            });
+
+            // Clear entire cart
+            $('#clear-cart').click(function () {
+                if (confirm('Are you sure you want to clear your cart?')) {
+                    $.post('@Url.Action("ClearCart", "Cart")')
+                    .done(function (response) {
+                        if (response.success) {
+                            location.reload();
+                        }
+                    });
+                }
+            });
+
+            // Update quantity
+            $('.input-number input').on('change', function () {
+                var cartItemId = $(this).data('cart-item-id');
+                var quantity = parseInt($(this).val());
+                
+                if (quantity > 0) {
+                    $.post('@Url.Action("UpdateCartItem", "Cart")', {
+                        cartItemId: cartItemId,
+                        quantity: quantity
+                    }).done(function (response) {
+                        if (response.success) {
+                            location.reload();
+                        }
+                    });
+                }
+            });
+        });
+    </script>
+}
