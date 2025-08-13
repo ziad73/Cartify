@@ -1,23 +1,24 @@
-﻿using CartifyDAL.Entities.order;
+﻿using Cartify.DAL.DataBase;
+using CartifyDAL.Entities.order;
+
 using CartifyDAL.Repo.Abstraction;
-using Cartify.DAL.DataBase;
+
 namespace CartifyDAL.Repo.Implementation
 {
-
-    public class OrderItemRepo : IOrderItemRepo
+    public class OrderRepo : IOrderRepo
     {
         private readonly CartifyDbContext db;
 
-        public OrderItemRepo(CartifyDbContext db)
+        public OrderRepo(CartifyDbContext db)
         {
             this.db = db;
         }
 
-        public (bool, string?) Create(OrderItem orderItem)
+        public (bool, string?) Create(Order order)
         {
             try
             {
-                db.OrderItem.Add(orderItem);
+                db.Order.Add(order);
                 db.SaveChanges();
                 return (true, null);
             }
@@ -27,14 +28,14 @@ namespace CartifyDAL.Repo.Implementation
             }
         }
 
-        public (List<OrderItem>, string?) GetAll()
+        public (List<Order>, string?) GetAll()
         {
             try
             {
-                var orderItems = db.OrderItem
+                var orders = db.Order
                     .Where(a => !a.IsDeleted)
                     .ToList();
-                return (orderItems, null);
+                return (orders, null);
             }
             catch (Exception ex)
             {
@@ -42,17 +43,17 @@ namespace CartifyDAL.Repo.Implementation
             }
         }
 
-        public (OrderItem, string?) GetById(int id)
+        public (Order, string?) GetById(int id)
         {
             try
             {
-                var orderItem = db.OrderItem
-                    .FirstOrDefault(a => a.OrderItemId == id && !a.IsDeleted);
-                if (orderItem == null)
+                var order = db.Order
+                    .FirstOrDefault(a => a.OrderId == id && !a.IsDeleted);
+                if (order == null)
                 {
-                    return (null, "Order item not found");
+                    return (null, "Order not found");
                 }
-                return (orderItem, null);
+                return (order, null);
             }
             catch (Exception ex)
             {
@@ -60,16 +61,16 @@ namespace CartifyDAL.Repo.Implementation
             }
         }
 
-        public (bool, string?) Update(OrderItem orderItem)
+        public (bool, string?) Update(Order order)
         {
             try
             {
-                var existingOrderItem = db.OrderItem.FirstOrDefault(a => a.OrderItemId == orderItem.OrderItemId && !a.IsDeleted);
-                if (existingOrderItem == null)
+                var existingOrder = db.Order.FirstOrDefault(a => a.OrderId == order.OrderId && !a.IsDeleted);
+                if (existingOrder == null)
                 {
-                    return (false, "Order item not found");
+                    return (false, "Order not found");
                 }
-                existingOrderItem.Update(orderItem.Quantity, orderItem.Price, orderItem.Discount, orderItem.ModifiedBy);
+                existingOrder.Update(order.OrderStatus, order.ShippingMethod, order.TrackingNumber, order.ShippingCost, order.Tax, order.ModifiedBy);
                 db.SaveChanges();
                 return (true, null);
             }
@@ -83,12 +84,12 @@ namespace CartifyDAL.Repo.Implementation
         {
             try
             {
-                var orderItem = db.OrderItem.FirstOrDefault(a => a.OrderItemId == id);
-                if (orderItem == null)
+                var order = db.Order.FirstOrDefault(a => a.OrderId == id);
+                if (order == null)
                 {
-                    return (false, "Order item not found");
+                    return (false, "Order not found");
                 }
-                orderItem.Delete(orderItem.DeletedBy);
+                order.Delete(order.DeletedBy);
                 db.SaveChanges();
                 return (true, null);
             }

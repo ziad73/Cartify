@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "+CODqCtgqNE=",
+  "dgSpecHash": "KVnq6A1StAo=",
   "success": true,
-  "projectFilePath": "D:\\Final-Project\\Cartify\\Cartify\\Cartify\\CartifyBLL\\CartifyBLL.csproj",
+  "projectFilePath": "F:\\Final Project\\Cartify\\Cartify\\Cartify\\CartifyBLL\\CartifyBLL.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\Omar Ashraf\\.nuget\\packages\\automapper\\15.0.1\\automapper.15.0.1.nupkg.sha512",
     "C:\\Users\\Omar Ashraf\\.nuget\\packages\\azure.core\\1.25.0\\azure.core.1.25.0.nupkg.sha512",

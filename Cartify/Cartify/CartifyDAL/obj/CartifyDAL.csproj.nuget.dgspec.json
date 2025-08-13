@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "D:\\Final-Project\\Cartify\\Cartify\\Cartify\\CartifyDAL\\CartifyDAL.csproj": {}
+    "F:\\Final Project\\Cartify\\Cartify\\Cartify\\CartifyDAL\\CartifyDAL.csproj": {}
   },
   "projects": {
-    "D:\\Final-Project\\Cartify\\Cartify\\Cartify\\CartifyDAL\\CartifyDAL.csproj": {
+    "F:\\Final Project\\Cartify\\Cartify\\Cartify\\CartifyDAL\\CartifyDAL.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "D:\\Final-Project\\Cartify\\Cartify\\Cartify\\CartifyDAL\\CartifyDAL.csproj",
+        "projectUniqueName": "F:\\Final Project\\Cartify\\Cartify\\Cartify\\CartifyDAL\\CartifyDAL.csproj",
         "projectName": "CartifyDAL",
-        "projectPath": "D:\\Final-Project\\Cartify\\Cartify\\Cartify\\CartifyDAL\\CartifyDAL.csproj",
+        "projectPath": "F:\\Final Project\\Cartify\\Cartify\\Cartify\\CartifyDAL\\CartifyDAL.csproj",
         "packagesPath": "C:\\Users\\Omar Ashraf\\.nuget\\packages\\",
-        "outputPath": "D:\\Final-Project\\Cartify\\Cartify\\Cartify\\CartifyDAL\\obj\\",
+        "outputPath": "F:\\Final Project\\Cartify\\Cartify\\Cartify\\CartifyDAL\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"

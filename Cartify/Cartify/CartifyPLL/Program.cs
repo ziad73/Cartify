@@ -23,6 +23,8 @@ using CartifyBLL.Services.CartService.Abstraction;
 using CartifyBLL.Services.CartService.Implementation;
 using CartifyBLL.Services.CheckoutService.Abstraction;
 using CartifyBLL.Services.CheckoutService.Implementation;
+using CartifyBLL.Services.OrderService.Abstraction;
+using CartifyBLL.Services.OrderService.Implementation;
 using CartifyBLL.Services.SearchService.Abstraction;
 using CartifyBLL.Services.SearchService.Implementation;
 using CartifyBLL.Services.WishlistService.Abstraction;
@@ -116,6 +118,7 @@ namespace CartifyPLL
             builder.Services.AddScoped<ICartService, CartService>();
             builder.Services.AddScoped<IWishlistService, WishlistService>();
             builder.Services.AddScoped<ISearchService, SearchService>();
+            builder.Services.AddScoped<IOrderService, OrderService>();
             
             // Register CheckoutService ONCE (you had it twice)
             builder.Services.AddScoped<ICheckoutService, CheckoutService>();

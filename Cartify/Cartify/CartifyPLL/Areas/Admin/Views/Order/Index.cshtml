@@ -1,0 +1,335 @@
+﻿@model List<CartifyBLL.ViewModels.Orders.ManageOrdersVm>
+
+@{
+    ViewData["Title"] = "Manage Orders";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Manage Orders - Admin Dashboard</title>
+    <link rel="stylesheet" href="~/css/bootstrap.min.css">
+    <link rel="stylesheet" href="~/css/font-awesome.min.css">
+    <link rel="stylesheet" href="~/css/style.css">
+    <style>
+        .admin-header {
+            background: #2C3E50;
+            color: white;
+            padding: 20px 0;
+            margin-bottom: 30px;
+        }
+
+        .admin-nav {
+            background: #34495E;
+            padding: 15px 0;
+            margin-bottom: 30px;
+        }
+
+            .admin-nav .nav-link {
+                color: white;
+                margin-right: 20px;
+                padding: 10px 15px;
+                border-radius: 5px;
+                transition: background-color 0.3s;
+            }
+
+                .admin-nav .nav-link:hover,
+                .admin-nav .nav-link.active {
+                    background: #D10024;
+                    color: white;
+                    text-decoration: none;
+                }
+
+        .page-header {
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            margin-bottom: 30px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .filters-section {
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            margin-bottom: 30px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .orders-table {
+            background: white;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .table th {
+            background: #f8f9fa;
+            border: none;
+            padding: 15px;
+            font-weight: 600;
+            color: #2C3E50;
+        }
+
+        .table td {
+            padding: 15px;
+            vertical-align: middle;
+            border-top: 1px solid #eee;
+        }
+
+        .status-badge {
+            padding: 5px 12px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: bold;
+        }
+
+        .status-pending {
+            background: #FFF3CD;
+            color: #856404;
+        }
+
+        .status-processing {
+            background: #D1ECF1;
+            color: #0C5460;
+        }
+
+        .status-shipped {
+            background: #D4EDDA;
+            color: #155724;
+        }
+
+        .status-delivered {
+            background: #D1E7DD;
+            color: #0F5132;
+        }
+
+        .status-cancelled {
+            background: #F8D7DA;
+            color: #721C24;
+        }
+
+        .action-buttons {
+            display: flex;
+            gap: 5px;
+        }
+
+        .btn-sm {
+            padding: 5px 10px;
+            font-size: 12px;
+        }
+    </style>
+</head>
+<body>
+    <!-- ADMIN HEADER -->
+    <div class="admin-header">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-6">
+                    <h1><i class="fa fa-shopping-cart"></i> Manage Orders</h1>
+                </div>
+                <div class="col-md-6 text-right">
+                    <a asp-area="Admin" asp-controller="Home" asp-action="Index" class="btn btn-outline-light">
+                        <i class="fa fa-arrow-left"></i> Back to Dashboard
+                    </a>
+                    <a asp-area="Admin" asp-controller="Account" asp-action="Logout" class="btn btn-outline-light ml-2">
+                        <i class="fa fa-sign-out"></i> Logout
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ADMIN NAVIGATION -->
+    <div class="admin-nav">
+        <div class="container">
+            <nav class="nav">
+                <a class="nav-link" asp-area="Admin" asp-controller="Home" asp-action="Index">
+                    <i class="fa fa-dashboard"></i> Dashboard
+                </a>
+                <a class="nav-link" asp-area="Admin" asp-controller="Product" asp-action="Index">
+                    <i class="fa fa-cube"></i> Products
+                </a>
+                <a class="nav-link active" asp-area="Admin" asp-controller="Order" asp-action="Index">
+                    <i class="fa fa-shopping-cart"></i> Orders
+                </a>
+                <a class="nav-link" asp-area="Admin" asp-controller="Users" asp-action="Index">
+                    <i class="fa fa-users"></i> Users
+                </a>
+                <a class="nav-link" asp-area="Admin" asp-controller="Category" asp-action="Index">
+                    <i class="fa fa-tags"></i> Categories
+                </a>
+                <a class="nav-link" asp-area="Admin" asp-controller="Reports" asp-action="Index">
+                    <i class="fa fa-chart-bar"></i> Reports
+                </a>
+            </nav>
+        </div>
+    </div>
+
+    <!-- MAIN CONTENT -->
+    <div class="section">
+        <div class="container">
+            <!-- Page Header -->
+            <div class="page-header">
+                <div class="row">
+                    <div class="col-md-6">
+                        <h2>Order Management</h2>
+                        <p class="text-muted">Manage and track all customer orders</p>
+                    </div>
+                    <div class="col-md-6 text-right">
+                        <span class="badge badge-primary">Total Orders: @Model.Count</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Filters Section -->
+            <div class="filters-section">
+                <div class="row">
+                    <div class="col-md-3">
+                        <label>Order Status</label>
+                        <select class="form-control" id="statusFilter">
+                            <option value="">All Status</option>
+                            <option value="pending">Pending</option>
+                            <option value="processing">Processing</option>
+                            <option value="shipped">Shipped</option>
+                            <option value="delivered">Delivered</option>
+                            <option value="cancelled">Cancelled</option>
+                        </select>
+                    </div>
+                    <div class="col-md-3">
+                        <label>Date Range</label>
+                        <input type="date" class="form-control" id="dateFilter">
+                    </div>
+                    <div class="col-md-3">
+                        <label>Search Order ID</label>
+                        <input type="text" class="form-control" placeholder="Enter Order ID" id="orderSearch">
+                    </div>
+                    <div class="col-md-3">
+                        <label>&nbsp;</label>
+                        <button class="btn btn-primary btn-block">
+                            <i class="fa fa-search"></i> Search
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Orders Table -->
+            <div class="orders-table">
+                <table class="table table-hover">
+                    <thead>
+                        <tr>
+                            <th>Order ID</th>
+                            <th>Customer</th>
+                            <th>Date</th>
+                            <th>Total</th>
+                            <th>Status</th>
+                            <th>Payment</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody id="ordersTableBody">
+                        @foreach (var order in Model)
+                        {
+                            <tr>
+                                <td>#ORD-@order.OrderId</td>
+                                <td>
+                                    <strong>@order.CustomerName</strong><br>
+                                    <small class="text-muted">@order.CustomerEmail</small>
+                                </td>
+                                <td>@order.OrderDate.ToString("MMM dd, yyyy")</td>
+                                <td>$@order.TotalAmount.ToString("N2")</td>
+                                <td><span class="status-badge status-@order.OrderStatus.ToLower()">@order.OrderStatus</span></td>
+                                <td><span class="badge badge-@(order.PaymentStatus == "Paid" ? "success" : order.PaymentStatus == "Pending" ? "warning" : "danger")">@order.PaymentStatus</span></td>
+                                <td>
+                                    <div class="action-buttons">
+                                        <a asp-action="Details" asp-route-id="@order.OrderId" class="btn btn-sm btn-primary">
+                                            <i class="fa fa-eye"></i>
+                                        </a>
+                                        @if (order.OrderStatus != "Delivered" && order.OrderStatus != "Cancelled")
+                                        {
+                                            <form asp-action="ChangeStatus" method="post" style="display:inline;">
+                                                <input type="hidden" name="id" value="@order.OrderId" />
+                                                <input type="hidden" name="status" value="@(order.OrderStatus == "Pending" ? "Processing" : order.OrderStatus == "Processing" ? "Shipped" : "Delivered")" />
+                                                <button type="submit" class="btn btn-sm btn-success">
+                                                    <i class="fa fa-check"></i>
+                                                </button>
+                                            </form>
+                                        }
+                                        @if (order.OrderStatus == "Shipped")
+                                        {
+                                            <button class="btn btn-sm btn-info" disabled>
+                                                <i class="fa fa-truck"></i>
+                                            </button>
+                                        }
+                                        @if (order.OrderStatus == "Pending" || order.OrderStatus == "Processing")
+                                        {
+                                            <form asp-action="ChangeStatus" method="post" style="display:inline;">
+                                                <input type="hidden" name="id" value="@order.OrderId" />
+                                                <input type="hidden" name="status" value="Cancelled" />
+                                                <button type="submit" class="btn btn-sm btn-danger">
+                                                    <i class="fa fa-times"></i>
+                                                </button>
+                                            </form>
+                                        }
+                                        @if (order.OrderStatus == "Delivered" || order.OrderStatus == "Cancelled")
+                                        {
+                                            <button class="btn btn-sm btn-secondary" disabled>
+                                                <i class="fa fa-print"></i>
+                                            </button>
+                                        }
+                                    </div>
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+
+            <!-- Pagination -->
+            <div class="text-center mt-4">
+                <nav>
+                    <ul class="pagination">
+                        <li class="page-item disabled">
+                            <a class="page-link" href="#" tabindex="-1">Previous</a>
+                        </li>
+                        <li class="page-item active">
+                            <a class="page-link" href="#">1</a>
+                        </li>
+                        <li class="page-item">
+                            <a class="page-link" href="#">2</a>
+                        </li>
+                        <li class="page-item">
+                            <a class="page-link" href="#">3</a>
+                        </li>
+                        <li class="page-item">
+                            <a class="page-link" href="#">Next</a>
+                        </li>
+                    </ul>
+                </nav>
+            </div>
+        </div>
+    </div>
+
+    <!-- FOOTER -->
+    <footer id="footer">
+        <div class="section">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-12 text-center">
+                        <span class="copyright">
+                            Copyright &copy; 2024 All rights reserved | Made with <i class="fa fa-heart-o"></i> by <a href="https://colorlib.com" target="_blank">Colorlib</a>
+                        </span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script type="text/javascript" src="~/js/jquery.min.js"></script>
+    <script type="text/javascript" src="~/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="~/js/main.js"></script>
+</body>
+</html>

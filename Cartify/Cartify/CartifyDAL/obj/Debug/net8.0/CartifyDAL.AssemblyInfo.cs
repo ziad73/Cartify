@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("CartifyDAL")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+7857c849f7d880afe48cc5487f0ff5d5924573df")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+e794e1aa5c02413a82fc393056770327f925cc3a")]
 [assembly: System.Reflection.AssemblyProductAttribute("CartifyDAL")]
 [assembly: System.Reflection.AssemblyTitleAttribute("CartifyDAL")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
