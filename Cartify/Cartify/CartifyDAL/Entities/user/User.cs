@@ -36,10 +36,10 @@ namespace CartifyDAL.Entities.user
         public List<Order>? Orders { get;  set; }
 
         // Audit Fields
-        public DateTime JoinDate { get; private set; }
-        public bool IsDeleted { get; private set; }
-        public DateTime? DeletedOn { get; private set; }
-        public string? DeletedBy { get; private set; }
+        public DateTime JoinDate { get;  set; }
+        public bool IsDeleted { get;  set; }
+        public DateTime? DeletedOn { get;  set; }
+        public string? DeletedBy { get;  set; }
 
         // Verification Fields
         public string? VerificationCode { get; set; }

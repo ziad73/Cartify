@@ -3,6 +3,7 @@
 
 @{
     ViewData["Title"] = $"Order Details - #ORD-@Model.OrderId";
+    ViewData["PageTitle"] = "Order Details";
     Layout = "~/Views/Shared/_AdminLayout.cshtml";
 }
 
@@ -74,25 +75,6 @@
     </style>
 </head>
 <body>
-    <!-- ADMIN HEADER -->
-    <div class="admin-header">
-        <div class="container">
-            <div class="row">
-                <div class="col-md-6">
-                    <h1><i class="fa fa-shopping-cart"></i> Order Details - #ORD-@Model.OrderId</h1>
-                </div>
-                <div class="col-md-6 text-right">
-                    <a asp-area="Admin" asp-controller="Order" asp-action="Index" class="btn btn-outline-light">
-                        <i class="fa fa-arrow-left"></i> Back to Orders
-                    </a>
-                    <a asp-area="Admin" asp-controller="Account" asp-action="Logout" class="btn btn-outline-light ml-2">
-                        <i class="fa fa-sign-out"></i> Logout
-                    </a>
-                </div>
-            </div>
-        </div>
-    </div>
-
     <!-- MAIN CONTENT -->
     <div class="section">
         <div class="container">

@@ -2,6 +2,7 @@
 
 @{
     ViewData["Title"] = "Manage Orders";
+    ViewData["PageTitle"] = "Manage Orders";
     Layout = "~/Views/Shared/_AdminLayout.cshtml";
 }
 
@@ -124,51 +125,6 @@
     </style>
 </head>
 <body>
-    <!-- ADMIN HEADER -->
-    <div class="admin-header">
-        <div class="container">
-            <div class="row">
-                <div class="col-md-6">
-                    <h1><i class="fa fa-shopping-cart"></i> Manage Orders</h1>
-                </div>
-                <div class="col-md-6 text-right">
-                    <a asp-area="Admin" asp-controller="Home" asp-action="Index" class="btn btn-outline-light">
-                        <i class="fa fa-arrow-left"></i> Back to Dashboard
-                    </a>
-                    <a asp-area="Admin" asp-controller="Account" asp-action="Logout" class="btn btn-outline-light ml-2">
-                        <i class="fa fa-sign-out"></i> Logout
-                    </a>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <!-- ADMIN NAVIGATION -->
-    <div class="admin-nav">
-        <div class="container">
-            <nav class="nav">
-                <a class="nav-link" asp-area="Admin" asp-controller="Home" asp-action="Index">
-                    <i class="fa fa-dashboard"></i> Dashboard
-                </a>
-                <a class="nav-link" asp-area="Admin" asp-controller="Product" asp-action="Index">
-                    <i class="fa fa-cube"></i> Products
-                </a>
-                <a class="nav-link active" asp-area="Admin" asp-controller="Order" asp-action="Index">
-                    <i class="fa fa-shopping-cart"></i> Orders
-                </a>
-                <a class="nav-link" asp-area="Admin" asp-controller="Users" asp-action="Index">
-                    <i class="fa fa-users"></i> Users
-                </a>
-                <a class="nav-link" asp-area="Admin" asp-controller="Category" asp-action="Index">
-                    <i class="fa fa-tags"></i> Categories
-                </a>
-                <a class="nav-link" asp-area="Admin" asp-controller="Reports" asp-action="Index">
-                    <i class="fa fa-chart-bar"></i> Reports
-                </a>
-            </nav>
-        </div>
-    </div>
-
     <!-- MAIN CONTENT -->
     <div class="section">
         <div class="container">
@@ -312,21 +268,6 @@
             </div>
         </div>
     </div>
-
-    <!-- FOOTER -->
-    <footer id="footer">
-        <div class="section">
-            <div class="container">
-                <div class="row">
-                    <div class="col-md-12 text-center">
-                        <span class="copyright">
-                            Copyright &copy; 2024 All rights reserved | Made with <i class="fa fa-heart-o"></i> by <a href="https://colorlib.com" target="_blank">Colorlib</a>
-                        </span>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </footer>
 
     <script type="text/javascript" src="~/js/jquery.min.js"></script>
     <script type="text/javascript" src="~/js/bootstrap.min.js"></script>

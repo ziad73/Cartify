@@ -50,5 +50,13 @@ namespace CartifyDAL.Repo.userRepo.Impelementaion
         {
             return await userManager.GetRolesAsync(user);
         }
+        // Get all users
+        public async Task<List<User>> GetAllAsync()
+        {
+            return await userManager.Users
+                .Include(u => u.Orders)
+                .ToListAsync();
+        }
+
     }
 }
