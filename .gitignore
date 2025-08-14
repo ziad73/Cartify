@@ -1,7 +1,11 @@
-**/.vs/
-**/bin/
-**/obj/
-**/.idea/
+Cartify/Cartify/.vs/
+Cartify/Cartify/CartifyPLL/bin/
+Cartify/Cartify/CartifyPLL/obj/
+Cartify/Cartify/.idea/
+Cartify/Cartify/CartifyBLL/bin/
+Cartify/Cartify/CartifyBLL/obj/
+Cartify/Cartify/CartifyDAL/bin/
+Cartify/Cartify/CartifyDAL/obj/
 *.user
 *.suo
 *.pdb
@@ -14,5 +18,6 @@ ER diagram v1.svg
 .$ER diagram.svg.bkp
 Features.md
 .github/
-**/Migrations/
+Cartify/Cartify/CartifyPLL/Migrations/
+Cartify/Cartify/CartifyDAL/Migrations/
 Secret.txt
