@@ -13,6 +13,8 @@ namespace CartifyDAL.Repo.userRepo.Abstraction
         Task<bool> UpdateAsync(User user);
         Task<User?> GetByIdAsync(string id);
         Task<IList<string>> GetRolesAsync(User user);
+        Task<List<User>> GetAllAsync();
+
     }
 
 }

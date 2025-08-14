@@ -1,8 +1,10 @@
 ﻿using CartifyBLL.Helper;
 using CartifyBLL.Services.UserServices;
 using CartifyBLL.ViewModels.Account;
+using CartifyBLL.ViewModels.User;
 using CartifyDAL.Entities.user;
 using CartifyDAL.Repo.userRepo.Abstraction;
+using CartifyDAL.Repo.userRepo.Impelementaion;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using System.Net;
@@ -234,7 +236,109 @@ namespace CartifyBLL.Services.UserServices
         }
 
 
+        //manage user
+        public async Task<List<UserVM>> GetAllUsersAsync()
+        {
+            var users = await userRepo.GetAllAsync();
 
+            var list = new List<UserVM>();
+            foreach (var u in users)
+            {
+                var roles = await userManager.GetRolesAsync(u);
+                list.Add(new UserVM
+                {
+                    Id = u.Id,
+                    FullName = u.FullName,
+                    Email = u.Email,
+                    Role = string.Join(", ", roles),
+                    Status = u.IsDeleted ? "Inactive" : "Active",
+                    JoinDate = u.JoinDate,
+                    AvatarUrl = u.AvatarUrl,
+                    OrdersCount = u.Orders?.Count ?? 0,
+                    EmailVerified = u.IsEmailVerified
+                });
+            }
+            return list;
+        }
+
+        // ========== GET SINGLE USER ==========
+        public async Task<UserVM?> GetUserByIdAsync(string id)
+        {
+            var user = await userRepo.GetByIdAsync(id);
+            if (user == null) return null;
+
+            var roles = await userManager.GetRolesAsync(user);
+            return new UserVM
+            {
+                Id = user.Id,
+                FullName = user.FullName,
+                Email = user.Email,
+                Role = string.Join(", ", roles),
+                Status = user.IsDeleted ? "Inactive" : "Active",
+                JoinDate = user.JoinDate,
+                AvatarUrl = user.AvatarUrl,
+                OrdersCount = user.Orders?.Count ?? 0
+            };
+        }
+
+        // ========== UPDATE USER ==========
+        public async Task<bool> UpdateUserAsync(UserVM model)
+        {
+            var user = await userRepo.GetByIdAsync(model.Id);
+            if (user == null) return false;
+
+            user.FullName = model.FullName;
+            user.Email = model.Email;
+            user.UserName = model.Email; // keep identity email sync
+
+            if (!string.IsNullOrEmpty(model.Role))
+            {
+                var currentRoles = await userManager.GetRolesAsync(user);
+                await userManager.RemoveFromRolesAsync(user, currentRoles);
+                await userManager.AddToRoleAsync(user, model.Role);
+            }
+
+            await userRepo.UpdateAsync(user);
+            return true;
+        }
+
+        // ========== DELETE USER ==========
+        public async Task<bool> DeleteUserAsync(string id)
+        {
+            var user = await userRepo.GetByIdAsync(id);
+            if (user == null) return false;
+
+            // Soft delete
+            user.IsDeleted = true;
+            user.DeletedOn = DateTime.UtcNow;
+            user.DeletedBy = "Admin"; // you can replace with logged-in admin ID
+            await userRepo.UpdateAsync(user);
+            return true;
+        }
+
+        // ========== RESTORE USER ==========
+        public async Task<bool> RestoreUserAsync(string id)
+        {
+            var user = await userRepo.GetByIdAsync(id);
+            if (user == null) return false;
+
+            user.IsDeleted = false;
+            user.DeletedOn = null;
+            user.DeletedBy = null;
+            await userRepo.UpdateAsync(user);
+            return true;
+        }
+
+        public async Task<bool> DeactivateUserAsync(string id)
+        {
+            var user = await userRepo.GetByIdAsync(id);
+            if (user == null) return false;
+
+            user.IsDeleted = true;
+            user.DeletedOn = DateTime.UtcNow;
+            await userRepo.UpdateAsync(user);
+            return true;
+        }
 
     }
 }

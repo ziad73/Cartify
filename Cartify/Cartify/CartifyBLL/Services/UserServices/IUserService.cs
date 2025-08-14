@@ -1,4 +1,5 @@
 ﻿using CartifyBLL.ViewModels.Account;
+using CartifyBLL.ViewModels.User;
 using CartifyDAL.Entities.user;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
@@ -17,6 +18,12 @@ namespace CartifyBLL.Services.UserServices
         Task<IdentityResult> DeleteAddressAsync(string userId, int addressId);
         Task<IdentityResult> SetDefaultAddressAsync(string userId, int addressId);
         Task<AddressVM> GetAddressAsync(string userId, int addressId);
+        Task<List<UserVM>> GetAllUsersAsync();
+        Task<UserVM?> GetUserByIdAsync(string id);
+        Task<bool> UpdateUserAsync(UserVM model);
+        Task<bool> DeleteUserAsync(string id);
+        Task<bool> RestoreUserAsync(string id);
+        Task<bool> DeactivateUserAsync(string id);
 
 
     }

@@ -1,150 +1,192 @@
-﻿@* @using Microsoft.AspNetCore.Identity *@
-@* @inject SignInManager<IdentityUser> SignInManager *@
-
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>@ViewData["Title"] - Admin Dashboard</title>
-    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
-    <link rel="stylesheet" href="~/css/admin.css" asp-append-version="true" />
-    <link rel="stylesheet" href="~/css/Pages/addProduct.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewData["Title"] - Cartify</title>
     <link rel="stylesheet" href="~/css/bootstrap.min.css">
     <link rel="stylesheet" href="~/css/font-awesome.min.css">
+    <link rel="stylesheet" href="~/css/nouislider.min.css">
+    <link rel="stylesheet" href="~/css/slick.css">
+    <link rel="stylesheet" href="~/css/slick-theme.css">
     <link rel="stylesheet" href="~/css/style.css">
+    <link rel="stylesheet" href="~/css/pages/AdminLayout.css">
     @await RenderSectionAsync("Styles", required: false)
+
 </head>
 <body>
-    <div class="admin-container">
-        <!-- Sidebar -->
-        <div class="sidebar bg-dark text-white">
-            <div class="sidebar-header p-3">
-                <h4><i class="bi bi-speedometer2"></i> Admin Panel</h4>
-            </div>
-            <ul class="nav flex-column">
-                <li class="nav-item">
-                    <a class="nav-link active" asp-area="Admin" asp-controller="Dashboard" asp-action="Index">
-                        <i class="bi bi-speedometer2 me-2"></i> Dashboard
-                    </a>    
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" asp-area="Admin" asp-controller="Product" asp-action="Index">
-                        <i class="bi bi-box-seam me-2"></i> Products
-                    </a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" asp-area="Admin" asp-controller="Order" asp-action="Index">
-                        <i class="bi bi-receipt me-2"></i> Orders
-                    </a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" asp-area="Admin" asp-controller="Users" asp-action="Index">
-                        <i class="bi bi-people me-2"></i> Users
-                    </a>
-                </li>
-                <li class="nav-item">
-                    <a class ="nav-link" href="/Admin/Category" class="action-btn">
-                        <i class="bi bi-tags"></i> Categories
-                    </a>
-                </li>
-                @* <li class="nav-item">
-                    <a class="nav-link" asp-area="Admin" asp-controller="Reports" asp-action="Index">
-                        <i class="bi bi-graph-up me-2"></i> Reports
-                    </a>
-                </li> *@
-            </ul>
-        </div>
-
-        <!-- Main Content -->
-        <div class="main-content">
-            <!-- Top Navigation -->
-            <nav class="navbar navbar-expand navbar-light bg-light border-bottom">
-                <div class="container-fluid">
-                    @* <button class="btn btn-sm btn-outline-secondary me-2" id="sidebarToggle">
-                        <i class="bi bi-list"></i>
-                    </button> *@
-
-                    <ul class="navbar-nav ms-auto">
-                        @* <li class="nav-item">
-                            <a class="nav-link" asp-area="" asp-controller="Home" asp-action="Index">
-                                <i class="bi bi-house-door me-1"></i> Back to Store
-                            </a>
-                        </li> *@
-                        <li class="nav-item dropdown">
-                            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown">
-                                <i class="bi bi-person-circle me-1"></i> Admin User
-                            </a>
-                            <ul class="dropdown-menu dropdown-menu-end">
-                                @* <li><a class="dropdown-item" href="#"><i class="bi bi-person me-2"></i>Profile</a></li> *@
-                                @* <li><a class="dropdown-item" href="#"><i class="bi bi-gear me-2"></i>Settings</a></li> *@
-                                @* <li><hr class="dropdown-divider"></li> *@
-                                <li>
-                                    <form asp-area="" asp-controller="Account" asp-action="Logout" method="post" class="d-inline">
-                                        @Html.AntiForgeryToken()
-                                        <button type="submit" class="dropdown-item text-danger">
-                                            <i class="bi bi-box-arrow-right"></i> Logout
-                                        </button>
-                                    </form>
-
-                                </li>
-                            </ul>
-                        </li>
-                    </ul>
+    <!-- ADMIN HEADER -->
+    <div class="admin-header">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-6">
+                    <h1>@ViewData["PageTitle"]</h1>
                 </div>
-            </nav>
+                <div class="col-md-6 text-right">
+                    @* <a asp-area="Admin" asp-controller="Home" asp-action="Index" class="btn btn-outline-light">
+                        <i class="fa fa-arrow-left"></i> Back to Dashboard
+                    </a> *@
+                    <form asp-area="" asp-controller="Account" asp-action="Logout" method="post" class="d-inline">
+                        <button type="submit" class="btn btn-danger ml-2">
+                            <i class="fa fa-sign-out"></i> Logout
+                        </button>
+                    </form>
 
-            <!-- Page Content -->
-            <div class="container-fluid p-4">
-                @RenderBody()
+
+                </div>
             </div>
         </div>
     </div>
+    @{
+        var currentController = ViewContext.RouteData.Values["controller"]?.ToString();
+        var currentAction = ViewContext.RouteData.Values["action"]?.ToString();
+    }
 
-    <script src="~/lib/jquery/dist/jquery.min.js"></script>
-    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="~/js/admin.js" asp-append-version="true"></script>
+    <!-- ADMIN NAVIGATION -->
+    <div class="admin-nav">
+        <div class="container">
+            <nav class="nav">
+                <a class="nav-link @(ViewData["PageTitle"] == "Admin Dashboard" ? "active" : "")" asp-area="Admin" asp-controller="" asp-action="">
+                    <i class="fa fa-dashboard"></i> Dashboard
+                </a>
+                <a class="nav-link @(currentController == "Product" ? "active" : "")" asp-area="Admin" asp-controller="Product" asp-action="Index">
+                    <i class="fa fa-cube"></i> Products
+                </a>
+                <a class="nav-link @(currentController == "Order" ? "active" : "")" asp-area="Admin" asp-controller="Order" asp-action="Index">
+                    <i class="fa fa-shopping-cart"></i> Orders
+                </a>
+                <a class="nav-link @(currentController == "Users" ? "active" : "")" asp-area="Admin" asp-controller="User" asp-action="Index">
+                    <i class="fa fa-users"></i> Users
+                </a>
+                <a class="nav-link @(currentController == "Category" ? "active" : "")" asp-area="Admin" asp-controller="Category" asp-action="Index">
+                    <i class="fa fa-tags"></i> Categories
+                </a>
+                @* <a class="nav-link @(currentController == "Reports" ? "active" : "")" asp-area="Admin" asp-controller="Reports" asp-action="Index">
+                    <i class="fa fa-chart-bar"></i> Reports
+                </a> *@
+            </nav>
+        </div>
+    </div>
+
+
+    <main role="main" class="pb-3">
+        @RenderBody()
+    </main>
+
+    <!-- FOOTER -->
+    <footer id="footer">
+        <!-- top footer -->
+        <div class="section">
+            <!-- container -->
+            <div class="container">
+                <!-- row -->
+                <div class="row">
+                    <div class="col-md-3 col-xs-6">
+                        <div class="footer">
+                            <h3 class="footer-title">About Us</h3>
+                            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut.</p>
+                            <ul class="footer-links">
+                                <li><a href="#"><i class="fa fa-map-marker"></i>1734 Stonecoal Road</a></li>
+                                <li><a href="#"><i class="fa fa-phone"></i>+021-95-51-84</a></li>
+                                <li><a href="#"><i class="fa fa-envelope-o"></i>email@email.com</a></li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div class="col-md-3 col-xs-6">
+                        <div class="footer">
+                            <h3 class="footer-title">Categories</h3>
+                            <ul class="footer-links">
+                                <li><a href="store.html">Hot deals</a></li>
+                                <li><a href="store.html">Laptops</a></li>
+                                <li><a href="store.html">Smartphones</a></li>
+                                <li><a href="store.html">Cameras</a></li>
+                                <li><a href="store.html">Accessories</a></li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div class="col-md-3 col-xs-6">
+                        <div class="footer">
+                            <h3 class="footer-title">Information</h3>
+                            <ul class="footer-links">
+                                <li><a href="about.html">About Us</a></li>
+                                <li><a href="contact.html">Contact Us</a></li>
+                                <li><a href="privacy.html">Privacy Policy</a></li>
+                                <li><a href="orders.html">Orders and Returns</a></li>
+                                <li><a href="terms.html">Terms & Conditions</a></li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div class="col-md-3 col-xs-6">
+                        <div class="footer">
+                            <h3 class="footer-title">Service</h3>
+                            <ul class="footer-links">
+                                <li><a href="profile.html">My Account</a></li>
+                                <li><a href="orders.html">View Cart</a></li>
+                                <li><a href="orders.html">Track My Order</a></li>
+                                <li><a href="faq.html">Help</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <!-- /row -->
+            </div>
+            <!-- /container -->
+        </div>
+        <!-- /top footer -->
+        <!-- bottom footer -->
+        <div id="bottom-footer" class="section">
+            <div class="container">
+                <!-- row -->
+                <div class="row">
+                    <div class="col-md-12 text-center">
+                        <ul class="footer-payments">
+                            <li><a href="#"><i class="fa fa-cc-visa"></i></a></li>
+                            <li><a href="#"><i class="fa fa-credit-card"></i></a></li>
+                            <li><a href="#"><i class="fa fa-cc-paypal"></i></a></li>
+                            <li><a href="#"><i class="fa fa-cc-mastercard"></i></a></li>
+                            <li><a href="#"><i class="fa fa-cc-discover"></i></a></li>
+                            <li><a href="#"><i class="fa fa-cc-amex"></i></a></li>
+                        </ul>
+                        <span class="copyright">
+                            Copyright &copy; 2024 All rights reserved | This template is made with <i class="fa fa-heart-o" aria-hidden="true"></i> by <a href="https://colorlib.com" target="_blank">Colorlib</a>
+                        </span>
+                    </div>
+                </div>
+                <!-- /row -->
+            </div>
+            <!-- /container -->
+        </div>
+        <!-- /bottom footer -->
+    </footer>
+    <!-- /FOOTER -->
+    <!-- jQuery Plugins -->
     <script type="text/javascript" src="~/js/jquery.min.js"></script>
     <script type="text/javascript" src="~/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="~/js/slick.min.js"></script>
+    <script type="text/javascript" src="~/js/nouislider.min.js"></script>
+    <script type="text/javascript" src="~/js/jquery.zoom.min.js"></script>
     <script type="text/javascript" src="~/js/main.js"></script>
 
-    <script>
-        function previewImage(input, previewContainerId) {
-            const previewContainer = document.getElementById(previewContainerId);
-            previewContainer.innerHTML = '';
+    @section script{
 
-            if (input.files && input.files.length > 0) {
-                Array.from(input.files).forEach(file => {
-                    const reader = new FileReader();
-                    reader.onload = function (e) {
-                        const imageWrapper = document.createElement('div');
-                        imageWrapper.style.display = 'inline-block';
-                        imageWrapper.style.margin = '10px';
+        <script>
+            // Add click handlers for navigation
+            document.addEventListener('DOMContentLoaded', function() {
+                const navLinks = document.querySelectorAll('.admin-nav .nav-link');
 
-                        const image = document.createElement('img');
-                        image.src = e.target.result;
-                        image.style.maxWidth = '150px';
-                        image.style.maxHeight = '150px';
-                        image.style.border = '1px solid #ccc';
-                        image.style.borderRadius = '8px';
-                        image.style.objectFit = 'cover';
-
-                        imageWrapper.appendChild(image);
-                        previewContainer.appendChild(imageWrapper);
-                    };
-                    reader.readAsDataURL(file);
+                navLinks.forEach(link => {
+                    link.addEventListener('click', function() {
+                        navLinks.forEach(l => l.classList.remove('active'));
+                        this.classList.add('active');
+                    });
                 });
-            } else {
-                previewContainer.innerHTML = `
-                    <div>
-                        <i class="fa fa-image" style="font-size: 48px; color: #ddd;"></i>
-                        <p class="text-muted mt-2">No image selected</p>
-                    </div>
-                `;
-            }
-        }
-    </script>
+            });
+        </script>
+    }
     @await RenderSectionAsync("Scripts", required: false)
+
 </body>
-</html>
+</html> 
