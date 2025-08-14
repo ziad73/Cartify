@@ -1,0 +1,149 @@
+﻿@using CartifyBLL.ViewModels.User
+@model UserVM
+@{
+    ViewData["Title"] = "User Details";
+    Layout = "_AdminLayout";
+}
+
+<div class="container py-5">
+    <div class="card overflow-hidden border-0 shadow-sm">
+        <div class="card-header bg-gradient-primary p-4 d-flex justify-content-between align-items-center border-0">
+            <div class="d-flex align-items-center">
+                <div class="avatar avatar-lg me-3">
+                    <img src="@(!string.IsNullOrEmpty(Model.AvatarUrl) ? Model.AvatarUrl : "/img/default-avatar.png")"
+                         class="rounded-circle"
+                         style="width: 60px; height: 60px; object-fit: cover;" />
+                </div>
+                <div>
+                    <h4 class="mb-0 text-white">@Model.FullName</h4>
+                    <span class="badge @(Model.Status == "Active" ? "bg-success" : "bg-danger") bg-opacity-75">
+                        @Model.Status
+                    </span>
+                </div>
+            </div>
+            <a asp-area="Admin" asp-controller="User" asp-action="Index" class="btn btn-outline-light btn-sm rounded-pill">
+                <i class="fas fa-arrow-left me-1"></i> Back to List
+            </a>
+        </div>
+
+        <div class="card-body p-4">
+            <div class="row">
+                <!-- Main Info -->
+                <div class="col-lg-8">
+                    <div class="d-flex justify-content-between align-items-center mb-4">
+                        <h5 class="mb-0"><i class="fas fa-user-circle text-primary me-2"></i>User Profile</h5>
+                        <div class="btn-group">
+                            <a asp-action="Edit" asp-route-id="@Model.Id" class="btn btn-outline-primary btn-sm rounded-pill px-3">
+                                <i class="fas fa-edit me-1"></i> Edit
+                            </a>
+                            <a asp-action="Delete" asp-route-id="@Model.Id" class="btn btn-outline-danger btn-sm rounded-pill px-3">
+                                <i class="fas fa-trash me-1"></i> Delete
+                            </a>
+                        </div>
+                    </div>
+
+                    <div class="row g-3">
+                        <div class="col-md-6">
+                            <div class="p-3 bg-light rounded-3">
+                                <small class="text-muted d-block">Email</small>
+                                <div class="d-flex align-items-center mt-1">
+                                    <i class="fas fa-envelope text-muted me-2"></i>
+                                    <span class="fw-medium">@Model.Email</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-md-6">
+                            <div class="p-3 bg-light rounded-3">
+                                <small class="text-muted d-block">Role</small>
+                                <div class="d-flex align-items-center mt-1">
+                                    <i class="fas fa-user-tag text-muted me-2"></i>
+                                    <span class="fw-medium text-capitalize">@Model.Role</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-md-6">
+                            <div class="p-3 bg-light rounded-3">
+                                <small class="text-muted d-block">Member Since</small>
+                                <div class="d-flex align-items-center mt-1">
+                                    <i class="fas fa-calendar-alt text-muted me-2"></i>
+                                    <span class="fw-medium">@Model.JoinDate.ToString("MMM dd, yyyy")</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-md-6">
+                            <div class="p-3 bg-light rounded-3">
+                                <small class="text-muted d-block">Total Orders</small>
+                                <div class="d-flex align-items-center mt-1">
+                                    <i class="fas fa-shopping-bag text-muted me-2"></i>
+                                    <span class="fw-medium">@Model.OrdersCount</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Stats Card -->
+                <div class="col-lg-4 mt-4 mt-lg-0">
+                    <div class="card border-0 bg-gradient-light h-100">
+                        <div class="card-body p-4">
+                            <h6 class="text-uppercase text-muted mb-3">Quick Stats</h6>
+
+                            <div class="mb-4">
+                                <div class="d-flex justify-content-between mb-2">
+                                    <span class="text-muted">Account Status</span>
+                                    <span class="badge @(Model.Status == "Active" ? "bg-success" : "bg-danger") bg-opacity-25 @(Model.Status == "Active" ? "text-success" : "text-danger")">
+                                        @Model.Status
+                                    </span>
+                                </div>
+                                <div class="progress" style="height: 6px;">
+                                    <div class="progress-bar @(Model.Status == "Active" ? "bg-success" : "bg-danger")"
+                                         role="progressbar" style="width: 100%"></div>
+                                </div>
+                            </div>
+
+                            <div class="mb-4">
+                                <div class="d-flex justify-content-between mb-2">
+                                    <span class="text-muted">Activity Level</span>
+                                    <span class="text-primary">@(Model.OrdersCount > 5 ? "High" : Model.OrdersCount > 0 ? "Medium" : "Low")</span>
+                                </div>
+                                <div class="progress" style="height: 6px;">
+                                    <div class="progress-bar bg-primary"
+                                         role="progressbar"
+                                         style="width: @(Model.OrdersCount > 5 ? "100" : Model.OrdersCount > 0 ? "60" : "30")%"></div>
+                                </div>
+                            </div>
+
+                            <div class="text-center mt-4">
+                                <button class="btn btn-sm btn-outline-primary rounded-pill px-4">
+                                    <i class="fas fa-envelope me-1"></i> Send Message
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<style>
+    .bg-gradient-primary {
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    }
+
+    .bg-gradient-light {
+        background: linear-gradient(135deg, #f5f7fa 0%, #e4e8f0 100%);
+    }
+
+    .card {
+        border-radius: 12px;
+        overflow: hidden;
+    }
+
+    .progress {
+        border-radius: 3px;
+    }
+</style>

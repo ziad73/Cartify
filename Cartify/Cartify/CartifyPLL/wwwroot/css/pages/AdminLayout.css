@@ -1,0 +1,120 @@
+.admin-header {
+    background: #2C3E50;
+    color: white;
+    padding: 20px 0;
+    margin-bottom: 30px;
+}
+
+.admin-nav {
+    background: #34495E;
+    padding: 15px 0;
+    margin-bottom: 30px;
+}
+
+    .admin-nav .nav-link {
+        color: white;
+        margin-right: 20px;
+        padding: 10px 15px;
+        border-radius: 5px;
+        transition: background-color 0.3s;
+    }
+
+        .admin-nav .nav-link:hover,
+        .admin-nav .nav-link.active {
+            background: #D10024;
+            color: white;
+            text-decoration: none;
+        }
+
+.page-header {
+    background: white;
+    padding: 20px;
+    border-radius: 10px;
+    margin-bottom: 30px;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+}
+
+.filters-section {
+    background: white;
+    padding: 20px;
+    border-radius: 10px;
+    margin-bottom: 30px;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+}
+
+.products-table {
+    background: white;
+    border-radius: 10px;
+    overflow: hidden;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+}
+
+.table th {
+    background: #f8f9fa;
+    border: none;
+    padding: 15px;
+    font-weight: 600;
+    color: #2C3E50;
+}
+
+.table td {
+    padding: 15px;
+    vertical-align: middle;
+    border-top: 1px solid #eee;
+}
+
+.product-image {
+    width: 60px;
+    height: 60px;
+    object-fit: cover;
+    border-radius: 5px;
+}
+
+.status-badge {
+    padding: 5px 12px;
+    border-radius: 20px;
+    font-size: 12px;
+    font-weight: bold;
+}
+
+.status-active {
+    background: #D4EDDA;
+    color: #155724;
+}
+
+.status-inactive {
+    background: #F8D7DA;
+    color: #721C24;
+}
+
+.action-buttons {
+    display: flex;
+    gap: 5px;
+}
+
+.btn-sm {
+    padding: 5px 10px;
+    font-size: 12px;
+}
+
+.search-box {
+    position: relative;
+}
+
+    .search-box input {
+        padding-right: 40px;
+    }
+
+    .search-box .fa-search {
+        position: absolute;
+        right: 15px;
+        top: 50%;
+        transform: translateY(-50%);
+        color: #666;
+    }
+.nav-link.active {
+    background-color: red;
+    color: white !important;
+    border-radius: 4px;
+}
+
