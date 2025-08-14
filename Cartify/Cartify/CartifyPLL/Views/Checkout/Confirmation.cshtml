@@ -1,35 +1,93 @@
 ﻿@model CartifyBLL.ViewModels.Checkout.OrderConfirmationVm
-
 @{
     ViewData["Title"] = "Order Confirmation";
 }
 
 <div class="container py-5">
-    <div class="row justify-content-center">
-        <div class="col-md-8">
-            <div class="card">
-                <div class="card-body text-center">
-                    <i class="fa fa-check-circle fa-3x text-success mb-3"></i>
-                    <h2 class="mb-3">Order Confirmed!</h2>
-                    <p class="lead">Thank you for your order. Your order has been successfully placed.</p>
-                    
-                    <div class="order-details mt-4">
-                        <h4>Order Details</h4>
-                        <p><strong>Order Number:</strong> @Model.OrderNumber</p>
-                        <p><strong>Order Date:</strong> @Model.OrderDate.ToString("MMM dd, yyyy")</p>
-                        <p><strong>Total Amount:</strong> @Model.OrderTotal.ToString("C")</p>
-                        @if (!string.IsNullOrEmpty(Model.TrackingNumber))
-                        {
-                            <p><strong>Tracking Number:</strong> @Model.TrackingNumber</p>
-                        }
+    <h2 class="mb-4">Thank You for Your Order!</h2>
+
+    <div class="card mb-4">
+        <div class="card-header">
+            <h5>Order Details</h5>
+        </div>
+        <div class="card-body">
+            <p><strong>Order Number:</strong> @Model.OrderNumber</p>
+            <p><strong>Order Date:</strong> @Model.OrderDate.ToString("f")</p>
+            <p><strong>Status:</strong> @Model.OrderStatus</p>
+            <p><strong>Payment Method:</strong> @Model.PaymentMethod</p>
+            @if (!string.IsNullOrEmpty(Model.TrackingNumber))
+            {
+                <p><strong>Tracking Number:</strong> @Model.TrackingNumber</p>
+            }
+            <p><strong>Email:</strong> @Model.CustomerEmail</p>
+        </div>
+    </div>
+
+    <div class="card mb-4">
+        <div class="card-header">
+            <h5>Shipping Address</h5>
+        </div>
+        <div class="card-body">
+            <p>@Model.ShippingAddress</p>
+        </div>
+    </div>
+
+    <div class="card mb-4">
+        <div class="card-header">
+            <h5>Items</h5>
+        </div>
+        <ul class="list-group list-group-flush">
+            @foreach (var item in Model.OrderItems)
+            {
+                <li class="list-group-item d-flex justify-content-between align-items-center">
+                    <div>
+                        <strong>@item.ProductName</strong><br />
+                        <small>Qty: @item.Quantity</small>
                     </div>
-                    
-                    <div class="mt-4">
-                        <a asp-controller="Home" asp-action="Index" class="btn btn-primary me-2">Continue Shopping</a>
-                        <a asp-controller="Account" asp-action="Orders" class="btn btn-outline-primary">View Orders</a>
-                    </div>
-                </div>
+                    <span>@item.TotalPrice.ToString("C")</span>
+                </li>
+            }
+        </ul>
+    </div>
+
+    <div class="card">
+        <div class="card-header">
+            <h5>Order Summary</h5>
+        </div>
+        <div class="card-body">
+            <div class="d-flex justify-content-between">
+                <strong>Total</strong>
+                <strong>@Model.OrderTotal.ToString("C")</strong>
             </div>
         </div>
     </div>
-       // </div>
+</div>
+
+<!-- Toast Notification -->
+@if (ViewBag.ShowToast != null && ViewBag.ShowToast == true)
+{
+    <div class="toast-container position-fixed bottom-0 end-0 p-3">
+        <div id="orderSuccessToast" class="toast align-items-center text-bg-success border-0"
+             role="alert" aria-live="assertive" aria-atomic="true">
+            <div class="d-flex">
+                <div class="toast-body">
+                    @ViewBag.ToastMessage
+                </div>
+                <button type="button" class="btn-close btn-close-white me-2 m-auto"
+                        data-bs-dismiss="toast" aria-label="Close"></button>
+            </div>
+        </div>
+    </div>
+}
+
+@section Scripts {
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            var toastEl = document.getElementById('orderSuccessToast');
+            if (toastEl) {
+                var toast = new bootstrap.Toast(toastEl);
+                toast.show();
+            }
+        });
+    </script>
+}

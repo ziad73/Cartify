@@ -1,100 +1,129 @@
 ﻿using CartifyDAL.Entities.order;
 using CartifyDAL.Repo.Abstraction;
 using Cartify.DAL.DataBase;
+using Microsoft.EntityFrameworkCore;
+
 namespace CartifyDAL.Repo.Implementation
 {
 
     public class OrderItemRepo : IOrderItemRepo
     {
-        private readonly CartifyDbContext db;
+       private readonly CartifyDbContext _db;
 
         public OrderItemRepo(CartifyDbContext db)
         {
-            this.db = db;
+            _db = db;
         }
 
-        public (bool, string?) Create(OrderItem orderItem)
+        public (bool Success, string? ErrorMessage) Create(OrderItem orderItem)
         {
+            using var transaction = _db.Database.BeginTransaction();
             try
             {
-                db.OrderItem.Add(orderItem);
-                db.SaveChanges();
+                _db.OrderItem.Add(orderItem);
+                _db.SaveChanges();
+                transaction.Commit();
                 return (true, null);
             }
             catch (Exception ex)
             {
-                return (false, ex.Message);
+                transaction.Rollback();
+                var inner = ex;
+                while (inner.InnerException != null)
+                    inner = inner.InnerException;
+                return (false, inner.Message);
             }
         }
 
-        public (List<OrderItem>, string?) GetAll()
+        public (List<OrderItem>? Items, string? ErrorMessage) GetAll()
         {
             try
             {
-                var orderItems = db.OrderItem
+                var items = _db.OrderItem
+                    .Include(i => i.Order)
                     .Where(a => !a.IsDeleted)
                     .ToList();
-                return (orderItems, null);
+                return (items, null);
             }
             catch (Exception ex)
             {
-                return (null, ex.Message);
+                var inner = ex;
+                while (inner.InnerException != null)
+                    inner = inner.InnerException;
+                return (null, inner.Message);
             }
         }
 
-        public (OrderItem, string?) GetById(int id)
+        public (OrderItem? Item, string? ErrorMessage) GetById(int id)
         {
             try
             {
-                var orderItem = db.OrderItem
+                var item = _db.OrderItem
+                    .Include(i => i.Order)
                     .FirstOrDefault(a => a.OrderItemId == id && !a.IsDeleted);
-                if (orderItem == null)
+                if (item == null)
                 {
                     return (null, "Order item not found");
                 }
-                return (orderItem, null);
+                return (item, null);
             }
             catch (Exception ex)
             {
-                return (null, ex.Message);
+                var inner = ex;
+                while (inner.InnerException != null)
+                    inner = inner.InnerException;
+                return (null, inner.Message);
             }
         }
 
-        public (bool, string?) Update(OrderItem orderItem)
+        public (bool Success, string? ErrorMessage) Update(OrderItem orderItem)
         {
             try
             {
-                var existingOrderItem = db.OrderItem.FirstOrDefault(a => a.OrderItemId == orderItem.OrderItemId && !a.IsDeleted);
-                if (existingOrderItem == null)
+                var existing = _db.OrderItem.FirstOrDefault(a => a.OrderItemId == orderItem.OrderItemId && !a.IsDeleted);
+                if (existing == null)
                 {
                     return (false, "Order item not found");
                 }
-                existingOrderItem.Update(orderItem.Quantity, orderItem.Price, orderItem.Discount, orderItem.ModifiedBy);
-                db.SaveChanges();
+
+                existing.Update(
+                    orderItem.Quantity,
+                    orderItem.Price,
+                    orderItem.Discount,
+                    orderItem.ModifiedBy
+                );
+
+                _db.SaveChanges();
                 return (true, null);
             }
             catch (Exception ex)
             {
-                return (false, ex.Message);
+                var inner = ex;
+                while (inner.InnerException != null)
+                    inner = inner.InnerException;
+                return (false, inner.Message);
             }
         }
 
-        public (bool, string?) Delete(int id)
+        public (bool Success, string? ErrorMessage) Delete(int id)
         {
             try
             {
-                var orderItem = db.OrderItem.FirstOrDefault(a => a.OrderItemId == id);
-                if (orderItem == null)
+                var item = _db.OrderItem.FirstOrDefault(a => a.OrderItemId == id);
+                if (item == null)
                 {
                     return (false, "Order item not found");
                 }
-                orderItem.Delete(orderItem.DeletedBy);
-                db.SaveChanges();
+                item.Delete(item.DeletedBy);
+                _db.SaveChanges();
                 return (true, null);
             }
             catch (Exception ex)
             {
-                return (false, ex.Message);
+                var inner = ex;
+                while (inner.InnerException != null)
+                    inner = inner.InnerException;
+                return (false, inner.Message);
             }
         }
     }

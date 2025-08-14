@@ -31,11 +31,12 @@
         @foreach (var item in Model.OrderItems)
         {
             <tr>
-               
+                <td>@item.ProductName</td>
+
                 <td>@item.Quantity</td>
                 <td>$@item.Price.ToString("F2")</td>
                 <td>$@item.Discount.ToString("F2")</td>
-                <td>$@(item.Quantity * (item.Price - item.Discount)).ToString("F2")</td>
+                <td>$@(item.Quantity * (item.Price - item.Discount))</td>
             </tr>
         }
     </tbody>

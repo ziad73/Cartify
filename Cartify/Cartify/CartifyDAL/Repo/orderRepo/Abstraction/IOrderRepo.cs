@@ -4,10 +4,10 @@ namespace CartifyDAL.Repo.Abstraction
 {
     public interface IOrderRepo
     {
-        (bool, string?) Create(Order order);
-        (List<Order>, string?) GetAll();
-        (Order, string?) GetById(int id);
-        (bool, string?) Update(Order order);
-        (bool, string?) Delete(int id);
+        (bool Success, string? ErrorMessage) Create(Order order, List<OrderItem>? orderItems = null);
+        (List<Order>? Orders, string? ErrorMessage) GetAll();
+        (Order? Order, string? ErrorMessage) GetById(int id);
+        (bool Success, string? ErrorMessage) Update(Order order);
+        (bool Success, string? ErrorMessage) Delete(int id);
     }
 }

@@ -51,19 +51,21 @@ namespace CartifyBLL.Mapper
             
             
             CreateMap<Order, ManageOrdersVm>()
-                .ForMember(dest => dest.CustomerName, opt => opt.MapFrom(src => src.User != null ? src.User.UserName : "Guest"))
+                .ForMember(dest => dest.CustomerName, opt => opt.MapFrom(src => src.User != null ? src.User.FullName : "Guest"))
                 .ForMember(dest => dest.CustomerEmail, opt => opt.MapFrom(src => src.User != null ? src.User.Email : "N/A"))
                 .ForMember(dest => dest.TotalAmount, opt => opt.Ignore()) 
                 .ForMember(dest => dest.PaymentStatus, opt => opt.MapFrom(src => src.OrderStatus == "Cancelled" ? "Refunded" : src.OrderStatus == "Pending" ? "Pending" : "Paid"));
 
             CreateMap<Order, OrderDetailsVm>()
-                .ForMember(dest => dest.CustomerName, opt => opt.MapFrom(src => src.User != null ? src.User.UserName : "Guest"))
+                .ForMember(dest => dest.CustomerName, opt => opt.MapFrom(src => src.User != null ? src.User.FullName : "Guest"))
                 .ForMember(dest => dest.CustomerEmail, opt => opt.MapFrom(src => src.User != null ? src.User.Email : "N/A"))
                 .ForMember(dest => dest.TotalAmount, opt => opt.Ignore()) 
                 .ForMember(dest => dest.OrderItems, opt => opt.Ignore()) 
+                .ForMember(dest => dest.ProductName , opt =>opt.MapFrom(src => src.OrderItems.FirstOrDefault().Product.Name ))
                 .ForMember(dest => dest.PaymentStatus, opt => opt.MapFrom(src => src.OrderStatus == "Cancelled" ? "Refunded" : src.OrderStatus == "Pending" ? "Pending" : "Paid"));
 
             CreateMap<OrderItem, OrderItemVm>()
+                .ForMember(dest => dest.ProductName, opt => opt.MapFrom(src => src.Product != null ? src.Product.Name : "Unknown Product"))
                 .ForMember(dest => dest.ItemTotal, opt => opt.MapFrom(src => src.Quantity * (src.Price - src.Discount)));
         }
     }

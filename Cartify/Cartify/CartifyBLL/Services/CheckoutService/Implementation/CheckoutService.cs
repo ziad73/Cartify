@@ -112,82 +112,184 @@ public class CheckoutService : ICheckoutService
             }
         }
 
-        public (OrderConfirmationVm, string?) ProcessOrder(CheckoutVm model, string userId)
+        // public (OrderConfirmationVm, string?) ProcessOrder(CheckoutVm model, string userId)
+        // {
+        //     try
+        //     {
+        //         // Validate checkout first
+        //         var (isValid, validationError) = ValidateCheckout(model);
+        //         if (!isValid)
+        //             return (null, validationError);
+        //
+        //         // Add new address if needed
+        //         if (model.UseNewAddress)
+        //         {
+        //             var result = _userService.AddAddressAsync(userId, model.NewAddress).Result;
+        //             if (!result.Succeeded)
+        //                 return (null, "Failed to add shipping address");
+        //             
+        //             // Get the newly added address ID (this might need adjustment based on your implementation)
+        //             var userProfile = _userService.GetUserProfileAsync(userId).Result;
+        //             var newAddress = userProfile.Addresses?.OrderByDescending(a => a.Id).FirstOrDefault();
+        //             if (newAddress != null)
+        //                 model.SelectedAddressId = newAddress.Id;
+        //         }
+        //
+        //         // Create order
+        //         // var order = new Order(
+        //         //     orderStatus: "Pending",
+        //         //     shippingMethod: "Standard Shipping",
+        //         //     shippingCost: model.ShippingCost,
+        //         //     tax: model.Tax,
+        //         //     createdBy: userId
+        //         // );
+        //         
+        //         var order = new Order(
+        //             orderStatus: "Pending",
+        //             shippingMethod: "Standard Shipping",
+        //             shippingCost: model.ShippingCost,
+        //             tax: model.Tax,
+        //             createdBy: userId
+        //         )
+        //         {
+        //             UserId = userId // ✅ ensures it belongs to the customer
+        //         };
+        //
+        //
+        //         var (orderCreated, orderError) = _orderRepo.Create(order);
+        //         if (!orderCreated)
+        //             return (null, orderError ?? "Failed to create order");
+        //
+        //         // Create order items
+        //         foreach (var cartItem in model.Cart.Items)
+        //         {
+        //             var orderItem = new OrderItem(
+        //                 quantity: cartItem.Quantity,
+        //                 price: cartItem.ProductPrice,
+        //                 discount: 0,
+        //                 createdBy: userId
+        //             );
+        //
+        //             // Link the item to the order and product
+        //             orderItem.OrderId = order.OrderId;
+        //             orderItem.ProductId = cartItem.ProductId;
+        //
+        //             var (itemCreated, itemError) = _orderItemRepo.Create(orderItem);
+        //             if (!itemCreated)
+        //                 return (null, itemError ?? "Failed to create order items");
+        //         }
+        //         // Clear cart after successful order
+        //         var (cartCleared, clearError) = _cartService.ClearCart(userId);
+        //         if (!cartCleared)
+        //             // Log warning but don't fail the order
+        //             Console.WriteLine($"Warning: Failed to clear cart for user {userId}: {clearError}");
+        //
+        //         // Create confirmation
+        //         var confirmation = new OrderConfirmationVm
+        //         {
+        //             OrderId = order.OrderId,
+        //             OrderDate = order.OrderDate,
+        //             OrderTotal = model.Total,
+        //             PaymentMethod = model.PaymentMethod,
+        //             OrderStatus = "Confirmed",
+        //             TrackingNumber = GenerateTrackingNumber(),
+        //             OrderItems = model.Cart.Items
+        //         };
+        //
+        //         return (confirmation, null);
+        //     }
+        //     catch (Exception ex)
+        //     {
+        //         return (null, ex.Message);
+        //     }
+        // }
+        
+      public (OrderConfirmationVm, string?) ProcessOrder(CheckoutVm model, string userId)
+{
+    try
+    {
+        // 1. Validate
+        var (isValid, validationError) = ValidateCheckout(model);
+        if (!isValid)
+            return (null, validationError);
+
+        // 2. Add new address if requested 
+        if (model.UseNewAddress) // bug need to fix
         {
-            try
-            {
-                // Validate checkout first
-                var (isValid, validationError) = ValidateCheckout(model);
-                if (!isValid)
-                    return (null, validationError);
+            var result = _userService.AddAddressAsync(userId, model.NewAddress).Result;
+            if (!result.Succeeded)
+                return (null, "Failed to add shipping address");
 
-                // Add new address if needed
-                if (model.UseNewAddress)
-                {
-                    var result = _userService.AddAddressAsync(userId, model.NewAddress).Result;
-                    if (!result.Succeeded)
-                        return (null, "Failed to add shipping address");
-                    
-                    // Get the newly added address ID (this might need adjustment based on your implementation)
-                    var userProfile = _userService.GetUserProfileAsync(userId).Result;
-                    var newAddress = userProfile.Addresses?.OrderByDescending(a => a.Id).FirstOrDefault();
-                    if (newAddress != null)
-                        model.SelectedAddressId = newAddress.Id;
-                }
-
-                // Create order
-                var order = new Order(
-                    orderStatus: "Pending",
-                    shippingMethod: "Standard Shipping",
-                    shippingCost: model.ShippingCost,
-                    tax: model.Tax,
-                    createdBy: userId
-                );
-
-                var (orderCreated, orderError) = _orderRepo.Create(order);
-                if (!orderCreated)
-                    return (null, orderError ?? "Failed to create order");
-
-                // Create order items
-                foreach (var cartItem in model.Cart.Items)
-                {
-                    var orderItem = new OrderItem(
-                        quantity: cartItem.Quantity,
-                        price: cartItem.ProductPrice,
-                        discount: 0,
-                        createdBy: userId
-                    );
-
-                    var (itemCreated, itemError) = _orderItemRepo.Create(orderItem);
-                    if (!itemCreated)
-                        return (null, itemError ?? "Failed to create order items");
-                }
-
-                // Clear cart after successful order
-                var (cartCleared, clearError) = _cartService.ClearCart(userId);
-                if (!cartCleared)
-                    // Log warning but don't fail the order
-                    Console.WriteLine($"Warning: Failed to clear cart for user {userId}: {clearError}");
-
-                // Create confirmation
-                var confirmation = new OrderConfirmationVm
-                {
-                    OrderId = order.OrderId,
-                    OrderDate = order.OrderDate,
-                    OrderTotal = model.Total,
-                    PaymentMethod = model.PaymentMethod,
-                    OrderStatus = "Confirmed",
-                    TrackingNumber = GenerateTrackingNumber(),
-                    OrderItems = model.Cart.Items
-                };
-
-                return (confirmation, null);
-            }
-            catch (Exception ex)
-            {
-                return (null, ex.Message);
-            }
+            var userProfile = _userService.GetUserProfileAsync(userId).Result;
+            var newAddress = userProfile?.Addresses?.OrderByDescending(a => a.Id).FirstOrDefault();
+            if (newAddress != null)
+                model.SelectedAddressId = newAddress.Id;
         }
+
+        // 3. Create order (required non-null fields set)
+        var order = new Order(
+            orderStatus: "Pending",
+            shippingMethod: "Standard Shipping",
+            trackingNumber: GenerateTrackingNumber(),
+            shippingCost: model.ShippingCost,
+            tax: model.Tax,
+            createdBy: string.IsNullOrWhiteSpace(userId) ? "Guest" : userId
+        )
+        {
+            UserId = userId
+        };
+
+        // 4. Build the list of OrderItem instances (do NOT set OrderId here; OrderRepo will attach them)
+        var orderItems = new List<OrderItem>();
+        foreach (var cartItem in model.Cart.Items)
+        {
+            var oi = new OrderItem(
+                quantity: cartItem.Quantity,
+                price: cartItem.ProductPrice,
+                discount: 0,
+                createdBy: string.IsNullOrWhiteSpace(userId) ? "Guest" : userId
+            )
+            {
+                ProductId = cartItem.ProductId
+            };
+            orderItems.Add(oi);
+        }
+
+        // 5. Save order + items in single transaction (use repository overload)
+        var (orderCreated, orderError) = _orderRepo.Create(order, orderItems);
+        if (!orderCreated)
+            return (null, orderError ?? "Failed to create order");
+
+        // 6. Build confirmation view model BEFORE clearing the cart (so we still have readable product names/prices)
+        var confirmation = new OrderConfirmationVm
+        {
+            OrderId = order.OrderId,
+            OrderDate = order.OrderDate,
+            OrderTotal = model.Total,
+            PaymentMethod = model.PaymentMethod,
+            OrderStatus = "Confirmed",
+            TrackingNumber = order.TrackingNumber,
+            // reuse cart VM items for display (they already contain product names/prices)
+            OrderItems = model.Cart.Items
+        };
+
+        // 7. Clear cart (best-effort, don't fail the order if this fails)
+        var (cartCleared, clearError) = _cartService.ClearCart(userId);
+        if (!cartCleared)
+            Console.WriteLine($"Warning: Failed to clear cart for user {userId}: {clearError}");
+
+        return (confirmation, null);
+    }
+    catch (Exception ex)
+    {
+        // return deepest DB message to the caller (Controller will show it for AJAX or TempData)
+        Exception deepest = ex;
+        while (deepest.InnerException != null) deepest = deepest.InnerException;
+        return (null, deepest.Message);
+    }
+}
+
+
 
         public (OrderConfirmationVm, string?) GetOrderConfirmation(int orderId, string userId)
         {
@@ -210,9 +312,10 @@ public class CheckoutService : ICheckoutService
                     TrackingNumber = order.TrackingNumber,
                     OrderItems = order.OrderItems?.Select(oi => new CartItemVm
                     {
-                        ProductId = oi.OrderId, // You might need to adjust this based on your OrderItem structure
+                        ProductId = oi.ProductId,
                         Quantity = oi.Quantity,
-                        ProductPrice = oi.Price
+                        ProductPrice = oi.Price,
+                        ProductName = $"Product #{oi.ProductId}" // placeholder if product nav not loaded
                     }).ToList() ?? new List<CartItemVm>()
                 };
 
@@ -220,7 +323,12 @@ public class CheckoutService : ICheckoutService
             }
             catch (Exception ex)
             {
-                return (null, ex.Message);
+                // Walk down to the deepest exception
+                Exception deepest = ex;
+                while (deepest.InnerException != null)
+                    deepest = deepest.InnerException;
+
+                return (null, $"DB ERROR: {deepest.Message}");
             }
         }
 

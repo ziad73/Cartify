@@ -8,8 +8,7 @@ public class CheckoutVm
 {
     public CartVm Cart { get; set; } = new CartVm();
         
-    [Required]
-    public int SelectedAddressId { get; set; }
+    public int? SelectedAddressId { get; set; }
         
     public List<AddressVM> UserAddresses { get; set; } = new List<AddressVM>();
         

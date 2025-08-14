@@ -12,6 +12,7 @@ public class OrderDetailsVm
     public double ShippingCost { get; set; }
     public double Tax { get; set; }
     public double TotalAmount { get; set; }
+    public string ProductName { get; set; }
     public string OrderStatus { get; set; }
     public string PaymentStatus { get; set; }
     public List<OrderItemVm> OrderItems { get; set; }

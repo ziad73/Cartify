@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using CartifyDAL.Entities.product;
 
 namespace CartifyDAL.Entities.order
 {
@@ -17,18 +18,20 @@ namespace CartifyDAL.Entities.order
             IsDeleted = false;
         }
 
+       
+
         [Key]
         public int OrderItemId { get; private set; }
 
         [Required]
-        public int OrderId { get; private set; }
+        public int OrderId { get; set; }
 
         public int Quantity { get; private set; }
         public double Price { get; private set; }
         public double Discount { get; private set; }
 
         [ForeignKey(nameof(OrderId))]
-        public Order Order { get; private set; }
+        public Order Order { get; set; }
 
         [Required]
         public string CreatedBy { get; private set; }
@@ -38,8 +41,15 @@ namespace CartifyDAL.Entities.order
         public bool IsDeleted { get; private set; }
         public DateTime? DeletedOn { get; private set; }
         public string? DeletedBy { get; private set; }
-    
-    public void Update(int quantity, double price, double discount, string modifiedBy)
+        public int ProductId { get; set; }
+        
+        // NEW — navigation to Product entity
+        public Product Product { get; set; }  // make sure namespace matches your Product entity
+
+        // Needed by EF
+        public OrderItem() { }
+
+        public void Update(int quantity, double price, double discount, string modifiedBy)
         {
 
             Quantity = quantity;

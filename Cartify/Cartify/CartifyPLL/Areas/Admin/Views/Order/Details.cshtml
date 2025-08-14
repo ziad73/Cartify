@@ -174,7 +174,7 @@
                     <h3>Order Summary</h3>
                 </div>
                 <div class="card-body">
-                    <p><strong>Subtotal:</strong> $@(Model.TotalAmount - Model.ShippingCost - Model.Tax).ToString("N2")</p>
+                    <p><strong>Subtotal:</strong> $@(Model.TotalAmount - Model.ShippingCost - Model.Tax)</p>
                     <p><strong>Shipping:</strong> $@Model.ShippingCost.ToString("N2")</p>
                     <p><strong>Tax:</strong> $@Model.Tax.ToString("N2")</p>
                     <p><strong>Total:</strong> $@Model.TotalAmount.ToString("N2")</p>
