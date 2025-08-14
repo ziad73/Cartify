@@ -11,3 +11,6 @@ fetch("footer.html")
   .then((data) => {
     document.getElementById("footer-placeholder").innerHTML = data;
   });
+function changeImage(thumbnail, imageSrc) {
+    document.getElementById("main-product-img").src = imageSrc;
+}

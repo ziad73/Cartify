@@ -4,12 +4,16 @@ using CartifyBLL.Services;
 using CartifyBLL.Services.CategoryServices;
 using CartifyBLL.Services.Product.Abstraction;
 using CartifyBLL.Services.Product.Impelementation;
+using CartifyBLL.Services.ProductReviewServices.Abstraction;
+using CartifyBLL.Services.ProductReviewServices.Impelementation;
 using CartifyBLL.Services.UserServices;
 using CartifyDAL.Entities.user;
 using CartifyDAL.Repo.categoryRepo.Abstraction;
 using CartifyDAL.Repo.CategoryRepo.Implementation;
 using CartifyDAL.Repo.productRepo.Abstraction;
 using CartifyDAL.Repo.ProductRepo.Implementation;
+using CartifyDAL.Repo.ProductReviewRepo.Abstraction;
+using CartifyDAL.Repo.ProductReviewRepo.Implementation;
 using CartifyDAL.Repo.userRepo.Abstraction;
 using CartifyDAL.Repo.userRepo.Impelementaion;
 using Microsoft.AspNetCore.Authentication.Cookies;
@@ -60,13 +64,16 @@ namespace CartifyPLL
             builder.Services.AddScoped<ICategoryRepo, CategoryRepo>();
             builder.Services.AddScoped<ICategoryService, CategoryService>();
 
-            // Add product services
-       
+            // productReview Repo
+            builder.Services.AddScoped<IProductReviewRepo, ProductReviewRepo>();
+            // productReview services
+            builder.Services.AddScoped<IProductReviewServices, ProductReviewServices>();
 
             // Add product repo
             builder.Services.AddScoped<IProductRepo, ProductRepo>();
             // Add product services
             builder.Services.AddScoped<IProductService, ProductService>();
+
             //builder.Services.AddScoped<ICartService, CartService>();
             //builder.Services.AddScoped<ICheckoutService, CheckoutService>();
             //builder.Services.AddScoped<IWishlisrService, WishlistService>();

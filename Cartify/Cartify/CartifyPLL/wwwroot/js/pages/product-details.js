@@ -11,7 +11,7 @@ fetch("footer.html")
 
 // Change main product image
 function changeImage(thumbnail, imageSrc) {
-  document.getElementById("main-product-image").src = imageSrc;
+    document.getElementById("product-main-image").src = imageSrc;
 
   // Remove active class from all thumbnails
   document.querySelectorAll(".thumbnail").forEach((thumb) => {

@@ -6,10 +6,10 @@ namespace CartifyBLL.Services.Product.Abstraction
 {
     public interface IProductService
     {
-        (bool, string?) Create(CreateProduct createProduct);
-        (List<ProductDTO>, string?) GetAll();
-        (ProductDTO, string?) GetById(int ProductId);
-        (bool, string?) Update(CreateProduct createProduct);
-        (bool, string?) Delete(int ProductId);
+        Task<(bool, string?)> Create(CreateProduct createProduct);
+        Task<(List<ProductDTO>, string?)> GetAll();
+        Task<(ProductDTO, string?)> GetById(int ProductId);
+        Task<(bool, string?)> Update(CreateProduct createProduct);
+        Task<(bool, string?)> Delete(int ProductId);
     }
 }

@@ -30,3 +30,19 @@ C:\Users\salma\Source\Repos\Cartify\Cartify\Cartify\CartifyBLL\obj\Debug\net8.0\
 C:\Users\salma\Source\Repos\Cartify\Cartify\Cartify\CartifyBLL\obj\Debug\net8.0\refint\CartifyBLL.dll
 C:\Users\salma\Source\Repos\Cartify\Cartify\Cartify\CartifyBLL\obj\Debug\net8.0\CartifyBLL.pdb
 C:\Users\salma\Source\Repos\Cartify\Cartify\Cartify\CartifyBLL\obj\Debug\net8.0\ref\CartifyBLL.dll
+D:\ITI .net\FinalProject\Cartify\Cartify\Cartify\CartifyBLL\bin\Debug\net8.0\CartifyBLL.deps.json
+D:\ITI .net\FinalProject\Cartify\Cartify\Cartify\CartifyBLL\bin\Debug\net8.0\CartifyBLL.dll
+D:\ITI .net\FinalProject\Cartify\Cartify\Cartify\CartifyBLL\bin\Debug\net8.0\CartifyBLL.pdb
+D:\ITI .net\FinalProject\Cartify\Cartify\Cartify\CartifyBLL\bin\Debug\net8.0\CartifyDAL.dll
+D:\ITI .net\FinalProject\Cartify\Cartify\Cartify\CartifyBLL\bin\Debug\net8.0\CartifyDAL.pdb
+D:\ITI .net\FinalProject\Cartify\Cartify\Cartify\CartifyBLL\obj\Debug\net8.0\CartifyBLL.csproj.AssemblyReference.cache
+D:\ITI .net\FinalProject\Cartify\Cartify\Cartify\CartifyBLL\obj\Debug\net8.0\CartifyBLL.GeneratedMSBuildEditorConfig.editorconfig
+D:\ITI .net\FinalProject\Cartify\Cartify\Cartify\CartifyBLL\obj\Debug\net8.0\CartifyBLL.AssemblyInfoInputs.cache
+D:\ITI .net\FinalProject\Cartify\Cartify\Cartify\CartifyBLL\obj\Debug\net8.0\CartifyBLL.AssemblyInfo.cs
+D:\ITI .net\FinalProject\Cartify\Cartify\Cartify\CartifyBLL\obj\Debug\net8.0\CartifyBLL.csproj.CoreCompileInputs.cache
+D:\ITI .net\FinalProject\Cartify\Cartify\Cartify\CartifyBLL\obj\Debug\net8.0\CartifyBLL.sourcelink.json
+D:\ITI .net\FinalProject\Cartify\Cartify\Cartify\CartifyBLL\obj\Debug\net8.0\CartifyBLL.csproj.Up2Date
+D:\ITI .net\FinalProject\Cartify\Cartify\Cartify\CartifyBLL\obj\Debug\net8.0\CartifyBLL.dll
+D:\ITI .net\FinalProject\Cartify\Cartify\Cartify\CartifyBLL\obj\Debug\net8.0\refint\CartifyBLL.dll
+D:\ITI .net\FinalProject\Cartify\Cartify\Cartify\CartifyBLL\obj\Debug\net8.0\CartifyBLL.pdb
+D:\ITI .net\FinalProject\Cartify\Cartify\Cartify\CartifyBLL\obj\Debug\net8.0\ref\CartifyBLL.dll

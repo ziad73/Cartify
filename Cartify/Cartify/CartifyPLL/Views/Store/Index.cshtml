@@ -61,15 +61,15 @@
               {
                 <div class="product-widget">
                   <div class="product-img">
-                    <img src="@product.ImageUrl" alt="@product.Name" />
+                      <img src="@product.ImageUrl?.Split('|')[0]" alt="@product.Name" />
                   </div>
                   <div class="product-body">
                     <p class="product-category">@product.Category</p>
                     <h3 class="product-name">
-                      <a href="#">@product.Name</a>
+                      <a  >@product.Name</a>
                     </h3>
                     <h4 class="product-price">
-                      $@product.Price 
+                        $@(product.Price - 5) <del class="product-old-price">$@product.Price</del>
                     </h4>
                   </div>
                 </div>
@@ -106,8 +106,10 @@
                 <div class="col-md-4 col-xs-6">
                   <div class="product">
                     <div class="product-img">
-                      <img src="@product.ImageUrl" alt="@product.Name" />
-                      <div class="product-label">
+                        <a asp-controller="Store" asp-action="Details" asp-route-id="@product.ProductId" style="display:block;">
+                            <img src="@product.ImageUrl?.Split('|')[0]" alt="@product.Name" style="width:100%; height:auto;" />
+                        </a>
+                    <div class="product-label">
                         @if (index == 0)
                         {
                         
@@ -122,10 +124,10 @@
                     <div class="product-body">
                       <p class="product-category">@product.Category</p>
                       <h3 class="product-name">
-                        <a href="#">@product.Name</a>
+                          <a asp-controller="Store" asp-action="Details" asp-route-id="@product.ProductId">@product.Name</a>
                       </h3>
                       <h4 class="product-price">
-                        $@product.Price 
+                           $@(product.Price - 5) <del class="product-old-price">$@product.Price</del>
                       </h4>
                       <div class="product-btns">
                         <button class="add-to-wishlist">
