@@ -9,7 +9,102 @@
     <link rel="stylesheet" href="~/css/bootstrap.min.css" />
     <link rel="stylesheet" href="~/css/font-awesome.min.css" />
     <link rel="stylesheet" href="~/css/style.css" />
-    <link rel="stylesheet" href="~/css/pages/ManageCategory.css" />
+    <style>
+        .admin-header {
+            background: #2C3E50;
+            color: white;
+            padding: 20px 0;
+            margin-bottom: 30px;
+        }
+
+        .admin-nav {
+            background: #34495E;
+            padding: 15px 0;
+            margin-bottom: 30px;
+        }
+
+        .admin-nav .nav-link {
+            color: white;
+            margin-right: 20px;
+            padding: 10px 15px;
+            border-radius: 5px;
+            transition: background-color 0.3s;
+        }
+
+        .admin-nav .nav-link:hover,
+        .admin-nav .nav-link.active {
+            background: #D10024;
+            color: white;
+            text-decoration: none;
+        }
+
+        .page-header {
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            margin-bottom: 30px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .categories-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+
+        .category-card {
+            background: white;
+            border-radius: 10px;
+            padding: 20px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            border-left: 4px solid #D10024;
+        }
+
+        .category-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 15px;
+        }
+
+        .category-name {
+            font-size: 18px;
+            font-weight: 600;
+            color: #2C3E50;
+        }
+
+        .category-stats {
+            display: flex;
+            gap: 15px;
+            margin-bottom: 15px;
+        }
+
+        .stat-item {
+            text-align: center;
+        }
+
+        .stat-number {
+            font-size: 20px;
+            font-weight: bold;
+            color: #D10024;
+        }
+
+        .stat-label {
+            font-size: 12px;
+            color: #666;
+        }
+
+        .action-buttons {
+            display: flex;
+            gap: 10px;
+        }
+
+        .btn-sm {
+            padding: 5px 10px;
+            font-size: 12px;
+        }
+    </style>
 }
 <!-- MAIN CONTENT -->
 <div class="section">
@@ -37,32 +132,98 @@
                 <div class="category-card">
                     <div class="category-header">
                         <div class="category-name">@item.Name</div>
-                        <span class="badge badge-success">Active</span>
+                        <span class="badge badge-success">@(item.IsDeleted==false? "Active":"InActive")</span>
                     </div>
                     <div class="category-stats">
-                        <div class="stat-item">
-                            <div class="stat-number">0</div>
+                        @* <div class="stat-item">
+                            <div class="stat-number">
+                                @(item.products?.Count() ?? 0)
+                            </div>
                             <div class="stat-label">Products</div>
-                        </div>
-                        <div class="stat-item">
+                        </div> *@
+                        @* <div class="stat-item">
                             <div class="stat-number">0</div>
                             <div class="stat-label">Orders</div>
                         </div>
                         <div class="stat-item">
                             <div class="stat-number">$0</div>
                             <div class="stat-label">Revenue</div>
-                        </div>
+                        </div> *@
                     </div>
                     <div class="action-buttons">
                         <a href="/Admin/Category/Edit/@item.CategoryId" class="btn btn-sm btn-warning">
                             <i class="fa fa-edit"></i> Edit
                         </a>
-                        <a href="/Admin/Category/Delete/@item.CategoryId" class="btn btn-sm btn-danger">
+                        @* <a href="/Admin/Category/Delete/@item.CategoryId" class="btn btn-sm btn-danger">
+                            <i class="fa fa-trash"></i> Delete
+                        </a> *@
+
+                        <a href="javascript:void(0);"
+                           onclick="confirmDelete(@item.CategoryId, '@item.Name')"
+                           class="btn btn-sm btn-danger">
                             <i class="fa fa-trash"></i> Delete
                         </a>
+
                     </div>
                 </div>
             }
         </div>
     </div>
 </div>
+
+@section Scripts {
+    <script type="text/javascript" src="js/jquery.min.js"></script>
+    <script type="text/javascript" src="js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="js/main.js"></script>
+
+    <script>
+                function confirmDelete(categoryId, categoryName) {
+            if (confirm(`Are you sure you want to delete "${categoryName}"?`)) {
+                // Create a hidden form and submit it
+                var form = document.createElement('form');
+                form.method = 'post';
+                form.action = '/Admin/Category/Delete';
+
+                var input = document.createElement('input');
+                input.type = 'hidden';
+                input.name = 'id';
+                input.value = categoryId;
+
+                form.appendChild(input);
+                document.body.appendChild(form);
+                form.submit();
+            }
+        }
+        function viewCategory(categoryId) {
+            alert(`Viewing category: ${categoryId}`);
+        }
+
+        function editCategory(categoryId) {
+            alert(`Editing category: ${categoryId}`);
+        }
+
+        function deleteCategory(categoryId) {
+            if (confirm(`Are you sure you want to delete category ${categoryId}?`)) {
+                alert(`Category ${categoryId} has been deleted`);
+            }
+        }
+
+        function activateCategory(categoryId) {
+            if (confirm(`Activate category ${categoryId}?`)) {
+                alert(`Category ${categoryId} has been activated`);
+            }
+        }
+
+        // Add click handlers for navigation
+        document.addEventListener('DOMContentLoaded', function () {
+            const navLinks = document.querySelectorAll('.admin-nav .nav-link');
+
+            navLinks.forEach(link => {
+                link.addEventListener('click', function () {
+                    navLinks.forEach(l => l.classList.remove('active'));
+                    this.classList.add('active');
+                });
+            });
+        });
+    </script>
+}

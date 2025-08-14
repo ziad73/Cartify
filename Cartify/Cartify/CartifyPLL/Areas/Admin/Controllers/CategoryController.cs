@@ -62,21 +62,11 @@ namespace CartifyPLL.Controllers
 
             return RedirectToAction("Index");
         }
-        // show the delete confirmation view
+        [HttpPost]
         public IActionResult Delete(int id)
         {
-            var (category, error) = _categoryService.GetById(id);
-            if (error != null) return NotFound();
-            return View(category);
-        }
-        // handle the deletion of a category
-        [HttpPost, ActionName("Delete")]
-        public IActionResult DeleteConfirmed(int id)
-        {
-            var (success, error) = _categoryService.Delete(id);
-            if (!success) ViewBag.Error = error;
-
-            return RedirectToAction("Index");
+            _categoryService.Delete(id);
+            return RedirectToAction("Index"); // Or whatever your listing action is
         }
     }
 
