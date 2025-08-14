@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+
+    <title>Shopping Cart - Cartify</title>
+
+    <!-- Google font -->
+    <link
+      href="https://fonts.googleapis.com/css?family=Montserrat:400,500,700"
+      rel="stylesheet" />
+
+    <!-- Bootstrap -->
+    <link type="text/css" rel="stylesheet" href="css/bootstrap.min.css" />
+
+    <!-- Slick -->
+    <link type="text/css" rel="stylesheet" href="css/slick.css" />
+    <link type="text/css" rel="stylesheet" href="css/slick-theme.css" />
+
+    <!-- nouislider -->
+    <link type="text/css" rel="stylesheet" href="css/nouislider.min.css" />
+
+    <!-- Font Awesome Icon -->
+    <link rel="stylesheet" href="css/font-awesome.min.css" />
+
+    <!-- Custom stlylesheet -->
+    <link type="text/css" rel="stylesheet" href="css/style.css" />
+
+    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+      <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
+      <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+    <![endif]-->
+  </head>
+
+  <body>
+    <!-- HEADER -->
+    <div id="navbar-placeholder"></div>
+    <!-- /HEADER -->
+
+    <!-- BREADCRUMB -->
+    <div id="breadcrumb">
+      <div class="container">
+        <ul class="breadcrumb">
+          <li><a href="index.html">Home</a></li>
+          <li class="active">Shopping Cart</li>
+        </ul>
+      </div>
+    </div>
+    <!-- /BREADCRUMB -->
+
+    <!-- SECTION -->
+    <div class="section">
+      <!-- container -->
+      <div class="container">
+        <!-- row -->
+        <div class="row">
+          <div class="col-md-12">
+            <div class="section-title">
+              <h3 class="title">Shopping Cart</h3>
+            </div>
+          </div>
+
+          <!-- Cart Items -->
+          <div class="col-md-12">
+            <div class="cart-list">
+              <table class="table">
+                <thead>
+                  <tr>
+                    <th>Product</th>
+                    <th>Price</th>
+                    <th>Quantity</th>
+                    <th>Total</th>
+                    <th></th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>
+                      <div class="product-widget">
+                        <div class="product-img">
+                          <img src="./img/product01.png" alt="" />
+                        </div>
+                        <div class="product-body">
+                          <h3 class="product-name">
+                            <a href="product-details.html">Laptop Pro X1</a>
+                          </h3>
+                          <p class="product-category">Laptops</p>
+                        </div>
+                      </div>
+                    </td>
+                    <td class="price">$980.00</td>
+                    <td>
+                      <div class="input-number">
+                        <input type="number" value="1" min="1" max="10" />
+                        <span class="qty-up">+</span>
+                        <span class="qty-down">-</span>
+                      </div>
+                    </td>
+                    <td class="total">$980.00</td>
+                    <td class="rm">
+                      <button class="delete">
+                        <i class="fa fa-trash"></i>
+                      </button>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <div class="product-widget">
+                        <div class="product-img">
+                          <img src="./img/product02.png" alt="" />
+                        </div>
+                        <div class="product-body">
+                          <h3 class="product-name">
+                            <a href="product-details.html"
+                              >Smartphone Galaxy S21</a
+                            >
+                          </h3>
+                          <p class="product-category">Smartphones</p>
+                        </div>
+                      </div>
+                    </td>
+                    <td class="price">$750.00</td>
+                    <td>
+                      <div class="input-number">
+                        <input type="number" value="2" min="1" max="10" />
+                        <span class="qty-up">+</span>
+                        <span class="qty-down">-</span>
+                      </div>
+                    </td>
+                    <td class="total">$1500.00</td>
+                    <td class="rm">
+                      <button class="delete">
+                        <i class="fa fa-trash"></i>
+                      </button>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <div class="product-widget">
+                        <div class="product-img">
+                          <img src="./img/product03.png" alt="" />
+                        </div>
+                        <div class="product-body">
+                          <h3 class="product-name">
+                            <a href="product-details.html"
+                              >Wireless Headphones</a
+                            >
+                          </h3>
+                          <p class="product-category">Accessories</p>
+                        </div>
+                      </div>
+                    </td>
+                    <td class="price">$120.00</td>
+                    <td>
+                      <div class="input-number">
+                        <input type="number" value="1" min="1" max="10" />
+                        <span class="qty-up">+</span>
+                        <span class="qty-down">-</span>
+                      </div>
+                    </td>
+                    <td class="total">$120.00</td>
+                    <td class="rm">
+                      <button class="delete">
+                        <i class="fa fa-trash"></i>
+                      </button>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+          <!-- /Cart Items -->
+
+          <!-- Cart Summary -->
+          <div class="col-md-12">
+            <div class="cart-summary">
+              <div class="row">
+                <div class="col-md-6">
+                  <div class="cart-btns">
+                    <a href="store.html" class="primary-btn"
+                      >Continue Shopping</a
+                    >
+                    <button class="primary-btn" onclick="updateCart()">
+                      Update Cart
+                    </button>
+                  </div>
+                </div>
+                <div class="col-md-6">
+                  <div class="cart-summary">
+                    <div class="summary-item">
+                      <span class="text">Subtotal:</span>
+                      <span class="price">$2600.00</span>
+                    </div>
+                    <div class="summary-item">
+                      <span class="text">Shipping:</span>
+                      <span class="price">$50.00</span>
+                    </div>
+                    <div class="summary-item">
+                      <span class="text">Tax:</span>
+                      <span class="price">$260.00</span>
+                    </div>
+                    <div class="summary-item">
+                      <span class="text">Total:</span>
+                      <span class="price">$2910.00</span>
+                    </div>
+                    <a href="checkout.html" class="primary-btn"
+                      >Proceed to Checkout</a
+                    >
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <!-- /Cart Summary -->
+        </div>
+        <!-- /row -->
+      </div>
+      <!-- /container -->
+    </div>
+    <!-- /SECTION -->
+    <!-- FOOTER -->
+
+    <div id="footer-placeholder"></div>
+
+    <!-- /FOOTER -->
+
+    <!-- jQuery Plugins -->
+    <script src="js/jquery.min.js"></script>
+    <script src="js/bootstrap.min.js"></script>
+    <script src="js/slick.min.js"></script>
+    <script src="js/nouislider.min.js"></script>
+    <script src="js/jquery.zoom.min.js"></script>
+    <script src="js/main.js"></script>
+
+    <script src="js/pages/cart.js"></script>
+  </body>
+</html>

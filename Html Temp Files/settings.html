@@ -1,0 +1,383 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Settings - Admin Dashboard</title>
+    <link rel="stylesheet" href="css/bootstrap.min.css" />
+    <link rel="stylesheet" href="css/font-awesome.min.css" />
+    <link rel="stylesheet" href="css/style.css" />
+    <link rel="stylesheet" href="css/pages/settings.css" />
+  </head>
+
+  <body>
+    <!-- ADMIN HEADER -->
+    <div class="admin-header">
+      <div class="container">
+        <div class="row">
+          <div class="col-md-6">
+            <h1><i class="fa fa-cog"></i> Settings</h1>
+          </div>
+          <div class="col-md-6 text-right">
+            <a href="admin-dashboard.html" class="btn btn-outline-light">
+              <i class="fa fa-arrow-left"></i> Back to Dashboard
+            </a>
+            <a href="login.html" class="btn btn-outline-light ml-2">
+              <i class="fa fa-sign-out"></i> Logout
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ADMIN NAVIGATION -->
+    <div class="admin-nav">
+      <div class="container">
+        <nav class="nav">
+          <a class="nav-link" href="admin-dashboard.html">
+            <i class="fa fa-dashboard"></i> Dashboard
+          </a>
+          <a class="nav-link" href="manage-products.html">
+            <i class="fa fa-cube"></i> Products
+          </a>
+          <a class="nav-link" href="manage-orders.html">
+            <i class="fa fa-shopping-cart"></i> Orders
+          </a>
+          <a class="nav-link" href="manage-users.html">
+            <i class="fa fa-users"></i> Users
+          </a>
+          <a class="nav-link" href="manage-categories.html">
+            <i class="fa fa-tags"></i> Categories
+          </a>
+          <a class="nav-link" href="reports.html">
+            <i class="fa fa-chart-bar"></i> Reports
+          </a>
+        </nav>
+      </div>
+    </div>
+
+    <!-- MAIN CONTENT -->
+    <div class="section">
+      <div class="container">
+        <!-- Page Header -->
+        <div class="page-header">
+          <div class="row">
+            <div class="col-md-6">
+              <h2>System Settings</h2>
+              <p class="text-muted">
+                Configure your e-commerce platform settings
+              </p>
+            </div>
+            <div class="col-md-6 text-right">
+              <button class="btn btn-primary" onclick="saveSettings()">
+                <i class="fa fa-save"></i> Save Changes
+              </button>
+              <button class="btn btn-secondary ml-2" onclick="resetSettings()">
+                <i class="fa fa-refresh"></i> Reset to Default
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-md-8">
+            <!-- General Settings -->
+            <div class="settings-card">
+              <div class="settings-section">
+                <h4><i class="fa fa-cog"></i> General Settings</h4>
+                <div class="form-group">
+                  <label>Store Name</label>
+                  <input
+                    type="text"
+                    class="form-control"
+                    value="Cartify Store"
+                    id="storeName" />
+                </div>
+                <div class="form-group">
+                  <label>Store Description</label>
+                  <textarea class="form-control" rows="3" id="storeDescription">
+Your one-stop shop for all products and gadgets.</textarea
+                  >
+                </div>
+                <div class="form-group">
+                  <label>Store Email</label>
+                  <input
+                    type="email"
+                    class="form-control"
+                    value="contact@cartify.com"
+                    id="storeEmail" />
+                </div>
+                <div class="form-group">
+                  <label>Store Phone</label>
+                  <input
+                    type="text"
+                    class="form-control"
+                    value="+021-95-51-84"
+                    id="storePhone" />
+                </div>
+                <div class="form-group">
+                  <label>Store Address</label>
+                  <textarea class="form-control" rows="2" id="storeAddress">
+1734 Stonecoal Road, New York, NY 10001</textarea
+                  >
+                </div>
+              </div>
+            </div>
+
+            <!-- E-commerce Settings -->
+            <div class="settings-card">
+              <div class="settings-section">
+                <h4><i class="fa fa-shopping-cart"></i> E-commerce Settings</h4>
+                <div class="form-group">
+                  <label>Currency</label>
+                  <select class="form-control" id="currency">
+                    <option value="USD" selected>USD - US Dollar</option>
+                    <option value="EUR">EUR - Euro</option>
+                    <option value="GBP">GBP - British Pound</option>
+                    <option value="CAD">CAD - Canadian Dollar</option>
+                  </select>
+                </div>
+                <div class="form-group">
+                  <label>Tax Rate (%)</label>
+                  <input
+                    type="number"
+                    class="form-control"
+                    value="8.5"
+                    id="taxRate"
+                    step="0.1" />
+                </div>
+                <div class="form-group">
+                  <label>Free Shipping Threshold</label>
+                  <input
+                    type="number"
+                    class="form-control"
+                    value="50"
+                    id="freeShippingThreshold" />
+                </div>
+                <div class="form-group">
+                  <label>Default Shipping Cost</label>
+                  <input
+                    type="number"
+                    class="form-control"
+                    value="5.99"
+                    id="defaultShippingCost"
+                    step="0.01" />
+                </div>
+              </div>
+            </div>
+
+            <!-- Email Settings -->
+            <div class="settings-card">
+              <div class="settings-section">
+                <h4><i class="fa fa-envelope"></i> Email Settings</h4>
+                <div class="form-group">
+                  <label>SMTP Host</label>
+                  <input
+                    type="text"
+                    class="form-control"
+                    value="smtp.gmail.com"
+                    id="smtpHost" />
+                </div>
+                <div class="form-group">
+                  <label>SMTP Port</label>
+                  <input
+                    type="number"
+                    class="form-control"
+                    value="587"
+                    id="smtpPort" />
+                </div>
+                <div class="form-group">
+                  <label>SMTP Username</label>
+                  <input
+                    type="email"
+                    class="form-control"
+                    value="noreply@cartify.com"
+                    id="smtpUsername" />
+                </div>
+                <div class="form-group">
+                  <label>SMTP Password</label>
+                  <input
+                    type="password"
+                    class="form-control"
+                    value="********"
+                    id="smtpPassword" />
+                </div>
+                <div class="form-group">
+                  <label>From Email</label>
+                  <input
+                    type="email"
+                    class="form-control"
+                    value="noreply@cartify.com"
+                    id="fromEmail" />
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="col-md-4">
+            <!-- System Preferences -->
+            <div class="settings-card">
+              <div class="settings-section">
+                <h4><i class="fa fa-sliders"></i> System Preferences</h4>
+
+                <div class="setting-item">
+                  <div class="setting-info">
+                    <h5>Maintenance Mode</h5>
+                    <p>
+                      Enable maintenance mode to temporarily disable the store
+                    </p>
+                  </div>
+                  <label class="switch">
+                    <input type="checkbox" id="maintenanceMode" />
+                    <span class="slider"></span>
+                  </label>
+                </div>
+
+                <div class="setting-item">
+                  <div class="setting-info">
+                    <h5>User Registration</h5>
+                    <p>Allow new users to register accounts</p>
+                  </div>
+                  <label class="switch">
+                    <input type="checkbox" id="userRegistration" checked />
+                    <span class="slider"></span>
+                  </label>
+                </div>
+
+                <div class="setting-item">
+                  <div class="setting-info">
+                    <h5>Email Notifications</h5>
+                    <p>Send email notifications for orders</p>
+                  </div>
+                  <label class="switch">
+                    <input type="checkbox" id="emailNotifications" checked />
+                    <span class="slider"></span>
+                  </label>
+                </div>
+
+                <div class="setting-item">
+                  <div class="setting-info">
+                    <h5>Product Reviews</h5>
+                    <p>Allow customers to leave product reviews</p>
+                  </div>
+                  <label class="switch">
+                    <input type="checkbox" id="productReviews" checked />
+                    <span class="slider"></span>
+                  </label>
+                </div>
+
+                <div class="setting-item">
+                  <div class="setting-info">
+                    <h5>Wishlist Feature</h5>
+                    <p>Enable wishlist functionality for customers</p>
+                  </div>
+                  <label class="switch">
+                    <input type="checkbox" id="wishlistFeature" checked />
+                    <span class="slider"></span>
+                  </label>
+                </div>
+
+                <div class="setting-item">
+                  <div class="setting-info">
+                    <h5>Compare Products</h5>
+                    <p>Allow customers to compare products</p>
+                  </div>
+                  <label class="switch">
+                    <input type="checkbox" id="compareProducts" checked />
+                    <span class="slider"></span>
+                  </label>
+                </div>
+
+                <div class="setting-item">
+                  <div class="setting-info">
+                    <h5>Stock Alerts</h5>
+                    <p>Send alerts when products are low in stock</p>
+                  </div>
+                  <label class="switch">
+                    <input type="checkbox" id="stockAlerts" checked />
+                    <span class="slider"></span>
+                  </label>
+                </div>
+
+                <div class="setting-item">
+                  <div class="setting-info">
+                    <h5>Analytics Tracking</h5>
+                    <p>Enable Google Analytics tracking</p>
+                  </div>
+                  <label class="switch">
+                    <input type="checkbox" id="analyticsTracking" checked />
+                    <span class="slider"></span>
+                  </label>
+                </div>
+              </div>
+            </div>
+
+            <!-- Security Settings -->
+            <div class="settings-card">
+              <div class="settings-section">
+                <h4><i class="fa fa-shield"></i> Security</h4>
+
+                <div class="setting-item">
+                  <div class="setting-info">
+                    <h5>Two-Factor Authentication</h5>
+                    <p>Require 2FA for admin accounts</p>
+                  </div>
+                  <label class="switch">
+                    <input type="checkbox" id="twoFactorAuth" />
+                    <span class="slider"></span>
+                  </label>
+                </div>
+
+                <div class="setting-item">
+                  <div class="setting-info">
+                    <h5>SSL Certificate</h5>
+                    <p>Force HTTPS connections</p>
+                  </div>
+                  <label class="switch">
+                    <input type="checkbox" id="sslCertificate" checked />
+                    <span class="slider"></span>
+                  </label>
+                </div>
+
+                <div class="setting-item">
+                  <div class="setting-info">
+                    <h5>Session Timeout</h5>
+                    <p>Auto-logout after inactivity</p>
+                  </div>
+                  <label class="switch">
+                    <input type="checkbox" id="sessionTimeout" checked />
+                    <span class="slider"></span>
+                  </label>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- FOOTER -->
+    <footer id="footer">
+      <div class="section">
+        <div class="container">
+          <div class="row">
+            <div class="col-md-12 text-center">
+              <span class="copyright">
+                Copyright &copy; 2024 All rights reserved | This template is
+                made with <i class="fa fa-heart-o" aria-hidden="true"></i> by
+                <a href="https://colorlib.com" target="_blank">Colorlib</a>
+              </span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </footer>
+
+    <!-- jQuery Plugins -->
+    <script type="text/javascript" src="js/jquery.min.js"></script>
+    <script type="text/javascript" src="js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="js/main.js"></script>
+
+    <script src="js/pages/settings.js"></script>
+  </body>
+</html>

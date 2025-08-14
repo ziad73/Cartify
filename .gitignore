@@ -1,0 +1,18 @@
+**/.vs/
+**/bin/
+**/obj/
+**/.idea/
+*.user
+*.suo
+*.pdb
+*.dll
+*.cache
+*.log
+ER.md
+Features.md
+ER diagram v1.svg
+.$ER diagram.svg.bkp
+Features.md
+.github/
+**/Migrations/
+Secret.txt

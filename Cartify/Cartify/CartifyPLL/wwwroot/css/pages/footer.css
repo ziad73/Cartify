@@ -1,0 +1,82 @@
+      /* Additional footer-specific styles */
+      body {
+        margin: 0;
+        padding: 0;
+        font-family: "Montserrat", sans-serif;
+        min-height: 100vh;
+        display: flex;
+        flex-direction: column;
+      }
+
+      /* Demo content to show footer in context */
+      .demo-content {
+        flex: 1;
+        padding: 40px 20px;
+        background-color: #f8f9fa;
+        text-align: center;
+      }
+
+      /* Ensure footer stays at bottom */
+      #footer {
+        margin-top: auto;
+      }
+
+      /* Newsletter section styling */
+      #newsletter {
+        background-color: #f8f9fa;
+        padding: 40px 0;
+      }
+
+      .newsletter {
+        text-align: center;
+      }
+
+      .newsletter p {
+        font-size: 18px;
+        margin-bottom: 20px;
+      }
+
+      .newsletter form {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        gap: 10px;
+        margin-bottom: 20px;
+      }
+
+      .newsletter input {
+        padding: 10px 15px;
+        border: 1px solid #ddd;
+        border-radius: 4px;
+        width: 300px;
+      }
+
+      .newsletter-btn {
+        background-color: #d10024;
+        color: white;
+        border: none;
+        padding: 10px 20px;
+        border-radius: 4px;
+        cursor: pointer;
+      }
+
+      .newsletter-btn:hover {
+        background-color: #b3001f;
+      }
+
+      .newsletter-follow {
+        list-style: none;
+        padding: 0;
+        display: flex;
+        justify-content: center;
+        gap: 15px;
+      }
+
+      .newsletter-follow li a {
+        color: #333;
+        font-size: 20px;
+      }
+
+      .newsletter-follow li a:hover {
+        color: #d10024;
+      }

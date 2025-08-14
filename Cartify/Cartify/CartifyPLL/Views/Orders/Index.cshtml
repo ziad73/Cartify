@@ -1,0 +1,133 @@
+﻿@model List<CartifyBLL.ViewModels.Orders.ManageOrdersVm>
+@{
+    ViewData["Title"] = "My Orders";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <title>My Orders - Cartify</title>
+    <link href="https://fonts.googleapis.com/css?family=Montserrat:400,500,700" rel="stylesheet" />
+    <link type="text/css" rel="stylesheet" href="~/css/bootstrap.min.css" />
+    <link type="text/css" rel="stylesheet" href="~/css/slick.css" />
+    <link type="text/css" rel="stylesheet" href="~/css/slick-theme.css" />
+    <link type="text/css" rel="stylesheet" href="~/css/nouislider.min.css" />
+    <link rel="stylesheet" href="~/css/font-awesome.min.css" />
+    <link type="text/css" rel="stylesheet" href="~/css/style.css" />
+    <link rel="stylesheet" href="~/css/pages/orders.css" />
+</head>
+<body>
+    <div id="navbar-placeholder"></div>
+
+    <div id="breadcrumb">
+        <div class="container">
+            <ul class="breadcrumb">
+                <li><a href="/">Home</a></li>
+                <li><a href="/Profile">My Account</a></li>
+                <li class="active">My Orders</li>
+            </ul>
+        </div>
+    </div>
+
+    <div class="section">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12"><div class="section-title"><h3 class="title">My Orders</h3></div></div>
+
+                <!-- Filters -->
+                <div class="col-md-12">
+                    <div class="order-filters">
+                        <div class="row">
+                            <div class="col-md-3">
+                                <select class="input-select" onchange="filterOrders()">
+                                    <option value="">All Status</option>
+                                    <option value="pending">Pending</option>
+                                    <option value="processing">Processing</option>
+                                    <option value="shipped">Shipped</option>
+                                    <option value="delivered">Delivered</option>
+                                    <option value="cancelled">Cancelled</option>
+                                </select>
+                            </div>
+                            <div class="col-md-3">
+                                <input class="input" type="text" placeholder="Search by Order ID" onkeyup="searchOrders()" />
+                            </div>
+                            <div class="col-md-3">
+                                <input class="input" type="date" onchange="filterByDate()" />
+                            </div>
+                            <div class="col-md-3">
+                                <button class="primary-btn" onclick="resetFilters()">Reset Filters</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Orders Table -->
+                <div class="col-md-12">
+                    <div class="orders-table">
+                        <table class="table">
+                            <thead>
+                                <tr>
+                                    <th>Order ID</th>
+                                    <th>Date</th>
+                                    <th>Status</th>
+                                    <th>Total</th>
+                                    <th>Items</th>
+                                    <th>Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody id="ordersTableBody">
+                                @foreach (var order in Model)
+                                {
+                                    <tr class="order-row" data-status="@order.OrderStatus.ToLower()" data-date="@order.OrderDate.ToString("yyyy-MM-dd")">
+                                        <td>#@order.OrderId</td>
+                                        <td>@order.OrderDate.ToString("MMMM dd, yyyy")</td>
+                                        <td><span class="status @order.OrderStatus.ToLower()">@order.OrderStatus</span></td>
+                                        <td>@order.TotalAmount.ToString("C")</td>
+                                         <td>@order.ItemCount items</td> 
+                                        <td>
+                                            <a href="@Url.Action("Details", "Orders", new { id = order.OrderId })" class="primary-btn">View Details</a>
+                                            @if (order.OrderStatus.ToLower() == "shipped" || order.OrderStatus.ToLower() == "delivered")
+                                            {
+                                                <a href="#" class="primary-btn" onclick="trackOrder('@order.OrderId')">Track</a>
+                                            }
+                                            @if (order.OrderStatus.ToLower() == "pending" || order.OrderStatus.ToLower() == "processing")
+                                            {
+                                                <a href="#" class="primary-btn" onclick="cancelOrder('@order.OrderId')">Cancel</a>
+                                            }
+                                        </td>
+                                    </tr>
+                                }
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <!-- Pagination -->
+                <div class="col-md-12">
+                    <div class="store-pagination">
+                        <ul>
+                            <li><a href="#"><i class="fa fa-angle-left"></i></a></li>
+                            <li class="active"><a href="#">1</a></li>
+                            <li><a href="#">2</a></li>
+                            <li><a href="#">3</a></li>
+                            <li><a href="#"><i class="fa fa-angle-right"></i></a></li>
+                        </ul>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+    <div id="footer-placeholder"></div>
+
+    <script src="~/js/jquery.min.js"></script>
+    <script src="~/js/bootstrap.min.js"></script>
+    <script src="~/js/slick.min.js"></script>
+    <script src="~/js/nouislider.min.js"></script>
+    <script src="~/js/jquery.zoom.min.js"></script>
+    <script src="~/js/main.js"></script>
+    <script src="~/js/pages/orders.js"></script>
+</body>
+</html>

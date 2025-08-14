@@ -1,0 +1,167 @@
+/* Improved centering CSS */
+:root {
+    --primary-color: #4361ee;
+    --primary-hover: #3a56d4;
+    --error-color: #dc3545;
+    --text-muted: #6c757d;
+}
+
+html, body {
+    height: 100%;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    display: flex;
+    flex-direction: column;
+    background-color: #f8f9fa;
+    font-family: 'Segoe UI', Roboto, 'Helvetica Neue', sans-serif;
+}
+
+.auth-container {
+    display: flex;
+    flex: 1;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+}
+
+.login-container {
+    width: 100%;
+    max-width: 450px;
+    margin: 0 auto;
+}
+
+.login-box {
+    width: 100%;
+    padding: 2.5rem;
+    border-radius: 12px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+    background-color: #fff;
+}
+
+/* [Rest of your CSS remains the same] */
+:root {
+    --primary-color: #4361ee;
+    --primary-hover: #3a56d4;
+    --error-color: #dc3545;
+    --text-muted: #6c757d;
+}
+
+body, html {
+    height: 100%;
+    margin: 0;
+    background-color: #f8f9fa;
+    font-family: 'Segoe UI', Roboto, 'Helvetica Neue', sans-serif;
+}
+
+.auth-container {
+    height: 100vh;
+    background-color: #f8f9fa;
+    padding: 20px;
+}
+
+.login-box {
+    width: 100%;
+    max-width: 420px;
+    padding: 2.5rem;
+    border-radius: 12px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+    background-color: #fff;
+}
+
+.login-logo {
+    height: 60px;
+    transition: transform 0.3s ease;
+}
+
+    .login-logo:hover {
+        transform: scale(1.05);
+    }
+
+.form-control {
+    padding-left: 2.5rem;
+    height: 50px;
+    border-radius: 8px;
+    border: 1px solid #ced4da;
+    transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+}
+
+    .form-control:focus {
+        border-color: var(--primary-color);
+        box-shadow: 0 0 0 0.25rem rgba(67, 97, 238, 0.25);
+    }
+
+.form-floating > label {
+    padding-left: 2.5rem;
+    color: var(--text-muted);
+}
+
+.form-floating > i {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    left: 15px;
+    color: var(--text-muted);
+    pointer-events: none;
+    z-index: 5;
+}
+
+.btn-primary {
+    background-color: var(--primary-color);
+    border-color: var(--primary-color);
+    border-radius: 8px;
+    padding: 10px;
+    font-weight: 500;
+    transition: all 0.3s ease;
+}
+
+    .btn-primary:hover {
+        background-color: var(--primary-hover);
+        border-color: var(--primary-hover);
+        transform: translateY(-1px);
+    }
+
+.btn-outline-secondary {
+    border-radius: 8px;
+    padding: 10px;
+    transition: all 0.3s ease;
+}
+
+    .btn-outline-secondary:hover {
+        background-color: #f8f9fa;
+        transform: translateY(-1px);
+    }
+
+.invalid-feedback {
+    font-size: 0.85rem;
+}
+
+.was-validated .form-control:invalid,
+.form-control.is-invalid {
+    border-color: var(--error-color);
+    padding-right: calc(1.5em + 0.75rem);
+    background-image: none;
+}
+
+    .was-validated .form-control:invalid:focus,
+    .form-control.is-invalid:focus {
+        border-color: var(--error-color);
+        box-shadow: 0 0 0 0.25rem rgba(220, 53, 69, 0.25);
+    }
+
+.text-decoration-none:hover {
+    text-decoration: underline !important;
+}
+
+/* Responsive adjustments */
+@media (max-width: 576px) {
+    .login-box {
+        padding: 1.5rem;
+    }
+
+    .auth-container {
+        padding: 15px;
+    }
+}
