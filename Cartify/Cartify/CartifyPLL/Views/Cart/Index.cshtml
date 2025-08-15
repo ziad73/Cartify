@@ -201,9 +201,11 @@
                         $.post('@Url.Action("RemoveFromCart", "Cart")', {
                             cartItemId: cartItemId
                         }).done(function (response) {
-                            if (response.success) {
-                                location.reload();
-                            } else {
+                                    if (response.success) {
+            $('#cart-count').text(response.cartCount);
+            $(`button[data-cart-item-id="${cartItemId}"]`).closest('tr').remove();
+        }
+         else {
                                 Swal.fire('Error', response.message || 'Failed to remove item', 'error');
                             }
                         });

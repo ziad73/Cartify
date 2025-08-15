@@ -55,12 +55,15 @@ public class CartService : ICartService
                     CartItemId = ci.Cartitem,
                     ProductId = ci.Product.ProductId,
                     ProductName = ci.Product.Name,
-                    ProductImageUrl = ci.Product.ImageUrl,
+                    ProductImageUrl = ci.Product.ImageUrl?
+        .Split('|', StringSplitOptions.RemoveEmptyEntries)
+        .FirstOrDefault(),
                     ProductPrice = ci.Product.Price,
                     Quantity = ci.Quantity,
                     Category = ci.Product.Category?.Name,
                     StockQuantity = ci.Product.StockQuantity
                 }).ToList() ?? new List<CartItemVm>()
+
             };
 
             return (cartVM, null);
@@ -166,11 +169,24 @@ public class CartService : ICartService
         }
     }
 
-
     public (bool, string?) RemoveFromCart(string userId, int cartItemId)
     {
         try
         {
+            // Get user's cart
+            var (cart, cartError) = _cartRepo.GetByUserId(userId);
+            if (!string.IsNullOrEmpty(cartError) || cart == null)
+                return (false, "Cart not found");
+
+            var items = cart.cartItems?.Where(ci => !ci.IsDeleted).ToList() ?? new List<CartItem>();
+
+            // If only one item in cart → clear whole cart
+            if (items.Count == 1 && items.First().Cartitem == cartItemId)
+            {
+                return _cartRepo.ClearCart(userId);
+            }
+
+            // Otherwise delete the single item
             var (cartItem, error) = _cartItemRepo.GetById(cartItemId);
             if (!string.IsNullOrEmpty(error) || cartItem == null)
                 return (false, "Cart item not found");
@@ -178,10 +194,6 @@ public class CartService : ICartService
             if (cartItem.Cart == null)
                 return (false, "Cart not loaded");
 
-            if (string.IsNullOrEmpty(cartItem.Cart.UserId))
-                return (false, "Cart ownership cannot be verified");
-
-            // Verify ownership
             if (cartItem.Cart.UserId != userId)
                 return (false, "Unauthorized");
 

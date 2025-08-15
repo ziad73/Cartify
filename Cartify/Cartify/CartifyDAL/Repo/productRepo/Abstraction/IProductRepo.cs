@@ -10,5 +10,7 @@ namespace CartifyDAL.Repo.productRepo.Abstraction
         Task<(Product, string?)> GetById(int productId);
         Task<(bool, string?)> Update(Product product);
         Task<(bool, string?)> Delete(int productId);
+        Task ReduceStockAsync(int productId, int quantity);
+        public (bool Success, string? ErrorMessage) IncreaseStock(int productId, int quantity);
     }
 }

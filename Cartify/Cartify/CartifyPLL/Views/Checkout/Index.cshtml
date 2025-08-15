@@ -173,6 +173,13 @@
         });
 
         document.getElementById("checkoutForm").addEventListener("submit", function (e) {
+            // ✅ New: Check if user selected an address
+            if (!document.querySelector('input[name="SelectedAddressId"]:checked')) {
+                e.preventDefault();
+                alert("You have to add/select an address before placing the order.");
+                return;
+            }
+
             if (paymentSelect.value === "CreditCard") {
                 const cardNumber = document.getElementById("CardNumber").value.replace(/\D/g, "");
                 if (cardNumber.length !== 16) {
