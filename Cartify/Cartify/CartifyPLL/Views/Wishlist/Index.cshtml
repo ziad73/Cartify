@@ -156,21 +156,67 @@
     </script>
 }
 
-<style>
-    .wishlist-card {
-        transition: all 0.2s ease-in-out;
-        border-radius: 10px;
-    }
-
-        .wishlist-card:hover {
-            transform: translateY(-4px);
-            box-shadow: 0 8px 20px rgba(0,0,0,0.08);
+@section Styles{
+    <style>
+        .wishlist-card {
+            border: none;
+            border-radius: 12px;
+            overflow: hidden;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+            transition: all 0.3s ease;
         }
 
-    .wishlist-image {
-        height: 220px;
-        object-fit: cover;
-        border-top-left-radius: 10px;
-        border-top-right-radius: 10px;
-    }
-</style>
+            .wishlist-card:hover {
+                box-shadow: 0 8px 20px rgba(0,0,0,0.1);
+            }
+
+        .wishlist-image {
+            height: 200px;
+            object-fit: contain;
+            background: #f8f9fa;
+            padding: 25px;
+        }
+
+        .card-body {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            padding: 1.25rem;
+        }
+
+        .card-title {
+            font-size: 1.5rem;
+            margin-bottom: 0.75rem;
+            min-height: 3em;
+        }
+
+        .text-muted.small {
+            font-size: 1rem;
+            margin-bottom: 0.75rem;
+        }
+
+        .text-primary.h5 {
+            margin: 0.75rem 0;
+            font-size: 1.5rem;
+        }
+
+        .stock-info {
+            margin-bottom: 1rem;
+        }
+
+        .btn-group {
+            margin-top: auto;
+            display: flex;
+            gap: 0.5rem;
+        }
+
+            .btn-group .btn {
+                flex: 1;
+                padding: 0.5rem;
+                font-size: 0.9rem;
+            }
+    </style>
+}
