@@ -51,8 +51,7 @@ namespace CartifyPLL.Controllers
             if (isEmailNotConfirmed)
             {
                 TempData["Email"] = model.Email;
-                TempData["VerificationPurpose"] = "Register"; // Or "Reset" if this is from forgot password
-
+                TempData["VerificationPurpose"] = "Register";
                 return View("EmailCodeVerificationView", new EmailCodeVM
                 {
                     Email = model.Email,
@@ -60,18 +59,52 @@ namespace CartifyPLL.Controllers
                 });
             }
 
+
             if (success)
             {
+
                 var user = await userManager.FindByEmailAsync(model.Email);
-                if (user != null && await userManager.IsInRoleAsync(user, "Admin"))
+                if (user != null)
                 {
-                    return RedirectToAction("Index", "AdminDashboard", new { area = "Admin" });
+                    await signInManager.SignOutAsync();
+
+                    var claims = new List<Claim>
+            {
+
+                new Claim(ClaimTypes.Name, user.UserName),
+                new Claim(ClaimTypes.NameIdentifier, user.Id),
+                new Claim(ClaimTypes.Email, user.Email)
+            };
+
+
+                    if (!string.IsNullOrEmpty(user.FullName))
+                    {
+                        claims.Add(new Claim("FullName", user.FullName));
+                    }
+
+
+                    var userRoles = await userManager.GetRolesAsync(user);
+                    foreach (var role in userRoles)
+                    {
+                        claims.Add(new Claim(ClaimTypes.Role, role));
+                    }
+
+                    var claimsIdentity = new ClaimsIdentity(claims, IdentityConstants.ApplicationScheme);
+
+                    await HttpContext.SignInAsync(
+                        IdentityConstants.ApplicationScheme,
+                        new ClaimsPrincipal(claimsIdentity),
+                        new AuthenticationProperties { IsPersistent = false });
+
+
+                    if (userRoles.Contains("Admin"))
+                    {
+                        return RedirectToAction("Index", "AdminDashboard", new { area = "Admin" });
+                    }
+
+                    return RedirectToAction("Index", "Home");
                 }
-
-                return RedirectToAction("Index", "Home");
-
             }
-
 
             ModelState.AddModelError("", error);
             return View("LoginView", model);

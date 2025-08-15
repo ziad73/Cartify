@@ -14,12 +14,12 @@ namespace CartifyDAL.Repo.ProductRepo.Implementation
         {
             this.db = db;
         }
-        public (bool, string?) Create(Product product)
+        public async Task<(bool, string?)> Create(Product product)
         {
             try
             {
-                db.Product.Add(product);
-                db.SaveChanges();
+                await db.Product.AddAsync(product);
+                await db.SaveChangesAsync();
                 return (true, null);
             }
             catch (Exception ex)
@@ -28,17 +28,17 @@ namespace CartifyDAL.Repo.ProductRepo.Implementation
             }
         }
 
-        public (bool, string?) Delete(int productId)
+        public async Task<(bool, string?)> Delete(int productId)
         {
             try
             {
-                var product = db.Product.FirstOrDefault(a => a.ProductId == productId);
+                var product = await db.Product.FirstOrDefaultAsync(a => a.ProductId == productId);
                 if (product == null)
                 {
                     return (false, "Product not found");
                 }
                 product.Delete(product.DeletedBy);
-                db.SaveChanges();
+                await db.SaveChangesAsync();
                 return (true, null);
             }
             catch (Exception ex)
@@ -47,13 +47,11 @@ namespace CartifyDAL.Repo.ProductRepo.Implementation
             }
         }
 
-        public (List<Product>, string?) GetAll()
+        public async Task<(List<Product>, string?)> GetAll()
         {
             try
             {
-                var products = db.Product
-                    .Where(a => !a.IsDeleted).Include(p => p.Category)
-                    .ToList();
+                var products = await db.Product.Where(a => !a.IsDeleted && a.IsActive).Include(p => p.Category).ToListAsync();
                 return (products, null);
             }
             catch (Exception ex)
@@ -62,11 +60,10 @@ namespace CartifyDAL.Repo.ProductRepo.Implementation
             }
         }
 
-        public (Product, string?) GetById(int productId)
+        public async Task<(Product, string?)> GetById(int productId)
         {
             try { 
-            var product = db.Product
-                   .FirstOrDefault(a => a.ProductId == productId && !a.IsDeleted);
+            var product = await db.Product.AsNoTracking().FirstOrDefaultAsync(a => a.ProductId == productId && !a.IsDeleted && a.IsActive);
             if (product == null)
             {
                 return (null, "Product not found");
@@ -79,17 +76,17 @@ namespace CartifyDAL.Repo.ProductRepo.Implementation
             }
 }
 
-        public (bool, string?) Update(Product product)
+        public async Task<(bool, string?)> Update(Product product)
         {
             try
             {
-                var existingProduct = db.Product.FirstOrDefault(a => a.ProductId == product.ProductId && !a.IsDeleted);
+                var existingProduct = await db.Product.FirstOrDefaultAsync(a => a.ProductId == product.ProductId && !a.IsDeleted && a.IsActive);
                 if (existingProduct == null)
                 {
                     return (false, "Product not found");
                 }
                 existingProduct.Update(product.Name, product.StockQuantity, product.Price, product.Description, product.ImageUrl, product.IsActive , product.CategoryId ,product.ModifiedBy);
-                db.SaveChanges();
+                await db.SaveChangesAsync();
                 return (true, null);
             }
             catch (Exception ex)

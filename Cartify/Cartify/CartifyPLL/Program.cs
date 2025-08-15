@@ -1,17 +1,39 @@
 ﻿using Cartify.DAL.DataBase;
 using CartifyBLL.Mapper;
 using CartifyBLL.Services;
+using CartifyBLL.Services.CartService.Abstraction;
+using CartifyBLL.Services.CartService.Implementation;
 using CartifyBLL.Services.CategoryServices;
+using CartifyBLL.Services.CheckoutService.Abstraction;
+using CartifyBLL.Services.CheckoutService.Implementation;
+using CartifyBLL.Services.OrderService.Abstraction;
+using CartifyBLL.Services.OrderService.Implementation;
 using CartifyBLL.Services.Product.Abstraction;
 using CartifyBLL.Services.Product.Impelementation;
+using CartifyBLL.Services.ProductReviewServices.Abstraction;
+using CartifyBLL.Services.ProductReviewServices.Impelementation;
+using CartifyBLL.Services.SearchService.Abstraction;
+using CartifyBLL.Services.SearchService.Implementation;
 using CartifyBLL.Services.UserServices;
+using CartifyBLL.Services.WishlistService.Abstraction;
+using CartifyBLL.Services.WishlistService.Implementation;
 using CartifyDAL.Entities.user;
+using CartifyDAL.Repo.Abstraction;
+using CartifyDAL.Repo.cartRepo.Abstraction;
+using CartifyDAL.Repo.cartRepo.Implementation;
 using CartifyDAL.Repo.categoryRepo.Abstraction;
 using CartifyDAL.Repo.CategoryRepo.Implementation;
+using CartifyDAL.Repo.Implementation;
 using CartifyDAL.Repo.productRepo.Abstraction;
 using CartifyDAL.Repo.ProductRepo.Implementation;
+using CartifyDAL.Repo.ProductReviewRepo.Abstraction;
+using CartifyDAL.Repo.ProductReviewRepo.Implementation;
+using CartifyDAL.Repo.SearchRepo.Abstraction;
+using CartifyDAL.Repo.SearchRepo.Implementation;
 using CartifyDAL.Repo.userRepo.Abstraction;
 using CartifyDAL.Repo.userRepo.Impelementaion;
+using CartifyDAL.Repo.WishlistRepo.Abstraction;
+using CartifyDAL.Repo.WishlistRepo.Implementation;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Authentication.Google;
 using Microsoft.AspNetCore.Identity;
@@ -19,24 +41,6 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using System;
 using System.Configuration;
-using CartifyBLL.Services.CartService.Abstraction;
-using CartifyBLL.Services.CartService.Implementation;
-using CartifyBLL.Services.CheckoutService.Abstraction;
-using CartifyBLL.Services.CheckoutService.Implementation;
-using CartifyBLL.Services.OrderService.Abstraction;
-using CartifyBLL.Services.OrderService.Implementation;
-using CartifyBLL.Services.SearchService.Abstraction;
-using CartifyBLL.Services.SearchService.Implementation;
-using CartifyBLL.Services.WishlistService.Abstraction;
-using CartifyBLL.Services.WishlistService.Implementation;
-using CartifyDAL.Repo.Abstraction;
-using CartifyDAL.Repo.cartRepo.Abstraction;
-using CartifyDAL.Repo.cartRepo.Implementation;
-using CartifyDAL.Repo.Implementation;
-using CartifyDAL.Repo.SearchRepo.Abstraction;
-using CartifyDAL.Repo.SearchRepo.Implementation;
-using CartifyDAL.Repo.WishlistRepo.Abstraction;
-using CartifyDAL.Repo.WishlistRepo.Implementation;
 
 namespace CartifyPLL
 {
@@ -119,7 +123,11 @@ namespace CartifyPLL
             builder.Services.AddScoped<IWishlistService, WishlistService>();
             builder.Services.AddScoped<ISearchService, SearchService>();
             builder.Services.AddScoped<IOrderService, OrderService>();
-            
+
+            // productReview Repo
+            builder.Services.AddScoped<IProductReviewRepo, ProductReviewRepo>();
+            // productReview services
+            builder.Services.AddScoped<IProductReviewServices, ProductReviewServices>();
             // Register CheckoutService ONCE (you had it twice)
             builder.Services.AddScoped<ICheckoutService, CheckoutService>();
 

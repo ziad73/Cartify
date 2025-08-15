@@ -69,8 +69,9 @@ namespace CartifyDAL.Repo.cartRepo.Implementation
             {
                 var cartItem = _context.CartItem
                     .Include(ci => ci.Product)
+                    .Include(ci => ci.Cart) // load Cart so UserId is available
                     .FirstOrDefault(ci => ci.Cartitem == cartItemId && !ci.IsDeleted);
-                
+
                 if (cartItem == null)
                     return (null, "Cart item not found");
 

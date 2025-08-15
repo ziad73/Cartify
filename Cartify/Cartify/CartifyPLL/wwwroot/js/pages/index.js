@@ -19,7 +19,7 @@ function addToCompare(productId) {
 }
 
 function quickView(productId) {
-  window.location.href = "product-details.html?id=" + productId;
+    window.location.href = "/Store/Details/" + productId;
 }
 
 function addToCart(productId) {
@@ -56,11 +56,4 @@ document.addEventListener("DOMContentLoaded", function () {
     });
   });
 
-  // Product name links
-  document.querySelectorAll(".product-name a").forEach(function (link, index) {
-    link.addEventListener("click", function (e) {
-      e.preventDefault();
-      quickView(index + 1);
-    });
-  });
 });

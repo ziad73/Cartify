@@ -22,12 +22,22 @@
     <!-- Bootstrap -->
     <link rel="stylesheet" href="~/css/bootstrap.min.css" />
 
+    <!-- nouislider -->
+    <link type="text/css" rel="stylesheet" href="~/css/nouislider.min.css" />
+
+    <!-- Slick -->
+    <link type="text/css" rel="stylesheet" href="~/css/slick.css" />
+    <link type="text/css" rel="stylesheet" href="~/css/slick-theme.css" />
+
     <!-- Font Awesome -->
     <link rel="stylesheet" href="~/css/font-awesome.min.css" />
 
     <!-- Custom styles -->
     <link rel="stylesheet" href="~/css/style.css" />
     <link rel="stylesheet" href="~/css/pages/navbar.css" />
+    
+
+
 
     @RenderSection("Styles", required: false) <!--tells the layout to render any custom styles defined by the view. -->
     <meta name="csrf-token" content="@Antiforgery.GetAndStoreTokens(Context).RequestToken" />
@@ -47,13 +57,7 @@
             <!-- Center: Search + Wishlist + Cart -->
             <div class="navbar-center">
                 <form id="searchForm" method="get" action="/Search" class="search-form">
-                    <select name="category">
-                        <option value="">All Categories</option>
-                        <option value="laptops">Laptops</option>
-                        <option value="smartphones">Smartphones</option>
-                        <option value="cameras">Cameras</option>
-                        <option value="accessories">Accessories</option>
-                    </select>
+                    
                     <input type="text" id="searchInput" name="query" placeholder="Search here..." />
                     <button type="submit">Search</button>
                 </form>
@@ -118,12 +122,7 @@
             {
                 <li><a asp-controller="Orders" asp-action="Index">My Orders</a></li>
             }
-            <li><a href="~/Store">Hot Deals</a></li>
-            <li><a href="~/Store?category=categories">Categories</a></li>
-            <li><a href="~/Store?category=laptops">Laptops</a></li>
-            <li><a href="~/Store?category=smartphones">Smartphones</a></li>
-            <li><a href="~/Store?category=cameras">Cameras</a></li>
-            <li><a href="~/Store?category=accessories">Accessories</a></li>
+            
             <li><a asp-controller="Home" asp-action="Contact">Contact Us</a></li>
 
         </ul>
@@ -140,7 +139,11 @@
     <script src="~/js/pages/search.js"></script>
     <script src="~/js/bootstrap.min.js"></script>
     <script src="~/js/main.js"></script>
+    <script src="~/js/slick.min.js"></script>
+    <script src="~/js/nouislider.min.js"></script>
     <script src="~/js/pages/navbar.js"></script>
+    <script src="~/js/jquery.zoom.min.js"></script>
+    <script src="~/js/pages/product.js"></script>
     
     @RenderSection("Scripts", required: false)
 </body>

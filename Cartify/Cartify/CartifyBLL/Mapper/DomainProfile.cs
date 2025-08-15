@@ -3,6 +3,7 @@ using AutoMapper;
 using CartifyBLL.ViewModels.Cart;
 using CartifyBLL.ViewModels.Orders;
 using CartifyBLL.ViewModels.Product;
+using CartifyBLL.ViewModels.Products.ProductReview;
 using CartifyBLL.ViewModels.Search;
 using CartifyBLL.ViewModels.Wishlist;
 using CartifyDAL.Entities.cart;
@@ -20,7 +21,9 @@ namespace CartifyBLL.Mapper
             CreateMap<CreateProduct, ProductDTO>().ReverseMap();
             CreateMap<CreateProduct, Product>().ReverseMap().ForMember(dest => dest.ImageUrl, opt => opt.MapFrom(src => src.ImageUrl)); ;
             CreateMap<Product, ProductDTO>().ForMember(dest => dest.Category, opt => opt.MapFrom(src => src.Category.Name))
-            .ForMember(dest => dest.ImageUrl, opt => opt.MapFrom(src => src.ImageUrl)); ;
+            .ForMember(dest => dest.ImageUrl, opt => opt.MapFrom(src => src.ImageUrl));
+            CreateMap<CreateProductReview, ProductReview>().ConstructUsing(src => new ProductReview(src.ProductId, src.UserId, src.ReviewerName, src.Comment, src.Rating));
+            CreateMap<ProductReview, ProductReviewDTO>().ReverseMap();
             // New search Mapping
             CreateMap<SearchRequestDTO, SearchCriteria>();
             CreateMap<SearchResult, SearchResultDTO>();

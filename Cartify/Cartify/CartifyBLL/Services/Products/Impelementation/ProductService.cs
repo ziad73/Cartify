@@ -7,6 +7,7 @@ using CartifyDAL.Repo.ProductRepo.Implementation;
 using Microsoft.AspNetCore.Http;
 using Microsoft.CodeAnalysis;
 using Microsoft.EntityFrameworkCore;
+using System.Threading.Tasks;
 
 namespace CartifyBLL.Services.Product.Impelementation
 {
@@ -21,7 +22,7 @@ namespace CartifyBLL.Services.Product.Impelementation
             this.productRepo = productRepo;
             mapper = _mapper;
         }
-        public (bool, string?) Create(CreateProduct createProduct)
+        public async Task<(bool, string?)> Create(CreateProduct createProduct)
         {
             try
             {
@@ -48,7 +49,7 @@ namespace CartifyBLL.Services.Product.Impelementation
 
                         using (var stream = new FileStream(filePath, FileMode.Create))
                         {
-                            image.CopyTo(stream);
+                            await image.CopyToAsync(stream);
                         }
 
                         imageUrls.Add("/Files/" + fileName);
@@ -60,7 +61,7 @@ namespace CartifyBLL.Services.Product.Impelementation
 
                 var product = mapper.Map<CartifyDAL.Entities.product.Product>(createProduct);
 
-                var result = productRepo.Create(product);
+                var result = await productRepo.Create(product);
                 return (result);
             }
             catch (Exception ex)
@@ -69,31 +70,31 @@ namespace CartifyBLL.Services.Product.Impelementation
             }
         }
 
-        public (bool, string?) Delete(int ProductId)
+        public async Task<(bool, string?)> Delete(int ProductId)
         {
-            return productRepo.Delete(ProductId);
+            return await productRepo.Delete(ProductId);
         }
 
-        public (List<ProductDTO>, string?) GetAll()
+        public async Task<(List<ProductDTO>, string?)> GetAll()
         {
-            var result = productRepo.GetAll();
+            var result = await productRepo.GetAll();
             if (result.Item2 != null)
-                return (null, null);
+                return (null, result.Item2);
             var productDTOs = mapper.Map<List<ProductDTO>>(result.Item1);
             return (productDTOs, null);
         }
 
-        public (ProductDTO, string?) GetById(int ProductId)
+        public async Task<(ProductDTO, string?)> GetById(int ProductId)
         {
-            var result = productRepo.GetById(ProductId);
+            var result = await productRepo.GetById(ProductId);
             if (result.Item2 != null)
-                return (null, null);
+                return (null, result.Item2);
 
             var productDTO = mapper.Map<ProductDTO>(result.Item1);
             return (productDTO, null);
         }
 
-        public (bool, string?) Update(CreateProduct createProduct)
+        public async Task<(bool, string?)> Update(CreateProduct createProduct)
         {
             if (createProduct.Price <= 0)
                 return (false, "Price must be greater than 0.");
@@ -112,7 +113,7 @@ namespace CartifyBLL.Services.Product.Impelementation
 
                         using (var stream = new FileStream(filePath, FileMode.Create))
                         {
-                            image.CopyTo(stream);
+                            await image.CopyToAsync(stream);
                         }
 
                         imageUrls.Add("/Files/" + uniqueName);
@@ -124,7 +125,7 @@ namespace CartifyBLL.Services.Product.Impelementation
             }
 
             var product = mapper.Map<CartifyDAL.Entities.product.Product>(createProduct);
-            return productRepo.Update(product);
+            return await productRepo.Update(product);
         }
     }
 }

@@ -1,4 +1,5 @@
 ﻿@model List<CartifyBLL.ViewModels.Product.ProductDTO>
+@using System.Globalization
 @{
     ViewData["Title"] = "Store";
     var categories = ViewBag.Categories as IEnumerable<dynamic> ?? new List<dynamic>();
@@ -8,9 +9,23 @@
     var totalPages = ViewBag.TotalPages != null ? (int)ViewBag.TotalPages : 1;
     var pageSize = ViewBag.PageSize != null ? (int)ViewBag.PageSize : 12;
     var totalItems = ViewBag.TotalItems != null ? (int)ViewBag.TotalItems : 0;
+    var sort = ViewBag.Sort as string ?? "name";
+    var maxPrice = ViewBag.MaxPrice as decimal? ?? 1000m;
+    var priceCeiling = ViewBag.PriceCeiling != null ? (int)ViewBag.PriceCeiling : 1000;
+}
+@section Styles{
+    <style>
+        <link rel="stylesheet" href="~/css/store.css" >
+        <link type="text/css" rel="stylesheet" href="~/css/bootstrap.min.css" / >
+        <link type="text/css" rel="stylesheet" href="~/css/slick.css" / >
+        <link type="text/css" rel="stylesheet" href="~/css/slick-theme.css" / >
+        <link type="text/css" rel="stylesheet" href="~/css/nouislider.min.css" / >
+        <link rel="stylesheet" href="~/css/font-awesome.min.css" / >
+        <link type="text/css" rel="stylesheet" href="~/css/style.css" / >
+    </style>
+    
 }
 
-<link rel="stylesheet" href="~/css/store.css">
 
 <!-- BREADCRUMB -->
 <div id="breadcrumb" class="section">
@@ -49,67 +64,47 @@
         <div class="row">
             <!-- ASIDE -->
             <div id="aside" class="col-md-3">
-                <!-- Categories Widget -->
+                <!-- Category filter -->
                 <div class="aside">
                     <h3 class="aside-title">Categories</h3>
                     <div class="checkbox-filter">
                         <div class="input-checkbox">
-                            @if (selectedCategory == null)
-                            {
-                                <input type="radio" id="category-all" name="category" value="" 
-                                       checked onchange="filterByCategory('')" />
-                            }
-                            else
-                            {
-                                <input type="radio" id="category-all" name="category" value="" 
-                                       onchange="filterByCategory('')" />
-                            }
+                            <input type="radio" id="category-all" name="category" value=""
+                                   @(selectedCategory == null ? "checked" : "")
+                                   onchange="filterByCategory('')" />
                             <label for="category-all">
-                                <span></span>
-                                All Categories
-                                <small>(@totalItems)</small>
+                                <span></span> All Categories
                             </label>
                         </div>
-                        
                         @foreach (var category in categories)
                         {
                             <div class="input-checkbox">
-                                @if (selectedCategory == category.CategoryId)
-                                {
-                                    <input type="radio" id="category-@category.CategoryId" name="category" 
-                                           value="@category.CategoryId" checked
-                                           onchange="filterByCategory(@category.CategoryId)" />
-                                }
-                                else
-                                {
-                                    <input type="radio" id="category-@category.CategoryId" name="category" 
-                                           value="@category.CategoryId" 
-                                           onchange="filterByCategory(@category.CategoryId)" />
-                                }
+                                <input type="radio" id="category-@category.CategoryId" name="category"
+                                       value="@category.CategoryId"
+                                       @(selectedCategory == category.CategoryId ? "checked" : "")
+                                       onchange="filterByCategory(@category.CategoryId)" />
                                 <label for="category-@category.CategoryId">
-                                    <span></span>
-                                    @category.Name
-                                    <small>(@Model.Count(p => p.CategoryId == category.CategoryId))</small>
+                                    <span></span> @category.Name
                                 </label>
                             </div>
                         }
                     </div>
                 </div>
-
-                <!-- Search Widget -->
+                <!-- Price filter -->
                 <div class="aside">
-                    <h3 class="aside-title">Search Products</h3>
-                    <form method="get" action="/Store">
-                        <div class="input-group mb-3">
-                            <input type="text" class="form-control" name="searchTerm" 
-                                   placeholder="Search products..." value="@searchTerm">
-                            <button class="btn btn-primary" type="submit">
-                                <i class="fa fa-search"></i>
-                            </button>
-                        </div>
-                        <input type="hidden" name="categoryId" value="@selectedCategory">
-                        <input type="hidden" name="page" value="1">
-                    </form>
+                    <h3 class="aside-title">Price</h3>
+                    <div class="price-filter">
+                        <input type="range"
+                               id="priceRange"
+                               min="0"
+                               max="@priceCeiling"
+                               step="1"
+                               value="@((int)Math.Ceiling(maxPrice))"
+                               oninput="updatePriceLabel(this.value)"
+                               class="form-range" />
+                        <p>Up to: $<span id="priceLabel">@((int)Math.Ceiling(maxPrice))</span></p>
+                        <button class="btn btn-primary w-100" onclick="filterByPrice()">Filter</button>
+                    </div>
                 </div>
 
                 <!-- Top Selling Widget (placeholder) -->
@@ -121,12 +116,12 @@
                         {
                             <div class="product-widget">
                                 <div class="product-img">
-                                    <img src="@(string.IsNullOrEmpty(topProduct.ImageUrl) ? "/images/no-image.png" : topProduct.ImageUrl)" alt="@topProduct.Name" />
+                                    <img src="@(string.IsNullOrEmpty(topProduct.ImageUrl) ? "/images/no-image.png" : topProduct.ImageUrl?.Split('|')[0])" alt="@topProduct.Name" />
                                 </div>
                                 <div class="product-body">
                                     <p class="product-category">@topProduct.Category</p>
                                     <h3 class="product-name">
-                                        <a href="#">@topProduct.Name</a>
+                                        <a asp-controller="Store" asp-action="Details" asp-route-id="@topProduct.ProductId">@topProduct.Name</a>
                                     </h3>
                                     <h4 class="product-price">
                                         $@topProduct.Price.ToString("F2")
@@ -147,73 +142,21 @@
                         <label>
                             Sort By:
                             <select class="input-select" onchange="sortProducts(this.value)">
-                                <option value="name">Name</option>
-                                <option value="price-asc">Price: Low to High</option>
-                                <option value="price-desc">Price: High to Low</option>
-                                <option value="stock">Stock</option>
+                                <option value="name" selected="@(sort == "name")">Name</option>
+                                <option value="price-asc" selected="@(sort == "price-asc")">Price: Low to High</option>
+                                <option value="price-desc" selected="@(sort == "price-desc")">Price: High to Low</option>
                             </select>
                         </label>
-
                         <label>
                             Show:
                             <select class="input-select" onchange="changePageSize(this.value)">
-                                @if (pageSize == 12)
-                                {
-                                    <option value="12" selected>12</option>
-                                }
-                                else
-                                {
-                                    <option value="12">12</option>
-                                }
-                                @if (pageSize == 24)
-                                {
-                                    <option value="24" selected>24</option>
-                                }
-                                else
-                                {
-                                    <option value="24">24</option>
-                                }
-                                @if (pageSize == 48)
-                                {
-                                    <option value="48" selected>48</option>
-                                }
-                                else
-                                {
-                                    <option value="48">48</option>
-                                }
+                                <option value="12" selected="@(pageSize == 12)">12</option>
+                                <option value="24" selected="@(pageSize == 24)">24</option>
+                                <option value="48" selected="@(pageSize == 48)">48</option>
                             </select>
                         </label>
                     </div>
-                    <ul class="store-grid">
-                        <li class="active"><i class="fa fa-th"></i></li>
-                        <li><a href="#"><i class="fa fa-th-list"></i></a></li>
-                    </ul>
                 </div>
-
-                <!-- Active Filters Display -->
-                @if (!string.IsNullOrEmpty(searchTerm) || selectedCategory.HasValue)
-                {
-                    <div class="alert alert-info mb-4">
-                        <div class="d-flex justify-content-between align-items-center">
-                            <div>
-                                <strong><i class="fa fa-filter me-2"></i>Active Filters:</strong>
-                                @if (!string.IsNullOrEmpty(searchTerm))
-                                {
-                                    <span class="badge bg-primary ms-2">Search: "@searchTerm"</span>
-                                }
-                                @if (selectedCategory.HasValue)
-                                {
-                                    var categoryName = categories.FirstOrDefault(c => c.CategoryId == selectedCategory.Value)?.Name ?? "Unknown";
-                                    <span class="badge bg-success ms-2">Category: @categoryName</span>
-                                }
-                            </div>
-                            <a href="/Store" class="btn btn-outline-secondary btn-sm">
-                                <i class="fa fa-times me-1"></i>Clear Filters
-                            </a>
-                        </div>
-                    </div>
-                }
-
                 <!-- Store products -->
                 <div class="row">
                     @if (Model != null && Model.Any())
@@ -223,98 +166,34 @@
                             <div class="col-md-4 col-xs-6">
                                 <div class="product">
                                     <div class="product-img">
-                                        <img src="@(string.IsNullOrEmpty(product.ImageUrl) ? "/images/no-image.png" : product.ImageUrl)" 
-                                             alt="@product.Name" />
-                                        <div class="product-label">
-                                            @if (product.StockQuantity <= 0)
-                                            {
-                                                <span class="out-of-stock">OUT OF STOCK</span>
-                                            }
-                                            else if (product.StockQuantity <= 5)
-                                            {
-                                                <span class="low-stock">LOW STOCK</span>
-                                            }
-                                            else
-                                            {
-                                                <span class="new">IN STOCK</span>
-                                            }
+                                    <a asp-controller="Store" asp-action="Details" asp-route-id="@product.ProductId" style="display:block;">
+                                            <img src="@(string.IsNullOrEmpty(product.ImageUrl) ? "/images/no-image.png" : product.ImageUrl?.Split('|')[0])" alt="@product.Name" style="width:100%; height:auto;" />
+                                        </a>
                                         </div>
-                                    </div>
                                     <div class="product-body">
                                         <p class="product-category">@product.Category</p>
-                                        <h3 class="product-name">
-                                            <a href="#" title="@product.Name">@product.Name</a>
-                                        </h3>
-                                        <h4 class="product-price">
-                                            $@product.Price.ToString("F2")
-                                        </h4>
-                                        <div class="product-rating">
-                                            <!-- Placeholder rating - you can implement actual ratings later -->
-                                            <i class="fa fa-star"></i>
-                                            <i class="fa fa-star"></i>
-                                            <i class="fa fa-star"></i>
-                                            <i class="fa fa-star"></i>
-                                            <i class="fa fa-star-o"></i>
-                                        </div>
+                                        <h3 class="product-name"><a asp-controller ="Store" asp-action="Details" asp-route-id="@product.ProductId">@product.Name</a></h3>
+                                        <h4 class="product-price">$@product.Price.ToString("F2", CultureInfo.InvariantCulture)</h4>
                                         <div class="product-btns">
-                                            <!-- Wishlist Button -->
-                                            <button class="add-to-wishlist @(product.InWishlist ? "active" : "")" 
-                                                    onclick="toggleWishlist(@product.ProductId, this)" 
-                                                    title="@(product.InWishlist ? "Remove from wishlist" : "Add to wishlist")">
+                                            <button class="add-to-wishlist @(product.InWishlist ? "active" : "")"
+                                                    onclick="toggleWishlist(@product.ProductId, this)">
                                                 <i class="fa @(product.InWishlist ? "fa-heart" : "fa-heart-o")"></i>
-                                                <span class="tooltipp">
-                                                    @(product.InWishlist ? "remove from wishlist" : "add to wishlist")
-                                                </span>
                                             </button>
-                                            <!-- Compare Button (placeholder) -->
-                                            <button class="add-to-compare" onclick="addToCompare(@product.ProductId)" 
-                                                    title="Add to compare">
-                                                <i class="fa fa-exchange"></i>
-                                                <span class="tooltipp">add to compare</span>
-                                            </button>
-                                            <!-- Quick View Button (placeholder) -->
-                                            <button class="quick-view" onclick="quickView(@product.ProductId)" 
-                                                    title="Quick view">
+                                            <button class="quick-view" onclick="quickView(@product.ProductId)">
                                                 <i class="fa fa-eye"></i>
-                                                <span class="tooltipp">quick view</span>
                                             </button>
                                         </div>
                                     </div>
                                     <div class="add-to-cart">
                                         @if (product.StockQuantity > 0)
                                         {
-                                            @if (User.Identity.IsAuthenticated)
-                                            {
-                                                <!-- Quantity selector (hidden by default, shown on hover) -->
-                                                <div class="quantity-selector" style="display: none;">
-                                                    <div class="input-group input-group-sm mb-2">
-                                                        <button class="btn btn-outline-secondary" type="button" 
-                                                                onclick="changeQuantity(@product.ProductId, -1)">
-                                                            <i class="fa fa-minus"></i>
-                                                        </button>
-                                                        <input type="number" class="form-control text-center" 
-                                                               id="quantity-@product.ProductId" 
-                                                               value="1" min="1" max="@product.StockQuantity" readonly>
-                                                        <button class="btn btn-outline-secondary" type="button" 
-                                                                onclick="changeQuantity(@product.ProductId, 1)">
-                                                            <i class="fa fa-plus"></i>
-                                                        </button>
-                                                    </div>
-                                                </div>
-                                                <button class="add-to-cart-btn" onclick="addToCart(@product.ProductId)">
-                                                    <i class="fa fa-shopping-cart"></i> add to cart
-                                                </button>
-                                            }
-                                            else
-                                            {
-                                                <a href="/Account/Login" class="add-to-cart-btn text-decoration-none">
-                                                    <i class="fa fa-sign-in"></i> login to purchase
-                                                </a>
-                                            }
+                                            <button class="add-to-cart-btn" onclick="addToCart(@product.ProductId)">
+                                                <i class="fa fa-shopping-cart"></i> add to cart
+                                            </button>
                                         }
                                         else
                                         {
-                                            <button class="add-to-cart-btn" disabled style="background-color: #ccc;">
+                                            <button class="add-to-cart-btn" disabled>
                                                 <i class="fa fa-ban"></i> out of stock
                                             </button>
                                         }
@@ -325,24 +204,9 @@
                     }
                     else
                     {
-                        <div class="col-12">
-                            <div class="text-center py-5">
-                                <div class="mb-4">
-                                    <i class="fa fa-search fa-4x text-muted"></i>
-                                </div>
-                                <h3 class="text-muted">No Products Found</h3>
-                                <p class="text-muted">
-                                    @if (!string.IsNullOrEmpty(searchTerm) || selectedCategory.HasValue)
-                                    {
-                                        <span>Try adjusting your search criteria or </span>
-                                        <a href="/Store" class="text-decoration-none">browse all products</a>
-                                    }
-                                    else
-                                    {
-                                        <span>No products are currently available.</span>
-                                    }
-                                </p>
-                            </div>
+                        <div class="col-12 text-center py-5">
+                            <i class="fa fa-search fa-4x text-muted mb-3"></i>
+                            <h3>No Products Found</h3>
                         </div>
                     }
                 </div>
@@ -357,39 +221,22 @@
                         <ul class="store-pagination">
                             @if (currentPage > 1)
                             {
-                                <li>
-                                    <a href="?page=@(currentPage - 1)&categoryId=@selectedCategory&searchTerm=@searchTerm&pageSize=@pageSize">
-                                        <i class="fa fa-angle-left"></i>
-                                    </a>
-                                </li>
+                                <li><a href="javascript:void(0);" onclick="changePage(@(currentPage - 1))"><i class="fa fa-angle-left"></i></a></li>
                             }
-                            
-                            @{
-                                var startPage = Math.Max(1, currentPage - 2);
-                                var endPage = Math.Min(totalPages, currentPage + 2);
-                            }
-                            
-                            @for (int i = startPage; i <= endPage; i++)
+                            @for (int i = 1; i <= totalPages; i++)
                             {
-                                @if (i == currentPage)
+                                if (i == currentPage)
                                 {
                                     <li class="active">@i</li>
                                 }
                                 else
                                 {
-                                    <li>
-                                        <a href="?page=@i&categoryId=@selectedCategory&searchTerm=@searchTerm&pageSize=@pageSize">@i</a>
-                                    </li>
+                                    <li><a href="javascript:void(0);" onclick="changePage(@i)">@i</a></li>
                                 }
                             }
-                            
                             @if (currentPage < totalPages)
                             {
-                                <li>
-                                    <a href="?page=@(currentPage + 1)&categoryId=@selectedCategory&searchTerm=@searchTerm&pageSize=@pageSize">
-                                        <i class="fa fa-angle-right"></i>
-                                    </a>
-                                </li>
+                                <li><a href="javascript:void(0);" onclick="changePage(@(currentPage + 1))"><i class="fa fa-angle-right"></i></a></li>
                             }
                         </ul>
                     </div>
@@ -402,250 +249,79 @@
     <!-- /container -->
 </div>
 <!-- /SECTION -->
-
 @section Scripts {
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script>
-        // Get Anti-Forgery Token
-        function getAntiForgeryToken() {
-            return document.querySelector('input[name="__RequestVerificationToken"]').value;
+        function getParams() {
+            const p = new URLSearchParams(window.location.search);
+            return {
+                categoryId: p.get("categoryId") || "",
+                sort: p.get("sort") || "name",
+                pageSize: p.get("pageSize") || "12",
+                page: p.get("page") || "1",
+                maxPrice: p.get("maxPrice") || ""
+            };
         }
 
-        // Filter by Category
-        function filterByCategory(categoryId) {
-            const searchTerm = '@searchTerm';
-            const url = `/Store?categoryId=${categoryId}&searchTerm=${searchTerm}&page=1`;
-            window.location.href = url;
-        }
-
-        // Change Page Size
-        function changePageSize(newPageSize) {
-            const categoryId = '@selectedCategory';
-            const searchTerm = '@searchTerm';
-            const url = `/Store?categoryId=${categoryId}&searchTerm=${searchTerm}&page=1&pageSize=${newPageSize}`;
-            window.location.href = url;
-        }
-
-        // Sort Products (client-side for now)
-        function sortProducts(sortBy) {
-            // For now, just show an alert. You can implement server-side sorting later
-            Swal.fire({
-                title: 'Sort Feature',
-                text: `Sorting by: ${sortBy}`,
-                icon: 'info',
-                timer: 2000
+        function buildUrl(changes) {
+            const p = new URLSearchParams(window.location.search);
+            Object.entries(changes).forEach(([k, v]) => {
+                if (v === null || v === undefined || v === "") p.delete(k);
+                else p.set(k, v);
             });
+            return `/Store?${p.toString()}`;
         }
 
-       
+        function applyFilter(changes) {
+            const merged = { ...getParams(), ...changes };
+            if (!("page" in changes)) merged.page = "1";
+            window.location.href = buildUrl(merged);
+        }
 
-        function addToCart(productId) {
-            console.log('addToCart called with product ID:', productId);
+        function filterByCategory(categoryId) { applyFilter({ categoryId }); }
+        function changePageSize(size) { applyFilter({ pageSize: size }); }
+        function sortProducts(sortBy) { applyFilter({ sort: sortBy }); }
+        function filterByPrice() {
+            const max = document.getElementById("priceRange").value;
+            applyFilter({ maxPrice: max });
+        }
+        function changePage(page) { applyFilter({ page: String(page) }); }
 
-            // Get quantity (default to 1 if no input)
-            const qtyInput = document.getElementById(`quantity-${productId}`);
-            const quantity = qtyInput ? qtyInput.value : 1;
+        function updatePriceLabel(value) {
+            document.getElementById("priceLabel").textContent = value;
+        }
 
-            // Get anti-forgery token from form/page
-            const tokenElement = document.querySelector('input[name="__RequestVerificationToken"]');
-            const token = tokenElement ? tokenElement.value : '';
-
+        function addToCart(id) {
             fetch('/Cart/AddToCart', {
                 method: 'POST',
-                headers: {
-                    'Content-Type': 'application/x-www-form-urlencoded',
-                },
-                body: `productId=${productId}&quantity=${quantity}&__RequestVerificationToken=${token}`
+                headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+                body: `productId=${id}&quantity=1&__RequestVerificationToken=${document.querySelector('input[name="__RequestVerificationToken"]').value}`
             })
-                .then(response => response.json())
-                .then(data => {
-                    console.log('AddToCart response:', data);
-
-                    if (data.success) {
-                        Swal.fire({
-                            title: 'Success!',
-                            text: data.message,
-                            icon: 'success',
-                            timer: 2000,
-                            showConfirmButton: false
-                        });
-
-                        if (typeof updateCartCount === "function") {
-                            updateCartCount(data.cartCount);
-                        }
-                    } else {
-                        Swal.fire({
-                            title: 'Error!',
-                            text: data.message,
-                            icon: 'error'
-                        });
-                    }
-                })
-                .catch(error => {
-                    console.error('AddToCart error:', error);
-                    Swal.fire({
-                        title: 'Error!',
-                        text: 'Error adding to cart',
-                        icon: 'error'
-                    });
-                });
+            .then(r => r.json())
+            .then(data => {
+                Swal.fire({ title: data.success ? 'Added!' : 'Error', text: data.message, icon: data.success ? 'success' : 'error', timer: 1500 });
+            });
         }
 
-
-
-        
-
-
-        function toggleWishlist(productId, button) {
-            console.log('toggleWishlist called with product ID:', productId);
-
-            // Get anti-forgery token
-            const tokenElement = document.querySelector('input[name="__RequestVerificationToken"]');
-            const token = tokenElement ? tokenElement.value : '';
-
+        function toggleWishlist(id, btn) {
             fetch('/Wishlist/ToggleWishlist', {
                 method: 'POST',
-                headers: {
-                    'Content-Type': 'application/x-www-form-urlencoded',
-                },
-                body: `productId=${productId}&__RequestVerificationToken=${token}`
+                headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+                body: `productId=${id}&__RequestVerificationToken=${document.querySelector('input[name="__RequestVerificationToken"]').value}`
             })
-                .then(response => response.json())
-                .then(data => {
-                    console.log('ToggleWishlist response:', data);
-
-                    if (data.success) {
-                        // Show toast
-                        Swal.fire({
-                            title: 'Success!',
-                            text: data.message,
-                            icon: 'success',
-                            timer: 1500,
-                            showConfirmButton: false
-                        });
-
-                        // Update wishlist count in header
-                        if (typeof updateWishlistCount === "function") {
-                            updateWishlistCount(data.wishlistCount);
-                        }
-
-                        // Toggle icon + tooltip instantly
-                        const icon = button.querySelector("i");
-                        const tooltip = button.querySelector(".tooltipp");
-
-                        if (icon.classList.contains("fa-heart")) {
-                            icon.classList.replace("fa-heart", "fa-heart-o");
-                            button.classList.remove("active");
-                            button.title = "Add to wishlist";
-                            tooltip.textContent = "add to wishlist";
-                        } else {
-                            icon.classList.replace("fa-heart-o", "fa-heart");
-                            button.classList.add("active");
-                            button.title = "Remove from wishlist";
-                            tooltip.textContent = "remove from wishlist";
-                        }
-
-                    } else {
-                        Swal.fire({
-                            title: 'Error!',
-                            text: data.message,
-                            icon: 'error'
-                        });
-                    }
-                })
-                .catch(error => {
-                    console.error('ToggleWishlist error:', error);
-                    Swal.fire({
-                        title: 'Error!',
-                        text: 'Error updating wishlist',
-                        icon: 'error'
-                    });
-                });
-        }
-
-
-
-
-        // Change Quantity Function
-        function changeQuantity(productId, change) {
-            const input = document.getElementById(`quantity-${productId}`);
-            const currentValue = parseInt(input.value);
-            const newValue = currentValue + change;
-            const max = parseInt(input.getAttribute('max'));
-            const min = parseInt(input.getAttribute('min'));
-            
-            if (newValue >= min && newValue <= max) {
-                input.value = newValue;
-            }
-            console.log('Quantity changed for product', productId, 'to', input.value);
-        }
-
-        // Add to Compare (placeholder function)
-        function addToCompare(productId) {
-            Swal.fire({
-                title: 'Compare Feature',
-                text: `Product ${productId} added to compare list`,
-                icon: 'info',
-                timer: 2000
-            });
-        }
-
-        // Quick View (placeholder function)
-        function quickView(productId) {
-            Swal.fire({
-                title: 'Quick View',
-                html: `<p>Quick view for product ID: ${productId}</p><p>This feature will show product details in a modal.</p>`,
-                icon: 'info',
-                width: 600
-            });
-        }
-
-        // Update cart count in header (if you have a cart counter)
-        function updateCartCount(count) {
-            const cartCounters = document.querySelectorAll('.cart-count');
-            cartCounters.forEach(counter => {
-                counter.textContent = count;
-            });
-        }
-
-        // Update wishlist count in header (if you have a wishlist counter)
-        function updateWishlistCount(count) {
-            const wishlistCounters = document.querySelectorAll('.wishlist-count');
-            wishlistCounters.forEach(counter => {
-                counter.textContent = count;
-            });
-        }
-
-        // Show quantity selector on hover
-        document.addEventListener('DOMContentLoaded', function() {
-            console.log('Store page loaded successfully');
-            console.log('Anti-forgery token:', getAntiForgeryToken());
-            
-            // Add hover effects for quantity selectors
-            document.querySelectorAll('.product').forEach(product => {
-                const addToCartDiv = product.querySelector('.add-to-cart');
-                const quantitySelector = product.querySelector('.quantity-selector');
-                
-                if (quantitySelector) {
-                    product.addEventListener('mouseenter', function() {
-                        quantitySelector.style.display = 'block';
-                    });
-                    
-                    product.addEventListener('mouseleave', function() {
-                        quantitySelector.style.display = 'none';
-                    });
+            .then(r => r.json())
+            .then(data => {
+                Swal.fire({ title: data.success ? 'Updated!' : 'Error', text: data.message, icon: data.success ? 'success' : 'error', timer: 1500 });
+                if (data.success) {
+                    const icon = btn.querySelector("i");
+                    icon.classList.toggle("fa-heart");
+                    icon.classList.toggle("fa-heart-o");
                 }
             });
-        });
+        }
 
-        // Test function to verify JavaScript is working
-        function testFunction(productId) {
-            Swal.fire({
-                title: 'Test Function',
-                text: `Test button clicked for product ID: ${productId}`,
-                icon: 'info'
-            });
-            console.log('Test function called with product ID:', productId);
+        function quickView(id) {
+            Swal.fire({ title: 'Quick View', text: `Details for product ${id}`, icon: 'info' });
         }
     </script>
 }

@@ -5,10 +5,10 @@ namespace CartifyDAL.Repo.productRepo.Abstraction
 {
     public interface IProductRepo
     {
-        (bool, string?) Create(Product product);
-        (List<Product>, string?) GetAll();
-        (Product, string?) GetById(int productId);
-        (bool, string?) Update(Product product);
-        (bool, string?) Delete(int productId);
+        Task<(bool, string?)> Create(Product product);
+        Task<(List<Product>, string?)> GetAll();
+        Task<(Product, string?)> GetById(int productId);
+        Task<(bool, string?)> Update(Product product);
+        Task<(bool, string?)> Delete(int productId);
     }
 }

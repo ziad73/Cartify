@@ -1,11 +1,16 @@
-﻿using Microsoft.AspNetCore.Mvc;
-using CartifyBLL.Services.Product.Abstraction;
+﻿using AutoMapper;
 using CartifyBLL.Services.CategoryServices;
+using CartifyBLL.Services.Product.Abstraction;
 using CartifyBLL.Services.WishlistService.Abstraction;
 using CartifyBLL.ViewModels.Product;
+using CartifyBLL.ViewModels.Products.ProductReview;
+using CartifyDAL.Entities.product;
 using CartifyDAL.Entities.user;
-using Microsoft.AspNetCore.Identity;
+using CartifyDAL.Repo.ProductReviewRepo.Abstraction;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Mvc;
+using System.Threading.Tasks;
 
 namespace CartifyPLL.Controllers
 {
@@ -15,101 +20,104 @@ namespace CartifyPLL.Controllers
         private readonly ICategoryService _categoryService;
         private readonly UserManager<User> _userManager;
         private readonly IWishlistService _wishListService;
+        private readonly IProductReviewRepo _productReview;
+        private readonly IMapper _mapper;
 
         public StoreController(
-            IProductService productService, 
+            IProductService productService,
             ICategoryService categoryService,
             UserManager<User> userManager,
-                IWishlistService wishListService) // 👈 add this
-            
+                IWishlistService wishListService,
+                IProductReviewRepo productReview,
+                IMapper mapper) // 👈 add this
+
         {
             _productService = productService;
             _categoryService = categoryService;
             _userManager = userManager;
-            _wishListService = wishListService; 
+            _wishListService = wishListService;
+            _productReview = productReview;
+            _mapper = mapper;
         }
 
-        public IActionResult Index(int? categoryId, string searchTerm, int page = 1, int pageSize = 12)
+        public async Task<IActionResult> Index(int? categoryId, string searchTerm, double? minPrice, double? maxPrice, string sort = "name", int page = 1, int pageSize = 12)
         {
             try
             {
-                // Get all products
-                var (products, error) = _productService.GetAll();
+                // 1. Get products
+                var (products, error) = await _productService.GetAll();
                 if (error != null)
                 {
                     TempData["Error"] = error;
                     products = new List<ProductDTO>();
                 }
 
-                // Apply filters
-                var filteredProducts = products.AsEnumerable();
+                var filtered = products.AsQueryable();
 
-                // Filter by category if specified
-                if (categoryId.HasValue && categoryId.Value > 0)
+                // 2. Filter by category
+                if (categoryId.HasValue && categoryId > 0)
+                    filtered = filtered.Where(p => p.CategoryId == categoryId.Value);
+
+                // 3. Filter by search term
+                if (!string.IsNullOrWhiteSpace(searchTerm))
                 {
-                    filteredProducts = filteredProducts.Where(p => p.CategoryId == categoryId.Value);
+                    var lower = searchTerm.ToLower();
+                    filtered = filtered.Where(p =>
+                        (p.Name ?? "").ToLower().Contains(lower) ||
+                        (p.Description ?? "").ToLower().Contains(lower) ||
+                        (p.Category ?? "").ToLower().Contains(lower));
                 }
 
-                // Filter by search term if specified
-                if (!string.IsNullOrEmpty(searchTerm))
+                // 4. Price filter
+                if (minPrice.HasValue)
+                    filtered = filtered.Where(p => p.Price >= minPrice.Value);
+                if (maxPrice.HasValue)
+                    filtered = filtered.Where(p => p.Price <= maxPrice.Value);
+
+                // 5. Sorting
+                filtered = sort switch
                 {
-                    var searchLower = searchTerm.ToLower();
-                    filteredProducts = filteredProducts.Where(p => 
-                        (p.Name?.ToLower().Contains(searchLower) ?? false) ||
-                        (p.Description?.ToLower().Contains(searchLower) ?? false) ||
-                        (p.Category?.ToLower().Contains(searchLower) ?? false));
-                }
+                    "price-asc" => filtered.OrderBy(p => p.Price),
+                    "price-desc" => filtered.OrderByDescending(p => p.Price),
+                    _ => filtered.OrderBy(p => p.Name) // default: name
+                };
 
-                // Convert back to list
-                var resultProducts = filteredProducts.ToList();
-
-                // Get categories for filter dropdown
-                var (categories, categoryError) = _categoryService.GetAll();
-                var categoriesList = categories ?? new List<CartifyDAL.Entities.category.Category>();
-                
-                // Create dynamic list for ViewBag
-                var dynamicCategories = categoriesList.Select(c => new { 
-                    CategoryId = c.CategoryId, 
-                    Name = c.Name 
-                }).ToList();
-                
-                // Pass data to view
-                ViewBag.Categories = dynamicCategories;
-                ViewBag.SelectedCategory = categoryId;
-                ViewBag.SearchTerm = searchTerm;
-                
+                // 6. Wishlist info for logged-in user
                 var userId = _userManager.GetUserId(User);
                 if (!string.IsNullOrEmpty(userId))
                 {
-                    foreach (var product in resultProducts)
+                    foreach (var p in filtered)
                     {
-                        var (isInWishlist, _) = _wishListService.IsInWishList(userId, product.ProductId);
-                        product.InWishlist = isInWishlist; // Ensure ProductDTO has bool InWishlist
+                        var (inWishlist, _) = _wishListService.IsInWishList(userId, p.ProductId);
+                        p.InWishlist = inWishlist;
                     }
                 }
 
-                // Pagination
-                var totalItems = resultProducts.Count();
-                var totalPages = (int)Math.Ceiling((double)totalItems / pageSize);
-                var pagedProducts = resultProducts.Skip((page - 1) * pageSize).Take(pageSize).ToList();
+                // 7. Pagination
+                var totalItems = filtered.Count();
+                var totalPages = (int)Math.Ceiling(totalItems / (double)pageSize);
+                var paged = filtered.Skip((page - 1) * pageSize).Take(pageSize).ToList();
 
+                // 8. Categories for filter
+                var (categories, _) = _categoryService.GetAll();
+
+                // Pass to view
+                ViewBag.Categories = categories?.Select(c => new { c.CategoryId, c.Name }).ToList();
+                ViewBag.SelectedCategory = categoryId;
+                ViewBag.SearchTerm = searchTerm;
+                ViewBag.MinPrice = minPrice;
+                ViewBag.MaxPrice = maxPrice;
+                ViewBag.Sort = sort;
                 ViewBag.CurrentPage = page;
                 ViewBag.TotalPages = totalPages;
                 ViewBag.PageSize = pageSize;
                 ViewBag.TotalItems = totalItems;
 
-                return View(pagedProducts);
+                return View(paged);
             }
-            catch (Exception ex)
+            catch
             {
-                TempData["Error"] = "An error occurred while loading products.";
-                ViewBag.Categories = new List<dynamic>();
-                ViewBag.SelectedCategory = categoryId;
-                ViewBag.SearchTerm = searchTerm;
-                ViewBag.CurrentPage = 1;
-                ViewBag.TotalPages = 1;
-                ViewBag.PageSize = pageSize;
-                ViewBag.TotalItems = 0;
+                TempData["Error"] = "Failed to load store.";
                 return View(new List<ProductDTO>());
             }
         }
@@ -197,6 +205,23 @@ namespace CartifyPLL.Controllers
                     message = "An error occurred" 
                 });
             }
+        }
+        public async Task<IActionResult> Details(int id)
+        {
+            var (product,error) = await _productService.GetById(id);
+            if (product == null)
+                return NotFound();
+
+            var (reviews, errorMessage) = await _productReview.GetReviewsByProductIdAsync(id);
+            var reviewDTOs = _mapper.Map<List<ProductReviewDTO>>(reviews);
+            var vm = new ProductReviewVM
+            {
+                Product = product,
+                Reviews = reviewDTOs ?? new List<ProductReviewDTO>(),
+                create = new CreateProductReview { ProductId = product.ProductId }
+            };
+
+            return View(vm);
         }
     }
 }

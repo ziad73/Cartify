@@ -12,257 +12,257 @@ namespace CartifyPLL.Controllers;
 public class CheckoutController : Controller
 {
     private readonly ICartService _cartService;
-        private readonly ICheckoutService _checkoutService;
-        private readonly IUserService _userService;
-        private readonly IOrderRepo _orderRepo;
-        private readonly IOrderItemRepo _orderItemRepo;
+    private readonly ICheckoutService _checkoutService;
+    private readonly IUserService _userService;
+    private readonly IOrderRepo _orderRepo;
+    private readonly IOrderItemRepo _orderItemRepo;
 
-        public CheckoutController(
-            ICartService cartService,
-            ICheckoutService checkoutService,
-            IUserService userService,
-            IOrderRepo orderRepo,
-            IOrderItemRepo orderItemRepo)
-        {
-            _cartService = cartService;
-            _checkoutService = checkoutService;
-            _userService = userService;
-            _orderRepo = orderRepo;
-            _orderItemRepo = orderItemRepo;
-        }
-
-        public async Task<IActionResult> Index()
-        {
-            var userId = User.GetUserId();
-            if (string.IsNullOrEmpty(userId))
-            {
-                return RedirectToAction("Login", "Account");
-            }
-
-            // Get user cart
-            var (cartVM, cartError) = _cartService.GetUserCart(userId);
-            if (!string.IsNullOrEmpty(cartError) || cartVM.IsEmpty)
-            {
-                TempData["Error"] = "Your cart is empty. Please add items before checkout.";
-                return RedirectToAction("Index", "Cart");
-            }
-
-            // Get user profile for addresses
-            var userProfile = await _userService.GetUserProfileAsync(userId);
-            
-            var checkoutVM = new CheckoutVm
-            {
-                Cart = cartVM,
-                UserAddresses = userProfile?.Addresses ?? new List<AddressVM>(),
-                PaymentMethod = "CreditCard"
-            };
-
-            // Set default address if exists
-            var defaultAddress = checkoutVM.UserAddresses.FirstOrDefault(a => a.IsDefault);
-            if (defaultAddress != null)
-            {
-                checkoutVM.SelectedAddressId = defaultAddress.Id;
-            }
-
-            return View(checkoutVM);
-        }
-
-        
-//         public async Task<IActionResult> ProcessOrder(CheckoutVm model)
-//         {
-//             var userId = User.GetUserId();
-//             if (string.IsNullOrEmpty(userId))
-//             {
-//                 return RedirectToAction("Login", "Account");
-//             }
-//
-//             // Get current cart
-//             var (cartVM, cartError) = _cartService.GetUserCart(userId);
-//             if (!string.IsNullOrEmpty(cartError) || cartVM.IsEmpty)
-//             {
-//                 TempData["Error"] = "Your cart is empty.";
-//                 return RedirectToAction("Index", "Cart");
-//             }
-//
-//             // Update model with current cart data
-//             model.Cart = cartVM;
-//
-//             if (!ModelState.IsValid)
-//             {
-//                 // Reload user addresses if model is invalid
-//                 var userProfile = await _userService.GetUserProfileAsync(userId);
-//                 model.UserAddresses = userProfile?.Addresses ?? new List<AddressVM>();
-//                 return View("Index", model);
-//             }
-//
-//             try
-//             {
-//                 // Add new address if needed
-//                 if (model.UseNewAddress && model.NewAddress != null)
-//                 {
-//                     var addressResult = await _userService.AddAddressAsync(userId, model.NewAddress);
-//                     if (!addressResult.Succeeded)
-//                     {
-//                         ModelState.AddModelError("", "Failed to add new address");
-//                         var userProfile = await _userService.GetUserProfileAsync(userId);
-//                         model.UserAddresses = userProfile?.Addresses ?? new List<AddressVM>();
-//                         return View("Index", model);
-//                     }
-//                 }
-//
-//                 // Process the order
-//                 var (confirmation, error) = _checkoutService.ProcessOrder(model, userId);
-//                 if (confirmation == null)
-//                 {
-//                     TempData["Error"] = error ?? "Failed to process order";
-//                     var userProfile = await _userService.GetUserProfileAsync(userId);
-//                     model.UserAddresses = userProfile?.Addresses ?? new List<AddressVM>();
-//                     return View("Index", model);
-//                 }
-//
-// //                TempData["Success"] = "Your order has been placed successfully!";
-// // return RedirectToAction("Index", "Orders");
-//                 TempData["Success"] = "Your order has been placed successfully!";
-//                 return RedirectToAction("Index", "Orders");
-//             }
-//             catch (Exception ex)
-//             {
-//                 TempData["Error"] = "An error occurred while processing your order. Please try again.";
-//                 var userProfile = await _userService.GetUserProfileAsync(userId);
-//                 model.UserAddresses = userProfile?.Addresses ?? new List<AddressVM>();
-//                 return View("Index", model);
-//             }
-//         }
-
-        
-   [HttpPost]
-[ValidateAntiForgeryToken]
-public async Task<IActionResult> ProcessOrder(CheckoutVm model)
-{
-    var userId = User.GetUserId();
-    if (string.IsNullOrEmpty(userId))
+    public CheckoutController(
+        ICartService cartService,
+        ICheckoutService checkoutService,
+        IUserService userService,
+        IOrderRepo orderRepo,
+        IOrderItemRepo orderItemRepo)
     {
-        if (Request.Headers["X-Requested-With"] == "XMLHttpRequest")
-            return Json(new { success = false, message = "Please log in first." });
-
-        return RedirectToAction("Login", "Account");
+        _cartService = cartService;
+        _checkoutService = checkoutService;
+        _userService = userService;
+        _orderRepo = orderRepo;
+        _orderItemRepo = orderItemRepo;
     }
 
-    // Get current cart
-    var (cartVM, cartError) = _cartService.GetUserCart(userId);
-    if (!string.IsNullOrEmpty(cartError) || cartVM.IsEmpty)
+    public async Task<IActionResult> Index()
     {
-        if (Request.Headers["X-Requested-With"] == "XMLHttpRequest")
-            return Json(new { success = false, message = "Your cart is empty." });
+        var userId = User.GetUserId();
+        if (string.IsNullOrEmpty(userId))
+        {
+            return RedirectToAction("Login", "Account");
+        }
 
-        TempData["Error"] = "Your cart is empty.";
-        return RedirectToAction("Index", "Cart");
-    }
+        // Get user cart
+        var (cartVM, cartError) = _cartService.GetUserCart(userId);
+        if (!string.IsNullOrEmpty(cartError) || cartVM.IsEmpty)
+        {
+            TempData["Error"] = "Your cart is empty. Please add items before checkout.";
+            return RedirectToAction("Index", "Cart");
+        }
 
-    model.Cart = cartVM;
-
-    var (isValid, validationError) = _checkoutService.ValidateCheckout(model);
-    if (!isValid)
-    {
-        if (Request.Headers["X-Requested-With"] == "XMLHttpRequest")
-            return Json(new { success = false, message = validationError });
-
-        ModelState.AddModelError(string.Empty, validationError ?? "Please check your entries.");
+        // Get user profile for addresses
         var userProfile = await _userService.GetUserProfileAsync(userId);
-        model.UserAddresses = userProfile?.Addresses ?? new List<AddressVM>();
-        return View("Index", model);
+
+        var checkoutVM = new CheckoutVm
+        {
+            Cart = cartVM,
+            UserAddresses = userProfile?.Addresses ?? new List<AddressVM>(),
+            PaymentMethod = "CreditCard"
+        };
+
+        // Set default address if exists
+        var defaultAddress = checkoutVM.UserAddresses.FirstOrDefault(a => a.IsDefault);
+        if (defaultAddress != null)
+        {
+            checkoutVM.SelectedAddressId = defaultAddress.Id;
+        }
+
+        return View(checkoutVM);
     }
 
-    try
+
+    //         public async Task<IActionResult> ProcessOrder(CheckoutVm model)
+    //         {
+    //             var userId = User.GetUserId();
+    //             if (string.IsNullOrEmpty(userId))
+    //             {
+    //                 return RedirectToAction("Login", "Account");
+    //             }
+    //
+    //             // Get current cart
+    //             var (cartVM, cartError) = _cartService.GetUserCart(userId);
+    //             if (!string.IsNullOrEmpty(cartError) || cartVM.IsEmpty)
+    //             {
+    //                 TempData["Error"] = "Your cart is empty.";
+    //                 return RedirectToAction("Index", "Cart");
+    //             }
+    //
+    //             // Update model with current cart data
+    //             model.Cart = cartVM;
+    //
+    //             if (!ModelState.IsValid)
+    //             {
+    //                 // Reload user addresses if model is invalid
+    //                 var userProfile = await _userService.GetUserProfileAsync(userId);
+    //                 model.UserAddresses = userProfile?.Addresses ?? new List<AddressVM>();
+    //                 return View("Index", model);
+    //             }
+    //
+    //             try
+    //             {
+    //                 // Add new address if needed
+    //                 if (model.UseNewAddress && model.NewAddress != null)
+    //                 {
+    //                     var addressResult = await _userService.AddAddressAsync(userId, model.NewAddress);
+    //                     if (!addressResult.Succeeded)
+    //                     {
+    //                         ModelState.AddModelError("", "Failed to add new address");
+    //                         var userProfile = await _userService.GetUserProfileAsync(userId);
+    //                         model.UserAddresses = userProfile?.Addresses ?? new List<AddressVM>();
+    //                         return View("Index", model);
+    //                     }
+    //                 }
+    //
+    //                 // Process the order
+    //                 var (confirmation, error) = _checkoutService.ProcessOrder(model, userId);
+    //                 if (confirmation == null)
+    //                 {
+    //                     TempData["Error"] = error ?? "Failed to process order";
+    //                     var userProfile = await _userService.GetUserProfileAsync(userId);
+    //                     model.UserAddresses = userProfile?.Addresses ?? new List<AddressVM>();
+    //                     return View("Index", model);
+    //                 }
+    //
+    // //                TempData["Success"] = "Your order has been placed successfully!";
+    // // return RedirectToAction("Index", "Orders");
+    //                 TempData["Success"] = "Your order has been placed successfully!";
+    //                 return RedirectToAction("Index", "Orders");
+    //             }
+    //             catch (Exception ex)
+    //             {
+    //                 TempData["Error"] = "An error occurred while processing your order. Please try again.";
+    //                 var userProfile = await _userService.GetUserProfileAsync(userId);
+    //                 model.UserAddresses = userProfile?.Addresses ?? new List<AddressVM>();
+    //                 return View("Index", model);
+    //             }
+    //         }
+
+
+    [HttpPost]
+    [ValidateAntiForgeryToken]
+    public async Task<IActionResult> ProcessOrder(CheckoutVm model)
     {
-        var (confirmation, error) = _checkoutService.ProcessOrder(model, userId);
-        if (confirmation == null)
+        var userId = User.GetUserId();
+        if (string.IsNullOrEmpty(userId))
         {
-            // If the service passed a DB or logic error, surface it
-            var safeError = string.IsNullOrWhiteSpace(error) ? "Failed to process order" : error;
-
             if (Request.Headers["X-Requested-With"] == "XMLHttpRequest")
-                return Json(new { success = false, message = safeError });
+                return Json(new { success = false, message = "Please log in first." });
 
-            TempData["Error"] = safeError;
+            return RedirectToAction("Login", "Account");
+        }
+
+        // Get current cart
+        var (cartVM, cartError) = _cartService.GetUserCart(userId);
+        if (!string.IsNullOrEmpty(cartError) || cartVM.IsEmpty)
+        {
+            if (Request.Headers["X-Requested-With"] == "XMLHttpRequest")
+                return Json(new { success = false, message = "Your cart is empty." });
+
+            TempData["Error"] = "Your cart is empty.";
+            return RedirectToAction("Index", "Cart");
+        }
+
+        model.Cart = cartVM;
+
+        var (isValid, validationError) = _checkoutService.ValidateCheckout(model);
+        if (!isValid)
+        {
+            if (Request.Headers["X-Requested-With"] == "XMLHttpRequest")
+                return Json(new { success = false, message = validationError });
+
+            ModelState.AddModelError(string.Empty, validationError ?? "Please check your entries.");
             var userProfile = await _userService.GetUserProfileAsync(userId);
             model.UserAddresses = userProfile?.Addresses ?? new List<AddressVM>();
             return View("Index", model);
         }
 
-        // ✅ AJAX request → return orderId for JS redirect
-        if (Request.Headers["X-Requested-With"] == "XMLHttpRequest")
-            return Json(new { success = true, orderId = confirmation.OrderId });
-
-        // ✅ Normal form submit → redirect to Orders list
-        TempData["Success"] = "Your order has been placed successfully!";
-        return RedirectToAction("Index", "Orders");
-    }
-    catch (Exception ex)
-    {
-        // Get the inner DB error if available
-        var innerMessage = ex.InnerException?.Message;
-        var fullError = $"{ex.Message} {(innerMessage ?? string.Empty)}";
-
-        if (Request.Headers["X-Requested-With"] == "XMLHttpRequest")
-            return Json(new { success = false, message = fullError });
-
-        TempData["Error"] = fullError;
-        var userProfile = await _userService.GetUserProfileAsync(userId);
-        model.UserAddresses = userProfile?.Addresses ?? new List<AddressVM>();
-        return View("Index", model);
-    }
-}
-public IActionResult Confirmation(int id)
-{
-    var userId = User.GetUserId();
-    if (string.IsNullOrEmpty(userId))
-        return RedirectToAction("Login", "Account");
-
-    var (confirmation, error) = _checkoutService.GetOrderConfirmation(id, userId);
-    if (confirmation == null)
-    {
-        TempData["Error"] = error ?? "Order not found.";
-        return RedirectToAction("Index", "Home");
-    }
-
-    if (Request.Query.ContainsKey("fromAjax") || TempData["Success"] != null)
-    {
-        ViewBag.ShowToast = true;
-        ViewBag.ToastMessage = TempData["Success"] ?? "Your order has been placed successfully!";
-    }
-
-    return View("Confirmation", confirmation);
-}
-        [HttpGet]
-        public IActionResult GetShippingCost(string country, string postalCode)
+        try
         {
-            // Simple shipping cost calculation - you can make this more sophisticated
-            double cost = 0;
-            
-            switch (country?.ToUpper())
+            var (confirmation, error) = _checkoutService.ProcessOrder(model, userId);
+            if (confirmation == null)
             {
-                case "US":
-                case "CA":
-                    cost = 15.00;
-                    break;
-                case "GB":
-                case "DE":
-                case "FR":
-                    cost = 25.00;
-                    break;
-                default:
-                    cost = 35.00;
-                    break;
+                // If the service passed a DB or logic error, surface it
+                var safeError = string.IsNullOrWhiteSpace(error) ? "Failed to process order" : error;
+
+                if (Request.Headers["X-Requested-With"] == "XMLHttpRequest")
+                    return Json(new { success = false, message = safeError });
+
+                TempData["Error"] = safeError;
+                var userProfile = await _userService.GetUserProfileAsync(userId);
+                model.UserAddresses = userProfile?.Addresses ?? new List<AddressVM>();
+                return View("Index", model);
             }
 
-            return Json(new { success = true, cost = cost });
+            // ✅ AJAX request → return orderId for JS redirect
+            if (Request.Headers["X-Requested-With"] == "XMLHttpRequest")
+                return Json(new { success = true, orderId = confirmation.OrderId });
+
+            // ✅ Normal form submit → redirect to Orders list
+            TempData["Success"] = "Your order has been placed successfully!";
+            return RedirectToAction("Index", "Orders");
+        }
+        catch (Exception ex)
+        {
+            // Get the inner DB error if available
+            var innerMessage = ex.InnerException?.Message;
+            var fullError = $"{ex.Message} {(innerMessage ?? string.Empty)}";
+
+            if (Request.Headers["X-Requested-With"] == "XMLHttpRequest")
+                return Json(new { success = false, message = fullError });
+
+            TempData["Error"] = fullError;
+            var userProfile = await _userService.GetUserProfileAsync(userId);
+            model.UserAddresses = userProfile?.Addresses ?? new List<AddressVM>();
+            return View("Index", model);
+        }
+    }
+    public IActionResult Confirmation(int id)
+    {
+        var userId = User.GetUserId();
+        if (string.IsNullOrEmpty(userId))
+            return RedirectToAction("Login", "Account");
+
+        var (confirmation, error) = _checkoutService.GetOrderConfirmation(id, userId);
+        if (confirmation == null)
+        {
+            TempData["Error"] = error ?? "Order not found.";
+            return RedirectToAction("Index", "Home");
         }
 
-        [HttpPost]
-        public IActionResult ValidateCheckout(CheckoutVm model)
+        if (Request.Query.ContainsKey("fromAjax") || TempData["Success"] != null)
         {
-            var (isValid, error) = _checkoutService.ValidateCheckout(model);
-            return Json(new { valid = isValid, message = error });
+            ViewBag.ShowToast = true;
+            ViewBag.ToastMessage = TempData["Success"] ?? "Your order has been placed successfully!";
         }
+
+        return View("Confirmation", confirmation);
+    }
+    [HttpGet]
+    public IActionResult GetShippingCost(string country, string postalCode)
+    {
+        // Simple shipping cost calculation - you can make this more sophisticated
+        double cost = 0;
+
+        switch (country?.ToUpper())
+        {
+            case "US":
+            case "CA":
+                cost = 15.00;
+                break;
+            case "GB":
+            case "DE":
+            case "FR":
+                cost = 25.00;
+                break;
+            default:
+                cost = 35.00;
+                break;
+        }
+
+        return Json(new { success = true, cost = cost });
+    }
+
+    [HttpPost]
+    public IActionResult ValidateCheckout(CheckoutVm model)
+    {
+        var (isValid, error) = _checkoutService.ValidateCheckout(model);
+        return Json(new { valid = isValid, message = error });
+    }
 }

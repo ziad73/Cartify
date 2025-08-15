@@ -3,7 +3,7 @@ function addToCart(productId) {
 }
 
 function viewProduct(productId) {
-  window.location.href = `product-details.html?id=${productId}`;
+    window.location.href = `/Store/Details/${productId}`;
 }
 
 function removeFromWishlist(productId) {

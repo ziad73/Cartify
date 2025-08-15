@@ -6,92 +6,56 @@
 <div class="container py-5">
     <h2 class="mb-4">Checkout</h2>
 
-    <form id="checkoutForm" asp-action="ProcessOrder" asp-controller="Checkout" method="post">
+    <form id="checkoutForm" asp-action="ProcessOrder" asp-controller="Checkout" method="post" novalidate>
         @Html.AntiForgeryToken()
 
         <div class="row">
-            <!-- Left Column: Address + Payment -->
+            <!-- LEFT COLUMN -->
             <div class="col-md-8">
 
-                <!-- Shipping Address -->
-                <div class="card mb-4">
-                    <div class="card-header">
-                        <h5>Shipping Address</h5>
+                <!-- SHIPPING ADDRESS -->
+                <div class="card mb-4 shadow-sm">
+                    <div class="card-header d-flex justify-content-between align-items-center">
+                        <h5 class="mb-0">Shipping Address</h5>
+                        <a href="https://localhost:7293/Account/Profile?#address" class="btn btn-sm btn-outline-primary">
+                            Manage Addresses
+                        </a>
                     </div>
                     <div class="card-body">
-                        @if (Model.UserAddresses != null && Model.UserAddresses.Any())
+                        @if (Model.UserAddresses?.Any() == true)
                         {
-                            <div class="mb-3">
-                                <label asp-for="SelectedAddressId" class="form-label">Select an Address</label>
-                                @foreach (var address in Model.UserAddresses)
-                                {
-                                    <div class="form-check">
-                                        <input class="form-check-input"
-                                               type="radio"
-                                               name="SelectedAddressId"
-                                               value="@address.Id"
-                                               @(Model.SelectedAddressId == address.Id ? "checked" : null) />
-                                        <label class="form-check-label">
-                                            @address.StreetAddress, @address.City, @address.State, @address.Country - @address.PostalCode
-                                            @if (address.IsDefault)
-                                            {
-                                                <span class="badge bg-success ms-2">Default</span>
-                                            }
-                                        </label>
-                                    </div>
-                                }
-                                <span asp-validation-for="SelectedAddressId" class="text-danger"></span>
-                            </div>
+                            @foreach (var address in Model.UserAddresses)
+                            {
+                                <div class="form-check mb-2">
+                                    <input class="form-check-input" type="radio" name="SelectedAddressId"
+                                           value="@address.Id" @(Model.SelectedAddressId == address.Id ? "checked" : null) required>
+                                    <label class="form-check-label">
+                                        @address.StreetAddress, @address.City, @address.State, @address.Country - @address.PostalCode
+                                        @if (address.IsDefault)
+                                        {
+                                            <span class="badge bg-success ms-2">Default</span>
+                                        }
+                                    </label>
+                                </div>
+                            }
+                            <span asp-validation-for="SelectedAddressId" class="text-danger"></span>
                         }
-
-                        <div class="form-check mt-3">
-                            <input class="form-check-input" type="checkbox" asp-for="UseNewAddress" id="useNewAddress" />
-                            <label class="form-check-label" for="useNewAddress">Use New Address</label>
-                        </div>
-
-                        <div id="newAddressFields" class="mt-3" style="display:none;">
-                            <div class="mb-3">
-                                <label asp-for="NewAddress.StreetAddress" class="form-label"></label>
-                                <input asp-for="NewAddress.StreetAddress" class="form-control" />
-                                <span asp-validation-for="NewAddress.StreetAddress" class="text-danger"></span>
-                            </div>
-                            <div class="row">
-                                <div class="col-md-6 mb-3">
-                                    <label asp-for="NewAddress.City" class="form-label"></label>
-                                    <input asp-for="NewAddress.City" class="form-control" />
-                                    <span asp-validation-for="NewAddress.City" class="text-danger"></span>
-                                </div>
-                                <div class="col-md-6 mb-3">
-                                    <label asp-for="NewAddress.State" class="form-label"></label>
-                                    <input asp-for="NewAddress.State" class="form-control" />
-                                    <span asp-validation-for="NewAddress.State" class="text-danger"></span>
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="col-md-6 mb-3">
-                                    <label asp-for="NewAddress.PostalCode" class="form-label"></label>
-                                    <input asp-for="NewAddress.PostalCode" class="form-control" />
-                                    <span asp-validation-for="NewAddress.PostalCode" class="text-danger"></span>
-                                </div>
-                                <div class="col-md-6 mb-3">
-                                    <label asp-for="NewAddress.Country" class="form-label"></label>
-                                    <input asp-for="NewAddress.Country" class="form-control" />
-                                    <span asp-validation-for="NewAddress.Country" class="text-danger"></span>
-                                </div>
-                            </div>
-                        </div>
+                        else
+                        {
+                            <p class="text-muted">No saved addresses. Please add one in your profile.</p>
+                        }
                     </div>
                 </div>
 
-                <!-- Payment Method -->
-                <div class="card mb-4">
+                <!-- PAYMENT METHOD -->
+                <div class="card mb-4 shadow-sm">
                     <div class="card-header">
                         <h5>Payment Method</h5>
                     </div>
                     <div class="card-body">
                         <div class="mb-3">
-                            <label asp-for="PaymentMethod" class="form-label"></label>
-                            <select asp-for="PaymentMethod" class="form-select">
+                            <select asp-for="PaymentMethod" id="PaymentMethod" class="form-select" required>
+                                <option value="">-- Choose Payment Method --</option>
                                 <option value="CreditCard">Credit Card</option>
                                 <option value="PayPal">PayPal</option>
                                 <option value="COD">Cash on Delivery</option>
@@ -99,44 +63,54 @@
                             <span asp-validation-for="PaymentMethod" class="text-danger"></span>
                         </div>
 
-                        <!-- Credit Card Fields -->
-                        <div id="creditCardFields">
+                        <!-- CREDIT CARD FIELDS -->
+                        <div id="creditCardFields" style="display:none;">
                             <div class="mb-3">
-                                <label asp-for="CardNumber" class="form-label"></label>
-                                <input asp-for="CardNumber" class="form-control" />
+                                <label asp-for="CardNumber" class="form-label">Card Number</label>
+                                <input asp-for="CardNumber" class="form-control" placeholder="XXXX-XXXX-XXXX-XXXX" maxlength="19" />
                                 <span asp-validation-for="CardNumber" class="text-danger"></span>
                             </div>
                             <div class="mb-3">
-                                <label asp-for="CardHolderName" class="form-label"></label>
-                                <input asp-for="CardHolderName" class="form-control" />
+                                <label asp-for="CardHolderName" class="form-label">Cardholder Name</label>
+                                <input asp-for="CardHolderName" class="form-control" placeholder="Full name as on card" />
                                 <span asp-validation-for="CardHolderName" class="text-danger"></span>
                             </div>
                             <div class="row">
                                 <div class="col-md-4 mb-3">
-                                    <label asp-for="ExpiryMonth" class="form-label"></label>
-                                    <input asp-for="ExpiryMonth" class="form-control" />
+                                    <label asp-for="ExpiryMonth" class="form-label">Expiry Month</label>
+                                    <input asp-for="ExpiryMonth" class="form-control" placeholder="MM" maxlength="2" />
                                     <span asp-validation-for="ExpiryMonth" class="text-danger"></span>
                                 </div>
                                 <div class="col-md-4 mb-3">
-                                    <label asp-for="ExpiryYear" class="form-label"></label>
-                                    <input asp-for="ExpiryYear" class="form-control" />
+                                    <label asp-for="ExpiryYear" class="form-label">Expiry Year</label>
+                                    <input asp-for="ExpiryYear" class="form-control" placeholder="YYYY" maxlength="4" />
                                     <span asp-validation-for="ExpiryYear" class="text-danger"></span>
                                 </div>
                                 <div class="col-md-4 mb-3">
-                                    <label asp-for="CVV" class="form-label"></label>
-                                    <input asp-for="CVV" class="form-control" />
+                                    <label asp-for="CVV" class="form-label">
+                                        CVV
+                                        <i class="bi bi-info-circle" data-bs-toggle="tooltip" title="3-digit code on back of your card"></i>
+                                    </label>
+                                    <input asp-for="CVV" class="form-control" placeholder="XXX" maxlength="4" />
                                     <span asp-validation-for="CVV" class="text-danger"></span>
                                 </div>
                             </div>
                         </div>
+
+                        <!-- PAYPAL FIELDS -->
+                        <div id="paypalFields" style="display:none;">
+                            <div class="mb-3">
+                                <label for="PaypalLink" class="form-label">PayPal Email or Link</label>
+                                <input type="email" class="form-control" id="PaypalLink" name="PaypalLink" placeholder="your-email@example.com" />
+                            </div>
+                        </div>
                     </div>
                 </div>
-
             </div>
 
-            <!-- Right Column: Order Summary -->
+            <!-- RIGHT COLUMN -->
             <div class="col-md-4">
-                <div class="card">
+                <div class="card shadow-sm">
                     <div class="card-header">
                         <h5>Order Summary</h5>
                     </div>
@@ -154,7 +128,7 @@
                             }
                         </ul>
 
-                        <hr />
+                        <hr>
                         <div class="d-flex justify-content-between">
                             <span>Subtotal</span>
                             <strong>@Model.SubTotal.ToString("C")</strong>
@@ -167,17 +141,13 @@
                             <span>Shipping</span>
                             <strong>@Model.ShippingCost.ToString("C")</strong>
                         </div>
-                        <hr />
+                        <hr>
                         <div class="d-flex justify-content-between">
                             <strong>Total</strong>
                             <strong>@Model.Total.ToString("C")</strong>
                         </div>
 
-                        <div class="mt-4">
-                            <button type="button" id="place-order" class="btn btn-primary w-100">
-                                Place Order
-                            </button>
-                        </div>
+                        <button type="submit" class="btn btn-primary w-100 mt-4">Place Order</button>
                     </div>
                 </div>
             </div>
@@ -188,13 +158,44 @@
 @section Scripts {
     <partial name="_ValidationScriptsPartial" />
     <script>
-        document.getElementById("useNewAddress")?.addEventListener("change", function () {
-            document.getElementById("newAddressFields").style.display = this.checked ? "block" : "none";
+        const paymentSelect = document.getElementById("PaymentMethod");
+        const creditCardFields = document.getElementById("creditCardFields");
+        const paypalFields = document.getElementById("paypalFields");
+
+        paymentSelect.addEventListener("change", function () {
+            creditCardFields.style.display = "none";
+            paypalFields.style.display = "none";
+            if (this.value === "CreditCard") {
+                creditCardFields.style.display = "block";
+            } else if (this.value === "PayPal") {
+                paypalFields.style.display = "block";
+            }
         });
 
-        document.getElementById("PaymentMethod")?.addEventListener("change", function () {
-            document.getElementById("creditCardFields").style.display = this.value === "CreditCard" ? "block" : "none";
+        document.getElementById("checkoutForm").addEventListener("submit", function (e) {
+            if (paymentSelect.value === "CreditCard") {
+                const cardNumber = document.getElementById("CardNumber").value.replace(/\D/g, "");
+                if (cardNumber.length !== 16) {
+                    e.preventDefault();
+                    alert("Card number must be exactly 16 digits.");
+                }
+                const expiryYear = document.getElementById("ExpiryYear").value.trim();
+                if (!/^\d{4}$/.test(expiryYear)) {
+                    e.preventDefault();
+                    alert("Please enter a valid 4-digit expiry year.");
+                }
+            } else if (paymentSelect.value === "PayPal") {
+                const paypalLink = document.getElementById("PaypalLink").value.trim();
+                if (!paypalLink) {
+                    e.preventDefault();
+                    alert("Please enter your PayPal email or link.");
+                }
+            }
+        });
+
+        // Bootstrap tooltips
+        document.querySelectorAll('[data-bs-toggle="tooltip"]').forEach(el => {
+            new bootstrap.Tooltip(el);
         });
     </script>
-    <script src="~/js/pages/checkout.js"></script>
 }

@@ -6,6 +6,7 @@ using CartifyBLL.ViewModels.Product;
 using CartifyDAL.Entities.product;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
+using System.Threading.Tasks;
 
 namespace CartifyPLL.Areas.Admin.Controllers
 {
@@ -23,9 +24,9 @@ namespace CartifyPLL.Areas.Admin.Controllers
             mapper = _mapper;
         }
 
-        public IActionResult Index()
+        public async Task<IActionResult> Index()
         {
-            var result = productService.GetAll();
+            var result =await productService.GetAll();
             return View(result.Item1);
         }
         public IActionResult AddNewProduct()
@@ -35,7 +36,7 @@ namespace CartifyPLL.Areas.Admin.Controllers
 
             return View();
         }
-        public IActionResult AddProduct(CreateProduct model)
+        public async Task<IActionResult> AddProduct(CreateProduct model)
         {
             if (!ModelState.IsValid)
             {
@@ -48,7 +49,7 @@ namespace CartifyPLL.Areas.Admin.Controllers
 
             model.CreatedBy = User.Identity?.Name ?? "System"; 
 
-            var result = productService.Create(model);
+            var result =await productService.Create(model);
 
             if (!result.Item1)
             {
@@ -60,9 +61,9 @@ namespace CartifyPLL.Areas.Admin.Controllers
         }
 
         [HttpGet]
-        public IActionResult Edit(int id)
+        public async Task<IActionResult> Edit(int id)
         {
-            var product = productService.GetById(id);
+            var product = await productService.GetById(id);
             if (product.Item1 == null)
                 return NotFound();
 
@@ -74,13 +75,13 @@ namespace CartifyPLL.Areas.Admin.Controllers
         }
 
         [HttpPost]
-        public IActionResult Edit(CreateProduct model)
+        public async Task<IActionResult> Edit(CreateProduct model)
         {
             if (ModelState.IsValid)
             {
                 var (categories, msg) = categoryService.GetAll();
                 ViewBag.Categories = new SelectList(categories, "CategoryId", "Name");
-                var result = productService.Update(model);
+                var result = await productService.Update(model);
                 if (result.Item1)
                     return RedirectToAction("Index","Product"); 
 
@@ -92,11 +93,11 @@ namespace CartifyPLL.Areas.Admin.Controllers
         }
 
         [HttpGet]
-        public IActionResult Delete(int id)
+        public async Task<IActionResult> Delete(int id)
         {
             var (categories, msg) = categoryService.GetAll();
             ViewBag.Categories = new SelectList(categories, "CategoryId", "Name");
-            var product = productService.GetById(id);
+            var product =await productService.GetById(id);
             if (product.Item1 == null)
                 return NotFound();
 
@@ -104,9 +105,9 @@ namespace CartifyPLL.Areas.Admin.Controllers
         }
 
         [HttpPost]
-        public IActionResult DeleteConfirmed(int id)
+        public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            var result = productService.Delete(id);
+            var result = await productService.Delete(id);
             if (result.Item1)
                 return RedirectToAction(nameof(Index));
             var (categories, msg) = categoryService.GetAll();

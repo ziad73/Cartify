@@ -48,19 +48,19 @@ namespace CartifyDAL.Repo.cartRepo.Implementation
             }
         }
 
-        public (Cart, string?) GetById(int cartId)
+        public (CartItem, string?) GetById(int cartItemId)
         {
             try
             {
-                var cart = _context.Cart
-                    .Include(c => c.cartItems)
-                    .ThenInclude(ci => ci.Product)
-                    .FirstOrDefault(c => c.CartId == cartId && !c.IsDeleted);
-                
-                if (cart == null)
-                    return (null, "Cart not found");
+                var cartItem = _context.CartItem
+                    .Include(ci => ci.Product)
+                    .Include(ci => ci.Cart)        // ✅ add this
+                    .FirstOrDefault(ci => ci.Cartitem == cartItemId && !ci.IsDeleted);
 
-                return (cart, null);
+                if (cartItem == null)
+                    return (null, "Cart item not found");
+
+                return (cartItem, null);
             }
             catch (Exception ex)
             {

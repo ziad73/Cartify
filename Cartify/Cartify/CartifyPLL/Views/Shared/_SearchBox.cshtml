@@ -1,18 +1,4 @@
-﻿@* <div class="search-box position-relative"> *@
-@*     <form asp-controller="Search" asp-action="Search" method="post" class="d-flex"> *@
-@*         <div class="input-group"> *@
-@*             <input type="text" class="form-control" name="searchTerm"  *@
-@*                    placeholder="Search products..." autocomplete="off" id="headerSearchInput"> *@
-@*             <input type="hidden" name="searchType" value="All"> *@
-@*             <div id="headerSuggestions" class="suggestions-dropdown"></div> *@
-@*         </div> *@
-@*         <button type="submit" class="btn btn-outline-light ms-2"> *@
-@*             <i class="fa fa-search"></i> *@
-@*         </button> *@
-@*     </form> *@
-@* </div> *@
-
-<form id="searchForm" method="get" action="/Search">
+﻿<form id="searchForm" method="get" action="/Search">
     <input type="text" id="searchInput" name="query" placeholder="Search..." />
     <button type="submit">Search</button>
 </form>

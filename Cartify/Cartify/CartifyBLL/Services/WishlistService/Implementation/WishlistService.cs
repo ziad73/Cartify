@@ -8,6 +8,7 @@ using CartifyDAL.Entities.Wishlist;
 using CartifyDAL.Repo.productRepo.Abstraction;
 using CartifyDAL.Repo.WishlistRepo.Abstraction;
 using Microsoft.EntityFrameworkCore;
+using System.Threading.Tasks;
 
 namespace CartifyBLL.Services.WishlistService.Implementation;
 
@@ -73,11 +74,11 @@ public class WishlistService : IWishlistService
             }
         }
 
-        public (bool, string?) AddToWishList(string userId, int productId)
+        public async Task<(bool, string?)> AddToWishList(string userId, int productId)
         {
             try
             {
-                var (product, perr) = _productRepo.GetById(productId);
+                var (product, perr) = await _productRepo.GetById(productId);
                 if (!string.IsNullOrEmpty(perr) || product == null)
                     return (false, "Product not found");
 
@@ -139,7 +140,7 @@ public class WishlistService : IWishlistService
             }
         }
 
-        public (bool, string?) MoveToCart(string userId, int productId)
+        public async Task<(bool, string?)> MoveToCart(string userId, int productId)
         {
             try
             {
@@ -151,7 +152,7 @@ public class WishlistService : IWishlistService
                 };
 
                 // 1) Add to cart
-                var (added, cartError) = _cartService.AddToCart(userId, addToCartModel);
+                var (added, cartError) =await _cartService.AddToCart(userId, addToCartModel);
                 if (!added)
                     return (false, cartError ?? "Failed to add to cart");
 

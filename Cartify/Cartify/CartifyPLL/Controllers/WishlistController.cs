@@ -1,4 +1,5 @@
 ﻿using System.Security.Claims;
+using System.Threading.Tasks;
 using CartifyBLL.Helper;
 using CartifyBLL.Services.CartService.Abstraction;
 using CartifyBLL.Services.WishlistService.Abstraction;
@@ -36,13 +37,13 @@ public class WishlistController : Controller
         }
 
         [HttpPost]
-        public IActionResult AddToWishList(int productId)
+        public async Task<IActionResult> AddToWishList(int productId)
         {
             var userId = User.GetUserId();
             if (string.IsNullOrEmpty(userId))
                 return Json(new { success = false, message = "Please login first" });
 
-            var (success, error) = _wishListService.AddToWishList(userId, productId);
+            var (success, error) =await _wishListService.AddToWishList(userId, productId);
 
             if (success)
             {
@@ -83,13 +84,13 @@ public class WishlistController : Controller
         }
 
         [HttpPost]
-        public IActionResult MoveToCart(int productId)
+        public async Task<IActionResult> MoveToCart(int productId)
         {
             var userId = User.GetUserId();
             if (string.IsNullOrEmpty(userId))
                 return Json(new { success = false, message = "Please login first" });
 
-            var (success, error) = _wishListService.MoveToCart(userId, productId);
+            var (success, error) =await _wishListService.MoveToCart(userId, productId);
 
             if (success)
             {
@@ -131,7 +132,7 @@ public class WishlistController : Controller
         }
         
         [HttpPost]
-        public IActionResult ToggleWishlist(int productId)
+        public async Task<IActionResult> ToggleWishlist(int productId)
         {
             var userId = User.GetUserId();
             if (string.IsNullOrEmpty(userId))
@@ -152,7 +153,7 @@ public class WishlistController : Controller
             }
             else
             {
-                var (added, error) = _wishListService.AddToWishList(userId, productId);
+                var (added, error) =await _wishListService.AddToWishList(userId, productId);
                 if (added)
                 {
                     var (count, _) = _wishListService.GetWishListCount(userId);

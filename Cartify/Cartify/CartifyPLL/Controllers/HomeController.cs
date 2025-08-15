@@ -1,21 +1,33 @@
-using System.Diagnostics;
+using CartifyBLL.Services.Product.Abstraction;
+using CartifyBLL.ViewModels.Product;
 using CartifyPLL.Models;
 using Microsoft.AspNetCore.Mvc;
+using System.Diagnostics;
+using System.Threading.Tasks;
 
 namespace CartifyPLL.Controllers
 {
     public class HomeController : Controller
     {
         private readonly ILogger<HomeController> _logger;
-
-        public HomeController(ILogger<HomeController> logger)
+        private readonly IProductService productService;
+        public HomeController(ILogger<HomeController> logger, IProductService productService)
         {
             _logger = logger;
+            this.productService = productService;
         }
 
-        public IActionResult Index()
+        public async Task<IActionResult> Index()
         {
-            return View();
+            var (products, error) = await productService.GetAll();
+
+            if (!string.IsNullOrEmpty(error))
+            {
+                
+                return View(new List<ProductDTO>());
+            }
+
+            return View(products);
         }
 
         public IActionResult Privacy()

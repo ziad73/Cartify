@@ -8,198 +8,218 @@ using CartifyDAL.Repo.cartRepo.Abstraction;
 using CartifyDAL.Repo.productRepo.Abstraction;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
+using System.Threading.Tasks;
 
 namespace CartifyBLL.Services.CartService.Implementation;
 
 public class CartService : ICartService
 {
-      private readonly ICartRepo _cartRepo;
-        private readonly ICartItemRepo _cartItemRepo;
-        private readonly IProductRepo _productRepo;
-        private readonly IMapper _mapper;
+    private readonly ICartRepo _cartRepo;
+    private readonly ICartItemRepo _cartItemRepo;
+    private readonly IProductRepo _productRepo;
+    private readonly IMapper _mapper;
 
-        public CartService(ICartRepo cartRepo, ICartItemRepo cartItemRepo, IProductRepo productRepo, IMapper mapper)
-        {
-            _cartRepo = cartRepo;
-            _cartItemRepo = cartItemRepo;
-            _productRepo = productRepo;
-            _mapper = mapper;
-        }
+    public CartService(ICartRepo cartRepo, ICartItemRepo cartItemRepo, IProductRepo productRepo, IMapper mapper)
+    {
+        _cartRepo = cartRepo;
+        _cartItemRepo = cartItemRepo;
+        _productRepo = productRepo;
+        _mapper = mapper;
+    }
 
-        public (CartVm, string?) GetUserCart(string userId)
+    public (CartVm, string?) GetUserCart(string userId)
+    {
+        try
         {
-            try
+            var (cart, error) = _cartRepo.GetByUserId(userId);
+            if (!string.IsNullOrEmpty(error))
+                return (new CartVm { UserId = userId }, error);
+
+            if (cart == null)
             {
-                var (cart, error) = _cartRepo.GetByUserId(userId);
-                if (!string.IsNullOrEmpty(error))
-                    return (new CartVm { UserId = userId }, error);
+                // Create new cart for user
+                var newCart = new Cart(userId, userId);
+                var (created, createError) = _cartRepo.Create(newCart);
+                if (!created)
+                    return (new CartVm { UserId = userId }, createError);
 
-                if (cart == null)
+                return (new CartVm { CartId = newCart.CartId, UserId = userId }, null);
+            }
+
+            var cartVM = new CartVm
+            {
+                CartId = cart.CartId,
+                UserId = userId,
+                Items = cart.cartItems?.Select(ci => new CartItemVm
                 {
-                    // Create new cart for user
-                    var newCart = new Cart(userId, userId);
-                    var (created, createError) = _cartRepo.Create(newCart);
-                    if (!created)
-                        return (new CartVm { UserId = userId }, createError);
+                    CartItemId = ci.Cartitem,
+                    ProductId = ci.Product.ProductId,
+                    ProductName = ci.Product.Name,
+                    ProductImageUrl = ci.Product.ImageUrl,
+                    ProductPrice = ci.Product.Price,
+                    Quantity = ci.Quantity,
+                    Category = ci.Product.Category?.Name,
+                    StockQuantity = ci.Product.StockQuantity
+                }).ToList() ?? new List<CartItemVm>()
+            };
 
-                    return (new CartVm { CartId = newCart.CartId, UserId = userId }, null);
-                }
+            return (cartVM, null);
+        }
+        catch (Exception ex)
+        {
+            return (new CartVm { UserId = userId }, ex.Message);
+        }
+    }
 
-                var cartVM = new CartVm
+    public async Task<(bool, string?)> AddToCart(string userId, AddToCartVm model)
+    {
+        try
+        {
+            // Get or create user's cart
+            var (cart, cartError) = _cartRepo.GetByUserId(userId);
+            if (!string.IsNullOrEmpty(cartError))
+                return (false, cartError);
+
+            if (cart == null)
+            {
+                var newCart = new Cart(userId, userId);
+                var (created, createError) = _cartRepo.Create(newCart);
+                if (!created)
+                    return (false, createError);
+
+                cart = newCart;
+            }
+
+            // Get product
+            var (product, productError) = await _productRepo.GetById(model.ProductId);
+            if (!string.IsNullOrEmpty(productError) || product == null)
+                return (false, "Product not found");
+
+            if (product.StockQuantity <= 0)
+                return (false, "This product is out of stock.");
+
+            // Check if item already exists in cart
+            var (existingItem, _) = _cartItemRepo.GetByCartAndProduct(cart.CartId, model.ProductId);
+            var existingQuantity = existingItem?.Quantity ?? 0;
+
+            // Calculate total desired quantity
+            var totalQuantity = existingQuantity + model.Quantity;
+
+            if (totalQuantity > product.StockQuantity)
+                return (false, $"Only {product.StockQuantity} items available.");
+
+            if (existingItem != null)
+            {
+                existingItem.Update(totalQuantity, userId);
+                return _cartItemRepo.Update(existingItem);
+            }
+            else
+            {
+                var cartItem = new CartItem(model.ProductId, model.Quantity, userId)
                 {
-                    CartId = cart.CartId,
-                    UserId = userId,
-                    Items = cart.cartItems?.Select(ci => new CartItemVm
-                    {
-                        CartItemId = ci.Cartitem,
-                        ProductId = ci.Product.ProductId,
-                        ProductName = ci.Product.Name,
-                        ProductImageUrl = ci.Product.ImageUrl,
-                        ProductPrice = ci.Product.Price,
-                        Quantity = ci.Quantity,
-                        Category = ci.Product.Category?.Name,
-                        StockQuantity = ci.Product.StockQuantity
-                    }).ToList() ?? new List<CartItemVm>()
+                    CartId = cart.CartId
                 };
-
-                return (cartVM, null);
-            }
-            catch (Exception ex)
-            {
-                return (new CartVm { UserId = userId }, ex.Message);
+                return _cartItemRepo.Create(cartItem);
             }
         }
-
-        public (bool, string?) AddToCart(string userId, AddToCartVm model)
+        catch (Exception ex)
         {
-            try
-            {
-                // Get or create user's cart
-                var (cart, cartError) = _cartRepo.GetByUserId(userId);
-                if (!string.IsNullOrEmpty(cartError))
-                    return (false, cartError);
-
-                if (cart == null)
-                {
-                    var newCart = new Cart(userId, userId);
-                    var (created, createError) = _cartRepo.Create(newCart);
-                    if (!created)
-                        return (false, createError);
-                    
-                    cart = newCart;
-                }
-
-                // Check if product exists and is available
-                var (product, productError) = _productRepo.GetById(model.ProductId);
-                if (!string.IsNullOrEmpty(productError) || product == null)
-                    return (false, "Product not found");
-
-                if (product.StockQuantity < model.Quantity)
-                    return (false, "Insufficient stock");
-
-                // Check if item already exists in cart
-                var (existingItem, _) = _cartItemRepo.GetByCartAndProduct(cart.CartId, model.ProductId);
-                
-                if (existingItem != null)
-                {
-                    // Update quantity
-                    var newQuantity = existingItem.Quantity + model.Quantity;
-                    if (newQuantity > product.StockQuantity)
-                        return (false, "Insufficient stock for requested quantity");
-
-                    existingItem.Update(newQuantity, userId);
-                    return _cartItemRepo.Update(existingItem);
-                }
-                else
-                {
-                    // Create new cart item
-                    var cartItem = new CartItem(model.ProductId, model.Quantity, userId  )
-                    {
-                        CartId = cart.CartId
-                    };
-                    return _cartItemRepo.Create(cartItem);
-                }
-            }
-            catch (Exception ex)
-            {
-                return (false, ex.Message);
-            }
+            return (false, ex.Message);
         }
+    }
 
-        public (bool, string?) UpdateCartItem(string userId, int cartItemId, int quantity)
+
+    public (bool, string?) UpdateCartItem(string userId, int cartItemId, int quantity)
+    {
+        try
         {
-            try
-            {
-                var (cartItem, error) = _cartItemRepo.GetById(cartItemId);
-                if (!string.IsNullOrEmpty(error) || cartItem == null)
-                    return (false, "Cart item not found");
+            var (cartItem, error) = _cartItemRepo.GetById(cartItemId);
+            if (!string.IsNullOrEmpty(error) || cartItem == null)
+                return (false, "Cart item not found");
 
-                // Verify ownership
-                if (cartItem.Cart.UserId != userId)
-                    return (false, "Unauthorized");
+            if (cartItem.Cart == null)
+                return (false, "Cart not loaded");
 
-                if (quantity <= 0)
-                    return _cartItemRepo.Delete(cartItemId);
+            if (string.IsNullOrEmpty(cartItem.Cart.UserId))
+                return (false, "Cart ownership cannot be verified");
 
-                // Check stock
-                if (cartItem.Product.StockQuantity < quantity)
-                    return (false, "Insufficient stock");
+            // Verify ownership
+            if (cartItem.Cart.UserId != userId)
+                return (false, "Unauthorized");
 
-                cartItem.Update(quantity, userId);
-                return _cartItemRepo.Update(cartItem);
-            }
-            catch (Exception ex)
-            {
-                return (false, ex.Message);
-            }
-        }
-
-        public (bool, string?) RemoveFromCart(string userId, int cartItemId)
-        {
-            try
-            {
-                var (cartItem, error) = _cartItemRepo.GetById(cartItemId);
-                if (!string.IsNullOrEmpty(error) || cartItem == null)
-                    return (false, "Cart item not found");
-
-                // Verify ownership
-                if (cartItem.Cart.UserId != userId)
-                    return (false, "Unauthorized");
-
+            if (quantity <= 0)
                 return _cartItemRepo.Delete(cartItemId);
-            }
-            catch (Exception ex)
-            {
-                return (false, ex.Message);
-            }
-        }
 
-        public (bool, string?) ClearCart(string userId)
+            // Check stock
+            if (cartItem.Product == null)
+                return (false, "Product details not loaded");
+
+            if (cartItem.Product.StockQuantity < quantity)
+                return (false, "Insufficient stock");
+
+            cartItem.Update(quantity, userId);
+            return _cartItemRepo.Update(cartItem);
+        }
+        catch (Exception ex)
         {
-            try
-            {
-                return _cartRepo.ClearCart(userId);
-            }
-            catch (Exception ex)
-            {
-                return (false, ex.Message);
-            }
+            return (false, ex.Message);
         }
+    }
 
-        public (int, string?) GetCartItemCount(string userId)
+
+    public (bool, string?) RemoveFromCart(string userId, int cartItemId)
+    {
+        try
         {
-            try
-            {
-                var (cart, error) = _cartRepo.GetByUserId(userId);
-                if (!string.IsNullOrEmpty(error) || cart == null)
-                    return (0, null);
+            var (cartItem, error) = _cartItemRepo.GetById(cartItemId);
+            if (!string.IsNullOrEmpty(error) || cartItem == null)
+                return (false, "Cart item not found");
 
-                var count = cart.cartItems?.Where(ci => !ci.IsDeleted).Sum(ci => ci.Quantity) ?? 0;
-                return (count, null);
-            }
-            catch (Exception ex)
-            {
-                return (0, ex.Message);
-            }
+            if (cartItem.Cart == null)
+                return (false, "Cart not loaded");
+
+            if (string.IsNullOrEmpty(cartItem.Cart.UserId))
+                return (false, "Cart ownership cannot be verified");
+
+            // Verify ownership
+            if (cartItem.Cart.UserId != userId)
+                return (false, "Unauthorized");
+
+            return _cartItemRepo.Delete(cartItemId);
         }
- }
+        catch (Exception ex)
+        {
+            return (false, ex.Message);
+        }
+    }
+
+
+    public (bool, string?) ClearCart(string userId)
+    {
+        try
+        {
+            return _cartRepo.ClearCart(userId);
+        }
+        catch (Exception ex)
+        {
+            return (false, ex.Message);
+        }
+    }
+
+    public (int, string?) GetCartItemCount(string userId)
+    {
+        try
+        {
+            var (cart, error) = _cartRepo.GetByUserId(userId);
+            if (!string.IsNullOrEmpty(error) || cart == null)
+                return (0, null);
+
+            var count = cart.cartItems?.Where(ci => !ci.IsDeleted).Sum(ci => ci.Quantity) ?? 0;
+            return (count, null);
+        }
+        catch (Exception ex)
+        {
+            return (0, ex.Message);
+        }
+    }
+}
