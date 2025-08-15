@@ -37,7 +37,7 @@ namespace CartifyDAL.Entities.cart
         public DateTime CreatedOn { get; private set; }
         public string? ModifiedBy { get; private set; }
         public DateTime? ModifiedOn { get; private set; }
-        public bool IsDeleted { get; private set; }
+        public bool IsDeleted { get; set; }
         public DateTime? DeletedOn { get; private set; }
         public string? DeletedBy { get; private set; }
         // added new

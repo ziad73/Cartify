@@ -7,7 +7,8 @@ namespace CartifyBLL.ViewModels.Checkout;
 public class CheckoutVm
 {
     public CartVm Cart { get; set; } = new CartVm();
-        
+
+    [Required(ErrorMessage = "Please select a shipping address.")]
     public int? SelectedAddressId { get; set; }
         
     public List<AddressVM> UserAddresses { get; set; } = new List<AddressVM>();

@@ -94,5 +94,38 @@ namespace CartifyDAL.Repo.ProductRepo.Implementation
                 return (false, ex.Message);
             }
         }
+
+        public async Task ReduceStockAsync(int productId, int quantity)
+        {
+            var product = await db.Product.FindAsync(productId);
+            if (product != null)
+            {
+                product.StockQuantity -= quantity;
+                if (product.StockQuantity < 0)
+                    product.StockQuantity = 0; // Optional: prevent negative stock
+                await db.SaveChangesAsync();
+            }
+        }
+
+        public (bool Success, string? ErrorMessage) IncreaseStock(int productId, int quantity)
+        {
+            try
+            {
+                var product = db.Product.FirstOrDefault(p => p.ProductId == productId && !p.IsDeleted);
+                if (product == null) return (false, "Product not found");
+
+                product.StockQuantity += quantity;
+                db.SaveChanges();
+                return (true, null);
+            }
+            catch (Exception ex)
+            {
+                var inner = ex;
+                while (inner.InnerException != null)
+                    inner = inner.InnerException;
+                return (false, inner.Message);
+            }
+        }
+
     }
 }

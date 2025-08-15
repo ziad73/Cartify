@@ -34,7 +34,7 @@ namespace CartifyDAL.Entities.product
         [Required]
         public int CategoryId { get; private set; }
 
-        public int StockQuantity { get; private set; }
+        public int StockQuantity { get;  set; }
         public double Price { get; private set; }
 
         [MaxLength(1000)]

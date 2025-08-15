@@ -73,10 +73,11 @@ namespace CartifyDAL.Repo.cartRepo.Implementation
             try
             {
                 var cart = _context.Cart
-                    .Include(c => c.cartItems)
+                    .Include(c => c.cartItems
+                        .Where(ci => !ci.IsDeleted)) // filter here
                     .ThenInclude(ci => ci.Product)
                     .ThenInclude(p => p.Category)
-                    .FirstOrDefault(c => c.UserId == userId && !c.IsDeleted);
+                    .FirstOrDefault(c => c.UserId == userId);
 
                 return (cart, null);
             }
