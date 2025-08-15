@@ -8,9 +8,12 @@
         <a asp-controller="Store" asp-action="Details" asp-route-id="@Model.ProductId" style="display:block;">
             <img src="@imageUrl" alt="@Model.Name" style="width:100%; height:auto;" />
         </a>
-        <div class="product-label">
-            <span class="new">NEW</span>
-        </div>
+        @if (Model.IsNew)
+        {
+            <div class="product-label">
+                <span class="new">NEW</span>
+            </div>
+        }
     </div>
     <div class="product-body">
         <p class="product-category">@Model.Category</p>
@@ -20,17 +23,27 @@
         <h4 class="product-price">
             @Model.Price <del class="product-old-price">@(Model.Price + 20)</del>
         </h4>
-        
+
         <div class="product-btns">
-            <button class="add-to-wishlist">
-                <i class="fa fa-heart-o"></i>
-                <span class="tooltipp">add to wishlist</span>
+            <button class="add-to-wishlist @(Model.InWishlist ? "active" : "")"
+                    onclick="toggleWishlist(@Model.ProductId, this)">
+                <i class="fa @(Model.InWishlist ? "fa-heart" : "fa-heart-o")"></i>
             </button>
         </div>
     </div>
     <div class="add-to-cart">
-        <button class="add-to-cart-btn">
-            <i class="fa fa-shopping-cart"></i> add to cart
-        </button>
+        @if (Model.StockQuantity > 0)
+        {
+            <button class="add-to-cart-btn" onclick="addToCart(@Model.ProductId)">
+                <i class="fa fa-shopping-cart"></i> add to cart
+            </button>
+        }
+        else
+        {
+            <button class="add-to-cart-btn" disabled>
+                <i class="fa fa-ban"></i> out of stock
+            </button>
+        }
     </div>
 </div>
+

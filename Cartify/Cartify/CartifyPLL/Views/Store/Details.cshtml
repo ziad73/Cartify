@@ -7,100 +7,106 @@
     var images = Model.Product.ImageUrl?.Split('|') ?? new string[0];
 }
 
-    <!-- SECTION -->
-    <div class="section">
-        <!-- container -->
-        <div class="container">
-            <!-- row -->
-            <div class="row">
-                <!-- Product main img -->
+<!-- SECTION -->
+<div class="section">
+    <!-- container -->
+    <div class="container">
+        <!-- row -->
+        <div class="row">
+            <!-- Product main img -->
 
-                <div class="col-md-5 col-md-push-2">
-                    <div id="product-main-img">
-                        @foreach (var img in images)
-                        {
-                            <div class="product-preview">
-                              <img id="main-product-img" src="@img" alt="@Model.Product.Name" />
-                            </div>
-                        }
+            <div class="col-md-5 col-md-push-2">
+                <div id="product-main-img">
+                    @foreach (var img in images)
+                    {
+                        <div class="product-preview">
+                            <img id="main-product-img" src="@img" alt="@Model.Product.Name" />
+                        </div>
+                    }
                 </div>
-                </div>
+            </div>
 
-                <!-- /Product main img -->
-                <!-- Product thumb imgs -->
-                
-                <div class="col-md-2 col-md-pull-5">
-                    <div id="product-imgs">
-                        @foreach (var img in images)
-                        {
-                            <div class="product-preview">
-                             <img src="@img" alt="@Model.Product.Name" style="cursor:pointer;" onclick="changeImage(this, '@img')" />
-                            </div>
-                        }
-                    </div>
-                </div>
+            <!-- /Product main img -->
+            <!-- Product thumb imgs -->
 
-                <!-- /Product thumb imgs -->
-                <!-- Product details -->
-                <div class="col-md-5">
-                    <div class="product-details">
-                      <h2 class="product-name">@Model.Product.Name</h2>
-                        
-                        <div>
+            <div class="col-md-2 col-md-pull-5">
+                <div id="product-imgs">
+                    @foreach (var img in images)
+                    {
+                        <div class="product-preview">
+                            <img src="@img" alt="@Model.Product.Name" style="cursor:pointer;" onclick="changeImage(this, '@img')" />
+                        </div>
+                    }
+                </div>
+            </div>
+
+            <!-- /Product thumb imgs -->
+            <!-- Product details -->
+            <div class="col-md-5">
+                <div class="product-details">
+                    <h2 class="product-name">@Model.Product.Name</h2>
+
+                    <div>
                         <h3 class="product-price">
-                            $@Model.Product.Price <del class="product-old-price">$@(Model.Product.Price+10)</del>
-                            </h3>
+                            $@Model.Product.Price <del class="product-old-price">$@(Model.Product.Price + 10)</del>
+                        </h3>
                         <span class="product-available">
                             @(Model.Product.StockQuantity > 0 ? "In Stock" : "Out of Stock")
                         </span>
-                        </div>
-                        <p>
-                            @Model.Product.Description
-                        </p>
+                    </div>
+                    <p>
+                        @Model.Product.Description
+                    </p>
 
-                        <div class="add-to-cart">
-                            
-                            <button class="add-to-cart-btn">
+                    <div class="add-to-cart">
+
+                        @if (Model.Product.StockQuantity > 0)
+                        {
+                            <button class="add-to-cart-btn" onclick="addToCart(@Model.Product.ProductId)">
                                 <i class="fa fa-shopping-cart"></i> add to cart
                             </button>
-                        </div>
-
-                        <ul class="product-btns">
-                            <li>
-                                <a href="#"><i class="fa fa-heart-o"></i> add to wishlist</a>
-                            </li>
-                        </ul>
+                        }
+                        else
+                        {
+                            <button class="add-to-cart-btn" disabled>
+                                <i class="fa fa-ban"></i> out of stock
+                            </button>
+                        }
                     </div>
+
+                    <ul class="product-btns">
+                        
+                    </ul>
                 </div>
-                <!-- /Product details -->
-                <!-- Product tab -->
-                <div class="col-md-12">
-                    <div id="product-tab">
-                        <!-- product tab nav -->
-                        <ul class="tab-nav">
-                            <li class="active">
-                                <a data-toggle="tab" href="#tab1">Description</a>
-                            </li>
-                            <li><a data-toggle="tab" href="#tab3">Reviews</a></li>
-                        </ul>
-                        <!-- /product tab nav -->
-                        <!-- product tab content -->
-                        <div class="tab-content">
-                            <!-- tab1  -->
-                            <div id="tab1" class="tab-pane fade in active">
-                                <div class="row">
-                                    <div class="col-md-12">
-                                        <p>
+            </div>
+            <!-- /Product details -->
+            <!-- Product tab -->
+            <div class="col-md-12">
+                <div id="product-tab">
+                    <!-- product tab nav -->
+                    <ul class="tab-nav">
+                        <li class="active">
+                            <a data-toggle="tab" href="#tab1">Description</a>
+                        </li>
+                        <li><a data-toggle="tab" href="#tab3">Reviews</a></li>
+                    </ul>
+                    <!-- /product tab nav -->
+                    <!-- product tab content -->
+                    <div class="tab-content">
+                        <!-- tab1  -->
+                        <div id="tab1" class="tab-pane fade in active">
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <p>
                                         @Model.Product.Description
-                                        </p>
-                                    </div>
+                                    </p>
                                 </div>
                             </div>
-                            <!-- /tab1  -->
-                           
-                            <!-- tab3  -->
-                            <div id="tab3" class="tab-pane fade in">
-                                <div class="row">
+                        </div>
+                        <!-- /tab1  -->
+                        <!-- tab3  -->
+                        <div id="tab3" class="tab-pane fade in">
+                            <div class="row">
 
                                 <!-- Rating -->
                                 <div class="col-md-3">
@@ -110,7 +116,6 @@
                                             <div class="rating-stars" id="avg-stars"></div>
                                         </div>
                                         <ul class="rating" id="rating-breakdown">
-                                            <!-- هيتم ملء العناصر دي ديناميك -->
                                         </ul>
                                     </div>
                                 </div>
@@ -158,78 +163,107 @@
                                 </div>
                                 <!-- /Reviews -->
                                 <!-- Review Form -->
-                                    <div class="col-md-3">
-                                        <div id="review-form">
+                                <div class="col-md-3">
+                                    <div id="review-form">
                                         <form asp-controller="ProductReview" asp-action="AddReview" data-add-url="@Url.Action("AddReview", "ProductReview")"
                                               data-rating-url="@Url.Action("GetRatingStats", "ProductReview")"
                                               data-product-id="@Model.Product.ProductId" class="review-form" id="reviewForm">
-                                                @Html.AntiForgeryToken()
-                                                <input name="ProductId" type="hidden" value="@Model.Product.ProductId" />
+                                            @Html.AntiForgeryToken()
+                                            <input name="ProductId" type="hidden" value="@Model.Product.ProductId" />
 
-                                                <textarea name="Comment" class="input" placeholder="Your Review"></textarea>
-                                                <div class="input-rating">
-                                                    <span>Your Rating: </span>
-                                                    <div class="stars">
-                                                        <input name="Rating" id="star5" value="5" type="radio" />
-                                                        <label for="star5"></label>
+                                            <textarea name="Comment" class="input" placeholder="Your Review"></textarea>
+                                            <div class="input-rating">
+                                                <span>Your Rating: </span>
+                                                <div class="stars">
+                                                    <input name="Rating" id="star5" value="5" type="radio" />
+                                                    <label for="star5"></label>
                                                     <input name="Rating" id="star4" value="4" type="radio" />
-                                                        <label for="star4"></label>
+                                                    <label for="star4"></label>
                                                     <input name="Rating" id="star3" value="3" type="radio" />
-                                                        <label for="star3"></label>
+                                                    <label for="star3"></label>
                                                     <input name="Rating" id="star2" value="2" type="radio" />
-                                                        <label for="star2"></label>
+                                                    <label for="star2"></label>
                                                     <input name="Rating" id="star1" value="1" type="radio" />
-                                                        <label for="star1"></label>
-                                                    </div>
-                                                <span asp-validation-for="create.Rating" class="text-danger"></span>
+                                                    <label for="star1"></label>
                                                 </div>
-                                             <button type="submit" class="primary-btn">Submit</button>
-                                            </form>
-                                        </div>
+                                                <span asp-validation-for="create.Rating" class="text-danger"></span>
+                                            </div>
+                                            <button type="submit" class="primary-btn">Submit</button>
+                                        </form>
                                     </div>
-                                    <!-- /Review Form -->
                                 </div>
+                                <!-- /Review Form -->
                             </div>
-                            <!-- /tab3  -->
                         </div>
-                        <!-- /product tab content  -->
+                        <!-- /tab3  -->
                     </div>
+                    <!-- /product tab content  -->
                 </div>
-                <!-- /product tab -->
             </div>
-            <!-- /row -->
+            <!-- /product tab -->
         </div>
-        <!-- /container -->
+        <!-- /row -->
     </div>
-    <!-- /SECTION -->
-    
+    <!-- /container -->
+</div>
+<!-- /SECTION -->
 
-    <div id="footer-placeholder"></div>
 
-    @section Scripts {
-     <!-- jQuery Plugins -->
+<div id="footer-placeholder"></div>
+
+@section Scripts {
+    <!-- jQuery Plugins -->
     <script src="~/js/jquery.min.js"></script>
     <script src="~/js/bootstrap.min.js"></script>
     <script src="~/js/slick.min.js"></script>
     <script src="~/js/nouislider.min.js"></script>
     <script src="~/js/jquery.zoom.min.js"></script>
-    <script src="~/js/main.js"></script> 
-    <script src="~/js/pages/product.js"></script> 
-    
-    <script src="~/js/pages/reviews.js"></script> 
-<script>
-    function changeImage(thumbnail, imageSrc) {
-        document.getElementById("main-product-img").src = imageSrc;
-    }
-    $(document).ready(function () {
-            loadRatingStats(@Model.Product.ProductId);
+    <script src="~/js/main.js"></script>
+    <script src="~/js/pages/product.js"></script>
 
-            $('#reviewForm').on('submit', function (e) {
-                e.preventDefault();
-                submitReview(@Model.Product.ProductId);
+    <script src="~/js/pages/reviews.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script>
+        function changeImage(thumbnail, imageSrc) {
+            document.getElementById("main-product-img").src = imageSrc;
+        }
+        $(document).ready(function () {
+                loadRatingStats(@Model.Product.ProductId);
+
+                $('#reviewForm').on('submit', function (e) {
+                    e.preventDefault();
+                    submitReview(@Model.Product.ProductId);
+                });
             });
-        });
-</script>
-    
+            function addToCart(id) {
+                fetch('/Cart/AddToCart', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+                    body: `productId=${id}&quantity=1&__RequestVerificationToken=${document.querySelector('input[name="__RequestVerificationToken"]').value}`
+                })
+                .then(r => r.json())
+                .then(data => {
+                    Swal.fire({ title: data.success ? 'Added!' : 'Error', text: data.message, icon: data.success ? 'success' : 'error', timer: 1500 });
+                });
+            }
+
+            function toggleWishlist(id, btn) {
+                fetch('/Wishlist/ToggleWishlist', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+                    body: `productId=${id}&__RequestVerificationToken=${document.querySelector('input[name="__RequestVerificationToken"]').value}`
+                })
+                .then(r => r.json())
+                .then(data => {
+                    Swal.fire({ title: data.success ? 'Updated!' : 'Error', text: data.message, icon: data.success ? 'success' : 'error', timer: 1500 });
+                    if (data.success) {
+                        const icon = btn.querySelector("i");
+                        icon.classList.toggle("fa-heart");
+                        icon.classList.toggle("fa-heart-o");
+                    }
+                });
+            }
+    </script>
+
 }
-    
+

@@ -22,5 +22,12 @@ namespace CartifyBLL.ViewModels.Product
         public List<IFormFile>? Images { get; set; }
         public string? ImageUrl { get; set; }
         public bool InWishlist { get; set; }
+        public bool IsNew
+        {
+            get
+            {
+                return (DateTime.Now - CreatedOn).TotalDays <= 5;
+            }
+        }
     }
 }

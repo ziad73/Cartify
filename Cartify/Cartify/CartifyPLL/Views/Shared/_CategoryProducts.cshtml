@@ -1,0 +1,9 @@
+﻿@model List<CartifyBLL.ViewModels.Product.ProductDTO>
+
+<div class="products-slick" data-nav="#slick-nav-3">
+    @foreach (var product in Model)
+    {
+        @Html.Partial("_ProductCard", product)
+    }
+</div>
+<div id="slick-nav-3" class="products-slick-nav"></div>
