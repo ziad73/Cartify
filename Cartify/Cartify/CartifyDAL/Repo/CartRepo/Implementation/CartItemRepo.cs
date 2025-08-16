@@ -112,23 +112,7 @@ namespace CartifyDAL.Repo.cartRepo.Implementation
             }
         }
 
-        //public (bool, string?) Delete(int cartItemId)
-        //{
-        //    try
-        //    {
-        //        var cartItem = _context.CartItem.FirstOrDefault(ci => ci.Cartitem == cartItemId);
-        //        if (cartItem == null)
-        //            return (false, "Cart item not found");
 
-        //        cartItem.Delete("System");
-        //        _context.SaveChanges();
-        //        return (true, null);
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        return (false, ex.Message);
-        //    }
-        //}
 
         public (bool, string?) Delete(int cartItemId)
         {
@@ -141,7 +125,7 @@ namespace CartifyDAL.Repo.cartRepo.Implementation
                 cartItem.Delete("System");
                 _context.Entry(cartItem).State = EntityState.Modified;
                 _context.SaveChanges();
-                _context.Entry(cartItem).State = EntityState.Detached; // prevent stale cache
+                _context.Entry(cartItem).State = EntityState.Detached; 
 
                 return (true, null);
             }

@@ -116,12 +116,10 @@ public class CheckoutService : ICheckoutService
     {
         try
         {
-            // 1. Validate
             var (isValid, validationError) = ValidateCheckout(model);
             if (!isValid)
                 return (null, validationError);
 
-            // 2. Add new address if requested 
             if (model.UseNewAddress) // bug need to fix
             {
                 var result = _userService.AddAddressAsync(userId, model.NewAddress).Result;
@@ -134,7 +132,6 @@ public class CheckoutService : ICheckoutService
                     model.SelectedAddressId = newAddress.Id;
             }
 
-            // 3. Create order (required non-null fields set)
             var order = new Order(
                 orderStatus: "Pending",
                 shippingMethod: "Standard Shipping",
@@ -147,7 +144,6 @@ public class CheckoutService : ICheckoutService
                 UserId = userId
             };
 
-            // 4. Build the list of OrderItem instances (do NOT set OrderId here; OrderRepo will attach them)
             var orderItems = new List<OrderItem>();
             foreach (var cartItem in model.Cart.Items)
             {
@@ -163,12 +159,10 @@ public class CheckoutService : ICheckoutService
                 orderItems.Add(oi);
             }
 
-            // 5. Save order + items in single transaction (use repository overload)
             var (orderCreated, orderError) = _orderRepo.Create(order, orderItems);
             if (!orderCreated)
                 return (null, orderError ?? "Failed to create order");
 
-            // 6. Build confirmation view model BEFORE clearing the cart (so we still have readable product names/prices)
             var confirmation = new OrderConfirmationVm
             {
                 OrderId = order.OrderId,
@@ -177,7 +171,6 @@ public class CheckoutService : ICheckoutService
                 PaymentMethod = model.PaymentMethod,
                 OrderStatus = "Confirmed",
                 TrackingNumber = order.TrackingNumber,
-                // reuse cart VM items for display (they already contain product names/prices)
                 OrderItems = model.Cart.Items
             };
 

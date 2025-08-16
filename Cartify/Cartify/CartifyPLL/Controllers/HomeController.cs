@@ -36,11 +36,11 @@ namespace CartifyPLL.Controllers
             ViewBag.Categories = new SelectList(categories, "CategoryId", "Name");
             ViewBag.SelectedCategoryId = categoryId;
 
-            if (!string.IsNullOrEmpty(error))
-            {
-
-                return View(new List<ProductDTO>());
-            }
+            // if (!string.IsNullOrEmpty(error))
+            // {
+            //
+            //     return View(new List<ProductDTO>());
+            // }
 
 
             var model = new HomeVM

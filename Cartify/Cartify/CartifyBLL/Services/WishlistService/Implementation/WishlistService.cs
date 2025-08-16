@@ -144,19 +144,17 @@ public class WishlistService : IWishlistService
         {
             try
             {
-                // Build cart model from wishlist product
                 var addToCartModel = new CartifyBLL.ViewModels.Cart.AddToCartVm
                 {
                     ProductId = productId,
                     Quantity = 1 // default 1 item from wishlist
                 };
 
-                // 1) Add to cart
                 var (added, cartError) =await _cartService.AddToCart(userId, addToCartModel);
                 if (!added)
                     return (false, cartError ?? "Failed to add to cart");
 
-                // 2) Remove from wishlist
+                // Remove from wishlist
                 var (removed, removeError) = RemoveFromWishList(userId, productId);
                 if (!removed)
                     return (false, removeError ?? "Added to cart but failed to remove from wishlist");

@@ -54,7 +54,7 @@ namespace CartifyDAL.Repo.cartRepo.Implementation
             {
                 var cartItem = _context.CartItem
                     .Include(ci => ci.Product)
-                    .Include(ci => ci.Cart)        // ✅ add this
+                    .Include(ci => ci.Cart)        
                     .FirstOrDefault(ci => ci.Cartitem == cartItemId && !ci.IsDeleted);
 
                 if (cartItem == null)
@@ -74,7 +74,7 @@ namespace CartifyDAL.Repo.cartRepo.Implementation
             {
                 var cart = _context.Cart
                     .Include(c => c.cartItems
-                        .Where(ci => !ci.IsDeleted)) // filter here
+                        .Where(ci => !ci.IsDeleted)) 
                     .ThenInclude(ci => ci.Product)
                     .ThenInclude(p => p.Category)
                     .FirstOrDefault(c => c.UserId == userId);

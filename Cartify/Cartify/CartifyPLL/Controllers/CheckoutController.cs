@@ -137,13 +137,13 @@ public class CheckoutController : Controller
                 return View("Index", model);
             }
 
-            // ✅ Reduce product quantity in database
+            //  Reduce product quantity in database
             foreach (var item in confirmation.OrderItems)
             {
                 await _productRepo.ReduceStockAsync(item.ProductId, item.Quantity);
             }
 
-            // ✅ AJAX request → return orderId for JS redirect
+            // AJAX request → return orderId for JS redirect
             if (Request.Headers["X-Requested-With"] == "XMLHttpRequest")
                 return Json(new { success = true, orderId = confirmation.OrderId });
 

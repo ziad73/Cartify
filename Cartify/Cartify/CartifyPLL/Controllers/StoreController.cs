@@ -29,7 +29,7 @@ namespace CartifyPLL.Controllers
             UserManager<User> userManager,
                 IWishlistService wishListService,
                 IProductReviewRepo productReview,
-                IMapper mapper) // 👈 add this
+                IMapper mapper) 
 
         {
             _productService = productService;
@@ -122,7 +122,6 @@ namespace CartifyPLL.Controllers
             }
         }
 
-        // Simplified placeholder methods - these will work regardless of service availability
         [HttpPost]
         [Authorize]
         public IActionResult AddToCart(int productId, int quantity = 1)
@@ -135,7 +134,6 @@ namespace CartifyPLL.Controllers
                     return Json(new { success = false, message = "Please login to add items to cart" });
                 }
 
-                // For now, return success - you can implement cart logic later
                 return Json(new { 
                     success = true, 
                     message = "Product added to cart successfully!", 
@@ -163,7 +161,6 @@ namespace CartifyPLL.Controllers
                     return Json(new { success = false, message = "Please login to add items to wishlist" });
                 }
 
-                // For now, return success - you can implement wishlist logic later
                 return Json(new { 
                     success = true, 
                     message = "Product added to wishlist successfully!", 
@@ -191,7 +188,6 @@ namespace CartifyPLL.Controllers
                     return Json(new { success = false, message = "Please login first" });
                 }
 
-                // For now, return success - you can implement wishlist logic later
                 return Json(new { 
                     success = true, 
                     message = "Product removed from wishlist", 

@@ -38,11 +38,9 @@ public class SearchController : Controller
             return RedirectToAction("Index", "Store");
         }
 
-        // البحث عن المنتجات
         var searchResponse = _searchService.Search(query);
         var searchResults = searchResponse?.Results ?? new List<SearchResultDTO>();
 
-        // تحويل SearchResultDTO إلى ProductDTO
         var products = searchResults.Select(r => new ProductDTO
         {
             ProductId = r.Id,
@@ -54,7 +52,6 @@ public class SearchController : Controller
             StockQuantity = r.StockQuantity
         }).ToList();
 
-        // جلب التصنيفات
         var (categories, categoryError) = _categoryService.GetAll();
         var categoriesList = categories ?? new List<CartifyDAL.Entities.category.Category>();
 
@@ -68,7 +65,6 @@ public class SearchController : Controller
         ViewBag.SelectedCategory = null;
         ViewBag.SearchTerm = query;
 
-        // التحقق من المنتجات الموجودة في Wishlist
         var userId = _userManager.GetUserId(User);
         if (!string.IsNullOrEmpty(userId))
         {
@@ -89,7 +85,6 @@ public class SearchController : Controller
         ViewBag.PageSize = pageSize;
         ViewBag.TotalItems = totalItems;
 
-        // عرض نفس فيو الـ Store
         return View("~/Views/Store/Index.cshtml", pagedProducts);
     }
 }

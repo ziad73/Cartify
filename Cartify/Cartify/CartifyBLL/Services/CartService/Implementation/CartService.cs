@@ -37,7 +37,6 @@ public class CartService : ICartService
 
             if (cart == null)
             {
-                // Create new cart for user
                 var newCart = new Cart(userId, userId);
                 var (created, createError) = _cartRepo.Create(newCart);
                 if (!created)
@@ -78,7 +77,6 @@ public class CartService : ICartService
     {
         try
         {
-            // Get or create user's cart
             var (cart, cartError) = _cartRepo.GetByUserId(userId);
             if (!string.IsNullOrEmpty(cartError))
                 return (false, cartError);
@@ -93,7 +91,6 @@ public class CartService : ICartService
                 cart = newCart;
             }
 
-            // Get product
             var (product, productError) = await _productRepo.GetById(model.ProductId);
             if (!string.IsNullOrEmpty(productError) || product == null)
                 return (false, "Product not found");
@@ -101,11 +98,9 @@ public class CartService : ICartService
             if (product.StockQuantity <= 0)
                 return (false, "This product is out of stock.");
 
-            // Check if item already exists in cart
             var (existingItem, _) = _cartItemRepo.GetByCartAndProduct(cart.CartId, model.ProductId);
             var existingQuantity = existingItem?.Quantity ?? 0;
 
-            // Calculate total desired quantity
             var totalQuantity = existingQuantity + model.Quantity;
 
             if (totalQuantity > product.StockQuantity)
