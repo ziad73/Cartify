@@ -31,6 +31,7 @@
 
     <!-- Font Awesome -->
     <link rel="stylesheet" href="~/css/font-awesome.min.css" />
+    
 
     <!-- Custom styles -->
     <link rel="stylesheet" href="~/css/style.css" />
@@ -132,6 +133,86 @@
     <main class="container">
         @RenderBody()
     </main>
+
+
+    <!-- FOOTER -->
+    <footer id="footer">
+        <!-- top footer -->
+        <div class="section">
+            <!-- container -->
+            <div class="container">
+                <!-- row -->
+                <div class="row">
+                    <div class="col-md-3 col-xs-6">
+                        <div class="footer">
+                            <h3 class="footer-title">About Us</h3>
+                            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut.</p>
+                            <ul class="footer-links">
+                                <li><a href="#"><i class="fa fa-map-marker"></i>Cairo-Egypt</a></li>
+                                <li><a href="#"><i class="fa fa-phone"></i>+201270532076</a></li>
+                                <li><a href="#"><i class="fa fa-envelope-o"></i>cartify@email.com</a></li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div class="col-md-3 col-xs-6">
+                        <div class="footer">
+                            <h3 class="footer-title">Shoping</h3>
+                            <ul class="footer-links">
+                                <li><a asp-controller="Home" asp-action="Index">Home</a></li>
+                                <li><a asp-controller="Store" asp-action="Index">Store</a></li>
+                                
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div class="col-md-3 col-xs-6">
+                        <div class="footer">
+                            <h3 class="footer-title">Information</h3>
+                            <ul class="footer-links">
+                                <li><a asp-controller="Home" asp-action="Contact" >Contact Us</a></li>
+                                <li><a asp-controller="Home" asp-action="Privacy">Privacy Policy</a></li>
+                                <li><a asp-controller="Home" asp-action="Policy">Terms & Conditions</a></li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div class="col-md-3 col-xs-6">
+                        <div class="footer">
+                            <h3 class="footer-title">Service</h3>
+                            <ul class="footer-links">
+                                <li><a asp-controller="Account" asp-action="Profile">My Account</a></li>
+                                <li><a asp-controller="Cart" asp-action="Index">View Cart</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <!-- /row -->
+            </div>
+            <!-- /container -->
+        </div>
+        <!-- /top footer -->
+        <!-- bottom footer -->
+        <div id="bottom-footer" class="section">
+            <div class="container">
+                <!-- row -->
+                <div class="row">
+                    <div class="col-md-12 text-center">
+                        
+                        <span class="copyright">
+                            Copyright &copy; 2025 All rights reserved | This template is made with <i class="fa fa-heart-o" aria-hidden="true"></i> by Hassan Abo Ali
+                        </span>
+                    </div>
+                </div>
+                <!-- /row -->
+            </div>
+            <!-- /container -->
+        </div>
+        <!-- /bottom footer -->
+    </footer>
+    <!-- /FOOTER -->
+
+
     <!-- Scripts -->
     <script src="~/js/jquery.min.js"></script>
     <script src="~/lib/jquery/dist/jquery.min.js"></script>

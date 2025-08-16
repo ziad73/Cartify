@@ -1050,24 +1050,24 @@ textarea.input {
   transition: 0.2s all;
 }
 
-.product .add-to-cart .add-to-cart-btn>i {
-  position: absolute;
-  left: 0;
-  top: 0;
-  width: 40px;
-  height: 40px;
-  line-height: 38px;
-  color: #D10024;
-  opacity: 0;
-  visibility: hidden;
-}
+	.product .add-to-cart .add-to-cart-btn > i {
+		position: absolute;
+		left: 0;
+		top: 0;
+		width: 40px;
+		height: 40px;
+		line-height: 38px;
+		color: #0077B6;
+		opacity: 0;
+		visibility: hidden;
+	}
 
-.product .add-to-cart .add-to-cart-btn:hover {
-  background-color: #FFF;
-  color: #D10024;
-  border-color: #D10024;
-  padding: 0px 30px 0px 50px;
-}
+	.product .add-to-cart .add-to-cart-btn:hover {
+		background-color: #FFF;
+		color: #0077B6;
+		border-color: #0077B6;
+		padding: 0px 30px 0px 50px;
+	}
 
 .product .add-to-cart .add-to-cart-btn:hover>i {
   opacity: 1;
@@ -1544,24 +1544,24 @@ textarea.input {
 		transition: 0.2s all;
 	}
 
-.product-details .add-to-cart .add-to-cart-btn>i {
-  position: absolute;
-  left: 0;
-  top: 0;
-  width: 40px;
-  height: 40px;
-  line-height: 38px;
-  color: #D10024;
-  opacity: 0;
-  visibility: hidden;
-}
+		.product-details .add-to-cart .add-to-cart-btn > i {
+			position: absolute;
+			left: 0;
+			top: 0;
+			width: 40px;
+			height: 40px;
+			line-height: 38px;
+			color: #0077B6;
+			opacity: 0;
+			visibility: hidden;
+		}
 
-.product-details .add-to-cart .add-to-cart-btn:hover {
-  background-color: #FFF;
-  color: #D10024;
-  border-color: #D10024;
-  padding: 0px 30px 0px 50px;
-}
+		.product-details .add-to-cart .add-to-cart-btn:hover {
+			background-color: #FFF;
+			color: #0077B6;
+			border-color: #0077B6;
+			padding: 0px 30px 0px 50px;
+		}
 
 .product-details .add-to-cart .add-to-cart-btn:hover>i {
   opacity: 1;
@@ -2030,14 +2030,14 @@ textarea.input {
 }
 
 .footer-links li i {
-  margin-right: 15px;
-  color: #D10024;
-  width: 14px;
-  text-align: center;
+	margin-right: 15px;
+	color: #005F99;
+	width: 14px;
+	text-align: center;
 }
 
 .footer-links li a:hover {
-  color: #D10024;
+	color: #005F99;
 }
 
 .copyright {

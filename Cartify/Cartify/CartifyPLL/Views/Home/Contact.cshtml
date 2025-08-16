@@ -37,7 +37,7 @@
                         </div>
                         <div class="contact-details">
                             <h4>Address</h4>
-                            <p>1734 Stonecoal Road<br />New York, NY 10001</p>
+                            <p>El Dokki<br />Cairo-Egypt</p>
                         </div>
                     </div>
 
@@ -47,7 +47,7 @@
                         </div>
                         <div class="contact-details">
                             <h4>Phone</h4>
-                            <p>+021-95-51-84<br />+021-95-51-85</p>
+                            <p>+021017209315<br />+201270532076</p>
                         </div>
                     </div>
 
@@ -148,4 +148,185 @@
     <script src="~/js/jquery.zoom.min.js"></script>
     <script src="~/js/main.js"></script>
     <script src="~/js/pages/contact.js"></script>
+}
+@section Styles{
+
+    <style>
+        /* Breadcrumb styling */
+        #breadcrumb {
+            padding: 15px 0;
+            background-color: #f5f5f5;
+            margin-bottom: 30px;
+        }
+
+        .breadcrumb-tree {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+            display: flex;
+            align-items: center;
+        }
+
+            .breadcrumb-tree li {
+                margin-right: 10px;
+                font-size: 14px;
+            }
+
+                .breadcrumb-tree li:after {
+                    content: '/';
+                    margin-left: 10px;
+                    color: #999;
+                }
+
+                .breadcrumb-tree li:last-child:after {
+                    display: none;
+                }
+
+                .breadcrumb-tree li a {
+                    color: #333;
+                    text-decoration: none;
+                }
+
+                .breadcrumb-tree li.active {
+                    color: #777;
+                }
+
+        /* Contact section styling */
+        .contact-info {
+            background: #fff;
+            padding: 30px;
+            border-radius: 5px;
+            box-shadow: 0 0 15px rgba(0,0,0,0.05);
+            height: 100%;
+        }
+
+            .contact-info h3 {
+                font-size: 22px;
+                margin-bottom: 20px;
+                color: #333;
+                font-weight: 600;
+            }
+
+            .contact-info p {
+                color: #666;
+                margin-bottom: 25px;
+            }
+
+        .contact-item {
+            display: flex;
+            margin-bottom: 20px;
+        }
+
+        .contact-icon {
+            width: 40px;
+            height: 40px;
+            background: #f8f9fa;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 15px;
+            color: #4e73df;
+            font-size: 16px;
+        }
+
+        .contact-details h4 {
+            font-size: 16px;
+            margin-bottom: 5px;
+            color: #333;
+        }
+
+        .contact-details p {
+            color: #666;
+            margin: 0;
+            font-size: 14px;
+            line-height: 1.5;
+        }
+
+        /* Contact form styling */
+        .contact-form {
+            background: #fff;
+            padding: 30px;
+            border-radius: 5px;
+            box-shadow: 0 0 15px rgba(0,0,0,0.05);
+            height: 100%;
+        }
+
+            .contact-form h3 {
+                font-size: 22px;
+                margin-bottom: 20px;
+                color: #333;
+                font-weight: 600;
+            }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+            .form-group label {
+                display: block;
+                margin-bottom: 8px;
+                font-weight: 500;
+                color: #555;
+            }
+
+        .form-control {
+            width: 100%;
+            padding: 10px 15px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            font-size: 14px;
+            transition: all 0.3s;
+        }
+
+            .form-control:focus {
+                border-color: #4e73df;
+                box-shadow: 0 0 0 0.2rem rgba(78, 115, 223, 0.25);
+                outline: none;
+            }
+
+        textarea.form-control {
+            min-height: 150px;
+            resize: vertical;
+        }
+
+        .btn-submit {
+            background-color: #4e73df;
+            color: white;
+            border: none;
+            padding: 12px 30px;
+            border-radius: 4px;
+            font-size: 16px;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+            .btn-submit:hover {
+                background-color: #2e59d9;
+                transform: translateY(-2px);
+            }
+
+            .btn-submit i {
+                margin-right: 8px;
+            }
+
+        /* Responsive adjustments */
+        @@media (max-width: 768px) {
+            .contact-info, .contact-form
+
+        {
+            margin-bottom: 30px;
+        }
+
+        .contact-item {
+            flex-direction: column;
+        }
+
+        .contact-icon {
+            margin-bottom: 10px;
+        }
+
+        }
+    </style>
+
 }
