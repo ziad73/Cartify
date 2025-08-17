@@ -1,5 +1,3 @@
-
-https://github.com/user-attachments/assets/51ce6e60-488b-4b2e-83f5-d75df897910f
 # 🛒 Cartify E-commerce Website
 
 Cartify is a fully functional **E-commerce web application** built with **ASP.NET MVC** using a **3-Tier Architecture** pattern.
@@ -8,10 +6,7 @@ It demonstrates clean separation of concerns with **DAL (Data Access Layer)**, *
 The project includes core e-commerce features such as user authentication, product management, shopping cart, checkout, and order tracking.
 
 ## Demo :
-
-[Watch Demo](/Cartify%20Demo%20(v1).mp4)
-
-
+https://github.com/user-attachments/assets/51ce6e60-488b-4b2e-83f5-d75df897910f
 
 
 ### **1. Data Access Layer (DAL)**
