@@ -21,9 +21,9 @@
 
         .admin-nav .nav-link:hover,
         .admin-nav .nav-link.active {
-            background: #D10024;
-            color: white;
-            text-decoration: none;
+            background: #2e6da4 !important;
+            color: white !important;
+            text-decoration: none !important;
         }
 
 .page-header {
@@ -113,7 +113,7 @@
         color: #666;
     }
 .nav-link.active {
-    background-color: red;
+    background-color: #2e6da4 !important;
     color: white !important;
     border-radius: 4px;
 }

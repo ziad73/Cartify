@@ -21,7 +21,7 @@
             <a asp-controller="Store" asp-action="Details" asp-route-id="@Model.ProductId">@Model.Name</a>
         </h3>
         <h4 class="product-price">
-            @Model.Price <del class="product-old-price">@(Model.Price + 20)</del>
+            $@Model.Price <del class="product-old-price">$@(Model.Price + 20)</del>
         </h4>
 
         <div class="product-btns">

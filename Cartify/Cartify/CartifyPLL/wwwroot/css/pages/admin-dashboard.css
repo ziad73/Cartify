@@ -19,12 +19,12 @@
     transition: background-color 0.3s;
 }
 
-.admin-nav .nav-link:hover,
-.admin-nav .nav-link.active {
-    background: #D10024;
-    color: white;
-    text-decoration: none;
-}
+    .admin-nav .nav-link:hover,
+    .admin-nav .nav-link.active {
+        background: #2e6da4 !important;
+        color: white;
+        text-decoration: none;
+    }
 
 .stats-card {
     background: white;
@@ -48,7 +48,7 @@
 .stats-number {
     font-size: 36px;
     font-weight: bold;
-    color: #D10024;
+    color: #2e6da4;
     margin-bottom: 10px;
 }
 
