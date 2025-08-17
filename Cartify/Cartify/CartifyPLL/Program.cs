@@ -51,18 +51,24 @@ namespace CartifyPLL
             var builder = WebApplication.CreateBuilder(args);
 
             // Configure Authentication
-            builder.Services.AddAuthentication(options =>
+            builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
+                .AddCookie();
+            //Optionally configure cookie settings
+            var googleAuthNSection = builder.Configuration.GetSection("Authentication:Google");
+            var clientId = googleAuthNSection["ClientId"];
+            var clientSecret = googleAuthNSection["ClientSecret"];
+
+            // Register Google only if credentials exist
+            if (!string.IsNullOrEmpty(clientId) && !string.IsNullOrEmpty(clientSecret))
             {
-                options.DefaultScheme = CookieAuthenticationDefaults.AuthenticationScheme;
-                options.DefaultChallengeScheme = GoogleDefaults.AuthenticationScheme;
-            })
-            .AddCookie()
-            .AddGoogle(options =>
-            {
-                var googleAuthNSection = builder.Configuration.GetSection("Authentication:Google");
-                options.ClientId = googleAuthNSection["ClientId"];
-                options.ClientSecret = googleAuthNSection["ClientSecret"];
-            });
+                builder.Services.AddAuthentication()
+                    .AddGoogle(options =>
+                    {
+                        options.ClientId = clientId;
+                        options.ClientSecret = clientSecret;
+                    });
+            }
+
 
             // Add MVC services
             builder.Services.AddControllersWithViews();
