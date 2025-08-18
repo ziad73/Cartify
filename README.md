@@ -67,7 +67,7 @@ https://github.com/user-attachments/assets/51ce6e60-488b-4b2e-83f5-d75df897910f
    ```powershell
    Update-Database
    ```
-5. Run AddProductsQuery.sql in SQL Server to load products
+5. Run `AddProductsQuery.sql` in SQL Server to load products
 
 6. Build and run the project.
 
